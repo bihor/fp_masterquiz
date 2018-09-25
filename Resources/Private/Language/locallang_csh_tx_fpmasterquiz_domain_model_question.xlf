@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-19T14:33:01Z" product-name="fp_masterquiz">
+		<header/>
+		<body>
+			<trans-unit id="title.description">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="qmode.description">
+				<source>Question-mode</source>
+			</trans-unit>
+			<trans-unit id="image.description">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="bodytext.description">
+				<source>Description</source>
+			</trans-unit>
+			<trans-unit id="explanation.description">
+				<source>Explanation to the question/answers</source>
+			</trans-unit>
+			<trans-unit id="answers.description">
+				<source>Answers of this question</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

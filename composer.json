@@ -1,0 +1,28 @@
+{
+    "name": "fixpunkt/fp-masterquiz",
+    "type": "typo3-cms-extension",
+    "description": "An extension that offers Quiz, Tests and maybe more.",
+    "authors": [
+        {
+            "name": "Kurt Gusbeth",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^8.7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Fixpunkt\\FpMasterquiz\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Fixpunkt\\FpMasterquiz\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "fp_masterquiz": "self.version",
+        "typo3-ter/fp-masterquiz": "self.version"
+    }
+}

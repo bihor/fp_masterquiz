@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-09-14T12:38:32Z" product-name="fp_masterquiz">
+		<header/>
+		<body>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz">
+				<target>Quiz/Test</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.name">
+				<target>Name bzw. Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.about">
+				<target>Beschreibung dieses Quiz/Test</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.questions">
+				<target>Fragen des Quiz</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.evaluations">
+				<target>Auswertung des Quiz</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question">
+				<target>Fragen</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.title">
+				<target>Titel</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode">
+				<target>Frage-Modus</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.0">
+				<target>Mehrere Antworten möglich (check-box)</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.1">
+				<target>Nur eine Antwort ist korrekt (radio-button)</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.2">
+				<target>Nur eine Antwort auswählbar (select-box)</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.3">
+				<target>Eine Antwort eingeben (Textfeld) [NOT YET SUPPORTED]</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.4">
+				<target>Ja/Nein-Felder (2 Radio-Buttons) [NOT YET SUPPORTED]</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.5">
+				<target>Einen Kommentar eingeben (textarea) [NOT YET SUPPORTED]</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.6">
+				<target>Gib einen Kommentar aus [NOT YET SUPPORTED]</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.7">
+				<target>Bewertung mit Sternen [NOT YET SUPPORTED]</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.bodytext">
+				<target>Beschreibung der Frage</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.image">
+				<target>Bild</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.explanation">
+				<target>Erklärung zur Frage/Antworten</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.answers">
+				<target>Antworten zu dieser Frage</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_answer">
+				<target>Antworten</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_answer.title">
+				<target>Antwort-Text</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_answer.points">
+				<target>Punkte (falls die Antwort wahr ist, hier eine Zahl größer 0 eingeben)</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant">
+				<target>Teilnehmer-Name</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.email.name">
+				<target>E-Mail</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.homepage">
+				<target>Homepage</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.user">
+				<target>fe-user</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.ip">
+				<target>IP-Adresse</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.session">
+				<target>Session-key</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.points">
+				<target>Erreichte Punktzahl</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.maximum1">
+				<target>Maximale Punkte für die beantworteten Fragen</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.maximum2">
+				<target>Maximale Punkte für dieses Quiz</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.quiz">
+				<target>Quiz/Test</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.selections">
+				<target>Beantwortete Fragen</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected">
+				<target>Ausgewählte Antworten</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.points">
+				<target>Punkte für diese Frage</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.entered">
+				<target>Eingegebener Text zu dieser Frage</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.question">
+				<target>Frage</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.answers">
+				<target>Antworten zu dieser Frage</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation">
+				<target>Auswertung</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.evaluate">
+				<target>Werte die Punkte (nicht angekreuzt) oder die Prozente aus (angekreuzt)?</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.minimum">
+				<target>Minimaler Wert</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.maximum">
+				<target>Maximaler Wert</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.ce">
+				<target>Zeige dieses Element auf der letzten Seite</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.page">
+				<target>ODER leite zu dieser Seite um am Ende des Quiz</target>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

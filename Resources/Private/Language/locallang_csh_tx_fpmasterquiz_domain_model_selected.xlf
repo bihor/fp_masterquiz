@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-19T14:33:01Z" product-name="fp_masterquiz">
+		<header/>
+		<body>
+			<trans-unit id="points.description">
+				<source>Points for this question</source>
+			</trans-unit>
+			<trans-unit id="entered.description">
+				<source>Entered text to this question</source>
+			</trans-unit>
+			<trans-unit id="question.description">
+				<source>Question</source>
+			</trans-unit>
+			<trans-unit id="answers.description">
+				<source>Answers to this question</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

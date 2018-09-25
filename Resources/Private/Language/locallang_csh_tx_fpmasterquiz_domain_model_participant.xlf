@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-19T14:33:01Z" product-name="fp_masterquiz">
+		<header/>
+		<body>
+			<trans-unit id="name.description">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="email.description">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="homepage.description">
+				<source>Homepage</source>
+			</trans-unit>
+			<trans-unit id="user.description">
+				<source>fe-user</source>
+			</trans-unit>
+			<trans-unit id="ip.description">
+				<source>IP-address</source>
+			</trans-unit>
+			<trans-unit id="session.description">
+				<source>Session-key</source>
+			</trans-unit>
+			<trans-unit id="points.description">
+				<source>Reached points for this quiz</source>
+			</trans-unit>
+			<trans-unit id="maximum1.description">
+				<source>Maximum points for the answered questions</source>
+			</trans-unit>
+			<trans-unit id="maximum2.description">
+				<source>Maximum points for this quiz</source>
+			</trans-unit>
+			<trans-unit id="quiz.description">
+				<source>Participated quiz</source>
+			</trans-unit>
+			<trans-unit id="selections.description">
+				<source>Answered questions</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

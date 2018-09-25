@@ -1,0 +1,54 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<f:layout name="Default" />
+
+	This Template is responsible for creating a table of domain objects.
+
+	If you modify this template, do not forget to change the overwrite settings
+	in /Configuration/ExtensionBuilder/settings.yaml:
+	  Resources:
+		Private:
+		  Templates:
+			List.html: keep
+
+	Otherwise your changes will be overwritten the next time you save the extension in the extension builder
+
+	<f:section name="content">
+		<h1>Listing for Participant</h1>
+
+		<f:flashMessages />
+
+		<table  class="tx_fpmasterquiz" >
+			<tr>
+				<th><f:translate key="tx_fpmasterquiz_domain_model_participant.name" /></th>
+				<th><f:translate key="tx_fpmasterquiz_domain_model_participant.email" /></th>
+				<th><f:translate key="tx_fpmasterquiz_domain_model_participant.homepage" /></th>
+				<th><f:translate key="tx_fpmasterquiz_domain_model_participant.user" /></th>
+				<th><f:translate key="tx_fpmasterquiz_domain_model_participant.ip" /></th>
+				<th><f:translate key="tx_fpmasterquiz_domain_model_participant.session" /></th>
+				<th><f:translate key="tx_fpmasterquiz_domain_model_participant.points" /></th>
+				<th><f:translate key="tx_fpmasterquiz_domain_model_participant.maximum1" /></th>
+				<th><f:translate key="tx_fpmasterquiz_domain_model_participant.maximum2" /></th>
+				<th> </th>
+				<th> </th>
+			</tr>
+
+			<f:for each="{participants}" as="participant">
+				<tr>
+					<td><f:link.action action="show" arguments="{participant : participant}"> {participant.name}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{participant : participant}"> {participant.email}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{participant : participant}"> {participant.homepage}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{participant : participant}"> {participant.user}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{participant : participant}"> {participant.ip}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{participant : participant}"> {participant.session}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{participant : participant}"> {participant.points}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{participant : participant}"> {participant.maximum1}</f:link.action></td>
+					<td><f:link.action action="show" arguments="{participant : participant}"> {participant.maximum2}</f:link.action></td>
+					<td><f:link.action action="edit" arguments="{participant : participant}">Edit</f:link.action></td>
+					<td><f:link.action action="delete" arguments="{participant : participant}">Delete</f:link.action></td>
+				</tr>
+			</f:for>
+		</table>
+
+		<f:link.action action="new">New Participant</f:link.action>
+	</f:section>
+</html>

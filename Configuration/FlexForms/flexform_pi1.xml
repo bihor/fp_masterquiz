@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+  <sheets>
+    <sDEF>
+      <ROOT>
+        <TCEforms>
+          <sheetTitle>Einstellungen</sheetTitle>
+        </TCEforms>
+        <type>array</type>
+        <el>
+          <switchableControllerActions>
+          <TCEforms>
+          <label>Funktion</label>
+          <config>
+          <type>select</type>
+          <items>
+            <numIndex index="0">
+                <numIndex index="0">Liste aller Quizze aus dem Ordner</numIndex>
+                <numIndex index="1">Quiz->list;Quiz->show</numIndex>
+            </numIndex>
+            <numIndex index="1">
+                <numIndex index="0">Ein bestimmtes Quiz anzeigen</numIndex>
+                <numIndex index="1">Quiz->default;Quiz->show</numIndex>
+            </numIndex>
+            </items>
+          </config>
+          </TCEforms>
+          </switchableControllerActions>
+          <settings.startPageUid>
+				<TCEforms>
+					<label>Startseite des Quiz:</label>
+	                <config>
+						<type>group</type>
+						<internal_type>db</internal_type>
+						<allowed>pages</allowed>
+						<size>1</size>
+						<maxitems>1</maxitems>
+						<minitems>0</minitems>
+						<show_thumbs>0</show_thumbs>
+					</config>
+				</TCEforms>
+		  </settings.startPageUid>
+          <settings.defaultQuizUid>
+				<TCEforms>
+					<label>Dieses Quiz anzeigen:</label>
+	                <config>
+						<type>group</type>
+						<internal_type>db</internal_type>
+						<allowed>tx_fpmasterquiz_domain_model_quiz</allowed>
+						<size>1</size>
+						<maxitems>1</maxitems>
+						<minitems>0</minitems>
+						<show_thumbs>0</show_thumbs>
+					</config>
+				</TCEforms>
+		  </settings.defaultQuizUid>
+        </el>
+      </ROOT>
+    </sDEF>
+  </sheets>
+</T3DataStructure>

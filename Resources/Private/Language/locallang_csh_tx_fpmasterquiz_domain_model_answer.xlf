@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-19T14:33:01Z" product-name="fp_masterquiz">
+		<header/>
+		<body>
+			<trans-unit id="title.description">
+				<source>Answer-text</source>
+			</trans-unit>
+			<trans-unit id="points.description">
+				<source>Points (if the answer is true, type here a number greater than 0)</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

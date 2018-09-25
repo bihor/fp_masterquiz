@@ -1,0 +1,206 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<f:layout name="Default" />
+
+	<f:section name="content">
+		<f:flashMessages />
+		<h2>{quiz.name}</h2>
+		<f:if condition="{quiz.about}"><h3>{quiz.about}</h3></f:if>
+		<hr/>
+		
+		<f:form action="show" id="quiz-form">
+		<f:form.hidden name="quiz" value="{quiz.uid}" />
+		<f:form.hidden name="participant" value="{participant.uid}" />
+		<f:form.hidden name="@widget_0[currentPage]" value="{nextPage}" />
+		<f:form.hidden name="showAnswers" value="{showAnswersNext}" />
+		
+		<f:if condition="{final} == 0">
+			<f:then>
+			
+				<f:if condition="{showAnswers}">
+					<f:then>
+					
+						<!--  show answers after submit -->
+						<f:widget.paginate objects="{participant.selections}" as="paginatedSelections" configuration="{settings.pagebrowser}">
+							<f:for each="{paginatedSelections}" as="selection" iteration="pageiterator">
+								<div class="row">
+									<div class="col-md-4">
+										<f:if condition="{selection.question.image.uid}">
+											<f:image src="{selection.question.image.uid}" treatIdAsReference="1" class="img-responsive img-circle" />
+										</f:if>
+									</div>
+									<div class="col-md-8">
+										<div class="text-buttons">
+											<div class="quiz-progress">Seite <span>{page}</span> von {pages} ({pagePercent}%)</div>
+											<h3>{selection.question.title}</h3>
+											<f:format.html>{selection.question.bodytext}</f:format.html>
+											
+											<p>Ihre Antwort(en):</p>
+											<ul>
+											<f:for each="{selection.answers}" as="answer" iteration="nr">
+												<li>{answer.title}</li>
+											</f:for>
+											</ul>
+											<p>Punkte für diese Frage: {selection.points}/{selection.maximumPoints}</p>
+										</div>
+									</div>
+								</div>
+								<f:if condition="{selection.question.explanation}">
+									<p>Erklärung:</p>
+									<f:format.html>{selection.question.explanation}</f:format.html>
+								</f:if>
+							</f:for>
+						</f:widget.paginate>
+						
+						<div class="row">
+							<div class="pull-right quiz-subm">
+								<f:form.submit value="weiter" class="btn btn-lg" />
+							</div>
+						</div>
+						
+					</f:then>
+				<f:else>
+				
+					<!-- show questions -->
+					<f:widget.paginate objects="{quiz.questions}" as="paginatedQuestions" configuration="{settings.pagebrowser}">
+						<f:for each="{paginatedQuestions}" as="question">
+							<f:form.hidden name="quest_{question.uid}" value="1" />
+								<div class="row">
+									<div class="col-md-4">
+										<f:if condition="{question.image.uid}">
+											<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-responsive img-circle" />
+										</f:if>
+									</div>
+									<div class="col-md-8">
+										<div class="quiz-progress">Seite <span>{page}</span> von {pages} ({pagePercent}%)</div>
+										<div class="text-buttons">
+											<h3>{question.title}</h3>
+											<f:format.html>{question.bodytext}</f:format.html>
+											
+											<div class="quiz-question-buttons">
+												<f:for each="{question.answers}" as="answer" iteration="nr">
+													<f:switch expression="{question.qmode}">
+														<f:case value="0">
+															<div class="checkbox quiz-checkbox">
+																<label>
+																	<f:form.checkbox name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-checkboxes" />
+																	<f:format.nl2br>{answer.title}</f:format.nl2br>
+																</label>
+															</div>
+														</f:case>
+														<f:case value="1">
+															<div class="radio quiz-radio">
+																<label>
+																	<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" />
+																	<f:format.nl2br>{answer.title}</f:format.nl2br>
+																</label>
+															</div>
+														</f:case>
+														<f:case value="2">	</f:case>
+														<f:defaultCase>NOT yet supported</f:defaultCase>
+													</f:switch>
+												</f:for>
+												<f:if condition="{question.qmode} == 2">
+													<f:form.select size="1" name="answer_{question.uid}" options="{question.selectOptions}" class="quiz-select" />
+												</f:if>
+											</div>
+										</div>
+									</div>
+								</div>
+							</f:for>
+						</f:widget.paginate>
+						
+						<div class="row">
+							<div class="pull-right quiz-subm">
+								<f:form.button type="button" name="quizGoOn" id="quizGoOn" class="btn btn-lg">weiter</f:form.button>
+							</div>
+						</div>
+				
+						<script>
+							$( ".quiz-radiobox" ).click(function() {
+								// add selected class to the selected answer and remove the class from other radio-buttons
+								var closestRadio = $(this).closest( ".quiz-radio" );
+								var closestRadioParent = closestRadio.parent();
+								$(closestRadioParent).find('.quiz-radio').each(function() {
+									$(this).removeClass( 'quiz-answer-selected' );
+								});
+								closestRadio.addClass( 'quiz-answer-selected' );
+							});
+							$( ".quiz-checkboxes" ).click(function() {
+								// add selected class to the selected answer
+								$(this).closest( ".quiz-checkbox" ).addClass( 'quiz-answer-selected' );
+							});
+							$( ".quiz-select" ).change(function() {
+								// add selected class to the select if the selected val is not 0
+								if ($(this).val() == '0') {
+									$(this).removeClass( 'quiz-answer-selected' );									
+								} else {
+									$(this).addClass( 'quiz-answer-selected' );
+								}
+							});
+							
+							$( "#quizGoOn" ).click(function() {
+								// check if there are selected answers to all questions. if not, show an warning
+								var allSelected = true;
+								$('.quiz-question-buttons').each(function() {
+									var noneSelected = true;
+									var selectedCounter = 0;
+									$(this).find('.quiz-radio').each(function() {
+										selectedCounter++;
+										if ($(this).hasClass('quiz-answer-selected')) {
+											noneSelected = false;
+											console.log('radio click gefunden');
+										}
+									});
+									if (selectedCounter>0 && noneSelected) {
+										allSelected = false;
+									}
+									selectedCounter = 0;
+									$(this).find('.quiz-checkbox').each(function() {
+										selectedCounter++;
+										if ($(this).hasClass('quiz-answer-selected')) {
+											noneSelected = false;
+											console.log('checkbox click gefunden');
+										}
+									});
+									if (selectedCounter>0 && noneSelected) {
+										allSelected = false;
+									}
+									selectedCounter = 0;
+									$(this).find('.quiz-select').each(function() {
+										selectedCounter++;
+										if ($(this).hasClass('quiz-answer-selected')) {
+											noneSelected = false;
+											console.log('select click gefunden');
+										}
+									});
+									if (selectedCounter>0 && noneSelected) {
+										allSelected = false;
+									}
+								});
+								if (allSelected) {
+									$('#quiz-form').submit();
+								} else {
+									// Fehlerfall
+									window.alert('Bitte wählen Sie erst eine Antwort aus!');
+								}
+							});
+						</script>
+					</f:else>
+				</f:if>
+				
+			</f:then>
+			<f:else>
+				<div class="text-buttons final">
+					<h3>Fertig!</h3>
+					<f:if condition="{participant.points} > 0">
+						<p>Du hast {participant.points}/{participant.maximum2} Punkte erreicht. Das entspricht <f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
+					</f:if>
+					<f:format.raw>{finalContent}</f:format.raw>
+					<p><f:link.page class="btn btn-lg" pageUid="{settings.startPageUid}">Zurück zum Anfang</f:link.page></p>
+				</div>
+			</f:else>
+		</f:if>
+		
+		</f:form>
+	</f:section>
+</html>

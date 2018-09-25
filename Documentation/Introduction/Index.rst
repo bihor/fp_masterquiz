@@ -1,0 +1,49 @@
+﻿.. ==================================================
+.. FOR YOUR INFORMATION
+.. --------------------------------------------------
+.. -*- coding: utf-8 -*- with BOM.
+
+.. include:: ../Includes.txt
+
+
+.. _introduction:
+
+Introduction
+============
+
+
+.. _what-it-does:
+
+What does it do?
+----------------
+
+An extension that offers Quiz, Tests and Polls (maybe - not yet). It is the official successor extension of myquizpoll.
+Currently it is only an alpha release. Please give me feedback.
+
+.. important::
+
+   This extension is not backward compatible to myquizpoll!
+
+
+.. _screenshots:
+
+Screenshots
+-----------
+
+Screenshots will follow in the next versions.
+
+.. figure:: ../Images/IntroductionPackage.png
+   :width: 500px
+   :alt: Introduction Package
+
+   Introduction Package just after installation (caption of the image)
+
+   How the Frontend of the Introduction Package looks like just after installation (legend of the image)
+
+Thanks to the
+-------------
+
+`fixpunkt werbeagentur gmbh, Bonn <https://www.fixpunkt.com/webentwicklung/typo3/>`_
+for giving me the possibility to realize
+`this extension <https://www.fixpunkt.com/webentwicklung/typo3/typo3-extensions/>`_
+and share it with the TYPO3 community.

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-19T14:33:01Z" product-name="fp_masterquiz">
+		<header/>
+		<body>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz">
+				<source>Quiz</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.about">
+				<source>About</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.questions">
+				<source>Questions</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.evaluations">
+				<source>Evaluations</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question">
+				<source>Question</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode">
+				<source>Question-mode</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.bodytext">
+				<source>Bodytext</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.explanation">
+				<source>Explanation</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.answers">
+				<source>Answers</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_answer">
+				<source>Answer</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_answer.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_answer.points">
+				<source>Points</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation">
+				<source>Evaluation</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.evaluate">
+				<source>Evaluate points (unchecked) or percentage (checked)?</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.minimum">
+				<source>Minimum value</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.maximum">
+				<source>Maximum value</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.ce">
+				<source>Show this content element at the final page</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.page">
+				<source>OR redirect to this page at the end of the quiz</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant">
+				<source>Participant</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.homepage">
+				<source>Homepage</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.user">
+				<source>fe-user</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.ip">
+				<source>IP-address</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.session">
+				<source>Session-key</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.points">
+				<source>Reached points for this quiz</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.maximum1">
+				<source>Maximum points for the answered questions</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.maximum2">
+				<source>Maximum points for this quiz</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.quiz">
+				<source>Participated quiz/test</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.selections">
+				<source>Answered questions</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected">
+				<source>Selected answews</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.points">
+				<source>Points for this question</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.entered">
+				<source>Entered text to this question</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.question">
+				<source>Question</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.answers">
+				<source>Answers to this question</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
