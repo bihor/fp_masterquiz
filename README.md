@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 0.1.0
+version 0.1.1
 
 TYPO3 extension to create a quiz. The user result will be saved in the DB too.
 

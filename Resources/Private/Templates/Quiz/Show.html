@@ -7,7 +7,7 @@
 		<f:if condition="{quiz.about}"><h3>{quiz.about}</h3></f:if>
 		<hr/>
 		
-		<f:form action="show" id="quiz-form">
+		<f:form action="show" section="{uidOfCE}" id="quiz-form">
 		<f:form.hidden name="quiz" value="{quiz.uid}" />
 		<f:form.hidden name="participant" value="{participant.uid}" />
 		<f:form.hidden name="@widget_0[currentPage]" value="{nextPage}" />
@@ -111,7 +111,7 @@
 						
 						<div class="row">
 							<div class="pull-right quiz-subm">
-								<f:form.button type="button" name="quizGoOn" id="quizGoOn" class="btn btn-lg">weiter</f:form.button>
+								<f:form.button type="button" name="quizGoOn" id="quizGoOn" class="btn btn-lg">{f:if(condition: '{pages} == {page}', then: 'Zur Auswertung', else: 'weiter')}</f:form.button>
 							</div>
 						</div>
 				
@@ -148,7 +148,7 @@
 										selectedCounter++;
 										if ($(this).hasClass('quiz-answer-selected')) {
 											noneSelected = false;
-											console.log('radio click gefunden');
+										//	console.log('radio click gefunden');
 										}
 									});
 									if (selectedCounter>0 && noneSelected) {
@@ -159,7 +159,7 @@
 										selectedCounter++;
 										if ($(this).hasClass('quiz-answer-selected')) {
 											noneSelected = false;
-											console.log('checkbox click gefunden');
+										//	console.log('checkbox click gefunden');
 										}
 									});
 									if (selectedCounter>0 && noneSelected) {
@@ -170,7 +170,7 @@
 										selectedCounter++;
 										if ($(this).hasClass('quiz-answer-selected')) {
 											noneSelected = false;
-											console.log('select click gefunden');
+										//	console.log('select click gefunden');
 										}
 									});
 									if (selectedCounter>0 && noneSelected) {

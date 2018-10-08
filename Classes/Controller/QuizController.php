@@ -82,6 +82,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $questions = 0;
         $maximum1 = 0;
         $finalContent = '';
+        $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
         $questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
         $page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
         $showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
@@ -213,14 +214,17 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('page', $page);
         if ($pages > 0) {
         	$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
+        	$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
         }
         $this->view->assign('nextPage', $nextPage);
         $this->view->assign('pages', $pages);
+        $this->view->assign('pagesInclFinalPage', ($pages+1));
         $this->view->assign('questions', $questions);
         $this->view->assign('final', $final);
         $this->view->assign('finalContent', $finalContent);
         $this->view->assign('showAnswers', $showAnswers);
         $this->view->assign('showAnswersNext', $showAnswersNext);
+        $this->view->assign('uidOfCE', $uidOfCE);
     }
 
     /**
