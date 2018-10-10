@@ -9,11 +9,11 @@ call_user_func(
             'Fixpunkt.FpMasterquiz',
             'Pi1',
             [
-                'Quiz' => 'list, default, show'
+                'Quiz' => 'list, default, show, showAjax'
             ],
             // non-cacheable actions
             [
-                'Quiz' => 'default, show'
+                'Quiz' => 'default, show, showAjax'
             ]
         );
 

@@ -7,200 +7,138 @@
 		<f:if condition="{quiz.about}"><h3>{quiz.about}</h3></f:if>
 		<hr/>
 		
-		<f:form action="show" section="{uidOfCE}" id="quiz-form">
-		<f:form.hidden name="quiz" value="{quiz.uid}" />
-		<f:form.hidden name="participant" value="{participant.uid}" />
-		<f:form.hidden name="@widget_0[currentPage]" value="{nextPage}" />
-		<f:form.hidden name="showAnswers" value="{showAnswersNext}" />
-		
-		<f:if condition="{final} == 0">
-			<f:then>
-			
-				<f:if condition="{showAnswers}">
+		<f:if condition="{settings.ajax} == 1">
+		<f:then>
+			<f:form id="quiz-form{uidOfCE}" method="POST" noCacheHash="1" argumentsToBeExcludedFromQueryString="{0: 'cHash'}">
+				<input type="hidden" name="type" value="{settings.typeNum}">
+	            <input type="hidden" name="L" value="{sysLanguageUid}">
+	            <input type="hidden" name="id" value="{uidOfPage}">
+				<f:form.hidden name="action" value="showAjax" />
+				<f:form.hidden name="quiz" value="{quiz.uid}" />
+				<f:form.hidden name="uidOfCE" value="{uidOfCE}" />
+				<f:form.hidden name="participant" value="0" id="quiz-form-parti" />
+				<f:form.hidden name="currentPage" value="1" id="quiz-form-page" />
+				<f:form.hidden name="showAnswers" value="0" id="quiz-form-answers" />
+	            
+				<div id="quiz-ajaxCallResult"></div>
+				
+				<div id="quiz-button-wrap">
+					<div class="pull-right quiz-subm">
+						<f:form.submit value="weiter" class="btn btn-primary btn-lg" name="quizGoOn" id="quiz-GoOn" />
+					</div>
+				</div>
+				
+				<script>
+					var ceuid = '{uidOfCE}';
+					var maxPages = {pages};
+					var showQuizAnswers = '{settings.showAnswerPage}';
+					<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
+					
+			        jQuery(document).ready(function ($) {
+			            var form = $('#quiz-form'+ceuid);
+			            var resultContainer = $('#quiz-ajaxCallResult');
+			            var service = {
+			                ajaxCall: function (data) {
+			                    $.ajax({
+			                        url: 'index.php',
+			                        cache: false,
+			                        type: 'POST',
+			                        data: data.serialize(),
+			                        success: function (result) {
+			                            resultContainer.html(result).show();
+			                            <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
+			                            if ($('#quiz-form-page').val() > maxPages) {
+			                            	$('#quiz-GoOn').val('Zur Auswertung');
+			                            	if (quizfinal == 1) {
+			                            		$('#quiz-button-wrap').hide();
+			                            	}
+			                            }
+			                        },
+			                        error: function (jqXHR, textStatus, errorThrow) {
+			                            resultContainer.html('Ajax request - ' + textStatus + ': ' + errorThrow + ' ('+data.serialize()+')').fadeIn('fast');
+			                        }
+			                    });
+			                }
+			            };
+			            form.submit(function (ev) {
+			                ev.preventDefault();
+			                var allSelected = checkQuizForm();
+							if (allSelected) {
+								service.ajaxCall($(this));
+							} else {
+								window.alert('Fehler: bitte wählen Sie erst eine Antwort aus!');
+							}
+			            });
+			            service.ajaxCall(form);
+			        });
+			    </script>
+		    </f:form>
+		</f:then>
+		<f:else>
+			<f:form action="show" id="quiz-form{uidOfCE}" method="POST">
+				<f:form.hidden name="quiz" value="{quiz.uid}" />
+				<f:form.hidden name="participant" value="{participant.uid}" />
+				<f:form.hidden name="@widget_0[currentPage]" value="{nextPage}" />
+				<f:form.hidden name="showAnswers" value="{showAnswersNext}" />
+				<f:if condition="{final} == 0">
 					<f:then>
 					
-						<!--  show answers after submit -->
-						<f:widget.paginate objects="{participant.selections}" as="paginatedSelections" configuration="{settings.pagebrowser}">
-							<f:for each="{paginatedSelections}" as="selection" iteration="pageiterator">
-								<div class="row">
-									<div class="col-md-4">
-										<f:if condition="{selection.question.image.uid}">
-											<f:image src="{selection.question.image.uid}" treatIdAsReference="1" class="img-responsive img-circle" />
-										</f:if>
-									</div>
-									<div class="col-md-8">
-										<div class="text-buttons">
-											<div class="quiz-progress">Seite <span>{page}</span> von {pages} ({pagePercent}%)</div>
-											<h3>{selection.question.title}</h3>
-											<f:format.html>{selection.question.bodytext}</f:format.html>
-											
-											<p>Ihre Antwort(en):</p>
-											<ul>
-											<f:for each="{selection.answers}" as="answer" iteration="nr">
-												<li>{answer.title}</li>
-											</f:for>
-											</ul>
-											<p>Punkte für diese Frage: {selection.points}/{selection.maximumPoints}</p>
-										</div>
+						<f:if condition="{showAnswers}">
+							<f:then>
+							
+								<!--  show answers after submit -->
+								<f:widget.paginate objects="{participant.selections}" as="paginatedSelections" configuration="{settings.pagebrowser}">
+									<f:for each="{paginatedSelections}" as="selection" iteration="pageiterator">
+										<f:render partial="Question/PropertiesSent" arguments="{_all}" />
+									</f:for>
+								</f:widget.paginate>
+								
+								<div>
+									<div class="pull-right quiz-subm">
+										<f:form.submit value="weiter" class="btn btn-lg" />
 									</div>
 								</div>
-								<f:if condition="{selection.question.explanation}">
-									<p>Erklärung:</p>
-									<f:format.html>{selection.question.explanation}</f:format.html>
-								</f:if>
-							</f:for>
-						</f:widget.paginate>
+								
+							</f:then>
+							<f:else>
 						
-						<div class="row">
-							<div class="pull-right quiz-subm">
-								<f:form.submit value="weiter" class="btn btn-lg" />
-							</div>
-						</div>
+								<!-- show questions -->
+								<f:widget.paginate objects="{quiz.questions}" as="paginatedQuestions" configuration="{settings.pagebrowser}">
+									<f:for each="{paginatedQuestions}" as="question">
+										<f:render partial="Question/Properties" arguments="{_all}" />
+									</f:for>
+								</f:widget.paginate>
+								
+								<div>
+									<div class="pull-right quiz-subm">
+										<f:form.button type="button" name="quizGoOn" id="quiz-GoOn" class="btn btn-lg">{f:if(condition: '{pages} == {page}', then: 'Zur Auswertung', else: 'weiter')}</f:form.button>
+									</div>
+								</div>
+						
+								<script>
+									<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
+									<f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
+										
+									$( "#quiz-GoOn" ).click(function() {
+										// check if there are selected answers to all questions. if not, show an warning
+										var allSelected = checkQuizForm();
+										if (allSelected) {
+											$('#quiz-form'+tempceuid).submit();
+										} else {
+											window.alert('Bitte wählen Sie erst eine Antwort aus!');
+										}
+									});
+								</script>
+							</f:else>
+						</f:if>
 						
 					</f:then>
-				<f:else>
-				
-					<!-- show questions -->
-					<f:widget.paginate objects="{quiz.questions}" as="paginatedQuestions" configuration="{settings.pagebrowser}">
-						<f:for each="{paginatedQuestions}" as="question">
-							<f:form.hidden name="quest_{question.uid}" value="1" />
-								<div class="row">
-									<div class="col-md-4">
-										<f:if condition="{question.image.uid}">
-											<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-responsive img-circle" />
-										</f:if>
-									</div>
-									<div class="col-md-8">
-										<div class="quiz-progress">Seite <span>{page}</span> von {pages} ({pagePercent}%)</div>
-										<div class="text-buttons">
-											<h3>{question.title}</h3>
-											<f:format.html>{question.bodytext}</f:format.html>
-											
-											<div class="quiz-question-buttons">
-												<f:for each="{question.answers}" as="answer" iteration="nr">
-													<f:switch expression="{question.qmode}">
-														<f:case value="0">
-															<div class="checkbox quiz-checkbox">
-																<label>
-																	<f:form.checkbox name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-checkboxes" />
-																	<f:format.nl2br>{answer.title}</f:format.nl2br>
-																</label>
-															</div>
-														</f:case>
-														<f:case value="1">
-															<div class="radio quiz-radio">
-																<label>
-																	<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" />
-																	<f:format.nl2br>{answer.title}</f:format.nl2br>
-																</label>
-															</div>
-														</f:case>
-														<f:case value="2">	</f:case>
-														<f:defaultCase>NOT yet supported</f:defaultCase>
-													</f:switch>
-												</f:for>
-												<f:if condition="{question.qmode} == 2">
-													<f:form.select size="1" name="answer_{question.uid}" options="{question.selectOptions}" class="quiz-select" />
-												</f:if>
-											</div>
-										</div>
-									</div>
-								</div>
-							</f:for>
-						</f:widget.paginate>
-						
-						<div class="row">
-							<div class="pull-right quiz-subm">
-								<f:form.button type="button" name="quizGoOn" id="quizGoOn" class="btn btn-lg">{f:if(condition: '{pages} == {page}', then: 'Zur Auswertung', else: 'weiter')}</f:form.button>
-							</div>
-						</div>
-				
-						<script>
-							$( ".quiz-radiobox" ).click(function() {
-								// add selected class to the selected answer and remove the class from other radio-buttons
-								var closestRadio = $(this).closest( ".quiz-radio" );
-								var closestRadioParent = closestRadio.parent();
-								$(closestRadioParent).find('.quiz-radio').each(function() {
-									$(this).removeClass( 'quiz-answer-selected' );
-								});
-								closestRadio.addClass( 'quiz-answer-selected' );
-							});
-							$( ".quiz-checkboxes" ).click(function() {
-								// add selected class to the selected answer
-								$(this).closest( ".quiz-checkbox" ).addClass( 'quiz-answer-selected' );
-							});
-							$( ".quiz-select" ).change(function() {
-								// add selected class to the select if the selected val is not 0
-								if ($(this).val() == '0') {
-									$(this).removeClass( 'quiz-answer-selected' );									
-								} else {
-									$(this).addClass( 'quiz-answer-selected' );
-								}
-							});
-							
-							$( "#quizGoOn" ).click(function() {
-								// check if there are selected answers to all questions. if not, show an warning
-								var allSelected = true;
-								$('.quiz-question-buttons').each(function() {
-									var noneSelected = true;
-									var selectedCounter = 0;
-									$(this).find('.quiz-radio').each(function() {
-										selectedCounter++;
-										if ($(this).hasClass('quiz-answer-selected')) {
-											noneSelected = false;
-										//	console.log('radio click gefunden');
-										}
-									});
-									if (selectedCounter>0 && noneSelected) {
-										allSelected = false;
-									}
-									selectedCounter = 0;
-									$(this).find('.quiz-checkbox').each(function() {
-										selectedCounter++;
-										if ($(this).hasClass('quiz-answer-selected')) {
-											noneSelected = false;
-										//	console.log('checkbox click gefunden');
-										}
-									});
-									if (selectedCounter>0 && noneSelected) {
-										allSelected = false;
-									}
-									selectedCounter = 0;
-									$(this).find('.quiz-select').each(function() {
-										selectedCounter++;
-										if ($(this).hasClass('quiz-answer-selected')) {
-											noneSelected = false;
-										//	console.log('select click gefunden');
-										}
-									});
-									if (selectedCounter>0 && noneSelected) {
-										allSelected = false;
-									}
-								});
-								if (allSelected) {
-									$('#quiz-form').submit();
-								} else {
-									// Fehlerfall
-									window.alert('Bitte wählen Sie erst eine Antwort aus!');
-								}
-							});
-						</script>
+					<f:else>
+						<f:render partial="Quiz/FinalPage" arguments="{_all}" />
 					</f:else>
 				</f:if>
-				
-			</f:then>
-			<f:else>
-				<div class="text-buttons final">
-					<h3>Fertig!</h3>
-					<f:if condition="{participant.points} > 0">
-						<p>Du hast {participant.points}/{participant.maximum2} Punkte erreicht. Das entspricht <f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
-					</f:if>
-					<f:format.raw>{finalContent}</f:format.raw>
-					<p><f:link.page class="btn btn-lg" pageUid="{settings.startPageUid}">Zurück zum Anfang</f:link.page></p>
-				</div>
-			</f:else>
+			</f:form>
+		</f:else>
 		</f:if>
-		
-		</f:form>
 	</f:section>
 </html>

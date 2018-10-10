@@ -1,0 +1,22 @@
+var tempceuid = '{uidOfCE}';
+$( "#quiz-form"+tempceuid+" .quiz-radiobox" ).click(function() {
+	// add selected class to the selected answer and remove the class from other radio-buttons
+	var closestRadio = $(this).closest( ".quiz-radio" );
+	var closestRadioParent = closestRadio.parent();
+	$(closestRadioParent).find('.quiz-radio').each(function() {
+		$(this).removeClass( 'quiz-answer-selected' );
+	});
+	closestRadio.addClass( 'quiz-answer-selected' );
+});
+$( "#quiz-form"+tempceuid+" .quiz-checkboxes" ).click(function() {
+	// add selected class to the selected answer
+	$(this).closest( ".quiz-checkbox" ).addClass( 'quiz-answer-selected' );
+});
+$( "#quiz-form"+tempceuid+" .quiz-select" ).change(function() {
+	// add selected class to the select if the selected val is not 0
+	if ($(this).val() == '0') {
+		$(this).removeClass( 'quiz-answer-selected' );									
+	} else {
+		$(this).addClass( 'quiz-answer-selected' );
+	}
+});

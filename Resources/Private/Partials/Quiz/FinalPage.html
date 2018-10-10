@@ -1,0 +1,11 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<div class="text-buttons final">
+		<h3>Fertig!</h3>
+		<f:if condition="{participant.points} > 0">
+			<p>Du hast {participant.points}/{participant.maximum2} Punkte erreicht. 
+				Das entspricht <f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
+		</f:if>
+		<f:format.raw>{finalContent}</f:format.raw>
+		<p><f:link.page class="btn btn-lg" pageUid="{settings.startPageUid}">Zurück zum Anfang</f:link.page></p>
+	</div>
+</html>

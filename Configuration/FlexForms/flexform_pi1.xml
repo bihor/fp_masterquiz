@@ -16,11 +16,11 @@
           <items>
             <numIndex index="0">
                 <numIndex index="0">Liste aller Quizze aus dem Ordner</numIndex>
-                <numIndex index="1">Quiz->list;Quiz->show</numIndex>
+                <numIndex index="1">Quiz->list;Quiz->show;Quiz->showAjax</numIndex>
             </numIndex>
             <numIndex index="1">
                 <numIndex index="0">Ein bestimmtes Quiz anzeigen</numIndex>
-                <numIndex index="1">Quiz->default;Quiz->show</numIndex>
+                <numIndex index="1">Quiz->default;Quiz->show;Quiz->showAjax</numIndex>
             </numIndex>
             </items>
           </config>

@@ -42,6 +42,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $participantRepository = null;
 
     /**
+     * participant
+     *
+     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Participant
+     */
+    protected $participant = null;
+    
+    /**
      * action list
      *
      * @return void
@@ -67,6 +74,187 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->forward('show', NULL, NULL, array('quiz' => $quiz));
     	}
     }
+
+    /**
+     * action doAll
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @return void
+     */
+    public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz) {
+    	$saveIt = FALSE;
+    	$newUser = FALSE;
+    	$pages = 0;
+    	$questions = 0;
+    	$maximum1 = 0;
+    	$finalContent = '';
+    	$debug = '';
+    	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
+    	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
+    	if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
+    		$participantUid = intval($this->request->getArgument('participant'));
+    		$this->participant = $this->participantRepository->findOneByUid($participantUid);
+    	} else {
+    		$this->participant = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
+    	}
+    	$page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
+    	if (is_array($page)) {
+    		$page = intval($page['currentPage']);
+    	} else {
+    		$page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
+    	}
+    	if (!$questionsPerPage) {
+    		$questionsPerPage = 1;
+    	}
+    	$showAnswerPage = intval($this->settings['showAnswerPage']);
+    	if ($showAnswerPage && !$showAnswers) {
+    		// als nächstes erstmal die Antworten dieser Seite zeigen
+    		$nextPage = $page;
+    	} else {
+    		$nextPage = $page + 1;
+    	}
+    	$questions = count($quiz->getQuestions());
+    	if ($showAnswers || !$showAnswerPage && $page > 1) {
+    		// Antworten sollen ausgewertet und gespeichert werden
+    		$saveIt = TRUE;
+    		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+    		if (!$this->participant->getUid()) {
+    			$this->participant->setName('default');
+    			$this->participant->setIp($this->getRealIpAddr());
+    			$this->participant->setQuiz($quiz);
+    			$this->participant->setMaximum2($quiz->getMaximum2());
+    			$this->participantRepository->add($this->participant);
+    			$persistenceManager->persistAll();
+    			$newUser = TRUE;
+    		}
+    	}
+    	if ($saveIt) {
+    		// cycle throgh all questions after a submit
+    		foreach ($quiz->getQuestions() as $question) {
+    			$quid = $question->getUid();
+    			$debug .= "\n#" . $quid . '#: ';
+    			if ($this->request->hasArgument('quest_' . $quid) && $this->request->getArgument('quest_' . $quid)) {
+    				$isActive = TRUE;
+    			} else if ($_POST['quest_' . $quid]) {
+    				// Ajax-call is without extensionname :-(
+    				$isActive = TRUE;
+    			} else {
+    				$isActive = FALSE;
+    			}
+    			if ($isActive) {	
+    				// Auswertung der abgesendeten Fragen
+    				$debug .= ' OK ';
+    				$qmode = $question->getQmode();
+    				$selected = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
+    				$selected->setQuestion($question);
+    				switch ($qmode) {
+    					case 0:
+    						foreach ($question->getAnswers() as $answer) {
+    							$auid = $answer->getUid();
+    							$newPoints = 0;
+    							if ($this->request->hasArgument('answer_' . $quid . '_' . $auid) && $this->request->getArgument('answer_' . $quid . '_' . $auid)) {
+    								$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid . '_' . $auid));
+    							} else if ($_POST['answer_' . $quid . '_' . $auid]) {
+    								$selectedAnswerUid = intval($_POST['answer_' . $quid . '_' . $auid]);
+    							} else {
+    								$selectedAnswerUid = 0;
+    							}
+    							if ($selectedAnswerUid) {
+    								$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
+    								$selected->addAnswer($selectedAnswer);
+    								$newPoints += $selectedAnswer->getPoints();
+    								$selected->setPoints($newPoints);
+	    							if ($newPoints != 0) {
+	    								$this->participant->addPoints($newPoints);
+	    							}
+    							}
+    							$maximum1 += $answer->getPoints();
+    						}
+    						break;
+    					case 1:
+    					case 2:
+    						if ($this->request->hasArgument('answer_' . $quid) && $this->request->getArgument('answer_' . $quid)) {
+    							$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid));
+    						} else if ($_POST['answer_' . $quid]) {
+    							$selectedAnswerUid = intval($_POST['answer_' . $quid]);
+    						} else {
+    							$selectedAnswerUid = 0;
+    						}
+    						if ($selectedAnswerUid) {
+    							$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
+    							$selected->addAnswer($selectedAnswer);
+    							$newPoints = $selectedAnswer->getPoints();
+    							$selected->setPoints($newPoints);
+    							if ($newPoints != 0) {
+    								$this->participant->addPoints($newPoints);
+    							}
+    						}
+    						$maximum1 += $question->getMaximum1();
+    						break;
+    				}
+    				$this->participant->addSelection($selected);
+    			}
+    		}
+    		// Update the participant result
+    		if ($maximum1 > 0) {
+    			$this->participant->addMaximum1($maximum1);
+    		}
+    		$this->participantRepository->update($this->participant);
+    		$persistenceManager->persistAll();
+    	}
+    	$pages = intval(ceil($questions / $questionsPerPage));
+    	$showAnswersNext = 0;
+    	if ($page > $pages) {
+    		// finale Auswertung ...
+    		$final = 1;
+    		foreach ($quiz->getEvaluations() as $evaluation) {
+    			if (!$evaluation->isEvaluate()) {
+    				// Punkte auswerten
+    				$final_points = $this->participant->getPoints();
+    			} else {
+    				// Prozente auswerten
+    				$final_points = $this->participant->getPercent2();
+    			}
+    			if (($final_points >= $evaluation->getMinimum()) && ($final_points <= $evaluation->getMaximum())) {
+    				// Punkte-Match
+    				if ($evaluation->getPage() > 0) {
+    					// Weiterleitung zu diese Seite
+    					$this->redirectToURI(
+    							$this->uriBuilder->reset()
+    							->setTargetPageUid($evaluation->getPage())
+    							->build()
+    							);
+    				} else if ($evaluation->getCe() > 0) {
+    					// Content-Element ausgeben
+    					// oder so: https://www.andrerinas.de/tutorials/typo3-viewhelper-zum-rendern-von-tt-content-anhand-der-uid.html
+    					$ttContentConfig = array(
+    							'tables'       => 'tt_content',
+    							'source'       => $evaluation->getCe(),
+    							'dontCheckPid' => 1);
+    					$finalContent = $this->objectManager->get('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
+    				}
+    			}
+    		}
+    	} else {
+    		$final = 0;
+    		// toggle mode for show answers after submit questions
+    		if ($showAnswerPage) {
+    			$showAnswersNext = $showAnswers == 1 ? 0 : 1;
+    		}
+    	}
+    	$data = [
+    			'page' => $page,
+    			'pages' => $pages,
+    			'nextPage' => $nextPage,
+    			'questions' => $questions,
+    			'final' => $final,
+    			'finalContent' => $finalContent,
+    			'showAnswers' => $showAnswers,
+    			'showAnswersNext' => $showAnswersNext,
+    			'debug' => $debug
+    	];
+    	return $data;
+    }
     
     /**
      * action show
@@ -76,157 +264,77 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        $saveIt = FALSE;
-        $newUser = FALSE;
-        $pages = 0;
-        $questions = 0;
-        $maximum1 = 0;
-        $finalContent = '';
-        $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
-        $questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
-        $page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
-        $showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
-        if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
-            $participantUid = intval($this->request->getArgument('participant'));
-            $participant = $this->participantRepository->findByUid($participantUid);
-        } else {
-            $participant = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
-        }
-        if (is_array($page)) {
-            $page = intval($page['currentPage']);
-        }
-        if (!$questionsPerPage) {
-        	$questionsPerPage = 1;
-        }
-        $showAnswerPage = intval($this->settings['showAnswerPage']);
-        if ($showAnswerPage && !$showAnswers) {
-            // als nächstes erstmal die Antworten dieser Seite zeigen
-            $nextPage = $page;
-        } else {
-            $nextPage = $page + 1;
-        }
-        if ($showAnswers || !$showAnswerPage && $page > 1) {
-            // Antworten sollen ausgewertet und gespeichert werden
-            $saveIt = TRUE;
-            $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-            if (!$participant->getUid()) {
-                $participant->setName('default');
-                $participant->setIp($this->getRealIpAddr());
-                $participant->setQuiz($quiz);
-                $participant->setMaximum2($quiz->getMaximum2());
-                $this->participantRepository->add($participant);
-                $persistenceManager->persistAll();
-                $newUser = TRUE;
-            }
-        }
-        foreach ($quiz->getQuestions() as $question) {
-            $questions++;
-            $quid = $question->getUid();
-            if ($saveIt && $this->request->hasArgument('quest_' . $quid) && $this->request->getArgument('quest_' . $quid)) {
-                // Auswertung der abgesendeten Fragen
-                $qmode = $question->getQmode();
-                $selected = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
-                $selected->setQuestion($question);
-                switch ($qmode) {
-                    case 0:    foreach ($question->getAnswers() as $answer) {
-                            $auid = $answer->getUid();
-                            $newPoints = 0;
-                            if ($this->request->hasArgument('answer_' . $quid . '_' . $auid) && $this->request->getArgument('answer_' . $quid . '_' . $auid)) {
-                                $selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid . '_' . $auid));
-                                $selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-                                $selected->addAnswer($selectedAnswer);
-                                $newPoints += $selectedAnswer->getPoints();
-                                $selected->setPoints($newPoints);
-                            }
-                            if ($newPoints != 0) {
-                                $participant->addPoints($newPoints);
-                            }
-                            $maximum1 += $answer->getPoints();
-                        }
-                        break;
-                    case 1:    
-                    case 2:    if ($this->request->hasArgument('answer_' . $quid) && $this->request->getArgument('answer_' . $quid)) {
-                            $selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid));
-                            $selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-                            $selected->addAnswer($selectedAnswer);
-                            $newPoints = $selectedAnswer->getPoints();
-                            $selected->setPoints($newPoints);
-                            if ($newPoints != 0) {
-                                $participant->addPoints($newPoints);
-                            }
-                        }
-                        $maximum1 += $question->getMaximum1();
-                        break;
-                }
-                $participant->addSelection($selected);
-            }
-        }
-        if ($saveIt) {
-            // Update the participant result
-            if ($maximum1 > 0) {
-                $participant->addMaximum1($maximum1);
-            }
-            $this->participantRepository->update($participant);
-            $persistenceManager->persistAll();
-        }
-        $pages = intval(ceil($questions / $questionsPerPage));
-        $showAnswersNext = 0;
-        if ($page > $pages) {
-            // finale Auswertung ...
-            $final = 1;
-            foreach ($quiz->getEvaluations() as $evaluation) {
-            	if (!$evaluation->isEvaluate()) {
-            		// Punkte auswerten
-            		$final_points = $participant->getPoints();
-            	} else {
-            		// Prozente auswerten
-            		$final_points = $participant->getPercent2();
-            	}
-            	if (($final_points >= $evaluation->getMinimum()) && ($final_points <= $evaluation->getMaximum())) {
-            		// Punkte-Match
-            		if ($evaluation->getPage() > 0) {
-            			// Weiterleitung zu diese Seite
-            			$this->redirectToURI(
-            					$this->uriBuilder->reset()
-            					->setTargetPageUid($evaluation->getPage())
-            					->build()
-            			);
-            		} else if ($evaluation->getCe() > 0) {
-            			// Content-Element ausgeben
-            			// oder so: https://www.andrerinas.de/tutorials/typo3-viewhelper-zum-rendern-von-tt-content-anhand-der-uid.html
-            			$ttContentConfig = array(
-            					'tables'       => 'tt_content',
-            					'source'       => $evaluation->getCe(),
-            					'dontCheckPid' => 1);
-            			$finalContent = $this->objectManager->get('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
-            		}
-            	}
-            }
-        } else {
-            $final = 0;
-            // toggle mode for show answers after submit questions
-            if ($showAnswerPage) {
-                $showAnswersNext = $showAnswers == 1 ? 0 : 1;
-            }
-        }
+        $data = $this->doAll($quiz);
+        $page = $data['page'];
+        $pages = $data['pages'];
+        
+        $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
-        $this->view->assign('participant', $participant);
+        $this->view->assign('participant', $this->participant);
         $this->view->assign('page', $page);
         if ($pages > 0) {
         	$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
         	$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
         }
-        $this->view->assign('nextPage', $nextPage);
+        $this->view->assign('nextPage', $data['nextPage']);
         $this->view->assign('pages', $pages);
         $this->view->assign('pagesInclFinalPage', ($pages+1));
-        $this->view->assign('questions', $questions);
-        $this->view->assign('final', $final);
-        $this->view->assign('finalContent', $finalContent);
-        $this->view->assign('showAnswers', $showAnswers);
-        $this->view->assign('showAnswersNext', $showAnswersNext);
-        $this->view->assign('uidOfCE', $uidOfCE);
+        $this->view->assign('questions', $data['questions']);
+        $this->view->assign('final', $data['final']);
+        $this->view->assign('finalContent', $data['finalContent']);
+        $this->view->assign('showAnswers', $data['showAnswers']);
+        $this->view->assign('showAnswersNext', $data['showAnswersNext']);
+        $this->view->assign("sysLanguageUid", $GLOBALS['TSFE']->sys_language_uid);
+        $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+        
+        $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+       // $this->view->assign("action", ($this->settings['ajax']) ? 'showAjax' : 'show');
     }
 
+    /**
+     * action showAjax
+     *
+     * @return void
+     */
+    public function showAjaxAction()
+    {
+    	// https://www.sklein-medien.de/tutorials/detail/erstellung-einer-typo3-extension-mit-ajax-aufruf/
+    	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
+    	if ($quizUid) {
+    		$quiz = $this->quizRepository->findOneByUid($quizUid);
+    		$data = $this->doAll($quiz);
+    		$page = $data['page'];
+    		$pages = $data['pages'];
+    		$from = 1 + (($page-1) * intval($this->settings['pagebrowser']['itemsPerPage']));
+    		$to = ($page * intval($this->settings['pagebrowser']['itemsPerPage']));
+    		
+    		$this->view->assign('debug', $data['debug']);
+    		$this->view->assign('quiz', $quiz);
+    		$this->view->assign('participant', $this->participant);
+    		$this->view->assign('page', $page);
+    		if ($pages > 0) {
+    			$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
+    			$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
+    		}
+    		$this->view->assign('nextPage', $data['nextPage']);
+    		$this->view->assign('pages', $pages);
+    		$this->view->assign('pagesInclFinalPage', ($pages+1));
+    		$this->view->assign('questions', $data['questions']);
+    		$this->view->assign('final', $data['final']);
+    		$this->view->assign('finalContent', $data['finalContent']);
+    		$this->view->assign('showAnswers', $data['showAnswers']);
+    		$this->view->assign('showAnswersNext', $data['showAnswersNext']);
+    		$this->view->assign("sysLanguageUid", $GLOBALS['TSFE']->sys_language_uid);
+    		$this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+			
+    		$this->view->assign('from', $from);
+    		$this->view->assign('to', $to);
+    		$this->view->assign('uidOfCE', $this->request->hasArgument('uidOfCE') ? intval($this->request->getArgument('uidOfCE')) : 0);
+    	} else {
+    		$this->view->assign('error', 1);
+    	}
+    }
+    
     /**
      * Get the real IP address
      *

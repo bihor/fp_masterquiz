@@ -1,0 +1,41 @@
+function checkQuizForm() {
+	var allSelected = true;
+	var tempceuid = '{uidOfCE}';
+	$('#quiz-form'+tempceuid+' .quiz-question-buttons').each(function() {
+		var noneSelected = true;
+		var selectedCounter = 0;
+		$(this).find('.quiz-radio').each(function() {
+			selectedCounter++;
+			if ($(this).hasClass('quiz-answer-selected')) {
+				noneSelected = false;
+			//	console.log('radio click gefunden');
+			}
+		});
+		if (selectedCounter>0 && noneSelected) {
+			allSelected = false;
+		}
+		selectedCounter = 0;
+		$(this).find('.quiz-checkbox').each(function() {
+			selectedCounter++;
+			if ($(this).hasClass('quiz-answer-selected')) {
+				noneSelected = false;
+			//	console.log('checkbox click gefunden');
+			}
+		});
+		if (selectedCounter>0 && noneSelected) {
+			allSelected = false;
+		}
+		selectedCounter = 0;
+		$(this).find('.quiz-select').each(function() {
+			selectedCounter++;
+			if ($(this).hasClass('quiz-answer-selected')) {
+				noneSelected = false;
+			//	console.log('select click gefunden');
+			}
+		});
+		if (selectedCounter>0 && noneSelected) {
+			allSelected = false;
+		}
+	});
+	return allSelected;
+}

@@ -1,39 +1,45 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<table class="tx-fp-masterquiz" >
-	<tr>
-		<td>
-			<f:translate key="tx_fpmasterquiz_domain_model_question.title" />
-		</td>
-		<td>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<f:translate key="tx_fpmasterquiz_domain_model_question.qmode" />
-		</td>
-		<td>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<f:translate key="tx_fpmasterquiz_domain_model_question.image" />
-		</td>
-		<td>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<f:translate key="tx_fpmasterquiz_domain_model_question.bodytext" />
-		</td>
-		<td>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<f:translate key="tx_fpmasterquiz_domain_model_question.explanation" />
-		</td>
-		<td>
-		</td>
-	</tr>
-</table>
+	<f:form.hidden name="quest_{question.uid}" value="1" />
+	<div class="row">
+		<div class="col-md-4">
+			<f:if condition="{question.image.uid}">
+				<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-responsive img-circle" />
+			</f:if>
+		</div>
+		<div class="col-md-8">
+			<div class="quiz-progress">Seite <span>{page}</span> von {pages} ({pagePercent}%)</div>
+			<div class="text-buttons">
+				<h3>{question.title}</h3>
+				<f:format.html>{question.bodytext}</f:format.html>
+				
+				<div class="quiz-question-buttons">
+					<f:for each="{question.answers}" as="answer" iteration="nr">
+						<f:switch expression="{question.qmode}">
+							<f:case value="0">
+								<div class="checkbox quiz-checkbox">
+									<label>
+										<f:form.checkbox name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-checkboxes" />
+										<f:format.nl2br>{answer.title}</f:format.nl2br>
+									</label>
+								</div>
+							</f:case>
+							<f:case value="1">
+								<div class="radio quiz-radio">
+									<label>
+										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" />
+										<f:format.nl2br>{answer.title}</f:format.nl2br>
+									</label>
+								</div>
+							</f:case>
+							<f:case value="2">	</f:case>
+							<f:defaultCase>NOT yet supported</f:defaultCase>
+						</f:switch>
+					</f:for>
+					<f:if condition="{question.qmode} == 2">
+						<f:form.select size="1" name="answer_{question.uid}" options="{question.selectOptions}" class="quiz-select" />
+					</f:if>
+				</div>
+			</div>
+		</div>
+	</div>
 </html>

@@ -1,0 +1,28 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<div class="row">
+		<div class="col-md-4">
+			<f:if condition="{selection.question.image.uid}">
+				<f:image src="{selection.question.image.uid}" treatIdAsReference="1" class="img-responsive img-circle" />
+			</f:if>
+		</div>
+		<div class="col-md-8">
+			<div class="text-buttons">
+				<div class="quiz-progress">Seite <span>{page}</span> von {pages} ({pagePercent}%)</div>
+				<h3>{selection.question.title}</h3>
+				<f:format.html>{selection.question.bodytext}</f:format.html>
+				
+				<p>Ihre Antwort(en):</p>
+				<ul>
+				<f:for each="{selection.answers}" as="answer" iteration="nr">
+					<li>{answer.title}</li>
+				</f:for>
+				</ul>
+				<p>Punkte für diese Frage: {selection.points}/{selection.maximumPoints}</p>
+			</div>
+		</div>
+	</div>
+	<f:if condition="{selection.question.explanation}">
+		<p>Erklärung:</p>
+		<f:format.html>{selection.question.explanation}</f:format.html>
+	</f:if>
+</html>

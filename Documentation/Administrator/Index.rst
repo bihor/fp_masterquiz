@@ -14,7 +14,6 @@ Administrator Manual
 Note: this is only a alpha release.
 Note: only the templates Quiz/List.html and Quiz/Show.html are in use!
 Don´t remove classes or IDs that begin with quiz, because they are used to vaildate the form!
-Note: due to a bug in TYPO3 you always need to specify the storage PID via TypoScript and plugin.
 
 
 .. _admin-installation:

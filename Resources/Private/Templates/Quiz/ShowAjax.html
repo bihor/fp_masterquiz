@@ -1,0 +1,57 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<f:layout name="Empty" />
+
+	<f:section name="content">
+	<f:if condition="{final} == 0">
+		<f:then>
+		
+			<f:if condition="{showAnswers}">
+				<f:then>
+				
+					<!--  show answers after submit -->
+					<f:for each="{participant.selections}" as="selection" iteration="pageiterator">
+						<f:if condition="{pageiterator.cycle} >= {from}">
+							<f:if condition="{pageiterator.cycle} <= {to}">
+								<f:render partial="Question/PropertiesSent" arguments="{_all}" />
+							</f:if>
+						</f:if>
+					</f:for>
+					
+				</f:then>
+				<f:else>
+				
+					<!-- show questions -->
+					<f:for each="{quiz.questions}" as="question" iteration="pageiterator">
+						<f:if condition="{pageiterator.cycle} >= {from}">
+							<f:if condition="{pageiterator.cycle} <= {to}">
+								<f:render partial="Question/Properties" arguments="{_all}" />
+							</f:if>
+						</f:if>
+					</f:for>
+					
+				</f:else>
+			</f:if>
+			
+			<script>
+			var ajaxceuid = '{uidOfCE}';
+			var quizfinal = 0;
+			$('#quiz-form'+ajaxceuid+' #quiz-form-parti').val('{participant.uid}');
+			$('#quiz-form'+ajaxceuid+' #quiz-form-page').val('{nextPage}');
+			$('#quiz-form'+ajaxceuid+' #quiz-form-answers').val('{showAnswersNext}');
+			//console.log('puid: '+$('#quiz-form'+ajaxceuid+' #quiz-form-parti').val()+
+			//		'; next-page: '+$('#quiz-form'+ajaxceuid+' #quiz-form-page').val()+
+			//		'show answers: '+$('#quiz-form'+ajaxceuid+' #quiz-form-answers').val());
+			</script>
+		</f:then>
+		<f:else>
+		
+			<f:render partial="Quiz/FinalPage" arguments="{_all}" />
+			
+			<script>
+			var ajaxceuid = '{uidOfCE}';
+			var quizfinal = 1;
+			</script>
+		</f:else>
+	</f:if>
+	</f:section>
+</html>
