@@ -71,7 +71,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->forward('list');
     	} else {
     		$quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
-    		$this->forward('show', NULL, NULL, array('quiz' => $quiz));
+    		$this->forward('show', NULL, NULL, array('quiz' => $quiz->getUid()));
     	}
     }
 

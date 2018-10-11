@@ -17,3 +17,9 @@ Use this section for informing about any type of of problem
 that are not necessarily named in the bug tracker such as performance issues, ...
 
 Currently this is only a alpha release!
+
+Please note:
+
+- the AJAX-version of the quiz works only if you set 
+  $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false
+  in the install tool!

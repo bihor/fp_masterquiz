@@ -34,7 +34,7 @@
 			
 			<script>
 			var ajaxceuid = '{uidOfCE}';
-			var quizfinal = 0;
+			quizfinal = 0;
 			$('#quiz-form'+ajaxceuid+' #quiz-form-parti').val('{participant.uid}');
 			$('#quiz-form'+ajaxceuid+' #quiz-form-page').val('{nextPage}');
 			$('#quiz-form'+ajaxceuid+' #quiz-form-answers').val('{showAnswersNext}');
@@ -48,8 +48,7 @@
 			<f:render partial="Quiz/FinalPage" arguments="{_all}" />
 			
 			<script>
-			var ajaxceuid = '{uidOfCE}';
-			var quizfinal = 1;
+			quizfinal = 1;
 			</script>
 		</f:else>
 	</f:if>
