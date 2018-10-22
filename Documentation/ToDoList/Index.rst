@@ -17,6 +17,8 @@ The to-do list is long:
 
 - write a task that deletes of user entries
 
+- write an import task
+
 - write a good documentation
 
 - and so on.

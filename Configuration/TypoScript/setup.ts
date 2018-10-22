@@ -16,7 +16,7 @@ plugin.tx_fpmasterquiz {
         # if set to 1, the enable fields are ignored in BE context
         ignoreAllEnableFieldsInBe = 0
         # Should be on by default, but can be disabled if all action in the plugin are uncached
-        requireCHashArgumentForActionArguments = 1
+        requireCHashArgumentForActionArguments = 0
     }
     mvc {
         callDefaultActionIfActionCantBeResolved = 1
@@ -29,6 +29,8 @@ plugin.tx_fpmasterquiz {
 		user {
 			ipSave = 0
 			ipAnonymous = 0
+			askForData = 0
+			defaultName = default {TIME}
 		}
 		pagebrowser {
 			itemsPerPage         = 1

@@ -119,7 +119,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$saveIt = TRUE;
     		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
     		if (!$this->participant->getUid()) {
-    			$this->participant->setName('default');
+    			$defaultName = $this->settings['user']['defaultName'];
+    			$defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
+    			$this->participant->setName($defaultName);
+    			$this->participant->setUser(intval($GLOBALS['TSFE']->fe_user->user['uid']));
     			$this->participant->setIp($this->getRealIpAddr());
     			$this->participant->setQuiz($quiz);
     			$this->participant->setMaximum2($quiz->getMaximum2());

@@ -17,4 +17,4 @@ namespace Fixpunkt\FpMasterquiz\Domain\Repository;
  */
 class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-    }
+}

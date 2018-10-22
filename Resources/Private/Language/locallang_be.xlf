@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-19T14:33:01Z" product-name="fp_masterquiz">
+		<header/>
+		<body>
+			<trans-unit id="template">
+				<source>HTML-Template:</source>
+			</trans-unit>
+			<trans-unit id="template.not_configured">
+				<source>no template layout selected!</source>
+			</trans-unit>
+			<trans-unit id="template.list">
+				<source>List of all quiz of one folder</source>
+			</trans-unit>
+			<trans-unit id="template.show">
+				<source>Shown one selected quiz</source>
+			</trans-unit>
+			<trans-unit id="settings.startPageUid">
+				<source>Start page of a quiz:</source>
+			</trans-unit>
+			<trans-unit id="settings.defaultQuizUid">
+				<source>Show this quiz:</source>
+			</trans-unit>
+			
+			<trans-unit id="tasks.title">
+				<source>Delete old participants</source>
+			</trans-unit>
+			<trans-unit id="tasks.description">
+				<source>Deletes all old participants of a folder.</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.page">
+				<source>Page with participant-elements (pages UID):</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.invalidPage">
+				<source>Invalid pages uid, please enter a valid pages uid!</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.days">
+				<source>Delete entries older than ... days:</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.invalidDays">
+				<source>Number of days must be greater than 0!</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

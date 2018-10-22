@@ -10,16 +10,16 @@
         <el>
           <switchableControllerActions>
           <TCEforms>
-          <label>Funktion</label>
+          <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template</label>
           <config>
           <type>select</type>
           <items>
             <numIndex index="0">
-                <numIndex index="0">Liste aller Quizze aus dem Ordner</numIndex>
+                <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.list</numIndex>
                 <numIndex index="1">Quiz->list;Quiz->show;Quiz->showAjax</numIndex>
             </numIndex>
             <numIndex index="1">
-                <numIndex index="0">Ein bestimmtes Quiz anzeigen</numIndex>
+                <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.show</numIndex>
                 <numIndex index="1">Quiz->default;Quiz->show;Quiz->showAjax</numIndex>
             </numIndex>
             </items>
@@ -28,7 +28,7 @@
           </switchableControllerActions>
           <settings.startPageUid>
 				<TCEforms>
-					<label>Startseite des Quiz:</label>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.startPageUid</label>
 	                <config>
 						<type>group</type>
 						<internal_type>db</internal_type>
@@ -42,7 +42,7 @@
 		  </settings.startPageUid>
           <settings.defaultQuizUid>
 				<TCEforms>
-					<label>Dieses Quiz anzeigen:</label>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.defaultQuizUid</label>
 	                <config>
 						<type>group</type>
 						<internal_type>db</internal_type>

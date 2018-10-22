@@ -82,7 +82,7 @@
 				<target>Homepage</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.user">
-				<target>fe-user</target>
+				<target>Frontend-Benutzer</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.ip">
 				<target>IP-Adresse</target>

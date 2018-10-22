@@ -113,10 +113,13 @@ return [
             'exclude' => true,
             'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_participant.user',
             'config' => [
-                'type' => 'input',
-                'size' => 4,
-                'eval' => 'int'
-            ]
+				'type' => 'group',	
+				'internal_type' => 'db',	
+				'allowed' => 'fe_users',	
+				'size' => 1,	
+				'minitems' => 0,
+				'maxitems' => 1
+			],
         ],
         'ip' => [
             'exclude' => true,
