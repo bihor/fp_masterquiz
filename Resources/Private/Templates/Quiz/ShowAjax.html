@@ -16,6 +16,9 @@
 							</f:if>
 						</f:if>
 					</f:for>
+					<script>
+					quizanswers = 1;
+					</script>
 					
 				</f:then>
 				<f:else>
@@ -28,28 +31,43 @@
 							</f:if>
 						</f:if>
 					</f:for>
+					<script>
+					quizanswers = 0;
+					</script>
 					
 				</f:else>
 			</f:if>
 			
 			<script>
-			var ajaxceuid = '{uidOfCE}';
 			quizfinal = 0;
-			$('#quiz-form'+ajaxceuid+' #quiz-form-parti').val('{participant.uid}');
-			$('#quiz-form'+ajaxceuid+' #quiz-form-page').val('{nextPage}');
-			$('#quiz-form'+ajaxceuid+' #quiz-form-answers').val('{showAnswersNext}');
-			//console.log('puid: '+$('#quiz-form'+ajaxceuid+' #quiz-form-parti').val()+
-			//		'; next-page: '+$('#quiz-form'+ajaxceuid+' #quiz-form-page').val()+
-			//		'show answers: '+$('#quiz-form'+ajaxceuid+' #quiz-form-answers').val());
+			$('#quiz-form'+ceuid+' #quiz-form-parti').val('{participant.uid}');
+			$('#quiz-form'+ceuid+' #quiz-form-page').val('{nextPage}');
+			$('#quiz-form'+ceuid+' #quiz-form-answers').val('{showAnswersNext}');
+			//console.log('puid: '+$('#quiz-form'+ceuid+' #quiz-form-parti').val()+
+			//		'; next-page: '+$('#quiz-form'+ceuid+' #quiz-form-page').val()+
+			//		'show answers: '+$('#quiz-form'+ceuid+' #quiz-form-answers').val());
 			</script>
+			
 		</f:then>
 		<f:else>
 		
 			<f:render partial="Quiz/FinalPage" arguments="{_all}" />
 			
 			<script>
+			quizanswers = 0;
 			quizfinal = 1;
+			$( "#quiz-restart" ).click(function(ev) {
+				ev.preventDefault();
+				$('#quiz-form-parti').val('0');
+				$('#quiz-form-page').val('1');
+				$('#quiz-form-answers').val('0');
+				quizfinal = 0;
+				$('#quiz-GoOn').val(text_goon);
+        		$('#quiz-button-wrap').show();
+				$('#quiz-form'+ceuid).submit();
+			});
 			</script>
+			
 		</f:else>
 	</f:if>
 	</f:section>

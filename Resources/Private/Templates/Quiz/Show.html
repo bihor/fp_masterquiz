@@ -9,6 +9,7 @@
 		
 		<f:if condition="{settings.ajax} == 1">
 		<f:then>
+			<f:comment> This part is used only, if AJAX is enabled! </f:comment>
 			<f:form id="quiz-form{uidOfCE}" method="POST" noCacheHash="1" argumentsToBeExcludedFromQueryString="{0: 'cHash'}">
 				<input type="hidden" name="type" value="{settings.typeNum}">
 	            <input type="hidden" name="L" value="{sysLanguageUid}">
@@ -22,9 +23,12 @@
 	            
 	            <script>
 					var ceuid = '{uidOfCE}';
+					var quizanswers = 0;
 					var quizfinal = 0;
 					var maxPages = {pages};
 					var showQuizAnswers = '{settings.showAnswerPage}';
+		            var text_goon = '{f:translate(key: "text.goon")}';
+		            var text_gofinal = '{f:translate(key: "text.gofinal")}';
 				</script>
 				
 				<div id="quiz-ajaxCallResult"></div>
@@ -53,7 +57,9 @@
 			                            resultContainer.html(result).show();
 			                            <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
 			                            if ($('#quiz-form-page').val() > maxPages) {
-			                            	$('#quiz-GoOn').val('Zur Auswertung');
+			                            	if (showQuizAnswers == '0' || quizanswers == 1) {
+				                            	$('#quiz-GoOn').val(text_gofinal);
+			                            	}
 			                            	if (quizfinal == 1) {
 			                            		$('#quiz-button-wrap').hide();
 			                            	}
@@ -80,6 +86,7 @@
 		    </f:form>
 		</f:then>
 		<f:else>
+			<f:comment> This part is used in normal case! </f:comment>
 			<f:form action="show" id="quiz-form{uidOfCE}" method="POST">
 				<f:form.hidden name="quiz" value="{quiz.uid}" />
 				<f:form.hidden name="participant" value="{participant.uid}" />
