@@ -123,6 +123,18 @@
 			<trans-unit id="text.gofinal">
 				<target>zur Auswertung</target>
 			</trans-unit>
+			<trans-unit id="text.userData">
+				<target>Wenn du willst, kannst du hier noch deine persönlichen Daten eintragen (z.B. für eine Highscore-Liste).</target>
+			</trans-unit>
+			<trans-unit id="text.name">
+				<target>Name</target>
+			</trans-unit>
+			<trans-unit id="text.email">
+				<target>E-Mail</target>
+			</trans-unit>
+			<trans-unit id="text.homepage">
+				<target>Homepage</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

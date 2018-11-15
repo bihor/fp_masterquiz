@@ -28,9 +28,11 @@ plugin.tx_fpmasterquiz {
 		ajax = 0
 		user {
 			ipSave = 0
-			ipAnonymous = 0
+			ipAnonymous = 1
 			askForData = 0
 			defaultName = default {TIME}
+			defaultEmail =
+			defaultHomepage =
 		}
 		pagebrowser {
 			itemsPerPage         = 1

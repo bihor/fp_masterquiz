@@ -123,6 +123,18 @@
 			<trans-unit id="text.gofinal">
 				<source>go to the evaluation</source>
 			</trans-unit>
+			<trans-unit id="text.userData">
+				<source>If you want, you can enter here some personal data (e.g. for a highscore list).</source>
+			</trans-unit>
+			<trans-unit id="text.name">
+				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="text.email">
+				<source>E-Mail</source>
+			</trans-unit>
+			<trans-unit id="text.homepage">
+				<source>Homepage</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

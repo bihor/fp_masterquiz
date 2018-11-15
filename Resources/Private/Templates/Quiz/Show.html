@@ -33,6 +33,10 @@
 				
 				<div id="quiz-ajaxCallResult"></div>
 				
+				<f:if condition="{settings.user.askForData}">
+					<f:render partial="Participant/Form" arguments="{_all}" />
+				</f:if>
+								
 				<div id="quiz-button-wrap">
 					<div class="pull-right quiz-subm">
 						<f:form.submit value="weiter" class="btn btn-primary btn-lg" name="quizGoOn" id="quiz-GoOn" />
@@ -56,7 +60,18 @@
 			                        	// display the AJAX-result and set the JS-variable quizfinal
 			                            resultContainer.html(result).show();
 			                            <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
-			                            if ($('#quiz-form-page').val() > maxPages) {
+				                       	var thisQuizPage = $('#quiz-form-page').val();
+				                       	if ($('#quiz-userData').length) {
+					                       	if ((thisQuizPage > 1) || (quizanswers == 1)) {
+					                       		$('#quiz-userData').hide();
+					                       	} else {
+					                       		if ($('#quiz-user-name').length) $('#quiz-user-name').val('');
+					                       		if ($('#quiz-user-email').length) $('#quiz-user-email').val('');
+					                       		if ($('#quiz-user-homepage').length) $('#quiz-user-homepage').val('');
+					                       		$('#quiz-userData').show();
+					                       	}
+				                        }
+			                            if (thisQuizPage > maxPages) {
 			                            	if (showQuizAnswers == '0' || quizanswers == 1) {
 				                            	$('#quiz-GoOn').val(text_gofinal);
 			                            	}
@@ -107,7 +122,7 @@
 								
 								<div>
 									<div class="pull-right quiz-subm">
-										<f:form.submit value="weiter" class="btn btn-lg" />
+										<f:form.submit value="weiter" class="btn btn-primary btn-lg" />
 									</div>
 								</div>
 								
@@ -121,9 +136,16 @@
 									</f:for>
 								</f:widget.paginate>
 								
+								<f:if condition="{settings.user.askForData}">
+									<f:if condition="{page} == 1">
+										<f:render partial="Participant/Form" arguments="{_all}" />
+									</f:if>
+								</f:if>
+								
 								<div>
 									<div class="pull-right quiz-subm">
-										<f:form.button type="button" name="quizGoOn" id="quiz-GoOn" class="btn btn-lg">{f:if(condition: '{pages} == {page}', then: 'Zur Auswertung', else: 'weiter')}</f:form.button>
+									<!--  TODO : 2x if -->
+										<f:form.button type="button" name="quizGoOn" id="quiz-GoOn" class="btn btn-primary btn-lg">{f:if(condition: '{pages} == {page}', then: 'Zur Auswertung', else: 'weiter')}</f:form.button>
 									</div>
 								</div>
 						

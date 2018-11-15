@@ -79,7 +79,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * action doAll
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @return void
+     * @return array
      */
     public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz) {
     	$saveIt = FALSE;
@@ -121,7 +121,22 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		if (!$this->participant->getUid()) {
     			$defaultName = $this->settings['user']['defaultName'];
     			$defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
+    			$defaultEmail = $this->settings['user']['defaultEmail'];
+    			$defaultHomepage = $this->settings['user']['defaultHomepage'];
+    			if ($this->settings['user']['askForData']) {
+    			    if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
+    			        $defaultName = $this->request->getArgument('name');
+        			}
+        			if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
+        			    $defaultEmail = $this->request->getArgument('email');
+        			}
+        			if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
+        			    $defaultHomepage = $this->request->getArgument('homepage');
+        			}
+    			}
     			$this->participant->setName($defaultName);
+    			$this->participant->setEmail($defaultEmail);
+    			$this->participant->setHomepage($defaultHomepage);
     			$this->participant->setUser(intval($GLOBALS['TSFE']->fe_user->user['uid']));
     			$this->participant->setIp($this->getRealIpAddr());
     			$this->participant->setQuiz($quiz);
