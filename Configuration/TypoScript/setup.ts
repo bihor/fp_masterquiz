@@ -27,7 +27,7 @@ plugin.tx_fpmasterquiz {
 		showAnswerPage = 1
 		ajax = 0
 		user {
-			ipSave = 0
+			ipSave = 1
 			ipAnonymous = 1
 			askForData = 0
 			defaultName = default {TIME}

@@ -132,8 +132,17 @@
 			<trans-unit id="text.email">
 				<target>E-Mail</target>
 			</trans-unit>
-			<trans-unit id="text.homepage">
-				<target>Homepage</target>
+			<trans-unit id="text.done">
+				<target>Fertig!</target>
+			</trans-unit>
+			<trans-unit id="text.youHave">
+				<target>Du hast</target>
+			</trans-unit>
+			<trans-unit id="text.gottenPoints">
+				<target>Punkte erreicht. Das entspricht</target>
+			</trans-unit>
+			<trans-unit id="text.backToStart">
+				<target>Zurück zum Anfang</target>
 			</trans-unit>
 		</body>
 	</file>

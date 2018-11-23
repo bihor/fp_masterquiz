@@ -135,6 +135,18 @@
 			<trans-unit id="text.homepage">
 				<source>Homepage</source>
 			</trans-unit>
+			<trans-unit id="text.done">
+				<source>Done!</source>
+			</trans-unit>
+			<trans-unit id="text.youHave">
+				<source>You have gotten</source>
+			</trans-unit>
+			<trans-unit id="text.gottenPoints">
+				<source>points. That are</source>
+			</trans-unit>
+			<trans-unit id="text.backToStart">
+				<source>Start again</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

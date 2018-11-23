@@ -21,6 +21,18 @@
 			<trans-unit id="settings.defaultQuizUid">
 				<source>Show this quiz:</source>
 			</trans-unit>
+			<trans-unit id="settings.showAnswerPage">
+				<source>Show the solutions after every submit?</source>
+			</trans-unit>
+			<trans-unit id="settings.ajax">
+				<source>Enable AJAX-version? Important 1: all FlexForm-settings will be ignored then. Important 2: works only with pageNotFoundOnCHashError=0.</source>
+			</trans-unit>
+			<trans-unit id="settings.no">
+				<source>no</source>
+			</trans-unit>
+			<trans-unit id="settings.yes">
+				<source>yes</source>
+			</trans-unit>
 			
 			<trans-unit id="tasks.title">
 				<source>Delete old participants</source>

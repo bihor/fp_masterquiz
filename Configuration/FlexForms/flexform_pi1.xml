@@ -43,6 +43,7 @@
           <settings.defaultQuizUid>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.defaultQuizUid</label>
+					<displayCond><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->default;Quiz->show;Quiz->showAjax]]></displayCond>
 	                <config>
 						<type>group</type>
 						<internal_type>db</internal_type>
@@ -54,6 +55,42 @@
 					</config>
 				</TCEforms>
 		  </settings.defaultQuizUid>
+          <settings.showAnswerPage>
+				<TCEforms>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showAnswerPage</label>
+	                <config>
+						<type>radio</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								<numIndex index="1">1</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+		  </settings.showAnswerPage>
+          <settings.ajax>
+				<TCEforms>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.ajax</label>
+	                <config>
+						<type>radio</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								<numIndex index="1">1</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+		  </settings.ajax>
         </el>
       </ROOT>
     </sDEF>
