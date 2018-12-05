@@ -11,15 +11,13 @@
 Known Problems
 ==============
 
-The bug tracker will be here in the future, but not yet:
-`bug tracker <http://forge.typo3.org/projects/typo3cms-doc-official-extension-template/issues>`_?
-Use this section for informing about any type of of problem
-that are not necessarily named in the bug tracker such as performance issues, ...
+The bug tracker is here:
+`bug tracker <https://github.com/bihor/fp_masterquiz/issues>`_?
 
-Currently this is only an alpha release!
+Currently this is only a beta release!
 
 Please note:
 
-- the AJAX-version of the quiz works only if you set 
+- the AJAX-version of the quiz works only if you set
   $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false
   in the install tool!

@@ -18,7 +18,9 @@ What does it do?
 ----------------
 
 An extension that offers Quiz, Tests and Polls (maybe - not yet). It is the official successor extension of myquizpoll.
-Currently it is only an alpha release. Please give me feedback.
+Currently it is only an beta release. Please give me feedback.
+
+Avaiable languages: english and german.
 
 .. important::
 

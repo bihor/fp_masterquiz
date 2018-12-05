@@ -11,9 +11,10 @@
 Users Manual
 ============
 
-Target group: **Editors**
+Editor can create on a folder. First you must create a quiz in the list view. Click at the quiz and add some questions and answers to the quiz.
+Optionally you can add some evaluations.
 
-Here should be described how to use the extension from the editor perspective.
+After you created a quiz with some questions you can add the plugin at a page and there you must select the folder with the quiz.
 
 - How does it work?
 

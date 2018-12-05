@@ -15,8 +15,6 @@ The to-do list is long:
 
 - implement most of the features of myquizpoll
 
-- write a task that deletes of user entries
-
 - write an import task
 
 - write a good documentation
