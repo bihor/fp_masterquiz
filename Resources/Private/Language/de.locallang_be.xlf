@@ -21,6 +21,9 @@
 			<trans-unit id="settings.defaultQuizUid">
 				<target>Dieses Quiz anzeigen:</target>
 			</trans-unit>
+			<trans-unit id="settings.itemsPerPage">
+				<target>Anzahl der Fragen pro Seite:</target>
+			</trans-unit>
 			<trans-unit id="settings.showAnswerPage">
 				<target>Zeige die Lösungen nach jedem absenden?</target>
 			</trans-unit>

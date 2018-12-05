@@ -21,6 +21,9 @@
 			<trans-unit id="settings.defaultQuizUid">
 				<source>Show this quiz:</source>
 			</trans-unit>
+			<trans-unit id="settings.itemsPerPage">
+				<source>Number of questions per page:</source>
+			</trans-unit>
 			<trans-unit id="settings.showAnswerPage">
 				<source>Show the solutions after every submit?</source>
 			</trans-unit>

@@ -40,6 +40,7 @@ plugin.tx_fpmasterquiz {
 			insertBelow          = 0
 			maximumNumberOfLinks = 50
 		}
+		overrideFlexformSettingsIfEmpty = startPageUid,defaultQuizUid,pagebrowser.itemsPerPage
 		typeNum = {$plugin.tx_fpmasterquiz.settings.typeNum}
 	}
 }

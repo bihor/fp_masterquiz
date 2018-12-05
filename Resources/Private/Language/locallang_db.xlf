@@ -3,6 +3,12 @@
 	<file source-language="en" datatype="plaintext" original="messages" date="2018-09-19T14:33:01Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
+			<trans-unit id="tx_fp_masterquiz_pi1.name">
+				<source>Master-Quiz</source>
+			</trans-unit>
+			<trans-unit id="tx_fp_masterquiz_pi1.description">
+				<source>Show a Quiz, Test or Poll.</source>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz">
 				<source>Quiz</source>
 			</trans-unit>
@@ -116,12 +122,6 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_selected.answers">
 				<source>Answers to this question</source>
-			</trans-unit>
-			<trans-unit id="tx_fp_masterquiz_pi1.name">
-				<source>Master-Quiz</source>
-			</trans-unit>
-			<trans-unit id="tx_fp_masterquiz_pi1.description">
-				<source>Quiz</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.0">
 				<source>Multiple answers possible (check-box)</source>

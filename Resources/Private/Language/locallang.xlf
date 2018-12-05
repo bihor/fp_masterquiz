@@ -147,6 +147,9 @@
 			<trans-unit id="text.backToStart">
 				<source>Start again</source>
 			</trans-unit>
+			<trans-unit id="text.errorEmpty">
+				<source>Error: please choose an answer!</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

@@ -3,6 +3,12 @@
 	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-09-14T12:38:32Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
+			<trans-unit id="tx_fp_masterquiz_pi1.name">
+				<target>Master-Quiz</target>
+			</trans-unit>
+			<trans-unit id="tx_fp_masterquiz_pi1.description">
+				<target>Zeigt ein Quiz, Umfrage oder Test an.</target>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz">
 				<target>Quiz/Test</target>
 			</trans-unit>

@@ -1,6 +1,8 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Controller;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***
  *
  * This file is part of the "Master-Quiz" Extension for TYPO3 CMS.
@@ -49,6 +51,51 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $participant = null;
     
     /**
+     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     */
+    protected $configurationManager;
+    
+    /**
+     * Injects the Configuration Manager and is initializing the framework settings: wird doppelt aufgerufen!
+     *
+     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager Instance of the Configuration Manager
+     */
+    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
+            $this->configurationManager = $configurationManager;
+            /*$tsSettings = $this->configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
+                'fp_masterquiz',
+                'fpmasterquiz_pi1'
+            );*/
+            $tsSettings = $this->configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+            );
+            $tsSettings = $tsSettings['plugin.']['tx_fpmasterquiz.']['settings.'];
+            $originalSettings = $this->configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+            );
+            // if flexform setting is empty and value is available in TS
+            $overrideFlexformFields = GeneralUtility::trimExplode(',', $tsSettings['overrideFlexformSettingsIfEmpty'], true);
+            foreach ($overrideFlexformFields as $fieldName) {
+                if (strpos($fieldName, '.') !== false) {
+                    // Multilevel
+                    $keyAsArray = explode('.', $fieldName);
+                    if (!($originalSettings[$keyAsArray[0]][$keyAsArray[1]]) && isset($tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]])) {
+                        //echo $keyAsArray[0].'.'.$keyAsArray[1] .': #'.$originalSettings[$keyAsArray[0]][$keyAsArray[1]] . '#' .$tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]].'#';
+                        $originalSettings[$keyAsArray[0]][$keyAsArray[1]] = $tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]];
+                    }
+                } else {
+                    // Simple
+                    if (!($originalSettings[$fieldName]) && isset($tsSettings[$fieldName])) {
+                        //echo $fieldName .': #'.$originalSettings[$fieldName] .'#'. $tsSettings[$fieldName].'#';
+                        $originalSettings[$fieldName] = $tsSettings[$fieldName];
+                    }
+                }
+            }
+            $this->settings = $originalSettings;
+    }
+    
+    /**
      * action list
      *
      * @return void
@@ -95,7 +142,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$participantUid = intval($this->request->getArgument('participant'));
     		$this->participant = $this->participantRepository->findOneByUid($participantUid);
     	} else {
-    		$this->participant = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
+    		$this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
     	}
     	$page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
     	if (is_array($page)) {
@@ -163,7 +210,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     				// Auswertung der abgesendeten Fragen
     				$debug .= ' OK ';
     				$qmode = $question->getQmode();
-    				$selected = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
+    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
     				$selected->setQuestion($question);
     				switch ($qmode) {
     					case 0:

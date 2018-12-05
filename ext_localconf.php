@@ -17,32 +17,38 @@ call_user_func(
             ]
         );
 
-    // wizards
-    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-        'mod {
-            wizards.newContentElement.wizardItems.plugins {
-                elements {
-                    pi1 {
-                        iconIdentifier = fp_masterquiz-plugin-pi1
-                        title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.name
-                        description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
-                        tt_content_defValues {
-                            CType = list
-                            list_type = fpmasterquiz_pi1
+        // wizards
+        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+            'mod {
+                wizards.newContentElement.wizardItems.plugins {
+                    elements {
+                        masterquiz {
+                            iconIdentifier = fp_masterquiz-plugin-pi1
+                            title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.name
+                            description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
+                            tt_content_defValues {
+                                CType = list
+                                list_type = fpmasterquiz_pi1
+                            }
                         }
                     }
+                    show = *
                 }
-                show = *
-            }
-       }'
-    );
+           }'
+        );
+        
 		$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
 		
-			$iconRegistry->registerIcon(
-				'fp_masterquiz-plugin-pi1',
-				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-				['source' => 'EXT:fp_masterquiz/Resources/Public/Icons/user_plugin_pi1.svg']
-			);
+		$iconRegistry->registerIcon(
+			'fp_masterquiz-plugin-pi1',
+		    \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
+			['source' => 'EXT:fp_masterquiz/ext_icon.gif']
+		);
+		$iconRegistry->registerIcon(
+		    'ext-fpmasterquiz-folder-icon',
+		    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+		    ['source' => 'EXT:fp_masterquiz/Resources/Public/Icons/ext-fpmasterquiz-folder-icon.svg']
+		);
 		
     }
 );

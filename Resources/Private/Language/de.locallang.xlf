@@ -144,6 +144,9 @@
 			<trans-unit id="text.backToStart">
 				<target>Zurück zum Anfang</target>
 			</trans-unit>
+			<trans-unit id="text.errorEmpty">
+				<target>Bitte wählen Sie erst eine Antwort aus!</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

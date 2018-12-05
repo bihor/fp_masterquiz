@@ -55,6 +55,17 @@
 					</config>
 				</TCEforms>
 		  </settings.defaultQuizUid>
+          <settings.pagebrowser.itemsPerPage>
+				<TCEforms>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.itemsPerPage</label>
+	                <config>
+                      <type>input</type>
+                      <size>5</size>
+                      <max>5</max>
+                      <eval>trim</eval>
+                    </config>
+				</TCEforms>
+		  </settings.pagebrowser.itemsPerPage>
           <settings.showAnswerPage>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showAnswerPage</label>
