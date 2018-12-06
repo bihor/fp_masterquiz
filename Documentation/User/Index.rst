@@ -11,53 +11,44 @@
 Users Manual
 ============
 
-Editor can create on a folder. First you must create a quiz in the list view. Click at the quiz and add some questions and answers to the quiz.
+Editors can create a quiz/poll/test on a folder. First you must create a quiz in the list view. Click at the quiz and add some questions and answers to the quiz.
 Optionally you can add some evaluations.
 
-After you created a quiz with some questions you can add the plugin at a page and there you must select the folder with the quiz.
+After you have created a quiz with some questions you can add the plugin at a page and there you must select the folder with the quiz.
 
-- How does it work?
+- Note:
 
-  - works well when doing this.
+  - Not every setting can be done by FlexForms. There are more TypoScript-settings.
 
-  - does not work so well when doing that
-    but we can live with it.
+  - When you enable the AJAX-version, the FlexForms will be ignored, because the AJAX-call does not know the plugin.
 
-  - **mind indentation when nesting lists**.
+  - **Configure the quiz only by TypoScript, if you use the AJAX-version**.
 
-- How to install the plugin on a web page?
-
-- What options are available?
-
-Language should be non-technical, explaining, using small examples.
-Don't use to many acronyms unless they have been explained.
-Don't be confusing by putting information targeting administrators.
+  - The AJAX-call calls an normal action and not an eID-script. The cHash-check must therefore be disabled if you use AJAX.
 
 .. tip::
 
-   Take a break from time to time.
+   Disable AJAX, if there is an unknown error.
 
-Admonitions should be used to warn the users about potential
-pitfalls, attract their attention to important elements
-or just add some notes for for information (further reading,
-for example).
+Currently this extension is a beta version.
 
 .. important::
 
-   Remember to always say "please" when asking your software to
-   do something.
+   Not every DB field is used yet. Thats no error.
 
-Provide screenshots as needed for making things clear. When creating
-screenshots, try using the `Introduction Package <http://demo.typo3.org/>`_
-as a neutral TYPO3 CMS instance.
+This screenshots shows you a quiz in the list view and some FlexForm-settings of the plugin.
 
 .. figure:: ../Images/UserManual/BackendView.png
-   :width: 500px
-   :alt: Backend view
+   :width: 530px
+   :alt: Backend view of a quiz
 
-   Default Backend view (caption of the image)
+   Backend view of a quiz.
+   
+.. figure:: ../Images/UserManual/BackendPlugin.png
+   :width: 530px
+   :alt: Backend view of the plugin
 
-   The Backend view of TYPO3 after the user has clicked on module "Page". (legend of the image)
+   Backend view of the plugin (early beta version).
 
 
 .. _user-faq:
@@ -65,4 +56,6 @@ as a neutral TYPO3 CMS instance.
 FAQ
 ---
 
-Possible subsection: FAQ
+I need some features from myquizpoll. What can I do?
+
+  - You can tell me, which feature you need.

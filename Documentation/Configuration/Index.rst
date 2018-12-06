@@ -11,14 +11,9 @@
 Configuration Reference
 =======================
 
-Technical information: Installation, Reference of TypoScript options,
-configuration options on system level, how to extend it, the technical
-details, how to debug it and so on.
+Configuration is possible via TypoScript, FlexForms and some points can be configured at the quiz in the list view.
 
-Language should be technical, assuming developer knowledge of TYPO3.
-Small examples/visuals are always encouraged.
-
-Target group: **Developers**
+Here I will describe the **TypoScript** settings only.
 
 
 .. _configuration-typoscript:
@@ -26,18 +21,8 @@ Target group: **Developers**
 TypoScript Reference
 --------------------
 
-Possible subsections: Reference of TypoScript options.
-The construct below show the recommended structure for
-TypoScript properties listing and description.
-
-Properties should be listed in the order in which they
-are executed by your extension, but the first should be
-alphabetical for easier access.
-
-When detailing data types or standard TypoScript
-features, don't hesitate to cross-link to the TypoScript
-Reference as shown below. See the :file:`Settings.yml`
-file for the declaration of cross-linking keys.
+The TypoScript settings can be changed via the TypoScript-Object-Browser. tx_fpmasterquiz.view, tx_fpmasterquiz.persistence
+and persistence.features are like in other extensions. Here is only a list of the tx_fpmasterquiz.settings.
 
 
 Properties
@@ -45,13 +30,34 @@ Properties
 
 .. container:: ts-properties
 
-	=========================== ===================================== ======================= ====================
-	Property                    Data type                             :ref:`t3tsref:stdwrap`  Default
-	=========================== ===================================== ======================= ====================
-	allWrap_                    :ref:`t3tsref:data-type-wrap`         yes                     :code:`<div>|</div>`
-	`subst\_elementUid`_        :ref:`t3tsref:data-type-boolean`      no                      0
-	wrapItemAndSub_             :ref:`t3tsref:data-type-wrap`
-	=========================== ===================================== ======================= ====================
+	=========================== =========== ============================================== ====================
+	Property                    Data type   Description                                    Default
+	=========================== =========== ============================================== ====================
+	startPageUid                integer     UID of the page where the quiz beginns.        1
+	defaultQuizUid              integer     UID of the quiz to show.                       1
+	showAnswerPage              boolean     Show an answer page after every submit?        1
+	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
+	user.ipSave                 boolean     Save the IP-address of a user?                 1
+	user.ipAnonymous            boolean     Anonymize the IP-address?                      1
+	user.askForData             boolean     Ask for user data at the first page of a quiz? 0
+	user.defaultName            string      Default user name ({TIME} will be replaced).   default {TIME}
+	user.defaultEmail           string      Default user email.
+	user.defaultHomepage        string      Default user homepage.
+	pagebrowser.itemsPerPage    integer     Number of questions on a page.                 1
+	pagebrowser.insertAbove     boolean     You don´t need this.                           0
+	pagebrowser.insertBelow     boolean     You don´t need this.                           0
+	pagebrowser.maximumNum...   integer     You don´t need this.                           50
+	overrideFlexformSettings... string      Fields that should be overwritten if empty.    startPageUid,...
+	typeNum                     integer     Type of the AJAX-call. Don´t change it.        190675
+	=========================== =========== ============================================== ====================
+
+*) If you enable AJAX, you should know this:
+
+  - The FlexForms will be ignored, because the AJAX-call does not know the plugin.
+
+  - **Configure the quiz only by TypoScript**.
+
+  - The AJAX-call calls an normal action and not an eID-script. The cHash-check must therefore be disabled in the install tool.
 
 
 Property details
