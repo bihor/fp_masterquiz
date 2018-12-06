@@ -51,7 +51,7 @@ Properties
 	typeNum                     integer     Type of the AJAX-call. Don´t change it.        190675
 	=========================== =========== ============================================== ====================
 
-*) If you enable AJAX, you should know this:
+AJAX*) If you enable AJAX, you should know this:
 
   - The FlexForms will be ignored, because the AJAX-call does not know the plugin.
 
@@ -60,8 +60,8 @@ Properties
   - The AJAX-call calls an normal action and not an eID-script. The cHash-check must therefore be disabled in the install tool.
 
 
-Property details
-^^^^^^^^^^^^^^^^
+Examples:
+^^^^^^^^^
 
 .. only:: html
 
@@ -70,38 +70,35 @@ Property details
 		:depth: 1
 
 
-.. _ts-plugin-tx-extensionkey-stdwrap:
+.. _pagebrowser.itemsPerPage:
 
-allWrap
-"""""""
+itemsPerPage
+""""""""""""
 
-:typoscript:`plugin.tx_extensionkey.allWrap =` :ref:`t3tsref:data-type-wrap`
+:typoscript:`plugin.tx_fpmasterquiz.settings.pagebrowser.itemsPerPage = 2`
 
-Wraps the whole item.
+Show 2 questions per page.
 
 
-.. _ts-plugin-tx-extensionkey-wrapitemandsub:
+.. _user.defaultName:
 
-wrapItemAndSub
+defaultName
+"""""""""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.user.defaultName = User {TIME}`
+
+Every quiz-taker gets a name in the database. If "user.askForData=0" then this name will be used. {TIME} will
+be replaced by date and time.
+
+
+.. _showAnswerPage:
+
+showAnswerPage
 """"""""""""""
 
-:typoscript:`plugin.tx_extensionkey.wrapItemAndSub =` :ref:`t3tsref:data-type-wrap`
+:typoscript:`plugin.tx_fpmasterquiz.settings.showAnswerPage = 0`
 
-Wraps the whole item and any submenu concatenated to it.
-
-
-.. _ts-plugin-tx-extensionkey-substelementUid:
-
-subst_elementUid
-""""""""""""""""
-
-:typoscript:`plugin.tx_extensionkey.subst_elementUid =` :ref:`t3tsref:data-type-boolean`
-
-If set, all appearances of the string ``{elementUid}`` in the total
-element html-code (after wrapped in allWrap_) are substituted with the
-uid number of the menu item. This is useful if you want to insert an
-identification code in the HTML in order to manipulate properties with
-JavaScript.
+No answer page will be shown after every submit. An page at the end with all correct answers is not yet implemented.
 
 
 .. _configuration-faq:
@@ -109,4 +106,6 @@ JavaScript.
 FAQ
 ---
 
-Possible subsection: FAQ
+- What about the evaluation of a quiz?
+
+  This can be configured at every quiz.

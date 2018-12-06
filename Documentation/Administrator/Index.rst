@@ -11,7 +11,6 @@
 Administrator Manual
 ====================
 
-Note: this is only a beta release.
 Note: only the templates Quiz/List.html and Quiz/Show.html are in use!
 Don´t remove classes or IDs that begin with quiz, because they are used to vaildate the form!
 
@@ -33,13 +32,12 @@ For a list of configuration options, go to the chapter Configuration.
 
 .. _admin-configuration:
 
-Configuration
--------------
+User results
+------------
 
-* Where and how the extension should be configured? TypoScript? PHP?
+* Currently all user results will be saved in the database. No session is used yet, but that would be a nice feature.
 
-* Are there other prerequisite to full fill beforehand?
-  For example, configure a setting in a special way somewhere.
+* User results can be deleted automatically. There is a task which can delete old user results. You find the task in the Scheduler.
 
 
 .. _admin-faq:
@@ -47,14 +45,6 @@ Configuration
 FAQ
 ---
 
-Possible subsection: FAQ
+- Are there any APIs or Hooks?
 
-Subsection
-^^^^^^^^^^
-
-Some subsection
-
-Sub-subsection
-""""""""""""""
-
-Deeper into the structure...
+  No.

@@ -38,7 +38,7 @@ More screenshots will follow in the next versions.
    :width: 530px
    :alt: A simple quiz
 
-   This screenshot shows you a simple quiz, but not only simple quizzes are possible!
+   This screenshot shows a simple quiz, but not only simple quizzes are possible!
 
 Thanks to the
 -------------

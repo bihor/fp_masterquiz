@@ -34,7 +34,7 @@ Currently this extension is a beta version.
 
 .. important::
 
-   Not every DB field is used yet. Thats no error.
+   Not every DB field is used yet. Thats no error. This is not the final version...
 
 This screenshots shows you a quiz in the list view and some FlexForm-settings of the plugin.
 
@@ -43,7 +43,7 @@ This screenshots shows you a quiz in the list view and some FlexForm-settings of
    :alt: Backend view of a quiz
 
    Backend view of a quiz.
-   
+
 .. figure:: ../Images/UserManual/BackendPlugin.png
    :width: 530px
    :alt: Backend view of the plugin
@@ -56,6 +56,6 @@ This screenshots shows you a quiz in the list view and some FlexForm-settings of
 FAQ
 ---
 
-I need some features from myquizpoll. What can I do?
+- I need some features from myquizpoll. What can I do?
 
-  - You can tell me, which feature you need.
+  You can tell me, which feature you need.
