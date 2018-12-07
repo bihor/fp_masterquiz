@@ -36,6 +36,7 @@ Properties
 	startPageUid                integer     UID of the page where the quiz beginns.        1
 	defaultQuizUid              integer     UID of the quiz to show.                       1
 	showAnswerPage              boolean     Show an answer page after every submit?        1
+	showCorrectAnswers          boolean     Show the correct answers on the answer page?   0
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
 	user.ipSave                 boolean     Save the IP-address of a user?                 1
 	user.ipAnonymous            boolean     Anonymize the IP-address?                      1
@@ -48,6 +49,7 @@ Properties
 	pagebrowser.insertBelow     boolean     You don´t need this.                           0
 	pagebrowser.maximumNum...   integer     You don´t need this.                           50
 	overrideFlexformSettings... string      Fields that should be overwritten if empty.    startPageUid,...
+	debug                       boolean     Show debug data at the page.                   0
 	typeNum                     integer     Type of the AJAX-call. Don´t change it.        190675
 	=========================== =========== ============================================== ====================
 

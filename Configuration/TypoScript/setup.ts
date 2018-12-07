@@ -25,6 +25,7 @@ plugin.tx_fpmasterquiz {
 		startPageUid = 1
 		defaultQuizUid = 1
 		showAnswerPage = 1
+		showCorrectAnswers = 0
 		ajax = 0
 		user {
 			ipSave = 1
@@ -41,6 +42,7 @@ plugin.tx_fpmasterquiz {
 			maximumNumberOfLinks = 50
 		}
 		overrideFlexformSettingsIfEmpty = startPageUid,defaultQuizUid,pagebrowser.itemsPerPage
+		debug = 0
 		typeNum = {$plugin.tx_fpmasterquiz.settings.typeNum}
 	}
 }

@@ -144,6 +144,30 @@
 			<trans-unit id="text.backToStart">
 				<target>Zurück zum Anfang</target>
 			</trans-unit>
+			<trans-unit id="text.page">
+				<target>Seite</target>
+			</trans-unit>
+			<trans-unit id="text.of">
+				<target>von</target>
+			</trans-unit>
+			<trans-unit id="text.points">
+				<target>Punkte</target>
+			</trans-unit>
+			<trans-unit id="text.yourAnswers">
+				<target>Ihre Antwort(en):</target>
+			</trans-unit>
+			<trans-unit id="text.correctAnswers">
+				<target>Richtige Antwort(en):</target>
+			</trans-unit>
+			<trans-unit id="text.pointsQuestion">
+				<target>Punkte für diese Frage:</target>
+			</trans-unit>
+			<trans-unit id="text.explanation">
+				<target>Erklärung:</target>
+			</trans-unit>
+			<trans-unit id="text.chooseQuiz">
+				<target>Bitte wähle ein Quiz aus ...</target>
+			</trans-unit>
 			<trans-unit id="text.errorEmpty">
 				<target>Bitte wählen Sie erst eine Antwort aus!</target>
 			</trans-unit>

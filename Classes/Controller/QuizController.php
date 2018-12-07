@@ -210,27 +210,30 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     				// Auswertung der abgesendeten Fragen
     				$debug .= ' OK ';
     				$qmode = $question->getQmode();
+    				// selected/answered question
     				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
     				$selected->setQuestion($question);
     				switch ($qmode) {
     					case 0:
     						foreach ($question->getAnswers() as $answer) {
     							$auid = $answer->getUid();
-    							$newPoints = 0;
     							if ($this->request->hasArgument('answer_' . $quid . '_' . $auid) && $this->request->getArgument('answer_' . $quid . '_' . $auid)) {
     								$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid . '_' . $auid));
+    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
     							} else if ($_POST['answer_' . $quid . '_' . $auid]) {
     								$selectedAnswerUid = intval($_POST['answer_' . $quid . '_' . $auid]);
+    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
     							} else {
     								$selectedAnswerUid = 0;
     							}
     							if ($selectedAnswerUid) {
     								$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
     								$selected->addAnswer($selectedAnswer);
-    								$newPoints += $selectedAnswer->getPoints();
-    								$selected->setPoints($newPoints);
-	    							if ($newPoints != 0) {
+    								$newPoints = $selectedAnswer->getPoints();
+    								if ($newPoints != 0) {
+    								    $selected->addPoints($newPoints);
 	    								$this->participant->addPoints($newPoints);
+	    								$debug .= '+' .$newPoints . 'P ';
 	    							}
     							}
     							$maximum1 += $answer->getPoints();
@@ -240,8 +243,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     					case 2:
     						if ($this->request->hasArgument('answer_' . $quid) && $this->request->getArgument('answer_' . $quid)) {
     							$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid));
+    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
     						} else if ($_POST['answer_' . $quid]) {
     							$selectedAnswerUid = intval($_POST['answer_' . $quid]);
+    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
     						} else {
     							$selectedAnswerUid = 0;
     						}
@@ -249,9 +254,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     							$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
     							$selected->addAnswer($selectedAnswer);
     							$newPoints = $selectedAnswer->getPoints();
-    							$selected->setPoints($newPoints);
     							if ($newPoints != 0) {
-    								$this->participant->addPoints($newPoints);
+    							    $selected->addPoints($newPoints);
+    							    $this->participant->addPoints($newPoints);
+    							    $debug .= '+' .$newPoints . 'P ';
     							}
     						}
     						$maximum1 += $question->getMaximum1();
@@ -288,7 +294,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     							$this->uriBuilder->reset()
     							->setTargetPageUid($evaluation->getPage())
     							->build()
-    							);
+    					);
     				} else if ($evaluation->getCe() > 0) {
     					// Content-Element ausgeben
     					// oder so: https://www.andrerinas.de/tutorials/typo3-viewhelper-zum-rendern-von-tt-content-anhand-der-uid.html

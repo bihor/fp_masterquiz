@@ -87,7 +87,18 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->points = $points;
     }
-
+    
+    /**
+     * Sets the more points
+     *
+     * @param int $points
+     * @return void
+     */
+    public function addPoints($points)
+    {
+        $this->points += $points;
+    }
+    
     /**
      * Returns the entered
      *

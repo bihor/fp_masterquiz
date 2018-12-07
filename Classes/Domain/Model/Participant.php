@@ -279,7 +279,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the points
      *
-     * @param string $points
+     * @param int $points
      * @return void
      */
     public function setPoints($points)
@@ -290,7 +290,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the more points
      *
-     * @param string $points
+     * @param int $points
      * @return void
      */
     public function addPoints($points)

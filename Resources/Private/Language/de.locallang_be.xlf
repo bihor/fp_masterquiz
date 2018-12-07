@@ -25,7 +25,10 @@
 				<target>Anzahl der Fragen pro Seite:</target>
 			</trans-unit>
 			<trans-unit id="settings.showAnswerPage">
-				<target>Zeige die Lösungen nach jedem absenden?</target>
+				<target>Zeige eine Auswertung nach jedem absenden?</target>
+			</trans-unit>
+			<trans-unit id="settings.showCorrectAnswers">
+				<target>Zeige die richtigen Antworten an?</target>
 			</trans-unit>
 			<trans-unit id="settings.ajax">
 				<target>AJAX-Version einschalten? WICHTIG 1: alle FlexForm-Einstellungen werden dann ignoriert! WICHTIG 2: funktioniert nur mit pageNotFoundOnCHashError=0.</target>

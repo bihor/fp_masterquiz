@@ -7,23 +7,36 @@
 		</div>
 		<div class="col-md-8">
 			<div class="text-buttons">
-				<div class="quiz-progress">Seite <span>{page}</span> von {pages} ({pagePercent}%)</div>
+				<div class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</div>
 				<h3>{selection.question.title}</h3>
 				<f:format.html>{selection.question.bodytext}</f:format.html>
 				
-				<p>Ihre Antwort(en):</p>
+				<br />
+				<p>{f:translate(key: "text.yourAnswers")}</p>
 				<ul>
 				<f:for each="{selection.answers}" as="answer" iteration="nr">
-					<li>{answer.title}</li>
+					<li>{answer.title} ({answer.points} {f:translate(key: "text.points")})</li>
 				</f:for>
 				</ul>
-				<p>Punkte für diese Frage: {selection.points}/{selection.maximumPoints}</p>
+				
+				<f:if condition="{settings.showCorrectAnswers}">
+					<p>{f:translate(key: "text.correctAnswers")}</p>
+					<ul>
+					<f:for each="{selection.question.answers}" as="answer2" iteration="nr">
+					<f:if condition="{answer2.points} > 0">
+						<li>{answer2.title} ({answer2.points} {f:translate(key: "text.points")})</li>
+					</f:if>
+					</f:for>
+					</ul>
+				</f:if>
+				
+				<p>{f:translate(key: "text.pointsQuestion")} {selection.points}/{selection.maximumPoints}</p>
 			</div>
 		</div>
 	</div>
 	<f:if condition="{selection.question.explanation}">
 		<br />
-		<p>Erklärung:</p>
+		<p>{f:translate(key: "text.explanation")}</p>
 		<f:format.html>{selection.question.explanation}</f:format.html>
 	</f:if>
 </html>

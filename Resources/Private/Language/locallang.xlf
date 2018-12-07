@@ -147,6 +147,30 @@
 			<trans-unit id="text.backToStart">
 				<source>Start again</source>
 			</trans-unit>
+			<trans-unit id="text.page">
+				<source>Page</source>
+			</trans-unit>
+			<trans-unit id="text.of">
+				<source>of</source>
+			</trans-unit>
+			<trans-unit id="text.points">
+				<source>points</source>
+			</trans-unit>
+			<trans-unit id="text.yourAnswers">
+				<source>Your answer(s):</source>
+			</trans-unit>
+			<trans-unit id="text.correctAnswers">
+				<source>Correct answer(s):</source>
+			</trans-unit>
+			<trans-unit id="text.pointsQuestion">
+				<source>Your points for this question:</source>
+			</trans-unit>
+			<trans-unit id="text.explanation">
+				<source>Explanation:</source>
+			</trans-unit>
+			<trans-unit id="text.chooseQuiz">
+				<source>Please choose a quiz ...</source>
+			</trans-unit>
 			<trans-unit id="text.errorEmpty">
 				<source>Error: please choose an answer!</source>
 			</trans-unit>

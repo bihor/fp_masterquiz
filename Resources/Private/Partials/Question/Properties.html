@@ -7,7 +7,7 @@
 			</f:if>
 		</div>
 		<div class="col-md-8">
-			<div class="quiz-progress">Seite <span>{page}</span> von {pages} ({pagePercent}%)</div>
+			<div class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</div>
 			<div class="text-buttons">
 				<h3>{question.title}</h3>
 				<f:format.html>{question.bodytext}</f:format.html>

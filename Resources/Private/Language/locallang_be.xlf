@@ -25,7 +25,10 @@
 				<source>Number of questions per page:</source>
 			</trans-unit>
 			<trans-unit id="settings.showAnswerPage">
-				<source>Show the solutions after every submit?</source>
+				<source>Show a solution page after every submit?</source>
+			</trans-unit>
+			<trans-unit id="settings.showCorrectAnswers">
+				<source>Show the correct answers?</source>
 			</trans-unit>
 			<trans-unit id="settings.ajax">
 				<source>Enable AJAX-version? Important 1: all FlexForm-settings will be ignored then. Important 2: works only with pageNotFoundOnCHashError=0.</source>

@@ -201,6 +201,9 @@
 			</f:form>
 		</f:else>
 		</f:if>
+		<f:if condition="{settings.debug}">
+			<pre>{debug}</pre>
+		</f:if>
 	</f:section>
 	<f:comment>
 	f:if(condition: '{pages} == {page}', then: 'Zur Auswertung', else: 'weiter')
