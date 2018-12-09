@@ -36,7 +36,8 @@ Properties
 	startPageUid                integer     UID of the page where the quiz beginns.        1
 	defaultQuizUid              integer     UID of the quiz to show.                       1
 	showAnswerPage              boolean     Show an answer page after every submit?        1
-	showCorrectAnswers          boolean     Show the correct answers on the answer page?   0
+	showCorrectAnswers          boolean     Show the correct answers on the answer page?   1
+        showPoints                  boolean     Show the possible/reached points?              1
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
 	user.ipSave                 boolean     Save the IP-address of a user?                 1
 	user.ipAnonymous            boolean     Anonymize the IP-address?                      1

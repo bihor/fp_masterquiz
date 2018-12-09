@@ -30,6 +30,9 @@
 			<trans-unit id="settings.showCorrectAnswers">
 				<source>Show the correct answers?</source>
 			</trans-unit>
+			<trans-unit id="settings.showPoints">
+				<source>Show the possible/reached points?</source>
+			</trans-unit>
 			<trans-unit id="settings.ajax">
 				<source>Enable AJAX-version? Important 1: all FlexForm-settings will be ignored then. Important 2: works only with pageNotFoundOnCHashError=0.</source>
 			</trans-unit>

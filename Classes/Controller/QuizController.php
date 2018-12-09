@@ -2,6 +2,7 @@
 namespace Fixpunkt\FpMasterquiz\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /***
  *
@@ -118,7 +119,17 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->forward('list');
     	} else {
     		$quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
-    		$this->forward('show', NULL, NULL, array('quiz' => $quiz->getUid()));
+    		if ($quiz) {
+    			$this->forward('show', NULL, NULL, array('quiz' => $quiz->getUid()));
+    		} else {
+    			$this->addFlashMessage(
+    					LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($this->settings['defaultQuizUid']),
+    					LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+    					\TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+    					false
+    			);
+    			$this->forward('list');
+    		}
     	}
     }
 

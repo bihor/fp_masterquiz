@@ -30,6 +30,9 @@
 			<trans-unit id="settings.showCorrectAnswers">
 				<target>Zeige die richtigen Antworten an?</target>
 			</trans-unit>
+			<trans-unit id="settings.showPoints">
+				<target>Zeige die möglichen/erreichten Punkte an?</target>
+			</trans-unit>
 			<trans-unit id="settings.ajax">
 				<target>AJAX-Version einschalten? WICHTIG 1: alle FlexForm-Einstellungen werden dann ignoriert! WICHTIG 2: funktioniert nur mit pageNotFoundOnCHashError=0.</target>
 			</trans-unit>

@@ -165,6 +165,9 @@
 			<trans-unit id="text.pointsQuestion">
 				<source>Your points for this question:</source>
 			</trans-unit>
+			<trans-unit id="text.pointsYet">
+				<source>Your points yet:</source>
+			</trans-unit>
 			<trans-unit id="text.explanation">
 				<source>Explanation:</source>
 			</trans-unit>
@@ -173,6 +176,12 @@
 			</trans-unit>
 			<trans-unit id="text.errorEmpty">
 				<source>Error: please choose an answer!</source>
+			</trans-unit>
+			<trans-unit id="error.error">
+				<source>Error!</source>
+			</trans-unit>
+			<trans-unit id="error.quizNotFound">
+				<source>The quiz with this uid was not found (Record Storage Place set?):</source>
 			</trans-unit>
 		</body>
 	</file>

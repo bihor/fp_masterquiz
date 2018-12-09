@@ -14,3 +14,5 @@ ChangeLog
 0.1.0: This is the first alpha release!
 
 0.2.0: First release for the TER.
+
+0.2.2: Bug with points fixed. settings.showCorrectAnswers and settings.showPoints is new.

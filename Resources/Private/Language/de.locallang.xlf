@@ -162,6 +162,9 @@
 			<trans-unit id="text.pointsQuestion">
 				<target>Punkte für diese Frage:</target>
 			</trans-unit>
+			<trans-unit id="text.pointsYet">
+				<target>Punkte bisher:</target>
+			</trans-unit>
 			<trans-unit id="text.explanation">
 				<target>Erklärung:</target>
 			</trans-unit>
@@ -170,6 +173,12 @@
 			</trans-unit>
 			<trans-unit id="text.errorEmpty">
 				<target>Bitte wählen Sie erst eine Antwort aus!</target>
+			</trans-unit>
+			<trans-unit id="error.error">
+				<target>Fehler!</target>
+			</trans-unit>
+			<trans-unit id="error.quizNotFound">
+				<target>Das Quiz mit dieser Uid wurde nicht gefunden (Datensatzsammlung gesetzt?):</target>
 			</trans-unit>
 		</body>
 	</file>

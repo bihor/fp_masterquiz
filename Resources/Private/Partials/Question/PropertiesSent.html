@@ -15,7 +15,7 @@
 				<p>{f:translate(key: "text.yourAnswers")}</p>
 				<ul>
 				<f:for each="{selection.answers}" as="answer" iteration="nr">
-					<li>{answer.title} ({answer.points} {f:translate(key: "text.points")})</li>
+					<li>{answer.title}<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if></li>
 				</f:for>
 				</ul>
 				
@@ -24,13 +24,15 @@
 					<ul>
 					<f:for each="{selection.question.answers}" as="answer2" iteration="nr">
 					<f:if condition="{answer2.points} > 0">
-						<li>{answer2.title} ({answer2.points} {f:translate(key: "text.points")})</li>
+						<li>{answer2.title}<f:if condition="{settings.showPoints}"> ({answer2.points} {f:translate(key: "text.points")})</f:if></li>
 					</f:if>
 					</f:for>
 					</ul>
 				</f:if>
-				
-				<p>{f:translate(key: "text.pointsQuestion")} {selection.points}/{selection.maximumPoints}</p>
+				<f:if condition="{settings.showPoints}">
+					<p>{f:translate(key: "text.pointsQuestion")} {selection.points}/{selection.maximumPoints}. 
+						{f:translate(key: "text.pointsYet")} {participant.points}/{participant.maximum1}.</p>
+				</f:if>
 			</div>
 		</div>
 	</div>
