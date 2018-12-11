@@ -10,4 +10,6 @@ This extension is not backward compatible to myquizpoll!
 
 Features: a quiz or test can be played by submitting a form or by submitting an AJAX-request.
 
+You find the documentation at typo3.org: https://docs.typo3.org/typo3cms/extensions/fp_masterquiz/
+
 Last feature: pointsYet, settings.showPoints.
