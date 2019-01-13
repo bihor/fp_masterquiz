@@ -1,11 +1,16 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 	<div class="text-buttons final">
-		<h3><f:translate key="text.done" /></h3>
+		<h4><f:translate key="text.done" /></h4>
 		<f:if condition="{settings.showPoints}"><f:if condition="{participant.maximum2} > 0">
 			<p><f:translate key="text.youHave" /> {participant.points}/{participant.maximum2} <f:translate key="text.gottenPoints" />
 				<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
 		</f:if></f:if>
 		<f:format.raw>{finalContent}</f:format.raw>
-		<p><f:link.page class="btn btn-lg" pageUid="{settings.startPageUid}" id="quiz-restart"><f:translate key="text.backToStart" /></f:link.page></p>
+		<f:if condition="{settings.showAnswersAtFinalPage} == 1">
+			<f:for each="{participant.selections}" as="selection" iteration="pageiterator">
+				<f:render partial="Question/PropertiesSent" arguments="{_all}" />
+			</f:for>
+		</f:if>
+		<p><f:link.page class="btn btn-primary btn-lg" pageUid="{settings.startPageUid}" id="quiz-restart"><f:translate key="text.backToStart" /></f:link.page></p>
 	</div>
 </html>

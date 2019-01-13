@@ -130,7 +130,7 @@
 				<target>Auswertung</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.evaluate">
-				<target>Werte die Punkte (nicht angekreuzt) oder die Prozente aus (angekreuzt)?</target>
+				<target>Werte die Punkte (nicht angekreuzt) oder die Prozente (angekreuzt) aus?</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.minimum">
 				<target>Minimaler Wert</target>

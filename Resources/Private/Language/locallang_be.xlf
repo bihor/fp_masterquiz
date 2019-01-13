@@ -13,7 +13,7 @@
 				<source>List of all quiz of one folder</source>
 			</trans-unit>
 			<trans-unit id="template.show">
-				<source>Shown one selected quiz</source>
+				<source>Shown one selected quiz (save the plugin! | you need to select the storage folder too)</source>
 			</trans-unit>
 			<trans-unit id="settings.startPageUid">
 				<source>Start page of a quiz:</source>
@@ -26,6 +26,9 @@
 			</trans-unit>
 			<trans-unit id="settings.showAnswerPage">
 				<source>Show a solution page after every submit?</source>
+			</trans-unit>
+			<trans-unit id="settings.showAnswersAtFinalPage">
+				<source>Show the solutions at the final page?</source>
 			</trans-unit>
 			<trans-unit id="settings.showCorrectAnswers">
 				<source>Show the correct answers?</source>

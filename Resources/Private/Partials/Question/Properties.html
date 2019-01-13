@@ -1,17 +1,14 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-	<f:form.hidden name="quest_{question.uid}" value="1" />
+<f:form.hidden name="quest_{question.uid}" value="1" />
+<div class="card">
+	<f:if condition="{settings.ajax} == 1">
+	<p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
+	</f:if>
+	{settings.template.wrapQuestionTitle1 -> f:format.raw()}{question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
+	{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
 	<div class="row">
-		<div class="col-md-4">
-			<f:if condition="{question.image.uid}">
-				<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-responsive img-circle" />
-			</f:if>
-		</div>
-		<div class="col-md-8">
-			<div class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</div>
+		<div class="col {settings.template.colText}">
 			<div class="text-buttons">
-				<h3>{question.title}</h3>
-				<f:format.html>{question.bodytext}</f:format.html>
-				
 				<div class="quiz-question-buttons">
 					<f:for each="{question.answers}" as="answer" iteration="nr">
 						<f:switch expression="{question.qmode}">
@@ -19,7 +16,7 @@
 								<div class="checkbox quiz-checkbox">
 									<label>
 										<f:form.checkbox name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-checkboxes" />
-										<f:format.nl2br>{answer.title}</f:format.nl2br>
+										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
 									</label>
 								</div>
 							</f:case>
@@ -27,7 +24,7 @@
 								<div class="radio quiz-radio">
 									<label>
 										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" />
-										<f:format.nl2br>{answer.title}</f:format.nl2br>
+										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
 									</label>
 								</div>
 							</f:case>
@@ -41,5 +38,17 @@
 				</div>
 			</div>
 		</div>
+		<div class="col {settings.template.colImage}">
+			<f:if condition="{question.image.uid}">
+				<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-fluid" />
+			</f:if>
+		</div>
 	</div>
+</div>
+<br />
+<f:comment>
+Hint
+You can use this inline-condition for odd/even effects:
+ {f:if(condition: '{pageiterator.isOdd}', then: 'order-first')}
+</f:comment>
 </html>

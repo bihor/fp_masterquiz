@@ -13,7 +13,7 @@
 				<target>Liste aller Quizze aus dem Ordner</target>
 			</trans-unit>
 			<trans-unit id="template.show">
-				<target>Ein bestimmtes Quiz anzeigenz</target>
+				<target>Ein bestimmtes Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
 			<trans-unit id="settings.startPageUid">
 				<target>Startseite des Quiz:</target>
@@ -25,7 +25,10 @@
 				<target>Anzahl der Fragen pro Seite:</target>
 			</trans-unit>
 			<trans-unit id="settings.showAnswerPage">
-				<target>Zeige eine Auswertung nach jedem absenden?</target>
+				<target>Zeige eine Auswertung nach jedem absenden an?</target>
+			</trans-unit>
+			<trans-unit id="settings.showAnswersAtFinalPage">
+				<target>Zeige die Auswertung auf der Schlußseite an?</target>
 			</trans-unit>
 			<trans-unit id="settings.showCorrectAnswers">
 				<target>Zeige die richtigen Antworten an?</target>

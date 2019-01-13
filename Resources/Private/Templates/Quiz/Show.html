@@ -3,9 +3,8 @@
 
 	<f:section name="content">
 		<f:flashMessages />
-		<h2>{quiz.name}</h2>
-		<f:if condition="{quiz.about}"><h3>{quiz.about}</h3></f:if>
-		<hr/>
+		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
+		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
 		
 		<f:if condition="{settings.ajax} == 1">
 		<f:then>
@@ -111,6 +110,7 @@
 				<f:if condition="{final} == 0">
 					<f:then>
 					
+						<p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
 						<f:if condition="{showAnswers}">
 							<f:then>
 							
@@ -121,6 +121,10 @@
 									</f:for>
 								</f:widget.paginate>
 								
+								<f:if condition="{settings.showPoints}">
+									<p>{f:translate(key: "text.pointsYet")} {participant.points}/{participant.maximum1}.</p>
+								</f:if>
+				
 								<div>
 									<div class="pull-right quiz-subm">
 										<f:form.button type="submit" name="quizGoOn" class="btn btn-primary btn-lg">
@@ -141,7 +145,7 @@
 						
 								<!-- show questions -->
 								<f:widget.paginate objects="{quiz.questions}" as="paginatedQuestions" configuration="{settings.pagebrowser}">
-									<f:for each="{paginatedQuestions}" as="question">
+									<f:for each="{paginatedQuestions}" as="question" iteration="pageiterator">
 										<f:render partial="Question/Properties" arguments="{_all}" />
 									</f:for>
 								</f:widget.paginate>

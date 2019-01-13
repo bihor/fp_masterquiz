@@ -84,6 +84,24 @@
 					</config>
 				</TCEforms>
 		  </settings.showAnswerPage>
+          <settings.showAnswersAtFinalPage>
+				<TCEforms>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showAnswersAtFinalPage</label>
+	                <config>
+						<type>radio</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								<numIndex index="1">1</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+		  </settings.showAnswersAtFinalPage>
           <settings.showCorrectAnswers>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showCorrectAnswers</label>

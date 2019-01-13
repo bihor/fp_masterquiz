@@ -30,12 +30,13 @@ Properties
 
 .. container:: ts-properties
 
-	=========================== =========== ============================================== ====================
+	=========================== =========== ============================================== ==========================
 	Property                    Data type   Description                                    Default
-	=========================== =========== ============================================== ====================
+	=========================== =========== ============================================== ==========================
 	startPageUid                integer     UID of the page where the quiz beginns.        1
 	defaultQuizUid              integer     UID of the quiz to show.                       1
 	showAnswerPage              boolean     Show an answer page after every submit?        1
+	showAnswersAtFinalPage      boolean     Show solutions at the final page?              1
 	showCorrectAnswers          boolean     Show the correct answers on the answer page?   1
         showPoints                  boolean     Show the possible/reached points?              1
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
@@ -49,10 +50,20 @@ Properties
 	pagebrowser.insertAbove     boolean     You don´t need this.                           0
 	pagebrowser.insertBelow     boolean     You don´t need this.                           0
 	pagebrowser.maximumNum...   integer     You don´t need this.                           50
+	template.colText            string      Class for a question with answers.             col-md-8
+	template.colImage           string      Class for the image of a question.             col-md-4
+	template.wrapQuizTitle1     string      Wrap for the quiz title.                       <h2>
+	template.wrapQuizTitle2     string      Wrap for the quiz title.                       </h2>
+	template.wrapQuizDesc1      string      Wrap for the quiz description.                 <h3>
+	template.wrapQuizDesc2      string      Wrap for the quiz description.                 </h3>
+	template.wrapQuestionTitle1 string      Wrap for the question title.                   <div class="mx-auto"><h4>
+	template.wrapQuestionTitle2 string      Wrap for the question title.                   </h4></div>
+	template.wrapQuestionDesc1  string      Wrap for the question description.             <div class="mx-auto">
+	template.wrapQuestionDesc2  string      Wrap for the question description.             </div>
 	overrideFlexformSettings... string      Fields that should be overwritten if empty.    startPageUid,...
 	debug                       boolean     Show debug data at the page.                   0
 	typeNum                     integer     Type of the AJAX-call. Don´t change it.        190675
-	=========================== =========== ============================================== ====================
+	=========================== =========== ============================================== ==========================
 
 AJAX*) If you enable AJAX, you should know this:
 

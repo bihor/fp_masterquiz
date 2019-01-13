@@ -30,6 +30,11 @@ After you have created a quiz with some questions you can add the plugin at a pa
 
    Disable AJAX, if there is an unknown error.
 
+.. tip::
+
+   If you have a quiz with more than 10 questions, the backend will be very slow. To avoid this, create a quiz with nearly empty questions.
+   Finally edit every question individually.
+
 Currently this extension is a beta version.
 
 .. important::

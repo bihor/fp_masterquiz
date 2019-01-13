@@ -25,8 +25,10 @@ plugin.tx_fpmasterquiz {
 		startPageUid = 1
 		defaultQuizUid = 1
 		showAnswerPage = 1
+		showAnswersAtFinalPage = 0
 		showCorrectAnswers = 1
 		showPoints = 1
+		allowHtml = 0
 		ajax = 0
 		user {
 			ipSave = 1
@@ -41,6 +43,18 @@ plugin.tx_fpmasterquiz {
 			insertAbove          = 0
 			insertBelow          = 0
 			maximumNumberOfLinks = 50
+		}
+		template {
+			colText = col-md-8
+			colImage = col-md-4
+			wrapQuizTitle1 = <h2>
+			wrapQuizTitle2 = </h2>
+			wrapQuizDesc1 = <h3>
+			wrapQuizDesc2 = </h3>
+			wrapQuestionTitle1 = <div class="mx-auto"><h4>
+			wrapQuestionTitle2 = </h4></div>
+			wrapQuestionDesc1 = <div class="mx-auto">
+			wrapQuestionDesc2 = </div>
 		}
 		overrideFlexformSettingsIfEmpty = startPageUid,defaultQuizUid,pagebrowser.itemsPerPage
 		debug = 0

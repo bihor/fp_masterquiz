@@ -26,6 +26,7 @@ Avaiable languages: english and german.
 
    This extension is not backward compatible to myquizpoll!
 
+You will find some examples on my homepage: `quizpalme.de <http://www.quizpalme.de/quiz-umfrage.html>`_
 
 .. _screenshots:
 
