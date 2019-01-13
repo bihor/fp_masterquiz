@@ -35,11 +35,11 @@ Screenshots
 
 More screenshots will follow in the next versions.
 
-.. figure:: ../Images/SimpleQuiz.jpg
-   :width: 530px
-   :alt: A simple quiz
+.. figure:: ../Images/QuizExample.jpg
+   :width: 400px
+   :alt: A basic quiz
 
-   This screenshot shows a simple quiz, but not only simple quizzes are possible!
+   This screenshot shows a basic quiz, but not only simple quizzes are possible!
 
 Thanks to the
 -------------
