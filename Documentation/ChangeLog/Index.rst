@@ -16,3 +16,5 @@ ChangeLog
 0.2.0: First release for the TER.
 
 0.2.2: Bug with points fixed. settings.showCorrectAnswers and settings.showPoints is new.
+
+0.3.0: Now optimized for Bootstrap 4. New settings: showAnswersAtFinalPage and template.*

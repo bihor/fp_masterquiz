@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 0.3.0
+version 0.3.1
 
 TYPO3 extension to create a quiz or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
