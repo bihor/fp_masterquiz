@@ -36,9 +36,10 @@ Properties
 	startPageUid                integer     UID of the page where the quiz beginns.        1
 	defaultQuizUid              integer     UID of the quiz to show.                       1
 	showAnswerPage              boolean     Show an answer page after every submit?        1
-	showAnswersAtFinalPage      boolean     Show solutions at the final page?              1
+	showAnswersAtFinalPage      boolean     Show solutions at the final page?              0
 	showCorrectAnswers          boolean     Show the correct answers on the answer page?   1
-        showPoints                  boolean     Show the possible/reached points?              1
+	showPoints                  boolean     Show the possible/reached points?              1
+	allowHtml                   boolean     Allow HTML at question-answers from the BE?    0
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
 	user.ipSave                 boolean     Save the IP-address of a user?                 1
 	user.ipAnonymous            boolean     Anonymize the IP-address?                      1
@@ -112,7 +113,7 @@ showAnswerPage
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.showAnswerPage = 0`
 
-No answer page will be shown after every submit. An page at the end with all correct answers is not yet implemented.
+No answer page will be shown after every submit.
 
 
 .. _configuration-faq:
