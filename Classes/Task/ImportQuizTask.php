@@ -119,7 +119,8 @@ class ImportQuizTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			$quiz_values = $fields_values;
 			$answer_values = $fields_values;
 			$quiz_values['crdate'] = time();
-			$quiz_values['name'] = 'Import-Quiz';
+			$quiz_values['name'] = 'Import-Quiz ' . time();
+			$quiz_values['about'] = 'Dummy text';
 			$quiz_values['questions'] = count($selectedArray);
 			$quiz_values['sorting'] = 128;
 			if ($simulate) {

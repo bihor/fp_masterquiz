@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Master-Quiz',
-    'description' => 'An extension that offers Quiz, Tests and Polls (soon). It is the successor extension of myquizpoll.',
+    'description' => 'An modern extension that offers Quiz, Tests and Polls (soon). With a simple import-task for a myquizpoll-quiz.',
     'category' => 'plugin',
     'author' => 'Kurt Gusbeth',
     'author_email' => 'k.gusbeth@fixpunkt.com',
@@ -20,7 +20,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => 1,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '0.3.3',
+    'version' => '0.3.4',
     'constraints' => [
         'depends' => [
             'typo3' => '8.7.0-8.7.99',
