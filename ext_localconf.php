@@ -55,11 +55,18 @@ call_user_func(
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
 if (TYPO3_MODE === 'BE') {
-	// Add CSV-import task (sheduler)
+	// Add deletion task (sheduler)
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Fixpunkt\\FpMasterquiz\\Task\\DeleteParticipantTask'] = array(
 			'extension' => 'fp_masterquiz',
 			'title' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.title',
 			'description' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.description',
 			'additionalFields' => 'Fixpunkt\\FpMasterquiz\\Task\\DeleteParticipantAdditionalFieldProvider'
+	);
+	// Add CSV-import task (sheduler)
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Fixpunkt\\FpMasterquiz\\Task\\ImportQuizTask'] = array(
+			'extension' => 'fp_masterquiz',
+			'title' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.titleImport',
+			'description' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.descriptionImport',
+			'additionalFields' => 'Fixpunkt\\FpMasterquiz\\Task\\ImportQuizAdditionalFieldProvider'
 	);
 }

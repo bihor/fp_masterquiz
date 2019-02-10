@@ -3,6 +3,21 @@
 
 	<f:section name="content">
 		<f:flashMessages />
+		<f:form.validationResults>
+		  <f:if condition="{validationResults.flattenedErrors}">
+		    <ul class="errors">
+		      <f:for each="{validationResults.flattenedErrors}" as="errors" key="propertyPath">
+		        <li>{propertyPath}
+		          <ul>
+		          <f:for each="{errors}" as="error">
+		            <li>{error.code}: {error}</li>
+		          </f:for>
+		          </ul>
+		        </li>
+		      </f:for>
+		    </ul>
+		  </f:if>
+		</f:form.validationResults>
 		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
 		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
 		

@@ -64,6 +64,12 @@
 			<trans-unit id="tasks.validate.invalidDays">
 				<source>Number of days must be greater than 0!</source>
 			</trans-unit>
+			<trans-unit id="tasks.titleImport">
+				<source>Import an myquizpoll-quiz</source>
+			</trans-unit>
+			<trans-unit id="tasks.descriptionImports">
+				<source>Starts an simple import from a folder with myquizpoll-entries.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

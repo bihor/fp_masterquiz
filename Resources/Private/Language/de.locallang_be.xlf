@@ -64,6 +64,12 @@
 			<trans-unit id="tasks.validate.invalidDays">
 				<target>Die Anzahl der Tage muss größer als 0 sein!</target>
 			</trans-unit>
+			<trans-unit id="tasks.titleImport">
+				<target>Import von myquizpoll-Quizes</target>
+			</trans-unit>
+			<trans-unit id="tasks.description">
+				<target>Importiert myquizpoll-Einträge eines ausgewählten Ordners.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
