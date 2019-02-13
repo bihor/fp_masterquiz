@@ -8,15 +8,17 @@
 	<div class="row">
 		<div class="col {settings.template.colText}">
 			<div class="text-buttons">
-				<p>{f:translate(key: "text.yourAnswers")}</p>
-				<ul>
-				<f:for each="{selection.answers}" as="answer" iteration="nr">
-					<li>
-						<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
-						<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
-					</li>
-				</f:for>
-				</ul>
+				<f:if condition="{settings.showOwnAnswers}">
+					<p>{f:translate(key: "text.yourAnswers")}</p>
+					<ul>
+					<f:for each="{selection.answers}" as="answer" iteration="nr">
+						<li>
+							<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
+							<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
+						</li>
+					</f:for>
+					</ul>
+				</f:if>
 				
 				<f:if condition="{settings.showCorrectAnswers}">
 					<p>{f:translate(key: "text.correctAnswers")}</p>
@@ -31,6 +33,20 @@
 					</f:for>
 					</ul>
 				</f:if>
+				
+				<f:if condition="{settings.showAllAnswers}">
+					<p>{f:translate(key: "text.allAnswers")}</p>
+					<ul>
+					<f:for each="{selection.question.answers}" as="answer3" iteration="nr">
+						<li>
+							<f:if condition="{settings.allowHtml} == 1"><f:then>{answer3.title -> f:format.raw()}</f:then><f:else>{answer3.title -> f:format.nl2br()}</f:else></f:if>
+							<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points")})</f:if>
+							({answer3.allAnswers} {f:translate(key: "text.choices")})
+						</li>
+					</f:for>
+					</ul>
+				</f:if>
+				
 				<f:if condition="{settings.showPoints}">
 					<p>{f:translate(key: "text.pointsQuestion")} {selection.points}/{selection.maximumPoints}.</p>
 				</f:if>

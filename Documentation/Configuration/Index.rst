@@ -37,7 +37,9 @@ Properties
 	defaultQuizUid              integer     UID of the quiz to show.                       1
 	showAnswerPage              boolean     Show an answer page after every submit?        1
 	showAnswersAtFinalPage      boolean     Show solutions at the final page?              0
-	showCorrectAnswers          boolean     Show the correct answers on the answer page?   1
+	showOwnAnswers              boolean     Show the answers of the quiz taker?            1
+	showCorrectAnswers          boolean     Show the correct answers?                      1
+	showAllAnswers              boolean     Show finally all answers (no. of choices)?     0
 	showPoints                  boolean     Show the possible/reached points?              1
 	allowHtml                   boolean     Allow HTML at question-answers from the BE?    0
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0

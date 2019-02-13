@@ -31,7 +31,21 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $points = 0;
-
+    
+    /**
+     * own answer (0: no; 1: yes)
+     *
+     * @var int
+     */
+    protected $ownAnswer = 0;
+    
+    /**
+     * total answers of all users
+     *
+     * @var int
+     */
+    protected $allAnswers = 0;
+    
     /**
      * Returns the title
      *
@@ -72,5 +86,47 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setPoints($points)
     {
         $this->points = $points;
+    }
+    
+    /**
+     * Returns the ownAnswer
+     *
+     * @return int $ownAnswer
+     */
+    public function getOwnAnswer()
+    {
+        return $this->ownAnswer;
+    }
+    
+    /**
+     * Sets the own answer
+     *
+     * @param int $nr
+     * @return void
+     */
+    public function setOwnAnswer($nr)
+    {
+        $this->ownAnswer = $nr;
+    }
+    
+    /**
+     * Returns no. of all answers
+     *
+     * @return int $allAnswers
+     */
+    public function getAllAnswers()
+    {
+        return $this->allAnswers;
+    }
+    
+    /**
+     * Sets the points
+     *
+     * @param int $nr
+     * @return void
+     */
+    public function setAllAnswers($nr)
+    {
+        $this->allAnswers = $nr;
     }
 }

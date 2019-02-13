@@ -162,6 +162,12 @@
 			<trans-unit id="text.correctAnswers">
 				<source>Correct answer(s):</source>
 			</trans-unit>
+			<trans-unit id="text.allAnswers">
+				<source>All answer(s):</source>
+			</trans-unit>
+			<trans-unit id="text.choices">
+				<source>choices</source>
+			</trans-unit>
 			<trans-unit id="text.pointsQuestion">
 				<source>Your points for this question:</source>
 			</trans-unit>

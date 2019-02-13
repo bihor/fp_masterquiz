@@ -159,6 +159,12 @@
 			<trans-unit id="text.correctAnswers">
 				<target>Richtige Antwort(en):</target>
 			</trans-unit>
+			<trans-unit id="text.allAnswers">
+				<target>Bisherige Antwort(en):</target>
+			</trans-unit>
+			<trans-unit id="text.choices">
+				<target>mal ausgewählt</target>
+			</trans-unit>
 			<trans-unit id="text.pointsQuestion">
 				<target>Punkte für diese Frage:</target>
 			</trans-unit>

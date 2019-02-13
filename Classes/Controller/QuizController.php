@@ -317,6 +317,33 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     				}
     			}
     		}
+    		// Alle Ergebnisse nicht nur das eigene anzeigen
+    		if ($this->settings['showAllAnswers'] == 1) {
+    		    $allResults = [];
+    		    $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
+    		    // alle Fragen durchgehen, die der User beantwortet hat:
+    		    foreach ($this->participant->getSelections() as $selection) {
+    		        $oneQuestion = $selection->getQuestion();
+    		        $questionID = $oneQuestion->getUid();
+    		        $allResults[$questionID] = [];
+    		        // User-Antworten einer bestimmten Frage:
+    		        $allAnsweredQuestions = $selectedRepository->findByQuestion($questionID);
+    		        // alle Ergebnisse durchgehen:
+    		        foreach ($allAnsweredQuestions as $allAnswers) {
+    		            // alle Antworten auf diese Frage:
+    		            foreach ($allAnswers->getAnswers() as $oneAnswer) {
+    		                if ($this->settings['debug']) {
+    		                  $debug .= "\n" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
+    		                }
+    		                $allResults[$questionID][$oneAnswer->getUid()]++;
+    		            }
+    		        }
+    		        // gesammeltes speichern
+    		        foreach ($oneQuestion->getAnswers() as $oneAnswer) {
+    		            $oneAnswer->setAllAnswers(intval($allResults[$questionID][$oneAnswer->getUid()]));
+    		        }
+    		    }
+    		}
     	} else {
     		$final = 0;
     		// toggle mode for show answers after submit questions

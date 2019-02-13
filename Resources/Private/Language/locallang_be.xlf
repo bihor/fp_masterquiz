@@ -30,8 +30,14 @@
 			<trans-unit id="settings.showAnswersAtFinalPage">
 				<source>Show the solutions at the final page?</source>
 			</trans-unit>
+			<trans-unit id="settings.showOwnAnswers">
+				<source>Show the own answers?</source>
+			</trans-unit>
 			<trans-unit id="settings.showCorrectAnswers">
 				<source>Show the correct answers?</source>
+			</trans-unit>
+			<trans-unit id="settings.showAllAnswers">
+				<source>Show all answers from everybody (only at the final page)?</source>
 			</trans-unit>
 			<trans-unit id="settings.showPoints">
 				<source>Show the possible/reached points?</source>

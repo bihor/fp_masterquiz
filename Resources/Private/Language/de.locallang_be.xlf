@@ -30,8 +30,14 @@
 			<trans-unit id="settings.showAnswersAtFinalPage">
 				<target>Zeige die Auswertung auf der Schlußseite an?</target>
 			</trans-unit>
+			<trans-unit id="settings.showOwnAnswers">
+				<target>Zeige die eigenen Antworten an?</target>
+			</trans-unit>
 			<trans-unit id="settings.showCorrectAnswers">
 				<target>Zeige die richtigen Antworten an?</target>
+			</trans-unit>
+			<trans-unit id="settings.showAllAnswers">
+				<target>Zeige alle bisherigen Antworten an (nur auf der Schlußseite)?</target>
 			</trans-unit>
 			<trans-unit id="settings.showPoints">
 				<target>Zeige die möglichen/erreichten Punkte an?</target>

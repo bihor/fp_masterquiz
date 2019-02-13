@@ -102,6 +102,24 @@
 					</config>
 				</TCEforms>
 		  </settings.showAnswersAtFinalPage>
+          <settings.showOwnAnswers>
+				<TCEforms>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showOwnAnswers</label>
+	                <config>
+						<type>radio</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								<numIndex index="1">1</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+		  </settings.showOwnAnswers>
           <settings.showCorrectAnswers>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showCorrectAnswers</label>
@@ -120,6 +138,24 @@
 					</config>
 				</TCEforms>
 		  </settings.showCorrectAnswers>
+          <settings.showAllAnswers>
+				<TCEforms>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showAllAnswers</label>
+	                <config>
+						<type>radio</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								<numIndex index="1">1</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+		  </settings.showAllAnswers>
           <settings.showPoints>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showPoints</label>
