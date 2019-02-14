@@ -320,12 +320,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		// Alle Ergebnisse nicht nur das eigene anzeigen
     		if ($this->settings['showAllAnswers'] == 1) {
     		    $allResults = [];
+    		    $ownResults = [];
     		    $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
     		    // alle Fragen durchgehen, die der User beantwortet hat:
     		    foreach ($this->participant->getSelections() as $selection) {
     		        $oneQuestion = $selection->getQuestion();
     		        $questionID = $oneQuestion->getUid();
     		        $allResults[$questionID] = [];
+    		        $ownResults[$questionID] = [];
     		        // User-Antworten einer bestimmten Frage:
     		        $allAnsweredQuestions = $selectedRepository->findByQuestion($questionID);
     		        // alle Ergebnisse durchgehen:
@@ -333,14 +335,22 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		            // alle Antworten auf diese Frage:
     		            foreach ($allAnswers->getAnswers() as $oneAnswer) {
     		                if ($this->settings['debug']) {
-    		                  $debug .= "\n" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
+    		                  $debug .= "\n all:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
     		                }
     		                $allResults[$questionID][$oneAnswer->getUid()]++;
     		            }
     		        }
-    		        // gesammeltes speichern
+    		        // eigene Ergebnisse durchgehen
+    		        foreach ($selection->getAnswers() as $oneAnswer) {
+    		          if ($this->settings['debug']) {
+    		             $debug .= "\n own:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
+    		          }
+    		          $ownResults[$questionID][$oneAnswer->getUid()]++;
+    		        }
+    		        // gesammeltes speichern bei: alle möglichen Antworten einer Frage
     		        foreach ($oneQuestion->getAnswers() as $oneAnswer) {
     		            $oneAnswer->setAllAnswers(intval($allResults[$questionID][$oneAnswer->getUid()]));
+    		            $oneAnswer->setOwnAnswer (intval($ownResults[$questionID][$oneAnswer->getUid()]));
     		        }
     		    }
     		}
