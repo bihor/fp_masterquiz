@@ -18,3 +18,5 @@ ChangeLog
 0.2.2: Bug with points fixed. settings.showCorrectAnswers and settings.showPoints is new.
 
 0.3.0: Now optimized for Bootstrap 4. New settings: showAnswersAtFinalPage and template.*
+
+0.4.0: Now polls possible, because all submited results are avaiable. New settings: showOwnAnswers, showAllAnswers, templateLayout...
