@@ -15,6 +15,9 @@
 			<trans-unit id="template.show">
 				<source>Shown one selected quiz (save the plugin! | you need to select the storage folder too)</source>
 			</trans-unit>
+			<trans-unit id="templateLayout">
+				<source>Template layout (see manual):</source>
+			</trans-unit>
 			<trans-unit id="settings.startPageUid">
 				<source>Start page of a quiz:</source>
 			</trans-unit>

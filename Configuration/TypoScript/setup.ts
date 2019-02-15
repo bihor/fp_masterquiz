@@ -57,8 +57,11 @@ plugin.tx_fpmasterquiz {
 			wrapQuestionTitle2 = </h4></div>
 			wrapQuestionDesc1 = <div class="mx-auto">
 			wrapQuestionDesc2 = </div>
+			wrapDone1 = <h4>
+			wrapDone2 = </h4>
 		}
-		overrideFlexformSettingsIfEmpty = startPageUid,defaultQuizUid,pagebrowser.itemsPerPage
+		templateLayout =
+		overrideFlexformSettingsIfEmpty = startPageUid,defaultQuizUid,templateLayout,pagebrowser.itemsPerPage
 		debug = 0
 		typeNum = {$plugin.tx_fpmasterquiz.settings.typeNum}
 	}

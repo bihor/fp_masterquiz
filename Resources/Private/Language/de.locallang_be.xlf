@@ -15,6 +15,9 @@
 			<trans-unit id="template.show">
 				<target>Ein bestimmtes Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
+			<trans-unit id="templateLayout">
+				<target>Template-Layout (siehe Doku):</target>
+			</trans-unit>
 			<trans-unit id="settings.startPageUid">
 				<target>Startseite des Quiz:</target>
 			</trans-unit>

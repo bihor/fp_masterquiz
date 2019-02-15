@@ -1,0 +1,36 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+<div id="pollChart"></div>
+<script>
+	var options = {
+		//title: {
+		//	text: '{selection.question.title}',
+		//	align: 'left'
+		//},
+           chart: {
+               width: 492,
+               type: 'pie',
+           },
+           labels: [<f:for each="{selection.question.answers}" as="answer3" iteration="iter3">'{answer3.title}'<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>],
+           series: [<f:for each="{selection.question.answers}" as="answer3" iteration="iter3">{answer3.allAnswers}<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>],
+           responsive: [{
+               breakpoint: 480,
+               options: {
+                   chart: {
+                       width: 200
+                   },
+                   legend: {
+                       position: 'bottom'
+                   }
+               }
+           }]
+       }
+
+       var chart = new ApexCharts(
+           document.querySelector("#pollChart"),
+           options
+       );
+
+       chart.render();					    
+</script>
+</html>

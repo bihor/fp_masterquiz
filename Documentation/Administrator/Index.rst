@@ -51,6 +51,17 @@ User results
 FAQ
 ---
 
-- Are there any APIs or Hooks?
+- Are there any APIs?
 
   No.
+
+- How can I change the translations text? Here an TypoScript example:
+
+  ::
+
+     plugin.tx_fpmasterquiz._LOCAL_LANG.de.text.yourAnswers = Deine Abstimmung:
+     plugin.tx_fpmasterquiz._LOCAL_LANG.de.text.allAnswers = Bisherige Abstimmung:
+
+- How can I rename or hide some fields in the Backend?
+
+  See chapter “Configuration / Page TSConfig”.

@@ -285,6 +285,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$persistenceManager->persistAll();
     	}
     	$pages = intval(ceil($questions / $questionsPerPage));
+    	$debug .= "\nqs/qpn=" . $questions . '/' . $questionsPerPage . '=' . $pages;
     	$showAnswersNext = 0;
     	if ($page > $pages) {
     		// finale Auswertung ...

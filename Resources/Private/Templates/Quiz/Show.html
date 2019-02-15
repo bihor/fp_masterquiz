@@ -125,7 +125,10 @@
 				<f:if condition="{final} == 0">
 					<f:then>
 					
-						<p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
+						<f:if condition="{pages} != 1">
+							<p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
+						</f:if>
+						
 						<f:if condition="{showAnswers}">
 							<f:then>
 							

@@ -63,6 +63,9 @@ Properties
 	template.wrapQuestionTitle2 string      Wrap for the question title.                   </h4></div>
 	template.wrapQuestionDesc1  string      Wrap for the question description.             <div class="mx-auto">
 	template.wrapQuestionDesc2  string      Wrap for the question description.             </div>
+	template.wrapDone1          string      Wrap for the done-msg at the final page.       <h4>
+	template.wrapDone2          string      Wrap for the done-msg at the final page.       </h4>
+	templateLayout              integer     See in chapter PageTSconfig.
 	overrideFlexformSettings... string      Fields that should be overwritten if empty.    startPageUid,...
 	debug                       boolean     Show debug data at the page.                   0
 	typeNum                     integer     Type of the AJAX-call. Don´t change it.        190675
@@ -122,6 +125,25 @@ showAnswerPage
 No answer page will be shown after every submit.
 
 
+.. _Poll:
+
+Poll
+""""
+
+With this TypoScript you can configure a simple poll with a pie chart as result::
+
+  plugin.tx_fpmasterquiz.persistence.storagePid = 279
+  plugin.tx_fpmasterquiz.settings.startPageUid = 279
+  plugin.tx_fpmasterquiz.settings.defaultQuizUid = 9
+  plugin.tx_fpmasterquiz.settings.showAnswerPage = 0
+  plugin.tx_fpmasterquiz.settings.showAnswersAtFinalPage = 1
+  plugin.tx_fpmasterquiz.settings.showCorrectAnswers = 0
+  plugin.tx_fpmasterquiz.settings.showAllAnswers = 1
+  plugin.tx_fpmasterquiz.settings.showPoints = 0
+  plugin.tx_fpmasterquiz.settings.templateLayout = 1
+  plugin.tx_fpmasterquiz.settings.template.wrapDone1 = <div class="hidden">
+  plugin.tx_fpmasterquiz.settings.template.wrapDone2 = </div>
+
 .. _configuration-faq:
 
 FAQ
@@ -130,3 +152,11 @@ FAQ
 - What about the evaluation of a quiz?
 
   This can be configured at every quiz.
+
+
+.. toctree::
+   :maxdepth: 5
+   :titlesonly:
+   :glob:
+
+   PageTSconfig/Index

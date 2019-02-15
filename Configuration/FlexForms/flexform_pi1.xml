@@ -26,6 +26,21 @@
           </config>
           </TCEforms>
           </switchableControllerActions>
+          <settings.templateLayout>
+				<TCEforms>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:templateLayout</label>
+					<config>
+						<type>select</type>
+						<itemsProcFunc>Fixpunkt\FpMasterquiz\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
+						<items>
+							<numIndex index="0" type="array">
+								<numIndex index="0"></numIndex>
+								<numIndex index="1"></numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+			</settings.templateLayout>
           <settings.startPageUid>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.startPageUid</label>
