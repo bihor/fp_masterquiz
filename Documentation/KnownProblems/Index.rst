@@ -18,6 +18,8 @@ Currently this is only a beta release!
 
 Please note:
 
-- the AJAX-version of the quiz works only if you set
+- the AJAX-version of the quiz/poll works only if the cHash-check is disabled by TypoScript:
+  plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0 
+  This is set by default. Or if you disable the cHash-check globally: 
   $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false
-  in the install tool!
+  in the install tool.

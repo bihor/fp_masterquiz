@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 0.3.6
+version 0.3.7
 
 TYPO3 extension to create a quiz or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -12,4 +12,4 @@ Features: a quiz or test can be played by submitting a form or by submitting an 
 
 You find the documentation at typo3.org: https://docs.typo3.org/typo3cms/extensions/fp_masterquiz/
 
-Last feature: show all answers.
+Last feature: show all answers and own answer at the final page.

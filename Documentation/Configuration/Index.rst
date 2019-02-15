@@ -74,7 +74,11 @@ AJAX*) If you enable AJAX, you should know this:
 
   - **Configure the quiz only by TypoScript**.
 
-  - The AJAX-call calls an normal action and not an eID-script. The cHash-check must therefore be disabled in the install tool.
+  - The AJAX-call calls an normal action and not an eID-script. Therefore it is necessary to set this TypoScript: 
+    plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0 
+    This is set by default. You can change the value to 1, if you do not use the AJAX-version.
+    If it is still not working, you can disable the cHash-check in the install tool: 
+    [FE][pageNotFoundOnCHashError] = false
 
 
 Examples:

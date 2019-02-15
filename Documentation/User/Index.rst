@@ -24,11 +24,7 @@ After you have created a quiz with some questions you can add the plugin at a pa
 
   - **Configure the quiz only by TypoScript, if you use the AJAX-version**.
 
-  - The AJAX-call calls an normal action and not an eID-script. The cHash-check must therefore be disabled if you use AJAX.
-
-.. tip::
-
-   Disable AJAX, if there is an unknown error.
+  - The AJAX-call calls an normal action and not an eID-script. The cHash-check must be disabled (this is set by default) if you use AJAX.
 
 .. tip::
 
@@ -64,3 +60,7 @@ FAQ
 - I need some features from myquizpoll. What can I do?
 
   You can tell me, which feature you need.
+  
+- There are some errors or I get a blank page. What can I do?
+
+  If you use AJAX: disable it or read the Administration-manual. You can try this TypoScript too: config.contentObjectExceptionHandler = 0

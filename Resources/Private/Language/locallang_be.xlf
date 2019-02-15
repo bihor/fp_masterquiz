@@ -43,7 +43,7 @@
 				<source>Show the possible/reached points?</source>
 			</trans-unit>
 			<trans-unit id="settings.ajax">
-				<source>Enable AJAX-version? Important 1: all FlexForm-settings will be ignored then. Important 2: works only with pageNotFoundOnCHashError=0.</source>
+				<source>Enable AJAX-version? Important: all FlexForm-settings will be ignored then.</source>
 			</trans-unit>
 			<trans-unit id="settings.no">
 				<source>no</source>

@@ -165,6 +165,9 @@
 			<trans-unit id="text.choices">
 				<target>mal ausgewählt</target>
 			</trans-unit>
+			<trans-unit id="text.myChoice">
+				<target>meine Antwort</target>
+			</trans-unit>
 			<trans-unit id="text.pointsQuestion">
 				<target>Punkte für diese Frage:</target>
 			</trans-unit>

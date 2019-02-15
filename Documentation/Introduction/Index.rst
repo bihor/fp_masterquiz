@@ -17,7 +17,7 @@ Introduction
 What does it do?
 ----------------
 
-An extension that offers Quiz, Tests and Polls (maybe - not yet).
+An extension that offers Quiz, Tests and Polls. You can configure, which results should be shown. An evaluation is possible too.
 Currently it is only an beta release. Please give me feedback.
 
 Avaiable languages: english and german.
@@ -35,7 +35,7 @@ More screenshots will follow in the next versions.
    :width: 400px
    :alt: A basic quiz
 
-   This screenshot shows a basic quiz, but not only simple quizzes are possible!
+   This screenshot shows a basic quiz.
 
 Thanks to the
 -------------

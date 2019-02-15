@@ -42,7 +42,7 @@
 							<f:if condition="{settings.allowHtml} == 1"><f:then>{answer3.title -> f:format.raw()}</f:then><f:else>{answer3.title -> f:format.nl2br()}</f:else></f:if>
 							<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points")})</f:if>
 							({answer3.allAnswers} {f:translate(key: "text.choices")})
-							<f:if condition="{answer3.ownAnswers} > 0">(my choice)</f:if>
+							<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>
 						</li>
 					</f:for>
 					</ul>

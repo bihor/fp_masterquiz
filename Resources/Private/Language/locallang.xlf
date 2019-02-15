@@ -168,6 +168,9 @@
 			<trans-unit id="text.choices">
 				<source>choices</source>
 			</trans-unit>
+			<trans-unit id="text.myChoice">
+				<source>my choice</source>
+			</trans-unit>
 			<trans-unit id="text.pointsQuestion">
 				<source>Your points for this question:</source>
 			</trans-unit>
