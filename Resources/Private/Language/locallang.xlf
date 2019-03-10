@@ -150,6 +150,9 @@
 			<trans-unit id="text.page">
 				<source>Page</source>
 			</trans-unit>
+			<trans-unit id="text.question">
+				<source>Question</source>
+			</trans-unit>
 			<trans-unit id="text.of">
 				<source>of</source>
 			</trans-unit>

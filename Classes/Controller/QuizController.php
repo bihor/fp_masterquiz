@@ -400,6 +400,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('pages', $pages);
         $this->view->assign('pagesInclFinalPage', ($pages+1));
         $this->view->assign('questions', $data['questions']);
+        $this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
         $this->view->assign('final', $data['final']);
         $this->view->assign('finalContent', $data['finalContent']);
         $this->view->assign('showAnswers', $data['showAnswers']);
@@ -440,6 +441,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->view->assign('pages', $pages);
     		$this->view->assign('pagesInclFinalPage', ($pages+1));
     		$this->view->assign('questions', $data['questions']);
+    		$this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
     		$this->view->assign('final', $data['final']);
     		$this->view->assign('finalContent', $data['finalContent']);
     		$this->view->assign('showAnswers', $data['showAnswers']);

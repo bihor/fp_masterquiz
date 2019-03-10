@@ -147,6 +147,9 @@
 			<trans-unit id="text.page">
 				<target>Seite</target>
 			</trans-unit>
+			<trans-unit id="text.question">
+				<target>Frage</target>
+			</trans-unit>
 			<trans-unit id="text.of">
 				<target>von</target>
 			</trans-unit>

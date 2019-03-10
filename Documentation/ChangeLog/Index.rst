@@ -20,3 +20,5 @@ ChangeLog
 0.3.0: Now optimized for Bootstrap 4. New settings: showAnswersAtFinalPage and template.*
 
 0.4.0: Now polls possible, because all submited results are avaiable. New settings: showOwnAnswers, showAllAnswers, templateLayout...
+
+0.4.1: New settings: showPageNo and showQuestionNo.

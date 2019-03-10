@@ -96,7 +96,7 @@ class ImportQuizTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 		    '*',
 		    'tx_myquizpoll_question',
-		    'deleted=0 AND hidden=0 AND t3ver_oid=0 AND pid=' . $pid . ' AND sys_language_uid=' . $syslanguid,
+		    'deleted=0 AND hidden=0 AND t3ver_oid=0 AND pid=' . $pid . ' AND sys_language_uid IN (' . $syslanguid . ',-1)',
 		    '',
 		    'sorting ASC'
 		);
@@ -106,7 +106,7 @@ class ImportQuizTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		   }
 		}
 		$GLOBALS['TYPO3_DB']->sql_free_result($res);
-		
+        
 		if ( count($selectedArray) > 0 ) {
 			$nr=0;
 			$fields_values = array();

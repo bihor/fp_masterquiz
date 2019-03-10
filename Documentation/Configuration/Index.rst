@@ -41,6 +41,8 @@ Properties
 	showCorrectAnswers          boolean     Show the correct answers?                      1
 	showAllAnswers              boolean     Show finally all answers (no. of choices)?     0
 	showPoints                  boolean     Show the possible/reached points?              1
+	showPageNo                  boolean     Show the page number / number of pages?        1
+	showQuestionNo              boolean     Show the question no. / no. of questions?      0
 	allowHtml                   boolean     Allow HTML at question-answers from the BE?    0
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
 	user.ipSave                 boolean     Save the IP-address of a user?                 1
@@ -76,7 +78,8 @@ AJAX*) If you enable AJAX, you should know this:
   - The FlexForms will be ignored, because the AJAX-call does not know the plugin.
 
   - **Configure the quiz only by TypoScript**.
-
+    You need to set the persistence.storagePid too!
+    
   - The AJAX-call calls an normal action and not an eID-script. Therefore it is necessary to set this TypoScript: 
     plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0 
     This is set by default. You can change the value to 1, if you do not use the AJAX-version.
