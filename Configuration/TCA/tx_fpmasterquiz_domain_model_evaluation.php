@@ -157,12 +157,6 @@ return [
 				'size' => '1',
 				'maxitems' => '1',
 				'minitems' => '0',
-				'show_thumbs' => '0',
-				'wizards' => [
-						'suggest' => [
-								'type' => 'suggest',
-						],
-				],
 			],
         ],
         'page' => [
@@ -175,12 +169,6 @@ return [
 				'size' => '1',
 				'maxitems' => '1',
 				'minitems' => '0',
-				'show_thumbs' => '0',
-				'wizards' => [
-						'suggest' => [
-								'type' => 'suggest',
-						],
-				],
 			],
         ],
     
