@@ -25,6 +25,7 @@
  * modified 2019 by Kurt Gusbeth
 */
 namespace Fixpunkt\FpMasterquiz\Hooks;
+use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 
 /**
  * Userfunc: Individuelles...
@@ -42,28 +43,26 @@ class ItemsProcFunc {
 	 * @return void
 	 */
 	public function user_templateLayout(array &$config) {
-		$row = $this->getContentElementRow($config['row']['uid']);
-		// $pid = $config['row']['pid']; geht nicht mehr
+		$row = BackendUtilityCore::getRecord('tt_content', $config['row']['uid']);
 		$pid = $row['pid'];
 		$templateLayoutsUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Utility\\TemplateLayout');
 		$templateLayouts = $templateLayoutsUtility->getAvailableTemplateLayouts($pid);
 		foreach ($templateLayouts as $layout) {
-			$additionalLayout = array(
-				$GLOBALS['LANG']->sL($layout[0], TRUE),
+			$additionalLayout = [
+				htmlspecialchars($this->getLanguageService()->sL($layout[0])),
 				$layout[1]
-			);
+			];
 			array_push($config['items'], $additionalLayout);
 		}
 	}
-
+	
 	/**
-	 * Get tt_content record
+	 * Returns LanguageService
 	 *
-	 * @param int $uid
-	 * @return array
+	 * @return \TYPO3\CMS\Lang\LanguageService
 	 */
-	protected function getContentElementRow($uid)
+	protected function getLanguageService()
 	{
-	    return \TYPO3\CMS\Backend\Utility\BackendUtility::getRecord('tt_content', $uid);
+		return $GLOBALS['LANG'];
 	}
 }
