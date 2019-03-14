@@ -18,3 +18,20 @@ plugin.tx_fpmasterquiz {
         typeNum = 190675
     }
 }
+
+module.tx_fpmasterquiz_mod1 {
+    view {
+        # cat=module.tx_fpmasterquiz_mod1/file; type=string; label=Path to template root (BE)
+        templateRootPath = EXT:fp_masterquiz/Resources/Private/Backend/Templates/
+        # cat=module.tx_fpmasterquiz_mod1/file; type=string; label=Path to template partials (BE)
+        partialRootPath = EXT:fp_masterquiz/Resources/Private/Backend/Partials/
+        # cat=module.tx_fpmasterquiz_mod1/file; type=string; label=Path to template layouts (BE)
+        layoutRootPath = EXT:fp_masterquiz/Resources/Private/Backend/Layouts/
+    }
+    persistence {
+        # cat=module.tx_fpmasterquiz_mod1//a; type=string; label=Default storage PID
+        storagePid =
+    }
+}
+
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

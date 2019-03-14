@@ -1,0 +1,25 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="content">
+<h1>Listing for Quiz</h1>
+<f:flashMessages />
+
+<table  class="tx_fpmasterquiz" >
+	<tr>
+		<th><f:translate key="tx_fpmasterquiz_domain_model_quiz.name" /></th>
+		<th><f:translate key="tx_fpmasterquiz_domain_model_quiz.about" /></th>
+		<th> </th>
+		<th> </th>
+	</tr>
+
+	<f:for each="{quizzes}" as="quiz">
+		<tr>
+			<td><f:link.action action="show" arguments="{quiz : quiz}"> {quiz.name}</f:link.action></td>
+			<td><f:link.action action="show" arguments="{quiz : quiz}"> {quiz.about}</f:link.action></td>
+			<td><f:link.action action="edit" arguments="{quiz : quiz}">Edit</f:link.action></td>
+			<td><f:link.action action="delete" arguments="{quiz : quiz}">Delete</f:link.action></td>
+		</tr>
+		</f:for>
+</table>
+</f:section>
+</html>

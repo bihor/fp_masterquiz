@@ -1,0 +1,44 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<table class="tx-fp-masterquiz" >
+	<tr>
+		<td>
+			<f:translate key="tx_fpmasterquiz_domain_model_question.title" />
+		</td>
+		<td>
+			{question.title}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_fpmasterquiz_domain_model_question.qmode" />
+		</td>
+		<td>
+			{question.qmode}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_fpmasterquiz_domain_model_question.image" />
+		</td>
+		<td>
+			{question.image.originalResource.name}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_fpmasterquiz_domain_model_question.bodytext" />
+		</td>
+		<td>
+			{question.bodytext}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<f:translate key="tx_fpmasterquiz_domain_model_question.explanation" />
+		</td>
+		<td>
+			{question.explanation}
+		</td>
+	</tr>
+</table>
+</html>

@@ -41,7 +41,7 @@
 
 overwriteSettings:
   Classes:
-    Controller: merge
+    Controller: keep
     Domain:
       Model: merge
       Repository: merge

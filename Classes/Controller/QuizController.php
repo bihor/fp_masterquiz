@@ -11,7 +11,7 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
+ *  (c) 2019 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
  *
  ***/
 
@@ -482,5 +482,16 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         	$ip = substr($ip, 0, $pos) . '0';
         }
         return filter_var($ip, FILTER_VALIDATE_IP);
+    }
+    
+    /**
+     * Action for the backend
+     *
+     * @return 	void
+     */
+    function indexAction()
+    {
+    	$quizzes = $this->quizRepository->findAll();
+    	$this->view->assign('quizzes', $quizzes);
     }
 }

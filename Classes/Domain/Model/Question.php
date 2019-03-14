@@ -8,7 +8,7 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2018 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
+ *  (c) 2019 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
  *
  ***/
 
@@ -62,7 +62,29 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @lazy
      */
     protected $answers = null;
-
+    
+    /**
+     * __construct
+     */
+    public function __construct()
+    {
+    	//Do not remove the next line: It would break the functionality
+    	$this->initStorageObjects();
+    }
+    
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+    	$this->answers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+    
     /**
      * Returns the title
      *
@@ -145,28 +167,6 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
     {
         $this->image = $image;
-    }
-
-    /**
-     * __construct
-     */
-    public function __construct()
-    {
-        //Do not remove the next line: It would break the functionality
-        $this->initStorageObjects();
-    }
-
-    /**
-     * Initializes all ObjectStorage properties
-     * Do not modify this method!
-     * It will be rewritten on each save in the extension builder
-     * You may modify the constructor of this class instead
-     *
-     * @return void
-     */
-    protected function initStorageObjects()
-    {
-        $this->answers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
 
     /**

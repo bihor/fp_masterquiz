@@ -11,6 +11,26 @@ call_user_func(
             'Master-Quiz'
         );
 
+        if (TYPO3_MODE === 'BE') {
+
+            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+                'Fixpunkt.FpMasterquiz',
+                'web', // Make module a submodule of 'web'
+                'mod1', // Submodule key
+                '', // Position
+                [
+                    'Quiz' => 'index',
+                    
+                ],
+                [
+                    'access' => 'user,group',
+                    'icon'   => 'EXT:fp_masterquiz/ext_icon.gif',
+                    'labels' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf',
+                ]
+            );
+
+        }
+
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('fp_masterquiz', 'Configuration/TypoScript', 'Master-Quiz');
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_fpmasterquiz_domain_model_quiz', 'EXT:fp_masterquiz/Resources/Private/Language/locallang_csh_tx_fpmasterquiz_domain_model_quiz.xlf');
@@ -33,4 +53,3 @@ call_user_func(
 
     }
 );
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

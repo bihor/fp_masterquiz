@@ -69,6 +69,23 @@ plugin.tx_fpmasterquiz {
 	}
 }
 
+# Module configuration
+module.tx_fpmasterquiz_web_fpmasterquizmod1 {
+    persistence {
+        storagePid = {$module.tx_fpmasterquiz_mod1.persistence.storagePid}
+    }
+    view {
+        templateRootPaths.0 = EXT:fp_masterquiz/Resources/Private/Backend/Templates/
+        templateRootPaths.1 = {$module.tx_fpmasterquiz_mod1.view.templateRootPath}
+        partialRootPaths.0 = EXT:fp_masterquiz/Resources/Private/Backend/Partials/
+        partialRootPaths.1 = {$module.tx_fpmasterquiz_mod1.view.partialRootPath}
+        layoutRootPaths.0 = EXT:fp_masterquiz/Resources/Private/Backend/Layouts/
+        layoutRootPaths.1 = {$module.tx_fpmasterquiz_mod1.view.layoutRootPath}
+    }
+}
+
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
+
 # PAGE object for Ajax call:
 ajaxfpmasterquiz_page = PAGE
 ajaxfpmasterquiz_page {
