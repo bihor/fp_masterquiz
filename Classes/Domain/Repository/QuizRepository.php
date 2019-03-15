@@ -23,4 +23,21 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     protected $defaultOrderings = [
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     ];
+    
+    
+    /**
+     * Fetches entries of a folder.
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findFromPid($pageId) {
+    	$query = $this->createQuery();
+    	$query->getQuerySettings()->setRespectStoragePage(FALSE);
+    	$query->setOrderings([
+    		'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    	]);
+    	$query->matching($query->equals('pid', $pageId));
+    	return $query->execute();
+    }
+    
 }

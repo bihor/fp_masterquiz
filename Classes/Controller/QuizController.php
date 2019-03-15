@@ -485,13 +485,41 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
     
     /**
-     * Action for the backend
+     * Action list for the backend
      *
      * @return 	void
      */
     function indexAction()
     {
-    	$quizzes = $this->quizRepository->findAll();
+    	$pid = (int)GeneralUtility::_GP('id');
+    	$quizzes = $this->quizRepository->findFromPid($pid);
+    	$this->view->assign('pid', $pid);
     	$this->view->assign('quizzes', $quizzes);
+    }
+    
+    /**
+     * action show for the backend
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @return void
+     */
+    public function detailAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    {
+    	$this->view->assign('quiz', $quiz);
+    	if ($this->request->hasArgument('prop')) {
+    		$this->view->assign('prop', $this->request->getArgument('prop'));
+    	} else {
+    		$this->view->assign('prop', 0);
+    	}
+    	if ($this->request->hasArgument('user')) {
+    		$this->view->assign('user', $this->request->getArgument('user'));
+    	} else {
+    		$this->view->assign('user', 0);
+    	}
+    	if ($this->request->hasArgument('chart')) {
+    		$this->view->assign('chart', $this->request->getArgument('chart'));
+    	} else {
+    		$this->view->assign('chart', 0);
+    	}
     }
 }

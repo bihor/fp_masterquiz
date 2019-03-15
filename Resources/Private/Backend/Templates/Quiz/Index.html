@@ -1,25 +1,32 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
 <f:section name="content">
-<h1>Listing for Quiz</h1>
+<h1><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:mod.list" default="Listing for" /> {pid}</h1>
 <f:flashMessages />
-
+<f:if condition="{quizzes -> f:count()} > 0">
+<f:then>
 <table  class="tx_fpmasterquiz" >
 	<tr>
-		<th><f:translate key="tx_fpmasterquiz_domain_model_quiz.name" /></th>
-		<th><f:translate key="tx_fpmasterquiz_domain_model_quiz.about" /></th>
-		<th> </th>
-		<th> </th>
+		<th><f:translate key="tx_fpmasterquiz_domain_model_quiz.name" /></th><th>&nbsp;</th>
+		<th><f:translate key="tx_fpmasterquiz_domain_model_quiz.about" /></th><th>&nbsp;</th>
+		<th></th><th>&nbsp;</th>
+		<th></th><th>&nbsp;</th>
+		<th></th>
 	</tr>
-
 	<f:for each="{quizzes}" as="quiz">
 		<tr>
-			<td><f:link.action action="show" arguments="{quiz : quiz}"> {quiz.name}</f:link.action></td>
-			<td><f:link.action action="show" arguments="{quiz : quiz}"> {quiz.about}</f:link.action></td>
-			<td><f:link.action action="edit" arguments="{quiz : quiz}">Edit</f:link.action></td>
-			<td><f:link.action action="delete" arguments="{quiz : quiz}">Delete</f:link.action></td>
+			<td>{quiz.name}</td><td></td>
+			<td>{quiz.about}</td><td></td>
+			<td><f:link.action action="detail" arguments="{quiz : quiz, prop: 1}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:mod.detail-prop" /></f:link.action></td><td></td>
+			<td><f:link.action action="detail" arguments="{quiz : quiz, user: 1}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:mod.detail-user" /></f:link.action></td><td></td>
+			<td><f:link.action action="detail" arguments="{quiz : quiz, chart: 1}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:mod.detail-chart" /></f:link.action></td>
 		</tr>
-		</f:for>
+	</f:for>
 </table>
+</f:then>
+<f:else>
+  <p><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:mod.nothing" default="Nothing found." /></p>
+</f:else>
+</f:if>
 </f:section>
 </html>

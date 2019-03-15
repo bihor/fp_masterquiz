@@ -79,6 +79,25 @@
 			<trans-unit id="tasks.descriptionImports">
 				<source>Starts an simple import from a folder with myquizpoll-entries.</source>
 			</trans-unit>
+			
+			<trans-unit id="mod.list">
+				<source>Listing for the folder</source>
+			</trans-unit>
+			<trans-unit id="mod.nothing">
+				<source>No entries found...</source>
+			</trans-unit>
+			<trans-unit id="mod.detail-prop">
+				<source>Show quiz properties</source>
+			</trans-unit>
+			<trans-unit id="mod.detail-user">
+				<source>Show user results</source>
+			</trans-unit>
+			<trans-unit id="mod.detail-chart">
+				<source>Show a chart</source>
+			</trans-unit>
+			<trans-unit id="mod.back">
+				<source>Back to list</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

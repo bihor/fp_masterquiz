@@ -11,7 +11,7 @@
 Administrator Manual
 ====================
 
-Note: only the templates Quiz/List.html and Quiz/Show.html are in use!
+Note: only the templates Quiz/List.html, Quiz/Show.html and Quiz/ShowAjax.html are in use!
 Don´t remove classes or IDs that begin with quiz, because they are used to vaildate the form!
 
 
@@ -28,6 +28,10 @@ To install the extension, perform the following steps:
 #. Create a quiz... but read the user manual before.
 
 For a list of configuration options, go to the chapter Configuration.
+
+.. important::
+
+   If you are using TYPO3 9, then you will need the extension typo3db_legacy for the backend features too!
 
 
 .. _admin-configuration:

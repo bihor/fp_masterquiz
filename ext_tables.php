@@ -19,7 +19,7 @@ call_user_func(
                 'mod1', // Submodule key
                 '', // Position
                 [
-                    'Quiz' => 'index',
+                    'Quiz' => 'index,detail',
                     
                 ],
                 [
