@@ -79,25 +79,6 @@
 			<trans-unit id="tasks.description">
 				<target>Importiert myquizpoll-Einträge eines ausgewählten Ordners.</target>
 			</trans-unit>
-			
-			<trans-unit id="mod.list">
-				<target>Liste der Quizze des Ordner</target>
-			</trans-unit>
-			<trans-unit id="mod.nothing">
-				<target>Es wurden keine Einträge gefunden!</target>
-			</trans-unit>
-			<trans-unit id="mod.detail-prop">
-				<target>Zeige Quiz-Details</target>
-			</trans-unit>
-			<trans-unit id="mod.detail-user">
-				<target>Zeige Benutzer-Details</target>
-			</trans-unit>
-			<trans-unit id="mod.detail-chart">
-				<target>Zeige Charts an</target>
-			</trans-unit>
-			<trans-unit id="mod.back">
-				<target>Zurück zur Übersicht</target>
-			</trans-unit>
 		</body>
 	</file>
 </xliff>
