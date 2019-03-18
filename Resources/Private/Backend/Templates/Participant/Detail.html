@@ -1,0 +1,35 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+  <f:layout name="Default" />
+  <f:section name="content">
+    <h1>{participant.name}</h1>
+    <f:flashMessages />
+    <div class="table-responsive">
+	<table class="table">
+		<tr>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.email" /></th>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.homepage" /></th>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.user" /></th>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.ip" /></th>
+			<!-- th><f:translate key="tx_fpmasterquiz_domain_model_participant.session" /></th -->
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.points" /></th>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.maximum1" /></th>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.maximum2" /></th>
+			<th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:quiz" /></th>
+		</tr>
+		<tr>
+			<td>{participant.email}</td>
+			<td>{participant.homepage}</td>
+			<td>{participant.user}</td>
+			<td>{participant.ip}</td>
+			<!-- td>{participant.session}</td -->
+			<td>{participant.points}</td>
+			<td>{participant.maximum1}</td>
+			<td>{participant.maximum2}</td>
+			<td>{participant.quiz.name}</td>
+		</tr>
+	</table>
+	</div>
+    <f:render partial="Selected/Properties" arguments="{selections:participant.selections}" />
+    <p><f:link.action action="list"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:back" default="Back to list" /></f:link.action></p>
+  </f:section>
+</html>

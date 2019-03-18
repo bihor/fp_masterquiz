@@ -3,9 +3,7 @@
   <f:section name="content">
     <h1>{quiz.name}</h1>
     <f:flashMessages />
-    <f:if condition="{prop} == 1">
-	    <f:render partial="Quiz/Properties" arguments="{quiz:quiz}" />
-    </f:if>
+    <f:render partial="Quiz/Properties" arguments="{quiz:quiz}" />
     <p><f:link.action action="index"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:back" default="Back to list" /></f:link.action></p>
   </f:section>
 </html>

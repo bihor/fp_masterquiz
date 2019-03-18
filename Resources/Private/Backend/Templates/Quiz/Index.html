@@ -10,17 +10,13 @@
 	<tr>
 		<th><f:translate key="tx_fpmasterquiz_domain_model_quiz.name" /></th>
 		<th><f:translate key="tx_fpmasterquiz_domain_model_quiz.about" /></th>
-		<th>Link 1</th>
-		<th>Link 2</th>
-		<th>Link 3</th>
+		<th>Link</th>
 	</tr>
 	<f:for each="{quizzes}" as="quiz">
 		<tr>
 			<td>{quiz.name}</td>
 			<td>{quiz.about}</td>
-			<td><f:link.action action="detail" arguments="{quiz : quiz, prop: 1}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-prop" /></f:link.action></td>
-			<td><f:link.action action="detail" arguments="{quiz : quiz, user: 1}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-user" /></f:link.action></td>
-			<td><f:link.action action="detail" arguments="{quiz : quiz, chart: 1}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-chart" /></f:link.action></td>
+			<td><f:link.action action="detail" arguments="{quiz : quiz}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-prop" /></f:link.action></td>
 		</tr>
 	</f:for>
 </table>

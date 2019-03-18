@@ -1,6 +1,8 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Controller;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /***
  *
  * This file is part of the "Master-Quiz" Extension for TYPO3 CMS.
@@ -32,7 +34,20 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function listAction()
     {
-        $participants = $this->participantRepository->findAll();
+        $pid = (int)GeneralUtility::_GP('id');
+        $participants = $this->participantRepository->findFromPid($pid);
+        $this->view->assign('pid', $pid);
         $this->view->assign('participants', $participants);
+    }
+    
+    /**
+     * action detail
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
+     * @return void
+     */
+    public function detailAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant)
+    {
+        $this->view->assign('participant', $participant);
     }
 }

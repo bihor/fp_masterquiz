@@ -6,7 +6,10 @@
 					<div class="left">
 						<f:be.buttons.csh />
 						<f:be.menus.actionMenu>
-							<f:be.menus.actionMenuItem label="Overview" controller="Quiz" action="index" />
+							<f:be.menus.actionMenuItem label="---" controller="Quiz" action="index" />
+							<f:be.menus.actionMenuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.quiz')}" controller="Quiz" action="index" />
+							<f:be.menus.actionMenuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.participant')}" controller="Participant" action="list" />
+							<f:be.menus.actionMenuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.charts')}" controller="Participant" action="charts" />
 						</f:be.menus.actionMenu>
 					</div>
 					<div class="right">
@@ -16,13 +19,11 @@
 				</div>
 				<div class="typo3-docheader-buttons">
 					<div class="left">
-
 					</div>
 					<div class="right">
 						<f:be.buttons.shortcut />
 					</div>
 				</div>
-
 			</div>
 			<div id="typo3-docbody">
 				<div id="typo3-inner-docbody">

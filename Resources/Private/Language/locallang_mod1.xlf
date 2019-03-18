@@ -10,8 +10,17 @@
 				<source>Evaluations of quiz/poll/test</source>
 			</trans-unit>
 			
+			<trans-unit id="index.quiz">
+				<source>Listing of quizzes</source>
+			</trans-unit>
+			<trans-unit id="index.participant">
+				<source>Listing of participants</source>
+			</trans-unit>
+			<trans-unit id="index.charts">
+				<source>Charts</source>
+			</trans-unit>
 			<trans-unit id="list">
-				<source>Listing for the folder</source>
+				<source>Listing of quizzes for the folder</source>
 			</trans-unit>
 			<trans-unit id="nothing">
 				<source>No entries found...</source>
@@ -25,6 +34,9 @@
 			<trans-unit id="detail-chart">
 				<source>Show a chart</source>
 			</trans-unit>
+			<trans-unit id="quiz">
+				<source>Quiz</source>
+			</trans-unit>
 			<trans-unit id="questions">
 				<source>Questions</source>
 			</trans-unit>
@@ -33,6 +45,9 @@
 			</trans-unit>
 			<trans-unit id="back">
 				<source>Back to list</source>
+			</trans-unit>
+			<trans-unit id="list-participants">
+				<source>Listing of participants for the folder</source>
 			</trans-unit>
 		</body>
 	</file>

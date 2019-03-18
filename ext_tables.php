@@ -20,6 +20,7 @@ call_user_func(
                 '', // Position
                 [
                     'Quiz' => 'index,detail',
+                    'Participant' => 'list,detail',
                     
                 ],
                 [

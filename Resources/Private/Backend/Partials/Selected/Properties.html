@@ -1,0 +1,55 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<div class="table-responsive">
+<table class="table">
+	<tr>
+		<th>
+			<f:translate key="tx_fpmasterquiz_domain_model_question.title" />
+		</th>
+		<th>
+			<f:translate key="tx_fpmasterquiz_domain_model_question.bodytext" />
+		</th>
+		<th>
+			<f:translate key="tx_fpmasterquiz_domain_model_question.qmode" />
+		</th>
+		<th>
+			<f:translate key="tx_fpmasterquiz_domain_model_selected.points" />
+		</th>
+		<th>
+			<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:answers" default="Answers" />
+		</th>
+	</tr>
+  <f:for each="{selections}" as="selection">
+	<tr>
+		<td>
+			{selection.question.title}
+		</td>
+		<td>
+			<f:format.html>{selection.question.bodytext}</f:format.html>
+		</td>
+		<td>
+			<f:switch expression="{selection.question.qmode}">
+				<f:case value="0">
+					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.0" />
+				</f:case>
+				<f:case value="1">
+					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.1" />
+				</f:case>
+				<f:case value="2">
+					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.2" />
+				</f:case>
+				<f:defaultCase>NOT yet supported</f:defaultCase>
+			</f:switch>
+		</td>
+		<td>
+			{selection.points} / {selection.question.maximum1}
+		</td>
+		<td><div class="table-responsive"><table class="table">
+			<f:for each="{selection.answers}" as="answer">
+				<tr><td>{answer.title}</td><td><div class="pull-right">({answer.points})</div></td></tr>
+			</f:for>
+		</table></div></td>
+	</tr>
+  </f:for>
+</table>
+</div>
+</html>

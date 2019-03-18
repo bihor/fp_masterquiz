@@ -10,6 +10,15 @@
 				<target>Auswertung eines Quiz/Umfrage/Test</target>
 			</trans-unit>
 			
+			<trans-unit id="index.quiz">
+				<target>Liste der Quizze</target>
+			</trans-unit>
+			<trans-unit id="index.participant">
+				<target>Liste der Quiz-Teilnehmer</target>
+			</trans-unit>
+			<trans-unit id="index.charts">
+				<target>Charts</target>
+			</trans-unit>
 			<trans-unit id="list">
 				<target>Liste der Quizze des Ordner</target>
 			</trans-unit>
@@ -25,6 +34,9 @@
 			<trans-unit id="detail-chart">
 				<target>Zeige Charts an</target>
 			</trans-unit>
+			<trans-unit id="quiz">
+				<target>Quiz</target>
+			</trans-unit>
 			<trans-unit id="questions">
 				<target>Fragen</target>
 			</trans-unit>
@@ -33,6 +45,9 @@
 			</trans-unit>
 			<trans-unit id="back">
 				<target>Zurück zur Übersicht</target>
+			</trans-unit>
+			<trans-unit id="list-participants">
+				<target>Liste der Quiz-Teilnehmer des Ordner</target>
 			</trans-unit>
 		</body>
 	</file>
