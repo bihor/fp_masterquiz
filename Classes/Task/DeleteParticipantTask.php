@@ -1,6 +1,11 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Task;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
+
 class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 
 	/**
@@ -61,11 +66,47 @@ class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		$successfullyExecuted = TRUE;
 		$pid = (int) $this->getPage();			// folder with participant elements
 		$days = (int) $this->getDays();			// number of days
+		$now = time();
 		$past = time() - ($days * 24 * 60 * 60);
-		$where = 'pid=' . $pid . ' AND crdate<' . $past;
-		$selectedArray = [];
+		$participantArray = [];
+		//$where = 'pid=' . $pid . ' AND crdate<' . $past;
 		
-		// select all participant elements of one folder
+		// select all participant elements of one folder, denn es gibt irgendwie kein delete cascade
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_participant');
+		$statement = $queryBuilder
+		   ->select('uid')
+		   ->from('tx_fpmasterquiz_domain_model_participant')
+		   ->where(
+		   		$queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT))
+		   	)
+		   	->andWhere(
+		   		$queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, \PDO::PARAM_INT))
+	   		)
+		   ->execute();
+		while ($row = $statement->fetch()) {
+			$participantArray[] = $row['uid'];
+		}
+		foreach ($participantArray as $participantUid) {
+			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_selected');
+			$queryBuilder
+				->update('tx_fpmasterquiz_domain_model_selected')
+				->where(
+					$queryBuilder->expr()->eq('participant', $queryBuilder->createNamedParameter($participantUid, \PDO::PARAM_INT))
+				)
+				->set('deleted', '1')
+				->set('tstamp', $now)
+				->execute();
+			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_participant');
+			$queryBuilder
+				->update('tx_fpmasterquiz_domain_model_participant')
+				->where(
+					$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($participantUid, \PDO::PARAM_INT))
+				)
+				->set('deleted', '1')
+				->set('tstamp', $now)
+				->execute();
+		}
+		/* alt:
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 				'uid',
 				'tx_fpmasterquiz_domain_model_selected',
@@ -84,6 +125,7 @@ class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		}
 		$GLOBALS['TYPO3_DB']->exec_DELETEquery( 'tx_fpmasterquiz_domain_model_selected', $where );
 		$GLOBALS['TYPO3_DB']->exec_DELETEquery( 'tx_fpmasterquiz_domain_model_participant', $where );
+		*/
 		return $successfullyExecuted;
 	}
 }

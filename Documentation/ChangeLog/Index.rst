@@ -21,4 +21,4 @@ ChangeLog
 
 0.4.0: Now polls possible, because all submited results are avaiable. New settings: showOwnAnswers, showAllAnswers, templateLayout...
 
-0.4.1: New settings: showPageNo and showQuestionNo.
+0.5.0: Now for TYPO3 8 and 9. Backend module added. Deletion-task changed: delete-flag instead of real deletion. New settings: showPageNo and showQuestionNo.

@@ -18,7 +18,7 @@ What does it do?
 ----------------
 
 An extension that offers Quiz, Tests and Polls. You can configure, which results should be shown. An evaluation is possible too.
-Currently it is only an beta release. Please give me feedback.
+Automatic deletion of quiz takers via task possible.
 
 Avaiable languages: english and german.
 
