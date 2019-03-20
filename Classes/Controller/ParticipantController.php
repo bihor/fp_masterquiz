@@ -50,4 +50,19 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     {
         $this->view->assign('participant', $participant);
     }
+    
+    /**
+     * action delete
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
+     * @return void
+     */
+    public function deleteAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant)
+    {
+    	if ($participant->getUid() > 0) {
+    		$this->addFlashMessage($participant->getName() . ' deleted.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
+    		$this->participantRepository->remove($participant);
+    	}
+    	$this->redirect('list');
+    }
 }

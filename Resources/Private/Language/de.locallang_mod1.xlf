@@ -43,6 +43,12 @@
 			<trans-unit id="answers">
 				<target>Antworten</target>
 			</trans-unit>
+			<trans-unit id="user">
+				<target>Teilnehmer</target>
+			</trans-unit>
+			<trans-unit id="delete-user">
+				<target>Diesen Teilnehmer-Eintrag löschen!</target>
+			</trans-unit>
 			<trans-unit id="back">
 				<target>Zurück zur Übersicht</target>
 			</trans-unit>

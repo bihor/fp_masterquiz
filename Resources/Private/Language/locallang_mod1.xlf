@@ -43,6 +43,12 @@
 			<trans-unit id="answers">
 				<source>Answers</source>
 			</trans-unit>
+			<trans-unit id="user">
+				<source>User</source>
+			</trans-unit>
+			<trans-unit id="delete-user">
+				<source>Delete this user-entry!</source>
+			</trans-unit>
 			<trans-unit id="back">
 				<source>Back to list</source>
 			</trans-unit>
