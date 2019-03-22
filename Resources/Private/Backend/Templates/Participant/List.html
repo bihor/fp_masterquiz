@@ -3,20 +3,24 @@
 <f:section name="content">
 <h1><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:list-participants" default="Listing for" /> {pid}</h1>
 <f:flashMessages />
-
-<div class="table-responsive">
-<table class="table">
-	<tr>
-		<th><f:translate key="tx_fpmasterquiz_domain_model_participant.name" /></th>
-		<th><f:translate key="tx_fpmasterquiz_domain_model_participant.email" /></th>
-		<th><f:translate key="tx_fpmasterquiz_domain_model_participant.homepage" /></th>
-		<th><f:translate key="tx_fpmasterquiz_domain_model_participant.user" /></th>
-		<th><f:translate key="tx_fpmasterquiz_domain_model_participant.points" /></th>
-		<th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:quiz" /></th>
-		<th>Link</th>
-	</tr>
-
-	<f:for each="{participants}" as="participant">
+<style>
+ul.f3-widget-paginator li { float: left; margin-left: 15px; }
+</style>
+<f:widget.paginate objects="{participants}" as="paginatedParticipants" configuration="{settings.pagebrowser}">
+	<f:for each="{paginatedParticipants}" as="participant" iteration="iter">
+	  <f:if condition="{iter.isFirst}">
+		<div class="table-responsive">
+		<table class="table">
+		<tr>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.name" /></th>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.email" /></th>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.homepage" /></th>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.user" /></th>
+			<th><f:translate key="tx_fpmasterquiz_domain_model_participant.points" /></th>
+			<th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:quiz" /></th>
+			<th>Link</th>
+		</tr>
+	  </f:if>
 		<tr>
 			<td>{participant.name}</td>
 			<td>{participant.email}</td>
@@ -26,8 +30,12 @@
 			<td>{participant.quiz.name}</td>
 			<td><f:link.action action="detail" arguments="{participant : participant}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-user" /></f:link.action></td>
 		</tr>
-		</f:for>
-</table>
-</div>
+	  <f:if condition="{iter.isLast}">
+		</table>
+		</div>
+	  </f:if>
+	</f:for>
+</f:widget.paginate>
+<p style="clear:both;"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:entries" />: {participants -> f:count()}.</p>
 </f:section>
 </html>

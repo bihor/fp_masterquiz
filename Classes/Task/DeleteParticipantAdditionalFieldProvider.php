@@ -2,6 +2,10 @@
 namespace Fixpunkt\FpMasterquiz\Task;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 
 class DeleteParticipantAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
 	
@@ -63,15 +67,23 @@ class DeleteParticipantAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\A
 	 */
 	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
 		$isValid = TRUE;
-		if ($res = $GLOBALS['TYPO3_DB']->exec_SELECTquery('*', 'pages', 'uid = ' . (int)$submittedData['fp_masterquiz']['page'])) {
-			if ($GLOBALS['TYPO3_DB']->sql_num_rows($res) == 0 && $submittedData['fp_masterquiz']['page'] > 0) {
+        if ($submittedData['fp_masterquiz']['page'] > 0) {
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
+            $count = $queryBuilder
+                ->count('uid')
+                ->from('pages')
+                ->where(
+                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter((int)$submittedData['fp_masterquiz']['page'], \PDO::PARAM_INT))
+                )
+                ->execute()
+                ->fetchColumn(0);
+			if ($count == 0) {
 				$isValid = FALSE;
 				$schedulerModule->addMessage(
 					$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidPage'),
 					\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
 				);
 			}
-			$GLOBALS['TYPO3_DB']->sql_free_result($res);
 		} else {
 			$isValid = FALSE;
 			$schedulerModule->addMessage(

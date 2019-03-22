@@ -93,7 +93,6 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Selected>
      * @cascade remove
-     * @lazy
      */
     protected $selections = null;
     

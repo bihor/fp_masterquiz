@@ -82,6 +82,14 @@ module.tx_fpmasterquiz_web_fpmasterquizmod1 {
         layoutRootPaths.0 = EXT:fp_masterquiz/Resources/Private/Backend/Layouts/
         layoutRootPaths.1 = {$module.tx_fpmasterquiz_mod1.view.layoutRootPath}
     }
+    settings {
+		pagebrowser {
+           itemsPerPage         = 25
+           insertAbove          = 0
+           insertBelow          = 1
+           maximumNumberOfLinks = 70
+		}
+    }
 }
 
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder

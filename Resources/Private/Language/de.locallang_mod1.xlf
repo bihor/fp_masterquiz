@@ -49,6 +49,9 @@
 			<trans-unit id="delete-user">
 				<target>Diesen Teilnehmer-Eintrag löschen!</target>
 			</trans-unit>
+			<trans-unit id="entries">
+				<target>Einträge</target>
+			</trans-unit>
 			<trans-unit id="back">
 				<target>Zurück zur Übersicht</target>
 			</trans-unit>

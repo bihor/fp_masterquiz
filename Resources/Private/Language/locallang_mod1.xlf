@@ -52,6 +52,9 @@
 			<trans-unit id="back">
 				<source>Back to list</source>
 			</trans-unit>
+			<trans-unit id="entries">
+				<source>Entries</source>
+			</trans-unit>
 			<trans-unit id="list-participants">
 				<source>Listing of participants for the folder</source>
 			</trans-unit>

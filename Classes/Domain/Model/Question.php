@@ -59,7 +59,6 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Answer>
      * @cascade remove
-     * @lazy
      */
     protected $answers = null;
     

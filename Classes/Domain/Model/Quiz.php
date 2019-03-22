@@ -37,7 +37,6 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Question>
      * @cascade remove
-     * @lazy
      */
     protected $questions = null;
 
@@ -46,7 +45,6 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Evaluation>
      * @cascade remove
-     * @lazy
      */
     protected $evaluations = null;
     
