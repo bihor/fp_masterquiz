@@ -27,13 +27,19 @@ class DeleteParticipantAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\A
 				$taskInfo['page'] = $task->getPage();
 			}
 		}
-
 		if (empty($taskInfo['days'])) {
 			if ($schedulerModule->CMD == 'add') {
 				$taskInfo['days'] = '0';
 			} else {
 				$taskInfo['days'] = $task->getDays();
 			}
+		}
+		if (empty($taskInfo['flag'])) {
+		    if ($schedulerModule->CMD == 'add') {
+		        $taskInfo['flag'] = 0;
+		    } else {
+		        $taskInfo['flag'] = $task->getFlag();
+		    }
 		}
 		
 		// Ordner
@@ -53,6 +59,16 @@ class DeleteParticipantAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\A
 		$additionalFields[$fieldId] = array(
 				'code' => $fieldCode,
 				'label' => $label
+		);
+		// flag or real delete?
+		$fieldId = 'task_flag';
+		$checked = ($taskInfo['flag']) ? ' checked="checked"' : '';
+		$fieldCode = '<input type="checkbox" name="tx_scheduler[fp_masterquiz][flag]" id="' . $fieldId . '" value="1"' . $checked . ' />';
+		$label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.flag');
+		$label = BackendUtility::wrapInHelp('fp_masterquiz', $fieldId, $label);
+		$additionalFields[$fieldId] = array(
+		    'code' => $fieldCode,
+		    'label' => $label
 		);
 		return $additionalFields;
 	}
@@ -113,5 +129,6 @@ class DeleteParticipantAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\A
 		/** @var $task ValidatorTask */
 		$task->setPage($submittedData['fp_masterquiz']['page']);
 		$task->setDays($submittedData['fp_masterquiz']['days']);
+		$task->setFlag($submittedData['fp_masterquiz']['flag']);
 	}
 }

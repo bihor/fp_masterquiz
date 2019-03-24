@@ -62,6 +62,10 @@ plugin.tx_fpmasterquiz {
 			wrapDone1 = <h4>
 			wrapDone2 = </h4>
 		}
+		chart {
+			type = pie
+			width = 492
+		}
 		templateLayout =
 		overrideFlexformSettingsIfEmpty = startPageUid,defaultQuizUid,templateLayout,pagebrowser.itemsPerPage
 		debug = 0

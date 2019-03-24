@@ -41,9 +41,7 @@ User results
 
 * Currently all user results will be saved in the database. No session is used yet, but that would be a nice feature.
 
-* User results can be deleted automatically. There is a task which can delete old user results (set the delete-flag). You find the task in the Scheduler.
-
-  For a real deletion: use the task from the TYPO3 core to erase deleted entries.
+* User results can be deleted automatically. There is a task which can delete old user/quiz-taker results. You find the task in the Scheduler.
 
 .. tip::
 

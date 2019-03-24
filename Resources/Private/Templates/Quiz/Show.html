@@ -18,6 +18,15 @@
 		    </ul>
 		  </f:if>
 		</f:form.validationResults>
+		<f:if condition="{settings.templateLayout} == 1">
+			<!-- charts-layout -->
+			<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+			<script>
+				var charttype = '{settings.chart.type}';
+				var chartwidth = parseInt({settings.chart.width});
+			</script>
+		</f:if>
+		
 		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
 		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
 		

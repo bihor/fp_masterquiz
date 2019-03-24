@@ -73,6 +73,9 @@
 			<trans-unit id="tasks.validate.invalidDays">
 				<target>Die Anzahl der Tage muss größer als 0 sein!</target>
 			</trans-unit>
+			<trans-unit id="tasks.validate.flag">
+				<target>Ankreuzen, wenn stattdessen nur das delete-Flag gesetzt werden soll. Achtung: der Recycler löscht keine mm-Relationen! Das ist ein TYPO3-Bug.</target>
+			</trans-unit>
 			<trans-unit id="tasks.titleImport">
 				<target>Import von myquizpoll-Quizes</target>
 			</trans-unit>

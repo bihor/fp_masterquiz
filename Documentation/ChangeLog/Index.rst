@@ -25,6 +25,6 @@ ChangeLog
   New settings: showOwnAnswers, showAllAnswers, templateLayout...
 
 0.5.0: Now for TYPO3 8 and 9. Backend module added. 
-  Deletion-task changed: delete-flag instead of real deletion.
+  Deletion-task changed: delete-flag and real deletion now possible.
   Lazy loading removed, because delete cascade does not work with lazy loading.
   New settings: showPageNo and showQuestionNo.

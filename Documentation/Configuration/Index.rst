@@ -67,7 +67,9 @@ Properties
 	template.wrapQuestionDesc2  string      Wrap for the question description.             </div>
 	template.wrapDone1          string      Wrap for the done-msg at the final page.       <h4>
 	template.wrapDone2          string      Wrap for the done-msg at the final page.       </h4>
-	templateLayout              integer     See in chapter PageTSconfig.
+	chart.type                  string      Currently only pie or chart.                   pie
+	chart.width                 integer     Width of the chart.                            492
+	templateLayout              integer     See in chapter PageTSconfig**.
 	overrideFlexformSettings... string      Fields that should be overwritten if empty.    startPageUid,...
 	debug                       boolean     Show debug data at the page.                   0
 	typeNum                     integer     Type of the AJAX-call. Don´t change it.        190675
@@ -85,6 +87,12 @@ AJAX*) If you enable AJAX, you should know this:
     This is set by default. You can change the value to 1, if you do not use the AJAX-version.
     If it is still not working, you can disable the cHash-check in the install tool: 
     [FE][pageNotFoundOnCHashError] = false
+
+Layout**) If you use template layout 1, you should know this:
+
+  - The charts settings will be ignored if you use another layout.
+
+  - The ApexCharts will be used automatically. More information: https://apexcharts.com/
 
 
 Examples:
