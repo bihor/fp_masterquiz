@@ -269,10 +269,12 @@ class CsvImportTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		
 		if ($delete && !$simulate) {
 			// erst löschen
+			/*
 			$res = $GLOBALS['TYPO3_DB']->exec_DELETEquery( 'tx_fpmasterquiz_domain_model_quiz', 'pid=' . $pid . ' AND sys_language_uid=' . $syslanguid );
 			$res = $GLOBALS['TYPO3_DB']->exec_DELETEquery( 'tx_fpmasterquiz_domain_model_question', 'pid=' . $pid . ' AND sys_language_uid=' . $syslanguid );
 			$res = $GLOBALS['TYPO3_DB']->exec_DELETEquery( 'tx_fpmasterquiz_domain_model_answer', 'pid=' . $pid . ' AND sys_language_uid=' . $syslanguid );
 			$res = $GLOBALS['TYPO3_DB']->exec_DELETEquery( 'tx_fpmasterquiz_domain_model_evaluation', 'pid=' . $pid . ' AND sys_language_uid=' . $syslanguid );
+			*/
 		}
 		
 		// Import
@@ -356,6 +358,7 @@ class CsvImportTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 			
 		}
 		if (!$simulate) {
+			/*
 			$success_insert = $GLOBALS['TYPO3_DB']->exec_INSERTquery('tx_fpmasterquiz_domain_model_question', $values);
 			if ($success_insert) {
 				$values['uid'] = $GLOBALS['TYPO3_DB']->sql_insert_id();
@@ -363,6 +366,7 @@ class CsvImportTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 				$values['uid'] = 0;
 				$success_global = FALSE;
 			}
+			*/
 		} else {
 			$values['uid'] = 0;
 		}

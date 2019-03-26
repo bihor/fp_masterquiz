@@ -67,6 +67,15 @@
 			<trans-unit id="tasks.validate.invalidPage">
 				<target>Diese Seite gibt es nicht!</target>
 			</trans-unit>
+			<trans-unit id="tasks.validate.language">
+				<target>Sprach-UID:</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.invalidLanguage">
+				<target>Diese Sprache gibt es nicht!</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.simulate">
+				<target>Nur simulieren?</target>
+			</trans-unit>
 			<trans-unit id="tasks.validate.days">
 				<target>Lösche Einträge älter als ... Tage:</target>
 			</trans-unit>

@@ -62,11 +62,12 @@ if (TYPO3_MODE === 'BE') {
 			'description' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.description',
 			'additionalFields' => 'Fixpunkt\\FpMasterquiz\\Task\\DeleteParticipantAdditionalFieldProvider'
 	);
-	// Add CSV-import task (sheduler)
+	// Add myquizpoll-import task (sheduler)
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Fixpunkt\\FpMasterquiz\\Task\\ImportQuizTask'] = array(
 			'extension' => 'fp_masterquiz',
 			'title' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.titleImport',
 			'description' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.descriptionImport',
 			'additionalFields' => 'Fixpunkt\\FpMasterquiz\\Task\\ImportQuizAdditionalFieldProvider'
 	);
+	// CSV-import task ist noch nicht fertig, kommt aber später hierhin
 }

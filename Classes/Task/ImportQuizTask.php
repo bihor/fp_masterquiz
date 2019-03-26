@@ -1,6 +1,11 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Task;
 
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
+use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
+
 class ImportQuizTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	
 	/**
@@ -93,6 +98,28 @@ class ImportQuizTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		// Import
 		$selectedArray = array();
 		// select all participant elements of one folder
+		/*
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_myquizpoll_question');
+		$statement = $queryBuilder
+			->select('*')
+			->from('tx_myquizpoll_question')
+			->where(
+				$queryBuilder->expr()->eq('deleted', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+			)
+			->andWhere(
+				$queryBuilder->expr()->eq('hidden', $queryBuilder->createNamedParameter(0, \PDO::PARAM_INT))
+			)
+			->andWhere(
+				$queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT))
+			)
+			->andWhere(
+				$queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($syslanguid, \PDO::PARAM_INT))
+			)
+			->execute();
+		while ($row = $statement->fetch()) {
+			$selectedArray[] = $row;
+		}
+		*/
 		$res = $GLOBALS['TYPO3_DB']->exec_SELECTquery(
 		    '*',
 		    'tx_myquizpoll_question',

@@ -76,6 +76,15 @@
 			<trans-unit id="tasks.validate.flag">
 				<source>Check this if only the delete-flag should be set. Attention: the recycler does not delete mm-relations! That is a TYPO3-bug.</source>
 			</trans-unit>
+			<trans-unit id="tasks.validate.language">
+				<source>Language-UID:</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.invalidLanguage">
+				<source>Invalid language uid, please enter a valid language uid!</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.simulate">
+				<source>Only simulation?</source>
+			</trans-unit>
 			<trans-unit id="tasks.titleImport">
 				<source>Import an myquizpoll-quiz</source>
 			</trans-unit>

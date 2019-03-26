@@ -31,7 +31,7 @@ For a list of configuration options, go to the chapter Configuration.
 
 .. important::
 
-   If you are using TYPO3 9, then you will need the extension typo3db_legacy for the backend features too!
+   If you are using TYPO3 9 and you want to import myquizpoll-questions, then you will need the extension typo3db_legacy too!
 
 
 .. _admin-configuration:
