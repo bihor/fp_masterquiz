@@ -62,10 +62,10 @@
 				<source>Deletes all old participants of a folder.</source>
 			</trans-unit>
 			<trans-unit id="tasks.validate.page">
-				<source>Page with participant-elements (pages UID):</source>
+				<source>Page with elements (pages UID):</source>
 			</trans-unit>
 			<trans-unit id="tasks.validate.invalidPage">
-				<source>Invalid pages uid, please enter a valid pages uid!</source>
+				<source>Invalid pages uid or the page is not visible!</source>
 			</trans-unit>
 			<trans-unit id="tasks.validate.days">
 				<source>Delete entries older than ... days:</source>

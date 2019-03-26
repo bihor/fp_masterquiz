@@ -62,10 +62,10 @@
 				<target>Lösche alle alten Teilnehmer eines ausgewählten Ordners.</target>
 			</trans-unit>
 			<trans-unit id="tasks.validate.page">
-				<target>Seite mit den Teilnehmern (Seiten-UID):</target>
+				<target>Seite mit den Einträgen (Seiten-UID):</target>
 			</trans-unit>
 			<trans-unit id="tasks.validate.invalidPage">
-				<target>Diese Seite gibt es nicht!</target>
+				<target>Diese Seite gibt es nicht oder sie ist nicht freigegeben!</target>
 			</trans-unit>
 			<trans-unit id="tasks.validate.language">
 				<target>Sprach-UID:</target>
