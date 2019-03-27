@@ -20,7 +20,7 @@
 			<td>{quiz.about}</td>
 			<td><f:link.action action="detail" arguments="{quiz : quiz}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-prop" /></f:link.action></td>
 			<td><f:link.action controller="Participant" action="list" arguments="{quiz : quiz.uid}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-user" /></f:link.action></td>
-			<td><f:link.action controller="Quiz" action="charts" arguments="{quiz : quiz, be : 1}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-chart" /></f:link.action></td>
+			<td><f:link.action action="charts" arguments="{quiz : quiz, be : 1}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-chart" /></f:link.action></td>
 		</tr>
 	</f:for>
 </table>

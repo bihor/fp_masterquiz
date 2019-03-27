@@ -29,13 +29,19 @@ You will find some examples on my homepage: `quizpalme.de <http://www.quizpalme.
 Screenshots
 -----------
 
-More screenshots will follow in the next versions.
+Here you find 2 examples and 2 more screenshots are in the user manual.
 
 .. figure:: ../Images/QuizExample.jpg
    :width: 400px
    :alt: A basic quiz
 
    This screenshot shows a basic quiz.
+
+.. figure:: ../Images/BackendExample.jpg
+   :width: 600px
+   :alt: A chart example
+
+   This screenshot shows a chart in the backend. Charts in the frontend are possible too.
 
 Thanks to the
 -------------

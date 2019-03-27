@@ -1,11 +1,9 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
   <f:layout name="Default" />
+  <f:comment>
+  Chart from https://speckyboy.com/code-snippets-css3-bar-graphs/
+  </f:comment>
   <f:section name="content">
-	<!-- script src="https://cdn.jsdelivr.net/npm/apexcharts"></script -->
-	<script>
-		var charttype = '{settings.chart.type}';
-		var chartwidth = parseInt({settings.chart.width});
-	</script>
 	<h1><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:charts-participants" default="Listing for" /> {pid}</h1>
     <h2>{quiz.name}</h2>
     <f:flashMessages />
