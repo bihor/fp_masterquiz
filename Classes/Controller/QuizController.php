@@ -540,21 +540,39 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$allResults = [];
     	$selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
     	foreach ($quiz->getQuestions() as $oneQuestion) {
-    		$questionID = $oneQuestion->getUid();
-    		$allAnsweredQuestions = $selectedRepository->findByQuestion($questionID);
+    	    $votes = 0;
+    	    $questionID = $oneQuestion->getUid();
+    	    if ($this->settings['debug']) {
+    	        $debug .= "\nquestion :" . $questionID;
+    	    }
+    	    if ($be) {
+    	        $allAnsweredQuestions = $selectedRepository->findFromPidAndQuestion($pid, $questionID);
+    	    } else {
+    	        $allAnsweredQuestions = $selectedRepository->findByQuestion($questionID);
+    	    }
     		// alle Ergebnisse durchgehen:
     		foreach ($allAnsweredQuestions as $allAnswers) {
     			// alle Antworten auf diese Frage:
     			foreach ($allAnswers->getAnswers() as $oneAnswer) {
     				if ($this->settings['debug']) {
-    					$debug .= "\n all:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
+    					$debug .= "\n all: " . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
     				}
     				$allResults[$questionID][$oneAnswer->getUid()]++;
     			}
     		}
     		// gesammeltes speichern bei: alle möglichen Antworten einer Frage
     		foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-    			$oneAnswer->setAllAnswers(intval($allResults[$questionID][$oneAnswer->getUid()]));
+    		    $thisVotes = intval($allResults[$questionID][$oneAnswer->getUid()]);
+    		    $votes += $thisVotes;
+    			$oneAnswer->setAllAnswers($thisVotes);
+    		}
+    		$oneQuestion->setAllAnswers($votes);
+    		// Prozentwerte setzen
+    		foreach ($oneQuestion->getAnswers() as $oneAnswer) {
+    		    if ($this->settings['debug']) {
+    		        $debug .= "\n percent: 100*" . $oneAnswer->getAllAnswers() . '/' . $votes;
+    		    }
+    		    $oneAnswer->setAllPercent( 100 * ($oneAnswer->getAllAnswers() / $votes) );
     		}
     	}
     	$this->view->assign('debug', $debug);

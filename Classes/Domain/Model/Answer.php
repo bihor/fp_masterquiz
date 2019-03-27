@@ -47,6 +47,13 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $allAnswers = 0;
     
     /**
+     * total percent of all users
+     *
+     * @var float
+     */
+    protected $allPercent = 0.0;
+    
+    /**
      * Returns the title
      *
      * @return string $title
@@ -120,7 +127,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
     
     /**
-     * Sets the points
+     * Sets the points/votes
      *
      * @param int $nr
      * @return void
@@ -128,5 +135,26 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setAllAnswers($nr)
     {
         $this->allAnswers = $nr;
+    }
+    
+    /**
+     * Returns percent of all answers
+     *
+     * @return string $allPercent
+     */
+    public function getAllPercent()
+    {
+        return number_format ( $this->allPercent, 2 );
+    }
+    
+    /**
+     * Sets the percent
+     *
+     * @param float $percent
+     * @return void
+     */
+    public function setAllPercent($percent)
+    {
+        $this->allPercent = $percent;
     }
 }

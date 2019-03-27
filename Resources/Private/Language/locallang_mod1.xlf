@@ -34,6 +34,9 @@
 			<trans-unit id="detail-chart">
 				<source>Show a chart</source>
 			</trans-unit>
+			<trans-unit id="votes">
+				<source>Votes</source>
+			</trans-unit>
 			<trans-unit id="quiz">
 				<source>Quiz</source>
 			</trans-unit>

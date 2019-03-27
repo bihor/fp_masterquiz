@@ -33,4 +33,26 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		$query->matching($query->equals('pid', $pageId));
 		return $query->execute();
 	}
+	
+	/**
+	 * Fetches entries of a folder and question.
+	 *
+	 * @param	integer	$pageId	Page-UID
+	 * @param	integer	$questionId	Question-UID
+	 * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+	 */
+	public function findFromPidAndQuestion($pageId, $questionId) {
+	    $query = $this->createQuery();
+	    $query->getQuerySettings()->setRespectStoragePage(FALSE);
+	    $query->setOrderings([
+	        'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+	    ]);
+	    $query->matching(
+	        $query->logicalAnd(
+	            $query->equals('pid', $pageId),
+	            $query->equals('question', $questionId)
+	        )
+	    );
+	    return $query->execute();
+	}
 }

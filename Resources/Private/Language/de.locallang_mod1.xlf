@@ -34,6 +34,9 @@
 			<trans-unit id="detail-chart">
 				<target>Zeige Charts an</target>
 			</trans-unit>
+			<trans-unit id="votes">
+				<target>Anzahl Abstimmungen</target>
+			</trans-unit>
 			<trans-unit id="quiz">
 				<target>Quiz</target>
 			</trans-unit>

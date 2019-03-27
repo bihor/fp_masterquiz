@@ -35,7 +35,7 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
     
     /**
-     * Fetches entries of a folder of a quiz.
+     * Fetches entries of a folder and quiz.
      *
      * @param	integer	$pageId	Page-UID
      * @param	integer	$quizId	Quiz-UID

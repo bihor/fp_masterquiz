@@ -63,6 +63,13 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $answers = null;
     
     /**
+     * total answers of all users
+     *
+     * @var int
+     */
+    protected $allAnswers = 0;
+    
+    /**
      * __construct
      */
     public function __construct()
@@ -258,5 +265,26 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             $maximum1 += $answer->getPoints();
         }
         return $maximum1;
+    }
+    
+    /**
+     * Returns no. of all answers/votes
+     *
+     * @return int $allAnswers
+     */
+    public function getAllAnswers()
+    {
+        return $this->allAnswers;
+    }
+    
+    /**
+     * Sets the points/votes/answers
+     *
+     * @param int $nr
+     * @return void
+     */
+    public function setAllAnswers($nr)
+    {
+        $this->allAnswers = $nr;
     }
 }

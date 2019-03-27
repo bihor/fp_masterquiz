@@ -97,6 +97,7 @@ module.tx_fpmasterquiz_web_fpmasterquizmod1 {
 			type = pie
 			width = 492
 		}
+		debug = 0
     }
 }
 
