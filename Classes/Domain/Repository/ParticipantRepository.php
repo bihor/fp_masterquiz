@@ -21,7 +21,8 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * Fetches entries of a folder.
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @param	integer	$pageId	Page-UID
+     * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findFromPid($pageId) {
         $query = $this->createQuery();
@@ -31,5 +32,27 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         ]);
         $query->matching($query->equals('pid', $pageId));
         return $query->execute();
+    }
+    
+    /**
+     * Fetches entries of a folder of a quiz.
+     *
+     * @param	integer	$pageId	Page-UID
+     * @param	integer	$quizId	Quiz-UID
+     * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findFromPidAndQuiz($pageId, $quizId) {
+    	$query = $this->createQuery();
+    	$query->getQuerySettings()->setRespectStoragePage(FALSE);
+    	$query->setOrderings([
+    		'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+    	]);
+    	$query->matching(
+    		$query->logicalAnd(
+    			$query->equals('pid', $pageId),
+    			$query->equals('quiz', $quizId)
+    		)
+    	);
+    	return $query->execute();
     }
 }

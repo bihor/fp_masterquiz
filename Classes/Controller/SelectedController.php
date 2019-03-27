@@ -32,7 +32,7 @@ class SelectedController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function listAction()
     {
-        $selecteds = $this->selectedRepository->findAll();
-        $this->view->assign('selecteds', $selecteds);
+		$selecteds = $this->selectedRepository->findAll();
+		$this->view->assign('selecteds', $selecteds);
     }
 }

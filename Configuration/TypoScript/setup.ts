@@ -93,6 +93,10 @@ module.tx_fpmasterquiz_web_fpmasterquizmod1 {
            insertBelow          = 1
            maximumNumberOfLinks = 70
 		}
+		chart {
+			type = pie
+			width = 492
+		}
     }
 }
 

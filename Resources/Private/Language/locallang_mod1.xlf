@@ -58,6 +58,9 @@
 			<trans-unit id="list-participants">
 				<source>Listing of participants for the folder</source>
 			</trans-unit>
+			<trans-unit id="charts-participants">
+				<source>Charts of participants for the folder</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

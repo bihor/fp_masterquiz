@@ -43,7 +43,7 @@
 					<p>{f:translate(key: "text.allAnswers")}</p>
 					<f:if condition="{settings.templateLayout} == 1">
 					<f:then>
-						<f:render partial="Question/Chart" arguments="{_all}" />
+						<f:render partial="Question/Chart" arguments="{settings:settings, question:selection.question}" />
 					</f:then>
 					<f:else>
 						<ul>

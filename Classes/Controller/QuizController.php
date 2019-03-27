@@ -407,7 +407,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('showAnswersNext', $data['showAnswersNext']);
         $this->view->assign("sysLanguageUid", $GLOBALS['TSFE']->sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
-        
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
        // $this->view->assign("action", ($this->settings['ajax']) ? 'showAjax' : 'show');
     }
@@ -522,4 +521,45 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->view->assign('chart', 0);
     	}
     }
+    
+    /**
+     * action charts for the backend
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @return void
+     */
+    public function chartsAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    {
+    	$be = $this->request->hasArgument('be') ? TRUE : FALSE;
+    	if ($be) {
+    		$pid = (int)GeneralUtility::_GP('id');
+    	} else {
+    		$pid = (int)$GLOBALS['TSFE']->id;
+    	}
+    	$debug = '';
+    	$allResults = [];
+    	$selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
+    	foreach ($quiz->getQuestions() as $oneQuestion) {
+    		$questionID = $oneQuestion->getUid();
+    		$allAnsweredQuestions = $selectedRepository->findByQuestion($questionID);
+    		// alle Ergebnisse durchgehen:
+    		foreach ($allAnsweredQuestions as $allAnswers) {
+    			// alle Antworten auf diese Frage:
+    			foreach ($allAnswers->getAnswers() as $oneAnswer) {
+    				if ($this->settings['debug']) {
+    					$debug .= "\n all:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
+    				}
+    				$allResults[$questionID][$oneAnswer->getUid()]++;
+    			}
+    		}
+    		// gesammeltes speichern bei: alle möglichen Antworten einer Frage
+    		foreach ($oneQuestion->getAnswers() as $oneAnswer) {
+    			$oneAnswer->setAllAnswers(intval($allResults[$questionID][$oneAnswer->getUid()]));
+    		}
+    	}
+    	$this->view->assign('debug', $debug);
+    	$this->view->assign('pid', $pid);
+    	$this->view->assign('quiz', $quiz);
+    }
+    
 }

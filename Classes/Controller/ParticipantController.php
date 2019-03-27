@@ -35,8 +35,14 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
     public function listAction()
     {
         $pid = (int)GeneralUtility::_GP('id');
-        $participants = $this->participantRepository->findFromPid($pid);
+        $qid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
+        if ($qid) {
+        	$participants = $this->participantRepository->findFromPidAndQuiz($pid, $qid);
+        } else {
+        	$participants = $this->participantRepository->findFromPid($pid);
+        }
         $this->view->assign('pid', $pid);
+        $this->view->assign('qid', $qid);
         $this->view->assign('participants', $participants);
     }
     

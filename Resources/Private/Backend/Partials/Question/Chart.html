@@ -3,10 +3,6 @@
 <script>
   <f:if condition="{settings.chart.type} == 'pie'"><f:then>
 	var options{question.uid} = {
-		//title: {
-		//	text: '{question.title}',
-		//	align: 'left'
-		//},
            chart: {
                width:	chartwidth,
                type:	charttype,
@@ -47,11 +43,14 @@
          }]
 	}
   </f:else></f:if>
-	
+  
+	  
 	var chart{question.uid} = new ApexCharts(
 	    document.querySelector("#pollChart{question.uid}"),
 	    options{question.uid}
 	);
-	chart{question.uid}.render();					    
+	chart{question.uid}.render();
+	
+  
 </script>
 </html>

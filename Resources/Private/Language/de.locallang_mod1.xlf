@@ -56,7 +56,10 @@
 				<target>Zurück zur Übersicht</target>
 			</trans-unit>
 			<trans-unit id="list-participants">
-				<target>Liste der Quiz-Teilnehmer des Ordner</target>
+				<target>Liste der Quiz/Umfrage-Teilnehmer des Ordner</target>
+			</trans-unit>
+			<trans-unit id="charts-participants">
+				<target>Charts der Quiz/Umfrage-Teilnehmer des Ordner</target>
 			</trans-unit>
 		</body>
 	</file>
