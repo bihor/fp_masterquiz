@@ -1,7 +1,7 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<div id="pollChart{question.uid}"></div>
+<div id="pollChart{question.uid}" class="apexchart apex-{settings.chart.type}"></div>
 <script>
-  <f:if condition="{settings.chart.type} == 'pie'"><f:then>
+  <f:if condition="{settings.chart.type} == 'pie' || {settings.chart.type} == 'donut'"><f:then>
 	var options{question.uid} = {
 		//title: {
 		//	text: '{question.title}',
@@ -11,13 +11,31 @@
                width:	chartwidth,
                type:	charttype,
            },
+           plotOptions: {
+       	    pie: {
+       	      donut: {
+       	        labels: {
+       	          show: ((charttype == 'donut') ? true : false),
+       	          total: {
+       	        	  show: true,
+       	        	  label: 'Total:'
+       	          }
+       	        }
+       	      }
+       	    }
+           },
            labels: [<f:for each="{question.answers}" as="answer3" iteration="iter3">'{answer3.title}'<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>],
            series: [<f:for each="{question.answers}" as="answer3" iteration="iter3">{answer3.allAnswers}<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>],
+           theme: {
+               monochrome: {
+                   enabled: false
+               }
+           },
            responsive: [{
-               breakpoint: 480,
+               breakpoint: 640,
                options: {
                    chart: {
-                       width: 200
+                       width: 320
                    },
                    legend: {
                        position: 'bottom'
