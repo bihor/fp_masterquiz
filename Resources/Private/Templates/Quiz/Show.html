@@ -43,6 +43,7 @@
 				<f:form.hidden name="participant" value="0" id="quiz-form-parti" />
 				<f:form.hidden name="currentPage" value="1" id="quiz-form-page" />
 				<f:form.hidden name="showAnswers" value="0" id="quiz-form-answers" />
+	            <f:form.hidden name="session" value="{session}" />
 	            
 	            <script>
 					var ceuid = '{uidOfCE}';
@@ -131,6 +132,8 @@
 				<f:form.hidden name="participant" value="{participant.uid}" />
 				<f:form.hidden name="@widget_0[currentPage]" value="{nextPage}" />
 				<f:form.hidden name="showAnswers" value="{showAnswersNext}" />
+				<f:form.hidden name="session" value="{session}" />
+				
 				<f:if condition="{final} == 0">
 					<f:then>
 					

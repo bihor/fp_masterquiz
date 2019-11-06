@@ -142,6 +142,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz) {
     	$saveIt = FALSE;
     	$newUser = FALSE;
+    	$reload = FALSE;
     	$pages = 0;
     	$questions = 0;
     	$maximum1 = 0;
@@ -149,6 +150,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$debug = '';
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
+    	$session = $this->request->hasArgument('session') ? $this->request->getArgument('session') : uniqid( mt_rand(1000,9999) );
     	if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
     		$participantUid = intval($this->request->getArgument('participant'));
     		$this->participant = $this->participantRepository->findOneByUid($participantUid);
@@ -177,34 +179,41 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$saveIt = TRUE;
     		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
     		if (!$this->participant->getUid()) {
-    			$defaultName = $this->settings['user']['defaultName'];
-    			$defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
-    			$defaultEmail = $this->settings['user']['defaultEmail'];
-    			$defaultHomepage = $this->settings['user']['defaultHomepage'];
-    			if ($this->settings['user']['askForData']) {
-    			    if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
-    			        $defaultName = $this->request->getArgument('name');
-        			}
-        			if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
-        			    $defaultEmail = $this->request->getArgument('email');
-        			}
-        			if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
-        			    $defaultHomepage = $this->request->getArgument('homepage');
-        			}
+    			$partBySes = $this->participantRepository->findOneBySession($session);
+    			if ($partBySes) {
+    				$this->participant = $partBySes;
+    				$reload = TRUE;
+    			} else {
+	    			$defaultName = $this->settings['user']['defaultName'];
+	    			$defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
+	    			$defaultEmail = $this->settings['user']['defaultEmail'];
+	    			$defaultHomepage = $this->settings['user']['defaultHomepage'];
+	    			if ($this->settings['user']['askForData']) {
+	    			    if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
+	    			        $defaultName = $this->request->getArgument('name');
+	        			}
+	        			if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
+	        			    $defaultEmail = $this->request->getArgument('email');
+	        			}
+	        			if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
+	        			    $defaultHomepage = $this->request->getArgument('homepage');
+	        			}
+	    			}
+	    			$this->participant->setName($defaultName);
+	    			$this->participant->setEmail($defaultEmail);
+	    			$this->participant->setHomepage($defaultHomepage);
+	    			$this->participant->setUser(intval($GLOBALS['TSFE']->fe_user->user['uid']));
+	    			$this->participant->setIp($this->getRealIpAddr());
+	    			$this->participant->setSession($session);
+	    			$this->participant->setQuiz($quiz);
+	    			$this->participant->setMaximum2($quiz->getMaximum2());
+	    			$this->participantRepository->add($this->participant);
+	    			$persistenceManager->persistAll();
+	    			$newUser = TRUE;
     			}
-    			$this->participant->setName($defaultName);
-    			$this->participant->setEmail($defaultEmail);
-    			$this->participant->setHomepage($defaultHomepage);
-    			$this->participant->setUser(intval($GLOBALS['TSFE']->fe_user->user['uid']));
-    			$this->participant->setIp($this->getRealIpAddr());
-    			$this->participant->setQuiz($quiz);
-    			$this->participant->setMaximum2($quiz->getMaximum2());
-    			$this->participantRepository->add($this->participant);
-    			$persistenceManager->persistAll();
-    			$newUser = TRUE;
     		}
     	}
-    	if ($saveIt) {
+    	if ($saveIt && !$reload) {
     		// cycle throgh all questions after a submit
     		foreach ($quiz->getQuestions() as $question) {
     			$quid = $question->getUid();
@@ -363,15 +372,16 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     	}
     	$data = [
-    			'page' => $page,
-    			'pages' => $pages,
-    			'nextPage' => $nextPage,
-    			'questions' => $questions,
-    			'final' => $final,
-    			'finalContent' => $finalContent,
-    			'showAnswers' => $showAnswers,
-    			'showAnswersNext' => $showAnswersNext,
-    			'debug' => $debug
+   			'page' => $page,
+   			'pages' => $pages,
+   			'nextPage' => $nextPage,
+   			'questions' => $questions,
+   			'final' => $final,
+   			'finalContent' => $finalContent,
+   			'showAnswers' => $showAnswers,
+   			'showAnswersNext' => $showAnswersNext,
+    		'session' => $session,
+   			'debug' => $debug
     	];
     	return $data;
     }
@@ -403,6 +413,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
         $this->view->assign('final', $data['final']);
         $this->view->assign('finalContent', $data['finalContent']);
+        $this->view->assign('session', $data['session']);
         $this->view->assign('showAnswers', $data['showAnswers']);
         $this->view->assign('showAnswersNext', $data['showAnswersNext']);
         $this->view->assign("sysLanguageUid", $GLOBALS['TSFE']->sys_language_uid);
@@ -443,6 +454,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
     		$this->view->assign('final', $data['final']);
     		$this->view->assign('finalContent', $data['finalContent']);
+    		$this->view->assign('session', $data['session']);
     		$this->view->assign('showAnswers', $data['showAnswers']);
     		$this->view->assign('showAnswersNext', $data['showAnswersNext']);
     		$this->view->assign("sysLanguageUid", $GLOBALS['TSFE']->sys_language_uid);
