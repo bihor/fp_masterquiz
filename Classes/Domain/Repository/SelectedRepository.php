@@ -55,4 +55,26 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	    );
 	    return $query->execute();
 	}
+	
+	/**
+	 * Fetches no. of a participant and question.
+	 *
+	 * @param	integer	$participantId	Participant-UID
+	 * @param	integer	$questionId		Question-UID
+	 * @return	integer
+	 */
+	public function countByParticipantAndQuestion($participantId, $questionId) {
+		$query = $this->createQuery();
+		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->setOrderings([
+			'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+		]);
+		$query->matching(
+			$query->logicalAnd(
+				$query->equals('participant', $participantId),
+				$query->equals('question', $questionId)
+			)
+		);
+		return $query->execute()->count();
+	}
 }

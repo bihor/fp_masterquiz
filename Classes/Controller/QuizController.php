@@ -43,7 +43,15 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @inject
      */
     protected $participantRepository = null;
-
+    
+    /**
+     * selectedRepository
+     *
+     * @var \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository
+     * @inject
+     */
+    protected $selectedRepository = null;
+    
     /**
      * participant
      *
@@ -143,6 +151,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$saveIt = FALSE;
     	$newUser = FALSE;
     	$reload = FALSE;
+    	$partBySes = NULL;
     	$pages = 0;
     	$questions = 0;
     	$maximum1 = 0;
@@ -150,7 +159,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$debug = '';
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
-    	$session = $this->request->hasArgument('session') ? $this->request->getArgument('session') : uniqid( mt_rand(1000,9999) );
+    	if ($this->request->hasArgument('session')) {
+    		$session = $this->request->getArgument('session');
+    	} else {
+    		$session = uniqid( mt_rand(1000,9999) );
+    		$newUser = TRUE;
+    	}
     	if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
     		$participantUid = intval($this->request->getArgument('participant'));
     		$this->participant = $this->participantRepository->findOneByUid($participantUid);
@@ -179,10 +193,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$saveIt = TRUE;
     		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
     		if (!$this->participant->getUid()) {
-    			$partBySes = $this->participantRepository->findOneBySession($session);
+    			if (!$newUser) {
+    				$partBySes = $this->participantRepository->findOneBySession($session);
+    			}
     			if ($partBySes) {
     				$this->participant = $partBySes;
-    				$reload = TRUE;
+    				$reload = TRUE;		// Reload nach absenden von Seite 1 detektiert
     			} else {
 	    			$defaultName = $this->settings['user']['defaultName'];
 	    			$defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
@@ -228,62 +244,70 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			}
     			if ($isActive) {	
     				// Auswertung der abgesendeten Fragen
-    				$debug .= ' OK ';
-    				$qmode = $question->getQmode();
-    				// selected/answered question
-    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
-    				$selected->setQuestion($question);
-    				switch ($qmode) {
-    					case 0:
-    						foreach ($question->getAnswers() as $answer) {
-    							$auid = $answer->getUid();
-    							if ($this->request->hasArgument('answer_' . $quid . '_' . $auid) && $this->request->getArgument('answer_' . $quid . '_' . $auid)) {
-    								$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid . '_' . $auid));
-    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
-    							} else if ($_POST['answer_' . $quid . '_' . $auid]) {
-    								$selectedAnswerUid = intval($_POST['answer_' . $quid . '_' . $auid]);
-    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
-    							} else {
-    								$selectedAnswerUid = 0;
-    							}
-    							if ($selectedAnswerUid) {
-    								$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-    								$selected->addAnswer($selectedAnswer);
-    								$newPoints = $selectedAnswer->getPoints();
-    								if ($newPoints != 0) {
-    								    $selected->addPoints($newPoints);
-	    								$this->participant->addPoints($newPoints);
-	    								$debug .= '+' .$newPoints . 'P ';
-	    							}
-    							}
-    							$maximum1 += $answer->getPoints();
-    						}
-    						break;
-    					case 1:
-    					case 2:
-    						if ($this->request->hasArgument('answer_' . $quid) && $this->request->getArgument('answer_' . $quid)) {
-    							$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid));
-    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
-    						} else if ($_POST['answer_' . $quid]) {
-    							$selectedAnswerUid = intval($_POST['answer_' . $quid]);
-    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
-    						} else {
-    							$selectedAnswerUid = 0;
-    						}
-    						if ($selectedAnswerUid) {
-    							$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-    							$selected->addAnswer($selectedAnswer);
-    							$newPoints = $selectedAnswer->getPoints();
-    							if ($newPoints != 0) {
-    							    $selected->addPoints($newPoints);
-    							    $this->participant->addPoints($newPoints);
-    							    $debug .= '+' .$newPoints . 'P ';
-    							}
-    						}
-    						$maximum1 += $question->getMaximum1();
-    						break;
+    				if (!$newUser) {
+    					// zuerst prüfen, ob dieser Eintrag schon existiert (z.B. durch Reload)
+    					$vorhanden = $this->selectedRepository->countByParticipantAndQuestion($this->participant->getUid(), $quid);
     				}
-    				$this->participant->addSelection($selected);
+    				if ($vorhanden > 0) {
+    					$debug .= ' reload! ';
+    				} else {
+	    				$debug .= ' OK ';
+	    				// selected/answered question
+	    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
+	    				$selected->setQuestion($question);
+	    				$qmode = $question->getQmode();
+	    				switch ($qmode) {
+	    					case 0:
+	    						foreach ($question->getAnswers() as $answer) {
+	    							$auid = $answer->getUid();
+	    							if ($this->request->hasArgument('answer_' . $quid . '_' . $auid) && $this->request->getArgument('answer_' . $quid . '_' . $auid)) {
+	    								$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid . '_' . $auid));
+	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
+	    							} else if ($_POST['answer_' . $quid . '_' . $auid]) {
+	    								$selectedAnswerUid = intval($_POST['answer_' . $quid . '_' . $auid]);
+	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
+	    							} else {
+	    								$selectedAnswerUid = 0;
+	    							}
+	    							if ($selectedAnswerUid) {
+	    								$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
+	    								$selected->addAnswer($selectedAnswer);
+	    								$newPoints = $selectedAnswer->getPoints();
+	    								if ($newPoints != 0) {
+	    								    $selected->addPoints($newPoints);
+		    								$this->participant->addPoints($newPoints);
+		    								$debug .= '+' .$newPoints . 'P ';
+		    							}
+	    							}
+	    							$maximum1 += $answer->getPoints();
+	    						}
+	    						break;
+	    					case 1:
+	    					case 2:
+	    						if ($this->request->hasArgument('answer_' . $quid) && $this->request->getArgument('answer_' . $quid)) {
+	    							$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid));
+	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
+	    						} else if ($_POST['answer_' . $quid]) {
+	    							$selectedAnswerUid = intval($_POST['answer_' . $quid]);
+	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
+	    						} else {
+	    							$selectedAnswerUid = 0;
+	    						}
+	    						if ($selectedAnswerUid) {
+	    							$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
+	    							$selected->addAnswer($selectedAnswer);
+	    							$newPoints = $selectedAnswer->getPoints();
+	    							if ($newPoints != 0) {
+	    							    $selected->addPoints($newPoints);
+	    							    $this->participant->addPoints($newPoints);
+	    							    $debug .= '+' .$newPoints . 'P ';
+	    							}
+	    						}
+	    						$maximum1 += $question->getMaximum1();
+	    						break;
+	    				}
+	    				$this->participant->addSelection($selected);
+    				}
     			}
     		}
     		// Update the participant result
