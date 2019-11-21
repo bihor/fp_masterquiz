@@ -162,14 +162,31 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	if ($this->request->hasArgument('session')) {
     		$session = $this->request->getArgument('session');
     	} else {
-    		$session = uniqid( mt_rand(1000,9999) );
-    		$newUser = TRUE;
+    		if (intval($this->settings['user']['useCookie']) != 0) {
+    			$session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $quiz->getUid());
+    		}
+    		if ($session) {
+    			$this->participant = $this->participantRepository->findOneBySession($session);
+    			if ($this->settings['debug'])
+	    			$debug .= "\nsession from cookie: " . $session . '; and the participant-uid of that session: ' . $this->participant->getUid();
+    		} else {
+    			$session = uniqid( mt_rand(1000,9999) );
+    			$newUser = TRUE;
+    		}
+    	}
+    	if (intval($this->settings['user']['useCookie']) != 0) {
+    		// Store the session in a cookie
+    		$GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quiz->getUid(), $session);
+    		$GLOBALS["TSFE"]->storeSessionData();
     	}
     	if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
     		$participantUid = intval($this->request->getArgument('participant'));
     		$this->participant = $this->participantRepository->findOneByUid($participantUid);
     	} else {
-    		$this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
+    		if (!$this->participant) {
+    			$this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
+    			if ($this->settings['debug']) $debug .= "\ncreating new participant.";
+    		}
     	}
     	$page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
     	if (is_array($page)) {
@@ -230,7 +247,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     	}
     	if ($saveIt && !$reload) {
-    		// cycle throgh all questions after a submit
+    		// cycle through all questions after a submit
     		foreach ($quiz->getQuestions() as $question) {
     			$quid = $question->getUid();
     			$debug .= "\n#" . $quid . '#: ';

@@ -37,6 +37,7 @@ plugin.tx_fpmasterquiz {
 		user {
 			ipSave = 1
 			ipAnonymous = 1
+			useCookie = 0
 			askForData = 0
 			defaultName = default {TIME}
 			defaultEmail =
