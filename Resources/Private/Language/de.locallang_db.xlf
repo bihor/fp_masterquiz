@@ -105,6 +105,9 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.maximum2">
 				<target>Maximale Punkte für dieses Quiz</target>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.page">
+				<target>Erreichte Seite</target>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.quiz">
 				<target>Quiz/Test</target>
 			</trans-unit>

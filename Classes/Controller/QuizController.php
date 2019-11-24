@@ -157,13 +157,17 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$maximum1 = 0;
     	$finalContent = '';
     	$debug = '';
+    	$questionUid = $quiz->getUid();
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
     	if ($this->request->hasArgument('session')) {
     		$session = $this->request->getArgument('session');
     	} else {
-    		if (intval($this->settings['user']['useCookie']) != 0) {
-    			$session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $quiz->getUid());
+    		// keine Session gefunden... und jetzt Cookie checken?
+    		if (intval($this->settings['user']['useCookie']) == -1) {
+    			$session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $questionUid);
+    		} else if ((intval($this->settings['user']['useCookie']) > 0) && isset($_COOKIE['qsession' . $questionUid])) {
+    			$session = $_COOKIE['qsession' . $questionUid];
     		}
     		if ($session) {
     			$this->participant = $this->participantRepository->findOneBySession($session);
@@ -174,10 +178,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			$newUser = TRUE;
     		}
     	}
-    	if (intval($this->settings['user']['useCookie']) != 0) {
+    	if (intval($this->settings['user']['useCookie']) == -1) {
     		// Store the session in a cookie
-    		$GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quiz->getUid(), $session);
+    		$GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $questionUid, $session);
     		$GLOBALS["TSFE"]->storeSessionData();
+    	} else if (intval($this->settings['user']['useCookie']) > 0) {
+    		setcookie('qsession' . $questionUid, $session, time()+(3600*24*intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
     	}
     	if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
     		$participantUid = intval($this->request->getArgument('participant'));
@@ -194,6 +200,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	} else {
     		$page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
     	}
+    	$reachedPage = $this->participant->getPage();
+    	if ($reachedPage >= $page) {
+    		// beantwortete Seiten soll man nicht nochmal beantworten können
+    		$showAnswers = TRUE;
+    	}
     	if (!$questionsPerPage) {
     		$questionsPerPage = 1;
     	}
@@ -204,10 +215,18 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	} else {
     		$nextPage = $page + 1;
     	}
+    	if ($showAnswers) {
+    		$lastPage = $page;
+    	} else {
+    		$lastPage = $page -1;
+    	}
     	$questions = count($quiz->getQuestions());
-    	if ($showAnswers || !$showAnswerPage && $page > 1) {
+    	if ($showAnswers || (!$showAnswerPage && $page > 1)) {
     		// Antworten sollen ausgewertet und gespeichert werden
-    		$saveIt = TRUE;
+    		if ($reachedPage < $page) {
+    			// nur nicht beantwortete Seiten speichern
+    			$saveIt = TRUE;
+    		}
     		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
     		if (!$this->participant->getUid()) {
     			if (!$newUser) {
@@ -331,11 +350,15 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		if ($maximum1 > 0) {
     			$this->participant->addMaximum1($maximum1);
     		}
+    		$this->participant->setPage($lastPage);
     		$this->participantRepository->update($this->participant);
     		$persistenceManager->persistAll();
     	}
     	$pages = intval(ceil($questions / $questionsPerPage));
-    	$debug .= "\nqs/qpn=" . $questions . '/' . $questionsPerPage . '=' . $pages;
+    	if ($this->settings['debug']) {
+    		$debug .= "\nlast page: ".$lastPage.'; page: '.$page.'; reached page before: '.$reachedPage.'; next page: '.$nextPage.'; showAnsers: '.$showAnswers;
+    		$debug .= "\nqs/qpp=" . $questions . '/' . $questionsPerPage . '=' . $pages;
+    	}
     	$showAnswersNext = 0;
     	if ($page > $pages) {
     		// finale Auswertung ...

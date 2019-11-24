@@ -79,7 +79,14 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $maximum2 = 0;
-
+    
+    /**
+     * Reached page
+     *
+     * @var int
+     */
+    protected $page = 0;
+    
     /**
      * Participated quiz
      *
@@ -369,7 +376,28 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->maximum2 = $maximum2;
     }
-
+    
+    /**
+     * Sets the page
+     *
+     * @param int $page
+     * @return void
+     */
+    public function setPage($page)
+    {
+    	$this->page = $page;
+    }
+    
+    /**
+     * Get the page
+     *
+     * @return int $page
+     */
+    public function getPage()
+    {
+    	return $this->page;
+    }
+    
     /**
      * Adds a Selected
      *

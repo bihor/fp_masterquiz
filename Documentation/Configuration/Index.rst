@@ -47,6 +47,7 @@ Properties
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
 	user.ipSave                 boolean     Save the IP-address of a user?                 1
 	user.ipAnonymous            boolean     Anonymize the IP-address?                      1
+	user.useCookie              integer     Save the session in a cookie too? See below.   0
 	user.askForData             boolean     Ask for user data at the first page of a quiz? 0
 	user.defaultName            string      Default user name ({TIME} will be replaced).   default {TIME}
 	user.defaultEmail           string      Default user email.
@@ -134,6 +135,19 @@ showAnswerPage
 :typoscript:`plugin.tx_fpmasterquiz.settings.showAnswerPage = 0`
 
 No answer page will be shown after every submit.
+
+
+.. _user.useCookie:
+
+user.useCookie
+""""""""""""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.user.useCookie = -1`
+
+A session can be stored in a cookie, so a user can continue later with a quiz.
+This even means, that a user can not make a quiz or poll twice!
+-1 means: the cookie will be stored until the browser is closed.
+1 and greater means: a cookie will be stored for X days.
 
 
 .. _Poll:

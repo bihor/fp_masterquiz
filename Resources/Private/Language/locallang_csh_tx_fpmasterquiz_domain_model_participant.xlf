@@ -30,6 +30,9 @@
 			<trans-unit id="maximum2.description">
 				<source>Maximum points for this quiz</source>
 			</trans-unit>
+			<trans-unit id="page.description">
+				<source>Reached page</source>
+			</trans-unit>
 			<trans-unit id="quiz.description">
 				<source>Participated quiz</source>
 			</trans-unit>

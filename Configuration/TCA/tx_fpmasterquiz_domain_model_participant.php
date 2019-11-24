@@ -18,10 +18,10 @@ return [
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_participant.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, points, maximum1, maximum2, quiz, selections',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, points, maximum1, maximum2, page, quiz, selections',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, points, maximum1, maximum2, quiz, selections'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, points, maximum1, maximum2, page, quiz, selections'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -166,6 +166,15 @@ return [
                 'eval' => 'int'
             ]
         ],
+    	'page' => [
+    		'exclude' => true,
+    		'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_participant.page',
+    		'config' => [
+    			'type' => 'input',
+    			'size' => 4,
+    			'eval' => 'int'
+    		]
+    	],
         'quiz' => [
             'exclude' => true,
             'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_participant.quiz',
