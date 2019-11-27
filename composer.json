@@ -21,7 +21,6 @@
 		}
 	},
 	"replace" : {
-		"fp_masterquiz" : "self.version",
 		"typo3-ter/fp-masterquiz" : "self.version"
 	},
 	"homepage" : "https://github.com/bihor/fp_masterquiz",
