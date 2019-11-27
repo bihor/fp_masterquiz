@@ -28,3 +28,7 @@ ChangeLog
   Deletion-task changed: delete-flag and real deletion now possible.
   Lazy loading removed, because delete cascade does not work with lazy loading.
   New settings: showPageNo and showQuestionNo.
+
+0.6.0: Donut chart added.
+  Session-token added to prevent reload-manipulations.
+  New settings: user.useCookie.

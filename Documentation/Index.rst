@@ -30,7 +30,7 @@ Master-Quiz
 		quiz,test,poll,myquizpoll,myquizandpoll
 
 	:Copyright:
-		2018
+		2019
 
 	:Author:
 		Kurt Gusbeth

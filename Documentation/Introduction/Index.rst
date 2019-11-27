@@ -22,7 +22,7 @@ Automatic deletion of quiz takers via task possible.
 
 Avaiable languages: english and german.
 
-You will find some examples on my homepage: `quizpalme.de <http://www.quizpalme.de/quiz-umfrage.html>`_
+You will find some examples on my homepage: `quizpalme.de <http://www.quizpalme.de/quiz-umfrage>`_
 
 .. _screenshots:
 

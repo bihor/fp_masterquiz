@@ -39,7 +39,7 @@ For a list of configuration options, go to the chapter Configuration.
 User results
 ------------
 
-* Currently all user results will be saved in the database. There is a session-token, but it would be a nice feature to use only that one instead the database.
+* Currently all user results will be saved in the database. There is a session-token (not in the Ajax-version), but it would be a nice feature to use only that one instead the database.
 
 * User results can be deleted automatically. There is a task which can delete old user/quiz-taker results. You find the task in the Scheduler.
 

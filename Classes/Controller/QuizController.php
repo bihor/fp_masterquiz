@@ -496,6 +496,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	// https://www.sklein-medien.de/tutorials/detail/erstellung-einer-typo3-extension-mit-ajax-aufruf/
     	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
     	if ($quizUid) {
+    		// vorerst mal
+    		$this->settings['user']['useCookie'] = 0;
     		$quiz = $this->quizRepository->findOneByUid($quizUid);
     		$data = $this->doAll($quiz);
     		$page = $data['page'];

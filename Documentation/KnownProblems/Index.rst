@@ -14,9 +14,11 @@ Known Problems
 The bug tracker is here:
 `bug tracker <https://github.com/bihor/fp_masterquiz/issues>`_?
 
-Currently this is only a beta release!
+There might be some problems, if you enable Ajax!
+Sessions and Cookies are currently not supported if you enable Ajax.
+Furthermore the default language will be english in TYPO3 9 if you enable Ajax. 
 
-Please note:
+Please note furthermore:
 
 - the AJAX-version of the quiz/poll works only if the cHash-check is disabled by TypoScript:
   plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0 
