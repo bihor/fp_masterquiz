@@ -43,7 +43,7 @@
 				<target>Nur eine Antwort auswählbar (select-box)</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.3">
-				<target>Eine Antwort eingeben (Textfeld) [NOT YET SUPPORTED]</target>
+				<target>Eine Antwort eingeben (Textfeld)</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.4">
 				<target>Ja/Nein-Felder (2 Radio-Buttons) [NOT YET SUPPORTED]</target>

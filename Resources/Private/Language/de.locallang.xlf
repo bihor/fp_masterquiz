@@ -195,6 +195,9 @@
 			<trans-unit id="error.quizNotFound">
 				<target>Das Quiz mit dieser Uid wurde nicht gefunden (Datensatzsammlung gesetzt?):</target>
 			</trans-unit>
+			<trans-unit id="text.answer.input">
+				<target>Antwort: </target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

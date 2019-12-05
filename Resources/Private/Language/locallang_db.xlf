@@ -136,7 +136,7 @@
 				<source>Select one answer (select-box)</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.3">
-				<source>Enter an answer (text-field) [NOT YET SUPPORTED]</source>
+				<source>Enter an answer (text-field)</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.4">
 				<source>Yes/no-boxes (2 radio-buttons) [NOT YET SUPPORTED]</source>
