@@ -461,6 +461,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     
     /**
      * Try to evaluate the answer of an Input Textbox 
+     * 
      * @param int $i_quid The Question ID
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question The Question dataset
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Selected $c_selected The Selected dataset
@@ -476,12 +477,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $answerText = $this->request->getArgument('answer_text_' . $i_quid);
             $c_debug .= "\n" . $i_quid . '- Answer in the Inputbox is: ' . $answerText . ' ';
             
-            // retreive answer over the POST arguments
+        // retreive answer over the POST arguments
         } else if ($_POST['answer_text_' . $i_quid]) {
             $answerText = $_POST['answer_text_' . $i_quid];
             $c_debug .= "\n" . $i_quid . '- Answer in the Inputbox is: ' . $answerText . ' ';
             
-            // if evereything fails
+        // if evereything fails
         } else {
             /* @todo Error handling */
             $answerText = "";
@@ -490,10 +491,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         // for security reasons check the input from the frontend
         $answerText = filter_var($answerText, FILTER_SANITIZE_STRING);
         
+        // store the answer of the participant in the selected dataset
+        $c_selected->setEntered($answerText);
+        
         foreach ($i_question->getAnswers() as $answer) {
-            // anyway store the correct answer and the answer of the participant in the selected dataset
+            // store the correct answer in the selected dataset
             $c_selected->addAnswer($answer);
-            $c_selected->setEntered($answerText);
             
             // sum the the points of the current answer to the max. possible point until the current question
             $c_maximum1 += $answer->getPoints();
@@ -508,7 +511,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 }
             }
         }
-        
     }
     
     /**
