@@ -198,6 +198,9 @@
 			<trans-unit id="error.quizNotFound">
 				<source>The quiz with this uid was not found (Record Storage Place set?):</source>
 			</trans-unit>
+			<trans-unit id="text.answer.input">
+				<source>Answer: </source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

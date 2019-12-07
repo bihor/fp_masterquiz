@@ -4,6 +4,7 @@
 		<f:if condition="{settings.showPoints}"><f:if condition="{participant.maximum2} > 0">
 			<p><f:translate key="text.youHave" /> {participant.points}/{participant.maximum2} <f:translate key="text.gottenPoints" />
 				<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
+        <p>&nbsp</p>
 		</f:if></f:if>
 		<f:format.raw>{finalContent}</f:format.raw>
 		<f:if condition="{settings.showAnswersAtFinalPage} == 1">

@@ -1,12 +1,12 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<div class="card">
+<div class="card"> 
 	<f:if condition="({settings.showPageNo} == 1) && ({settings.ajax} == 1) && ({pages} != 1) && ({final} == 0)">
 	  <p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
 	</f:if>
 	<f:if condition="({settings.showQuestionNo} == 1)">
-	  <p class="quiz-question-no">{f:translate(key: "text.question")} 
-		<span id="quiz-questno"><f:if condition="{settings.ajax} == 1"><f:then>{pageiterator.cycle}</f:then><f:else>{pageiterator.cycle + pageBasis}</f:else></f:if></span>
-		{f:translate(key: "text.of")} {questions}</p>
+ 	  <p class="quiz-question-no"><b>{f:translate(key: "text.question")}</b> 
+		<span id="quiz-questno"><b><f:if condition="{final} == 0"><f:then>{page}</f:then><f:else>{pageiterator.cycle}</f:else></f:if></b></span>
+		<b>{f:translate(key: "text.of")} {questions}</b></p>
 	</f:if>
 	{settings.template.wrapQuestionTitle1 -> f:format.raw()}{selection.question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
 	{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{selection.question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
@@ -18,8 +18,20 @@
 					<ul>
 					<f:for each="{selection.answers}" as="answer" iteration="nr">
 						<li>
-							<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
-							<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
+							<f:comment> {selection.question -> f:debug(title: 'Members of selection.question')} </f:comment> 
+						
+							<f:comment>When 'Enter an answer' in a text field </f:comment> 
+							<f:if condition="{selection.question.qmode} == 3">
+							<f:then>
+								<f:comment> {selection -> f:debug(title: 'Members of selection')} </f:comment> 
+								<f:comment> {answer -> f:debug(title: 'Members of answer')} </f:comment>
+								<f:if condition="{settings.allowHtml} == 1"><f:then>{selection.entered -> f:format.raw()}</f:then><f:else>{selection.entered -> f:format.nl2br()}</f:else></f:if>
+							</f:then>
+							<f:else>
+								<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
+								<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
+							</f:else>
+							</f:if>
 						</li>
 					</f:for>
 					</ul>
@@ -32,7 +44,10 @@
 					<f:if condition="{answer2.points} > 0">
 						<li>
 							<f:if condition="{settings.allowHtml} == 1"><f:then>{answer2.title -> f:format.raw()}</f:then><f:else>{answer2.title -> f:format.nl2br()}</f:else></f:if>
-							<f:if condition="{settings.showPoints}"> ({answer2.points} {f:translate(key: "text.points")})</f:if>
+							<f:comment>Don't show the points directly after the answer for Textbox answers </f:comment>
+							<f:if condition="{selection.question.qmode} != 3">
+								<f:if condition="{settings.showPoints}"> ({answer2.points} {f:translate(key: "text.points")})</f:if>
+							</f:if>
 						</li>
 					</f:if>
 					</f:for>

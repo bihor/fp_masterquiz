@@ -148,7 +148,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @return array
      */
     public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz) {
-    	$saveIt = FALSE;
+    	/* @var \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answer */
+        $answer = Null;
+        $saveIt = FALSE;
     	$newUser = FALSE;
     	$reload = FALSE;
     	$partBySes = NULL;
@@ -341,7 +343,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						}
 	    						$maximum1 += $question->getMaximum1();
 	    						break;
+	    					
+	    					// When Enter an anser in a Textbox
+	    					case 3:
+	    					    // try to evaluate the answer of the textbox 
+	    					    $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug, $maximum1);
+	    					    break;
 	    				}
+	    				// assign the selected dataset to the participant
 	    				$this->participant->addSelection($selected);
     				}
     			}
@@ -448,6 +457,60 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    			'debug' => $debug
     	];
     	return $data;
+    }
+    
+    /**
+     * Try to evaluate the answer of an Input Textbox 
+     * 
+     * @param int $i_quid The Question ID
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question The Question dataset
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Selected $c_selected The Selected dataset
+     * @param int $c_maximum1 The max. possible points until the current question
+     */
+    protected function evaluateInputTextAnswerResult(int $i_quid, 
+                                                   \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question, 
+                                                   \Fixpunkt\FpMasterquiz\Domain\Model\Selected &$c_selected,
+                                                   string &$c_debug,
+                                                   int &$c_maximum1){
+        // retreive answer over the GET arguments
+        if ($this->request->hasArgument('answer_text_' . $i_quid) && $this->request->getArgument('answer_text_' . $i_quid)) {
+            $answerText = $this->request->getArgument('answer_text_' . $i_quid);
+            $c_debug .= "\n" . $i_quid . '- Answer in the Inputbox is: ' . $answerText . ' ';
+            
+        // retreive answer over the POST arguments
+        } else if ($_POST['answer_text_' . $i_quid]) {
+            $answerText = $_POST['answer_text_' . $i_quid];
+            $c_debug .= "\n" . $i_quid . '- Answer in the Inputbox is: ' . $answerText . ' ';
+            
+        // if evereything fails
+        } else {
+            /* @todo Error handling */
+            $answerText = "";
+        }
+        
+        // for security reasons check the input from the frontend
+        $answerText = filter_var($answerText, FILTER_SANITIZE_STRING);
+        
+        // store the answer of the participant in the selected dataset
+        $c_selected->setEntered($answerText);
+        
+        foreach ($i_question->getAnswers() as $answer) {
+            // store the correct answer in the selected dataset
+            $c_selected->addAnswer($answer);
+            
+            // sum the the points of the current answer to the max. possible point until the current question
+            $c_maximum1 += $answer->getPoints();
+            
+            // if the answer is right
+            if (strtoupper(trim($answer->getTitle())) == strtoupper(trim($answerText))) {
+                $newPoints = $answer->getPoints();
+                if ($newPoints != 0) {
+                    $c_selected->addPoints($newPoints);
+                    $this->participant->addPoints($newPoints);
+                    $c_debug .= "\n" . '+' .$newPoints . 'P ';
+                }
+            }
+        }
     }
     
     /**
