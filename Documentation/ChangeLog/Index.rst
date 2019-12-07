@@ -32,3 +32,5 @@ ChangeLog
 0.6.0: Donut chart added.
   Session-token added to prevent reload-manipulations.
   New settings: user.useCookie.
+
+0.6.2: Text-answer now possible. Thanks to Gerald Loss.

@@ -1,13 +1,13 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:form.hidden name="quest_{question.uid}" value="1" /> 
+<f:form.hidden name="quest_{question.uid}" value="1" />
 <div class="card">
 	<f:if condition="({settings.showPageNo} == 1) && ({settings.ajax} == 1) && ({pages} != 1)">
 	  <p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
 	</f:if>
 	<f:if condition="({settings.showQuestionNo} == 1)">
-	  <p class="quiz-question-no"><b>{f:translate(key: "text.question")}</b>
-		<span id="quiz-questno"><b><f:if condition="{settings.ajax} == 1"><f:then>{pageiterator.cycle}</f:then><f:else>{pageiterator.cycle + pageBasis}</f:else></f:if></b></span>
-		<b>{f:translate(key: "text.of")} {questions}</b></p>
+	  <p class="quiz-question-no">{f:translate(key: "text.question")}
+		<span id="quiz-questno"><f:if condition="{settings.ajax} == 1"><f:then>{pageiterator.cycle}</f:then><f:else>{pageiterator.cycle + pageBasis}</f:else></f:if></span>
+		{f:translate(key: "text.of")} {questions}</p>
 		<br/>
 	</f:if>
 	<f:comment> {question -> f:debug(title: 'Members of question')} </f:comment>
@@ -36,12 +36,12 @@
 								</div>
 							</f:case>
 
-							<f:case value="2">	
-								<f:form.select size="1" name="answer_{question.uid}" options="{question.selectOptions}" class="quiz-select" />
+							<f:case value="2">
+								<f:comment>Nicht für jede Antwort ein Select hinzufügen, deshalb erst später hinzufügen</f:comment>
 							</f:case>
 
-							<f:comment>When 'Enter an answer' in a text field </f:comment> 
 							<f:case value="3">
+								<f:comment>When 'Enter an answer' in a text field </f:comment> 
 								<br/>
 								<div class="quiz-input">
 									<label>
@@ -52,6 +52,9 @@
 							<f:defaultCase>NOT yet supported</f:defaultCase>
 						</f:switch>
 					</f:for>
+					<f:if condition="{question.qmode} == 2">
+						<f:form.select size="1" name="answer_{question.uid}" options="{question.selectOptions}" class="quiz-select" />
+					</f:if>
 				</div>
 			</div>
 		</div>
