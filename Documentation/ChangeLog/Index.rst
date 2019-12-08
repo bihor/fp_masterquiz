@@ -34,3 +34,5 @@ ChangeLog
   New settings: user.useCookie.
 
 0.6.2: Text-answer now possible. Thanks to Gerald Loss.
+  New settings: user.checkFEuser.
+  Bug fixed: anonymous IP address.

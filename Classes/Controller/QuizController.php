@@ -105,43 +105,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
     
     /**
-     * action list
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-        $quizzes = $this->quizRepository->findAll();
-        $this->view->assign('quizzes', $quizzes);
-    }
-
-    /**
-     * action default
-     *
-     * @return void
-     */
-    public function defaultAction()
-    {
-    	$defaultQuizUid = $this->settings['defaultQuizUid'];
-    	if (!$defaultQuizUid) {
-    		$this->forward('list');
-    	} else {
-    		$quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
-    		if ($quiz) {
-    			$this->forward('show', NULL, NULL, array('quiz' => $quiz->getUid()));
-    		} else {
-    			$this->addFlashMessage(
-    					LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($this->settings['defaultQuizUid']),
-    					LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-    					\TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
-    					false
-    			);
-    			$this->forward('list');
-    		}
-    	}
-    }
-
-    /**
      * action doAll
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
@@ -159,41 +122,57 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$maximum1 = 0;
     	$finalContent = '';
     	$debug = '';
-    	$questionUid = $quiz->getUid();
+    	$quizUid = $quiz->getUid();
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
     	if ($this->request->hasArgument('session')) {
     		$session = $this->request->getArgument('session');
-    	} else {
+    	} else if (!$this->request->hasArgument('participant')) {
     		// keine Session gefunden... und jetzt Cookie checken?
     		if (intval($this->settings['user']['useCookie']) == -1) {
-    			$session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $questionUid);
-    		} else if ((intval($this->settings['user']['useCookie']) > 0) && isset($_COOKIE['qsession' . $questionUid])) {
-    			$session = $_COOKIE['qsession' . $questionUid];
+    			$session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $quizUid);
+    		} else if ((intval($this->settings['user']['useCookie']) > 0) && isset($_COOKIE['qsession' . $quizUid])) {
+    			$session = $_COOKIE['qsession' . $quizUid];
     		}
     		if ($session) {
     			$this->participant = $this->participantRepository->findOneBySession($session);
     			if ($this->settings['debug'])
 	    			$debug .= "\nsession from cookie: " . $session . '; and the participant-uid of that session: ' . $this->participant->getUid();
     		} else {
-    			$session = uniqid( mt_rand(1000,9999) );
-    			$newUser = TRUE;
+    			if ($this->settings['user']['checkFEuser']) {
+    				$this->participant = $this->participantRepository->findOneByUserAndQuiz(intval($GLOBALS['TSFE']->fe_user->user['uid']), $quizUid);
+    				if ($this->participant) {
+    					$session = $this->participant->getSession();
+    					if ($this->settings['debug'])
+    						$debug .= "\nsession from FEuser: " . $session . '; and the participant-uid: ' . $this->participant->getUid();
+    				}
+    			}
+    			if (!$session) {
+    				$session = uniqid( mt_rand(1000,9999) );
+    				$newUser = TRUE;
+    				$this->participant = NULL;
+    				if ($this->settings['debug']) $debug .= "\ncreating new session: " . $session;
+    			}
     		}
     	}
     	if (intval($this->settings['user']['useCookie']) == -1) {
     		// Store the session in a cookie
-    		$GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $questionUid, $session);
+    		$GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quizUid, $session);
     		$GLOBALS["TSFE"]->storeSessionData();
     	} else if (intval($this->settings['user']['useCookie']) > 0) {
-    		setcookie('qsession' . $questionUid, $session, time()+(3600*24*intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
+    		setcookie('qsession' . $quizUid, $session, time()+(3600*24*intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
     	}
+    	
     	if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
+    		// wir sind nicht auf Seite 1
     		$participantUid = intval($this->request->getArgument('participant'));
     		$this->participant = $this->participantRepository->findOneByUid($participantUid);
+    		$session = $this->participant->getSession();
+    		if ($this->settings['debug']) $debug .= "\nparticipant from request: " . $participantUid;
     	} else {
     		if (!$this->participant) {
     			$this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
-    			if ($this->settings['debug']) $debug .= "\ncreating new participant.";
+    			if ($this->settings['debug']) $debug .= "\nmaking new participant.";
     		}
     	}
     	$page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
@@ -236,7 +215,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			}
     			if ($partBySes) {
     				$this->participant = $partBySes;
-    				$reload = TRUE;		// Reload nach absenden von Seite 1 detektiert
+    				$reload = TRUE;
+    				if ($this->settings['debug']) $debug .= "\nReload nach absenden von Seite 1 detektiert.";
     			} else {
 	    			$defaultName = $this->settings['user']['defaultName'];
 	    			$defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
@@ -264,6 +244,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$this->participantRepository->add($this->participant);
 	    			$persistenceManager->persistAll();
 	    			$newUser = TRUE;
+	    			if ($this->settings['debug']) {
+	    				$debug .= "\nNew participant created: " . $this->participant->getUid();
+    				}
     			}
     		}
     	}
@@ -514,6 +497,71 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
     
     /**
+     * Get the real IP address
+     *
+     * @return 	string	IP address
+     */
+    function getRealIpAddr()
+    {
+    	if (!$this->settings['user']['ipSave']) {
+    		$ip = '0.0.0.1';
+    	} elseif ($this->settings['user']['ipSave'] == 2) {
+    		$ip = $_SERVER['REMOTE_ADDR'];
+    	} elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    		//check ip from share internet
+    		$ip = $_SERVER['HTTP_CLIENT_IP'];
+    	} elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    		//to check ip is pass from proxy
+    		$ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    	} else {
+    		$ip = $_SERVER['REMOTE_ADDR'];
+    	}
+    	if ($this->settings['user']['ipSave'] && $this->settings['user']['ipAnonymous']) {
+    		$pos = strrpos($ip, '.');
+    		$ip = substr($ip, 0, $pos) . '.0';
+    	}
+    	return filter_var($ip, FILTER_VALIDATE_IP);
+    }
+    
+    
+    /**
+     * action list
+     *
+     * @return void
+     */
+    public function listAction()
+    {
+    	$quizzes = $this->quizRepository->findAll();
+    	$this->view->assign('quizzes', $quizzes);
+    }
+    
+    /**
+     * action default
+     *
+     * @return void
+     */
+    public function defaultAction()
+    {
+    	$defaultQuizUid = $this->settings['defaultQuizUid'];
+    	if (!$defaultQuizUid) {
+    		$this->forward('list');
+    	} else {
+    		$quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
+    		if ($quiz) {
+    			$this->forward('show', NULL, NULL, array('quiz' => $quiz->getUid()));
+    		} else {
+    			$this->addFlashMessage(
+    				LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($this->settings['defaultQuizUid']),
+    				LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+    				\TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+    				false
+    				);
+    			$this->forward('list');
+    		}
+    	}
+    }
+    
+    /**
      * action show
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
@@ -595,33 +643,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	} else {
     		$this->view->assign('error', 1);
     	}
-    }
-    
-    /**
-     * Get the real IP address
-     *
-     * @return 	string	IP address
-     */
-    function getRealIpAddr()
-    {
-        if (!$this->settings['user']['ipSave']) {
-            $ip = '0.0.0.1';
-        } elseif ($this->settings['user']['ipSave'] == 2) {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        } elseif (!empty($_SERVER['HTTP_CLIENT_IP'])) {
-            //check ip from share internet
-            $ip = $_SERVER['HTTP_CLIENT_IP'];
-        } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            //to check ip is pass from proxy
-            $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        } else {
-            $ip = $_SERVER['REMOTE_ADDR'];
-        }
-        if ($this->settings['user']['ipSave'] && $this->settings['user']['ipAnonymous']) {
-        	$pos = strrpos($ip, '.');
-        	$ip = substr($ip, 0, $pos) . '0';
-        }
-        return filter_var($ip, FILTER_VALIDATE_IP);
     }
     
     /**

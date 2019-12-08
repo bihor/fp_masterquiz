@@ -48,6 +48,7 @@ Properties
 	user.ipSave                 boolean     Save the IP-address of a user?                 1
 	user.ipAnonymous            boolean     Anonymize the IP-address?                      1
 	user.useCookie              integer     Save the session in a cookie too? See below.   0
+	user.checkFEuser            boolean     Check if a FEuser has already participated?    0
 	user.askForData             boolean     Ask for user data at the first page of a quiz? 0
 	user.defaultName            string      Default user name ({TIME} will be replaced).   default {TIME}
 	user.defaultEmail           string      Default user email.
@@ -95,6 +96,8 @@ Layout**) If you use template layout 1, you should know this:
 
   - The ApexCharts will be used automatically. More information: https://apexcharts.com/
 
+Note: if you enable a cookie or FEuser check, then an user cannot vote again, if he had already voted/participated.
+The participant will see his result of a poll/quiz instead of the checkboxes/radio buttons.
 
 Examples:
 ^^^^^^^^^
