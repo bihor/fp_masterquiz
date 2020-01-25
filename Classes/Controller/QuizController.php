@@ -279,6 +279,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    				$qmode = $question->getQmode();
 	    				switch ($qmode) {
 	    					case 0:
+	    					    // Checkbox
 	    						foreach ($question->getAnswers() as $answer) {
 	    							$auid = $answer->getUid();
 	    							if ($this->request->hasArgument('answer_' . $quid . '_' . $auid) && $this->request->getArgument('answer_' . $quid . '_' . $auid)) {
@@ -305,6 +306,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						break;
 	    					case 1:
 	    					case 2:
+	    					    // Radio-box und Select-option
 	    						if ($this->request->hasArgument('answer_' . $quid) && $this->request->getArgument('answer_' . $quid)) {
 	    							$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid));
 	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
@@ -326,10 +328,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						}
 	    						$maximum1 += $question->getMaximum1();
 	    						break;
-	    					
-	    					// When Enter an anser in a Textbox
-	    					case 3:
-	    					    // try to evaluate the answer of the textbox 
+                            case 3:
+                                // When Enter an answer in a Textbox: try to evaluate the answer of the textbox
 	    					    $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug, $maximum1);
 	    					    break;
 	    				}
@@ -536,7 +536,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
     
     /**
-     * action default
+     * action default: ein Quiz oder alle Quizze anzeigen. Nur forward!
      *
      * @return void
      */
