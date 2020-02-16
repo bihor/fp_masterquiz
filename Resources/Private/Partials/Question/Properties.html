@@ -17,6 +17,9 @@
 		<div class="col {settings.template.colText}">
 			<div class="text-buttons">
 				<div class="quiz-question-buttons">
+					<f:if condition="{question.qmode} == 7">
+						<div class="star-cb-group">
+					</f:if>
 					<f:for each="{question.answers}" as="answer" iteration="nr">
 						<f:switch expression="{question.qmode}">
 							<f:case value="0">
@@ -35,11 +38,9 @@
 									</label>
 								</div>
 							</f:case>
-
 							<f:case value="2">
 								<f:comment>Nicht für jede Antwort ein Select hinzufügen, deshalb erst später hinzufügen</f:comment>
 							</f:case>
-
 							<f:case value="3">
 								<f:comment>When 'Enter an answer' in a text field </f:comment> 
 								<br/>
@@ -49,11 +50,25 @@
 									</label>
 								</div>
 							</f:case>
+							<f:case value="6">
+								<f:comment>Nichts nötig</f:comment>
+							</f:case>
+							<f:case value="7">
+								<f:if condition="{nr.isLast}"><f:then>
+									<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" class="star-cb-clear" checked="checked" />
+								</f:then><f:else>
+									<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" />
+								</f:else></f:if>
+								<label for="star_{question.uid}_{answer.uid}">{answer.title -> f:format.nl2br()}</label>
+							</f:case>
 							<f:defaultCase>NOT yet supported</f:defaultCase>
 						</f:switch>
 					</f:for>
 					<f:if condition="{question.qmode} == 2">
 						<f:form.select size="1" name="answer_{question.uid}" options="{question.selectOptions}" class="quiz-select" />
+					</f:if>
+					<f:if condition="{question.qmode} == 7">
+						</div>
 					</f:if>
 				</div>
 			</div>

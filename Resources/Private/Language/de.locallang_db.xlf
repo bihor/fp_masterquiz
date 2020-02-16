@@ -52,10 +52,10 @@
 				<target>Einen Kommentar eingeben (textarea) [NOT YET SUPPORTED]</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.6">
-				<target>Gib einen Kommentar aus [NOT YET SUPPORTED]</target>
+				<target>Gib einen Kommentar aus</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.7">
-				<target>Bewertung mit Sternen [NOT YET SUPPORTED]</target>
+				<target>Bewertung mit Sternen</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.bodytext">
 				<target>Beschreibung der Frage</target>

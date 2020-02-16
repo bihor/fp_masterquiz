@@ -306,6 +306,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						break;
 	    					case 1:
 	    					case 2:
+							case 7:
 	    					    // Radio-box und Select-option
 	    						if ($this->request->hasArgument('answer_' . $quid) && $this->request->getArgument('answer_' . $quid)) {
 	    							$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid));

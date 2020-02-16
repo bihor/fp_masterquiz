@@ -115,3 +115,6 @@ ajaxfpmasterquiz_page {
     }
     10 < tt_content.list.20.fpmasterquiz_pi1
 }
+
+# CSS for Star Rating. You can delete it, if you dont need it
+page.includeCSS.fpMasterQuizRatingStar = EXT:fp_masterquiz/Resources/Public/Css/RatingStar.css

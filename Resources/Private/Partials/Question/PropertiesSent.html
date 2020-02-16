@@ -14,70 +14,72 @@
 	<div class="row">
 		<div class="col {settings.template.colText}">
 			<div class="text-buttons">
-				<f:if condition="{settings.showOwnAnswers}">
-					<p>{f:translate(key: "text.yourAnswers")}</p>
-					<ul>
-					<f:for each="{selection.answers}" as="answer" iteration="nr">
-						<li>
-							<f:comment> {selection.question -> f:debug(title: 'Members of selection.question')} </f:comment> 
-							<f:comment>When 'Enter an answer' in a text field</f:comment> 
-							<f:if condition="{selection.question.qmode} == 3">
-							<f:then>
-								<f:comment> {selection -> f:debug(title: 'Members of selection')} </f:comment> 
-								<f:comment> {answer -> f:debug(title: 'Members of answer')} / no HTML for entered Text allowed:
-									<f:if condition="{settings.allowHtml} == 1"><f:then>{selection.entered -> f:format.raw()}</f:then><f:else></f:else></f:if> </f:comment>
-								{selection.entered -> f:format.nl2br()}
-							</f:then>
-							<f:else>
-								<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
-								<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
-							</f:else>
-							</f:if>
-						</li>
-					</f:for>
-					</ul>
-				</f:if>
-				
-				<f:if condition="{settings.showCorrectAnswers}">
-					<p>{f:translate(key: "text.correctAnswers")}</p>
-					<ul>
-					<f:for each="{selection.question.answers}" as="answer2" iteration="nr">
-					<f:if condition="{answer2.points} > 0">
-						<li>
-							<f:if condition="{settings.allowHtml} == 1"><f:then>{answer2.title -> f:format.raw()}</f:then><f:else>{answer2.title -> f:format.nl2br()}</f:else></f:if>
-							<f:comment>Don't show the points directly after the answer for Textbox answers </f:comment>
-							<f:if condition="{selection.question.qmode} != 3">
-								<f:if condition="{settings.showPoints}"> ({answer2.points} {f:translate(key: "text.points")})</f:if>
-							</f:if>
-						</li>
-					</f:if>
-					</f:for>
-					</ul>
-				</f:if>
-				
-				<f:if condition="({settings.showAllAnswers} == 1) && ({final} == 1)">
-					<p>{f:translate(key: "text.allAnswers")}</p>
-					<f:if condition="{settings.templateLayout} == 1">
-					<f:then>
-						<f:render partial="Question/Chart" arguments="{settings:settings, question:selection.question}" />
-					</f:then>
-					<f:else>
+				<f:if condition="{selection.question.qmode} != 6">
+					<f:if condition="{settings.showOwnAnswers}">
+						<p>{f:translate(key: "text.yourAnswers")}</p>
 						<ul>
-						<f:for each="{selection.question.answers}" as="answer3" iteration="nr">
+						<f:for each="{selection.answers}" as="answer" iteration="nr">
 							<li>
-								<f:if condition="{settings.allowHtml} == 1"><f:then>{answer3.title -> f:format.raw()}</f:then><f:else>{answer3.title -> f:format.nl2br()}</f:else></f:if>
-								<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points")})</f:if>
-								({answer3.allAnswers} {f:translate(key: "text.choices")})
-								<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>
+								<f:comment> {selection.question -> f:debug(title: 'Members of selection.question')} </f:comment> 
+								<f:comment>When 'Enter an answer' in a text field</f:comment> 
+								<f:if condition="{selection.question.qmode} == 3">
+								<f:then>
+									<f:comment> {selection -> f:debug(title: 'Members of selection')} </f:comment> 
+									<f:comment> {answer -> f:debug(title: 'Members of answer')} / no HTML for entered Text allowed:
+										<f:if condition="{settings.allowHtml} == 1"><f:then>{selection.entered -> f:format.raw()}</f:then><f:else></f:else></f:if> </f:comment>
+									{selection.entered -> f:format.nl2br()}
+								</f:then>
+								<f:else>
+									<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
+									<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
+								</f:else>
+								</f:if>
 							</li>
 						</f:for>
 						</ul>
-					</f:else>
 					</f:if>
-				</f:if>
 				
-				<f:if condition="{settings.showPoints}">
-					<p>{f:translate(key: "text.pointsQuestion")} {selection.points}/{selection.maximumPoints}.</p>
+					<f:if condition="{settings.showCorrectAnswers}">
+						<p>{f:translate(key: "text.correctAnswers")}</p>
+						<ul>
+						<f:for each="{selection.question.answers}" as="answer2" iteration="nr">
+						<f:if condition="{answer2.points} > 0">
+							<li>
+								<f:if condition="{settings.allowHtml} == 1"><f:then>{answer2.title -> f:format.raw()}</f:then><f:else>{answer2.title -> f:format.nl2br()}</f:else></f:if>
+								<f:comment>Don't show the points directly after the answer for Textbox answers </f:comment>
+								<f:if condition="{selection.question.qmode} != 3">
+									<f:if condition="{settings.showPoints}"> ({answer2.points} {f:translate(key: "text.points")})</f:if>
+								</f:if>
+							</li>
+						</f:if>
+						</f:for>
+						</ul>
+					</f:if>
+				
+					<f:if condition="({settings.showAllAnswers} == 1) && ({final} == 1)">
+						<p>{f:translate(key: "text.allAnswers")}</p>
+						<f:if condition="{settings.templateLayout} == 1">
+						<f:then>
+							<f:render partial="Question/Chart" arguments="{settings:settings, question:selection.question}" />
+						</f:then>
+						<f:else>
+							<ul>
+							<f:for each="{selection.question.answers}" as="answer3" iteration="nr">
+								<li>
+									<f:if condition="{settings.allowHtml} == 1"><f:then>{answer3.title -> f:format.raw()}</f:then><f:else>{answer3.title -> f:format.nl2br()}</f:else></f:if>
+									<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points")})</f:if>
+									({answer3.allAnswers} {f:translate(key: "text.choices")})
+									<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>
+								</li>
+							</f:for>
+							</ul>
+						</f:else>
+						</f:if>
+					</f:if>
+					
+					<f:if condition="{settings.showPoints}">
+						<p>{f:translate(key: "text.pointsQuestion")} {selection.points}/{selection.maximumPoints}.</p>
+					</f:if>
 				</f:if>
 			</div>
 		</div>

@@ -287,4 +287,14 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->allAnswers = $nr;
     }
+    
+    /**
+     * Returns the no. of answers for this question
+     *
+     * @return int
+     */
+    public function getNumberOfAnswers()
+    {
+    	return count($this->answers);
+    }
 }

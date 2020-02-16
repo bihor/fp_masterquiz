@@ -47,6 +47,6 @@ Thanks to the
 -------------
 
 `fixpunkt werbeagentur gmbh, Bonn <https://www.fixpunkt.com/webentwicklung/typo3/>`_
-for giving me the possibility to realize
+for giving me the possibility to realize (partly)
 `this extension <https://www.fixpunkt.com/webentwicklung/typo3/typo3-extensions/>`_
 and share it with the TYPO3 community.

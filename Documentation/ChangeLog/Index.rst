@@ -36,3 +36,5 @@ ChangeLog
 0.7.0: Text-answer now possible. Thanks to Gerald Loss.
   New settings: user.checkFEuser.
   Bug fixed: anonymous IP address.
+
+1.0.0: Question mode "Show a comment" and "Star rating" implemented.
