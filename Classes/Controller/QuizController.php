@@ -320,7 +320,18 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						if ($selectedAnswerUid) {
 	    							$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
 	    							$selected->addAnswer($selectedAnswer);
-	    							$newPoints = $selectedAnswer->getPoints();
+	    							if ($qmode == 7) {
+	    								$cycle = count($question->getAnswers());
+	    								foreach ($question->getAnswers() as $answer) {
+	    									if ($answer->getUid() == $selectedAnswerUid) {
+	    										$newPoints = $cycle;
+	    										break;
+	    									}
+	    									$cycle--;
+	    								}
+	    							} else {
+	    								$newPoints = $selectedAnswer->getPoints();
+	    							}
 	    							if ($newPoints != 0) {
 	    							    $selected->addPoints($newPoints);
 	    							    $this->participant->addPoints($newPoints);

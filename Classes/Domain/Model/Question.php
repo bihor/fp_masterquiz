@@ -297,4 +297,18 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
     	return count($this->answers);
     }
+    
+    /**
+     * Returns the an array with no. of answers for this question
+     *
+     * @return array
+     */
+    public function getArrayOfAnswers()
+    {
+    	$array = [];
+    	for ($i=0; $i<count($this->answers); $i++) {
+    		$array[] = count($this->answers) - $i;
+    	}
+    	return $array;
+    }
 }

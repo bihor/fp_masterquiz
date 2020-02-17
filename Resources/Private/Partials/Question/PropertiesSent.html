@@ -30,8 +30,23 @@
 									{selection.entered -> f:format.nl2br()}
 								</f:then>
 								<f:else>
-									<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
-									<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
+									<f:if condition="{selection.question.qmode} == 7">
+									<f:then>
+										<div class="star-cb-rating">
+											<f:for each="{selection.question.answers}" as="answer7" iteration="nr7">
+									    		<f:if condition="{nr7.cycle} <= {selection.points}"><f:then>
+									    			<span class="dstar">★</span>
+									    		</f:then><f:else>
+									    			<span class="lstar">☆</span>
+									    		</f:else></f:if>
+									    	</f:for>
+									    </div>
+									</f:then>
+									<f:else>
+										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
+										<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
+									</f:else>
+									</f:if>
 								</f:else>
 								</f:if>
 							</li>
@@ -64,12 +79,29 @@
 						</f:then>
 						<f:else>
 							<ul>
-							<f:for each="{selection.question.answers}" as="answer3" iteration="nr">
+							<f:for each="{selection.question.answers}" as="answer3" iteration="nr3">
 								<li>
-									<f:if condition="{settings.allowHtml} == 1"><f:then>{answer3.title -> f:format.raw()}</f:then><f:else>{answer3.title -> f:format.nl2br()}</f:else></f:if>
-									<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points")})</f:if>
-									({answer3.allAnswers} {f:translate(key: "text.choices")})
-									<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>
+									<f:if condition="{selection.question.qmode} == 7">
+									<f:then>
+									 	<span class="star-cb-rating"><!-- t: {answer3.title -> f:format.nl2br()} -->
+											<f:for each="{selection.question.arrayOfAnswers}" as="reverseCycle">
+												<f:if condition="{reverseCycle} < {nr3.cycle}"><f:then>
+									    			<span class="lstar">☆</span>
+									    		</f:then><f:else>
+									    			<span class="dstar">★</span>
+									    		</f:else></f:if>
+										    </f:for>
+									   </span>
+									   ({answer3.allAnswers} {f:translate(key: "text.choices")})
+										<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>	
+									</f:then>
+									<f:else>
+										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer3.title -> f:format.raw()}</f:then><f:else>{answer3.title -> f:format.nl2br()}</f:else></f:if>
+										<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points")})</f:if>
+										({answer3.allAnswers} {f:translate(key: "text.choices")})
+										<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>		
+									</f:else>
+									</f:if>
 								</li>
 							</f:for>
 							</ul>

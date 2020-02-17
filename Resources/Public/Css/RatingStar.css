@@ -8,7 +8,8 @@
   /* the hidden clearer */
   display: inline-block;
 }
-.star-cb-group * {
+.star-cb-group *,
+.star-cb-rating span {
   font-size: 2rem;
 }
 .star-cb-group > input {
@@ -36,11 +37,11 @@
   color: #e52;
   text-shadow: 0 0 1px #333;
 }
-.star-cb-group > .star-cb-clear + label {
- /* text-indent: -9999px; 
+/*.star-cb-group > .star-cb-clear + label {
+  text-indent: -9999px; 
   width: .5em;
-  margin-left: -.5em; */
-}
+  margin-left: -.5em;
+}*/
 .star-cb-group > .star-cb-clear + label:before {
   width: 1em;
 }
@@ -53,4 +54,12 @@
   content: "★";
   color: #e52;
   text-shadow: 0 0 1px #333;
+}
+.star-cb-rating span.lstar {
+	color:#888;
+	text-shadow: none;
+}
+.star-cb-rating span.dstar {
+	color:#e52;
+	text-shadow: 0 0 1px #333;
 }
