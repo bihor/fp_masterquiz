@@ -38,17 +38,26 @@
 				<f:case value="2">
 					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.2" />
 				</f:case>
+				<f:case value="3">
+					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.3" />
+				</f:case>
+				<f:case value="6">
+					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.6" />
+				</f:case>
+				<f:case value="7">
+					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.7" />
+				</f:case>
 				<f:defaultCase>NOT yet supported</f:defaultCase>
 			</f:switch>
 		</td>
 		<td>
 			{selection.points} / {selection.question.maximum1}
 		</td>
-		<td><div class="table-responsive"><table class="table">
+		<td><f:if condition="{selection.question.qmode} == 3"><f:then>{selection.entered}</f:then><f:else><div class="table-responsive"><table class="table">
 			<f:for each="{selection.answers}" as="answer">
 				<tr><td>{answer.title}</td><td><div class="pull-right">({answer.points})</div></td></tr>
 			</f:for>
-		</table></div></td>
+		</table></div></f:else></f:if></td>
 	</tr>
   </f:for>
 </table>
