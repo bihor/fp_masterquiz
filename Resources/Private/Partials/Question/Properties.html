@@ -42,11 +42,20 @@
 								<f:comment>Nicht für jede Antwort ein Select hinzufügen, deshalb erst später hinzufügen</f:comment>
 							</f:case>
 							<f:case value="3">
-								<f:comment>When 'Enter an answer' in a text field </f:comment> 
+								<f:comment>When 'Enter an answer' in a text field</f:comment> 
 								<br/>
 								<div class="quiz-input">
 									<label>
 										{f:translate(key: "text.answer.input")} <f:form.textfield name="answer_text_{question.uid}" value="" class="quiz-inputbox" autofocus="autofocus" />
+									</label>
+								</div>
+							</f:case>
+							<f:case value="5">
+								<f:comment>When 'Enter an answer' in a textarea</f:comment> 
+								<br/>
+								<div class="quiz-textarea">
+									<label>
+										{f:translate(key: "text.answer.textarea")} <f:form.textarea name="answer_text_{question.uid}" value="" class="quiz-textbox" />
 									</label>
 								</div>
 							</f:case>

@@ -94,11 +94,12 @@ return [
         'entered' => [
             'exclude' => true,
             'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_selected.entered',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim'
-            ],
+        	'config' => [
+        		'type' => 'text',
+        		'cols' => 40,
+        		'rows' => 5,
+        		'eval' => 'trim',
+        	],
         ],
         'question' => [
             'exclude' => true,

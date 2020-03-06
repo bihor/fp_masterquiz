@@ -241,7 +241,7 @@ CREATE TABLE tx_fpmasterquiz_domain_model_selected (
 	participant int(11) unsigned DEFAULT '0' NOT NULL,
 
 	points int(11) DEFAULT '0' NOT NULL,
-	entered varchar(255) DEFAULT '' NOT NULL,
+	entered text,
 	question int(11) unsigned DEFAULT '0',
 	answers int(11) unsigned DEFAULT '0' NOT NULL,
 

@@ -19,7 +19,7 @@ ChangeLog
   New settings: settings.showCorrectAnswers and settings.showPoints.
 
 0.3.0: Now optimized for Bootstrap 4.
-  New settings: showAnswersAtFinalPage and template.*
+  New settings: showAnswersAtFinalPage and template.
 
 0.4.0: Now polls possible, because all submited results are avaiable.
   New settings: showOwnAnswers, showAllAnswers, templateLayout...
@@ -38,3 +38,5 @@ ChangeLog
   Bug fixed: anonymous IP address.
 
 1.0.0: Question mode "Show a comment" and "Star rating" implemented.
+
+1.0.1: Question mode "Enter a comment (textarea)" implemented.

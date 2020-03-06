@@ -142,7 +142,7 @@
 				<source>Yes/no-boxes (2 radio-buttons) [NOT YET SUPPORTED]</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.5">
-				<source>Enter a comment (textarea) [NOT YET SUPPORTED]</source>
+				<source>Enter a comment (textarea)</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.6">
 				<source>Show a comment</source>

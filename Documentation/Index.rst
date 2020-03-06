@@ -23,7 +23,7 @@ Master-Quiz
 		en,de
 
 	:Description:
-		An extension that offers Quiz, Tests and Polls (maybe - not yet). It is the official successor extension of myquizpoll. 
+		An extension that offers Quiz, Tests and Polls. It is the official successor extension of myquizpoll. 
 		It is not backward compatible!
 
 	:Keywords:
@@ -36,7 +36,7 @@ Master-Quiz
 		Kurt Gusbeth
 
 	:Email:
-		k.gusbeth@fixpunkt.com
+		info@quizpalme.de
 
 	:License:
 		This document is published under the Open Content License

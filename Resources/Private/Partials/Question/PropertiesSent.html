@@ -21,34 +21,37 @@
 						<f:for each="{selection.answers}" as="answer" iteration="nr">
 							<li>
 								<f:comment> {selection.question -> f:debug(title: 'Members of selection.question')} </f:comment> 
-								<f:comment>When 'Enter an answer' in a text field</f:comment> 
-								<f:if condition="{selection.question.qmode} == 3">
-								<f:then>
-									<f:comment> {selection -> f:debug(title: 'Members of selection')} </f:comment> 
-									<f:comment> {answer -> f:debug(title: 'Members of answer')} / no HTML for entered Text allowed:
-										<f:if condition="{settings.allowHtml} == 1"><f:then>{selection.entered -> f:format.raw()}</f:then><f:else></f:else></f:if> </f:comment>
+								<f:comment> {selection -> f:debug(title: 'Members of selection')} </f:comment> 
+								<f:switch expression="{selection.question.qmode}">
+								<f:case value="3">
+									<f:comment>When 'Enter an answer' in a text field</f:comment> 
+									<f:comment> {answer -> f:debug(title: 'Members of answer')} / no HTML for entered Text allowed:	</f:comment>
 									{selection.entered -> f:format.nl2br()}
-								</f:then>
-								<f:else>
-									<f:if condition="{selection.question.qmode} == 7">
-									<f:then>
-										<div class="star-cb-rating">
-											<f:for each="{selection.question.answers}" as="answer7" iteration="nr7">
-									    		<f:if condition="{nr7.cycle} <= {selection.points}"><f:then>
-									    			<span class="dstar">★</span>
-									    		</f:then><f:else>
-									    			<span class="lstar">☆</span>
-									    		</f:else></f:if>
-									    	</f:for>
-									    </div>
-									</f:then>
-									<f:else>
-										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
-										<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
-									</f:else>
+								</f:case>									
+								<f:case value="5">
+									<f:comment>When 'Enter an answer' in a textarea</f:comment>
+									{selection.entered -> f:format.nl2br()}								
+								</f:case>
+								<f:case value="7">
+									<f:comment>Star rating</f:comment>
+									<div class="star-cb-rating">
+										<f:for each="{selection.question.answers}" as="answer7" iteration="nr7">
+								    		<f:if condition="{nr7.cycle} <= {selection.points}"><f:then>
+								    			<span class="dstar">★</span>
+								    		</f:then><f:else>
+								    			<span class="lstar">☆</span>
+								    		</f:else></f:if>
+								    	</f:for>
+								    </div>
+								</f:case>
+								<f:defaultCase>
+									<f:if condition="{settings.allowHtml} == 1">
+										<f:then>{answer.title -> f:format.raw()}</f:then>
+										<f:else>{answer.title -> f:format.nl2br()}</f:else>
 									</f:if>
-								</f:else>
-								</f:if>
+									<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
+								</f:defaultCase>
+								</f:switch>
 							</li>
 						</f:for>
 						</ul>
@@ -62,9 +65,9 @@
 							<li>
 								<f:if condition="{settings.allowHtml} == 1"><f:then>{answer2.title -> f:format.raw()}</f:then><f:else>{answer2.title -> f:format.nl2br()}</f:else></f:if>
 								<f:comment>Don't show the points directly after the answer for Textbox answers </f:comment>
-								<f:if condition="{selection.question.qmode} != 3">
+								<f:if condition="{selection.question.qmode} != 3"><f:if condition="{selection.question.qmode} != 5">
 									<f:if condition="{settings.showPoints}"> ({answer2.points} {f:translate(key: "text.points")})</f:if>
-								</f:if>
+								</f:if></f:if>
 							</li>
 						</f:if>
 						</f:for>
@@ -96,7 +99,10 @@
 										<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>	
 									</f:then>
 									<f:else>
-										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer3.title -> f:format.raw()}</f:then><f:else>{answer3.title -> f:format.nl2br()}</f:else></f:if>
+										<f:if condition="{settings.allowHtml} == 1">
+											<f:then>{answer3.title -> f:format.raw()}</f:then>
+											<f:else>{answer3.title -> f:format.nl2br()}</f:else>
+										</f:if>
 										<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points")})</f:if>
 										({answer3.allAnswers} {f:translate(key: "text.choices")})
 										<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>		

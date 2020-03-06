@@ -199,7 +199,10 @@
 				<source>The quiz with this uid was not found (Record Storage Place set?):</source>
 			</trans-unit>
 			<trans-unit id="text.answer.input">
-				<source>Answer: </source>
+				<source>Answer:</source>
+			</trans-unit>
+			<trans-unit id="text.answer.textarea">
+				<source>Answer:</source>
 			</trans-unit>
 		</body>
 	</file>

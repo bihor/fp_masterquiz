@@ -49,6 +49,13 @@ This screenshots shows you a quiz in the list view and some FlexForm-settings of
 
    Backend view of the plugin (early beta version).
 
+Text-Answers
+------------
+
+There are 2 possible text answers: input-field or textarea.
+*Note*: this feature works only, if you add one answer to such a question too! Your added answer is not shown in the frontend, but it is needed to show
+a input-field or textarea in the frontend.
+
 Star-Rating
 -----------
 

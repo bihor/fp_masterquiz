@@ -341,7 +341,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						$maximum1 += $question->getMaximum1();
 	    						break;
                             case 3:
-                                // When Enter an answer in a Textbox: try to evaluate the answer of the textbox
+                            case 5:
+                                // When enter an answer in a textbox: try to evaluate the answer of the textbox
 	    					    $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug, $maximum1);
 	    					    break;
 	    				}
@@ -460,6 +461,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param int $i_quid The Question ID
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question The Question dataset
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Selected $c_selected The Selected dataset
+     * @param string $c_debug Debug
      * @param int $c_maximum1 The max. possible points until the current question
      */
     protected function evaluateInputTextAnswerResult(int $i_quid, 
@@ -493,18 +495,20 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             // store the correct answer in the selected dataset
             $c_selected->addAnswer($answer);
             
-            // sum the the points of the current answer to the max. possible point until the current question
-            $c_maximum1 += $answer->getPoints();
-            
-            // if the answer is right
-            if (strtoupper(trim($answer->getTitle())) == strtoupper(trim($answerText))) {
-                $newPoints = $answer->getPoints();
-                if ($newPoints != 0) {
-                    $c_selected->addPoints($newPoints);
-                    $this->participant->addPoints($newPoints);
-                    $c_debug .= "\n" . '+' .$newPoints . 'P ';
-                }
-            }
+            if ($i_question->getQmode() == 3) {
+	            // sum the the points of the current answer to the max. possible point until the current question
+	            $c_maximum1 += $answer->getPoints();
+	            
+	            // if the answer is right
+	            if (strtoupper(trim($answer->getTitle())) == strtoupper(trim($answerText))) {
+	                $newPoints = $answer->getPoints();
+	                if ($newPoints != 0) {
+	                    $c_selected->addPoints($newPoints);
+	                    $this->participant->addPoints($newPoints);
+	                    $c_debug .= "\n" . '+' .$newPoints . 'P ';
+	                }
+	            }
+	        }
         }
     }
     

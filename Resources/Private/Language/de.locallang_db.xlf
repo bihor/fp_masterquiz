@@ -49,7 +49,7 @@
 				<target>Ja/Nein-Felder (2 Radio-Buttons) [NOT YET SUPPORTED]</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.5">
-				<target>Einen Kommentar eingeben (textarea) [NOT YET SUPPORTED]</target>
+				<target>Einen Kommentar eingeben (textarea)</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.6">
 				<target>Gib einen Kommentar aus</target>
