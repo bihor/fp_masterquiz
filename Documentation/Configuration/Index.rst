@@ -43,6 +43,7 @@ Properties
 	showPoints                  boolean     Show the possible/reached points?              1
 	showPageNo                  boolean     Show the page number / number of pages?        1
 	showQuestionNo              boolean     Show the question no. / no. of questions?      0
+	checkAllStars               boolean     Check all stars on star rating by default?     0
 	allowHtml                   boolean     Allow HTML at question-answers from the BE?    0
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
 	user.ipSave                 boolean     Save the IP-address of a user?                 1
@@ -98,6 +99,8 @@ Layout**) If you use template layout 1, you should know this:
 
 Note: if you enable a cookie or FEuser check, then an user cannot vote again, if he had already voted/participated.
 The participant will see his result of a poll/quiz instead of the checkboxes/radio buttons.
+
+Note: read the chapter "User manual" for more informations about this properties/settings.
 
 Examples:
 ^^^^^^^^^

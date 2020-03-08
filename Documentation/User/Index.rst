@@ -76,6 +76,7 @@ Select the question mode "star rating" and than add as many answers as you like 
 The first answer is the highest rating (e.g. 5 stars) and and last answer is the lowest answer (1 star). 
 That is the opposite logic of the star rating in the extension myquizpoll.
 Do not set the points. In the user-answer, the points shows how many stars were seleced.
+With the setting checkAllStars you can define if one or all stars should be checked by default.
 
 .. _user-faq:
 

@@ -64,9 +64,21 @@
 							</f:case>
 							<f:case value="7">
 								<f:if condition="{nr.isLast}"><f:then>
+								  <f:if condition="{settings.checkAllStars} != 1"><f:then>
 									<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" class="star-cb-clear" checked="checked" />
+								  </f:then><f:else>
+									<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" class="star-cb-clear" />
+								  </f:else></f:if>
 								</f:then><f:else>
+								  <f:if condition="{nr.isFirst}"><f:then>
+									<f:if condition="{settings.checkAllStars} == 1"><f:then>
+										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" checked="checked" />
+									</f:then><f:else>
+										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" />
+									</f:else></f:if>								  
+								  </f:then><f:else>
 									<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" />
+								  </f:else></f:if>
 								</f:else></f:if>
 								<label for="star_{question.uid}_{answer.uid}">{answer.title -> f:format.nl2br()}</label>
 							</f:case>

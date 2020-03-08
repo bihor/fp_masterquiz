@@ -39,4 +39,5 @@ ChangeLog
 
 1.0.0: Question mode "Show a comment" and "Star rating" implemented.
 
-1.0.1: Question mode "Enter a comment (textarea)" implemented.
+1.0.2: Question mode "Enter a comment (textarea)" implemented.
+  New settings: checkAllStars.

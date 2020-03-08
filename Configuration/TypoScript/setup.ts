@@ -32,6 +32,7 @@ plugin.tx_fpmasterquiz {
 		showPoints = 1
 		showPageNo = 1
 		showQuestionNo = 0
+		checkAllStars = 0
 		allowHtml = 0
 		ajax = 0
 		user {
