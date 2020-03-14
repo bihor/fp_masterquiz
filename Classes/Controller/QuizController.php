@@ -433,6 +433,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		        }
     		    }
     		}
+    		if ($this->settings['email']['sendToAdmin'] || $this->settings['email']['sendToUser']) {
+    			// GGf. Emails versenden
+    			// TODO
+    		}
     	} else {
     		$final = 0;
     		// toggle mode for show answers after submit questions

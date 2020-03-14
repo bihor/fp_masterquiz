@@ -45,6 +45,18 @@ plugin.tx_fpmasterquiz {
 			defaultEmail =
 			defaultHomepage =
 		}
+		email {
+			adminEmail = 
+			adminName = 
+			adminSubject = New poll/quiz-result
+			userSubject = Your poll/quiz-result
+			fromEmail = 
+			fromNname =
+			sendToAdmin = 0
+			sendToUser = 0
+			# Send e-mail if specific answer(s) (JSON object formatted)
+			answers =
+		}
 		pagebrowser {
 			itemsPerPage         = 1
 			insertAbove          = 0
