@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Quiz-Result</title>
+</head>
+<body>
+	<h3>Hello Admin,</h3>
+	<p>a new quiz-result is here from:</p>
+	<p>Name: {name}</p>
+	<p>E-Mail: <a href="mailto:{email}">{email}</a></p>
+	<p>Homepage: <a href="{homepage}">{homepage}</a></p>
+
+	<f:if condition="{settings.showPoints}"><f:if condition="{participant.maximum2} > 0">
+		<p><f:translate key="text.youHave" /> {participant.points}/{participant.maximum2} <f:translate key="text.gottenPoints" />
+			<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
+       	<br/>
+	</f:if></f:if>
+	<f:format.raw>{finalContent}</f:format.raw>
+	<f:for each="{participant.selections}" as="selection" iteration="pageiterator">
+		<f:render partial="Question/PropertiesSent" arguments="{_all}" />
+	</f:for>
+</body>
+</html>

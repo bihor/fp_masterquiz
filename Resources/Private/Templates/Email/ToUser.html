@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Quiz-Result</title>
+</head>
+<body>
+	<h3>Hello {name},</h3>
+	<p>here is your quiz-result:</p>
+
+	<f:if condition="{settings.showPoints}"><f:if condition="{participant.maximum2} > 0">
+		<p><f:translate key="text.youHave" /> {participant.points}/{participant.maximum2} <f:translate key="text.gottenPoints" />
+			<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
+       	<br/>
+	</f:if></f:if>
+	<f:format.raw>{finalContent}</f:format.raw>
+	<f:for each="{participant.selections}" as="selection" iteration="pageiterator">
+		<f:render partial="Question/PropertiesSent" arguments="{_all}" />
+	</f:for>
+</body>
+</html>

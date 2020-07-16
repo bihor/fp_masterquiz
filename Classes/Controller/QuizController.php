@@ -435,7 +435,35 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     		if ($this->settings['email']['sendToAdmin'] || $this->settings['email']['sendToUser']) {
     			// GGf. Emails versenden
-    			// TODO
+				$dataArray = [
+				    'uid' => $this->participant->getUid(),
+				    'email' => $this->participant->getEmail(),
+				    'name' => $this->participant->getName(),
+				    'homepage' => $this->participant->getHomepage(),
+				    'participant' => $this->participant,
+				    'finalContent' => $finalContent,
+				    'settings' => $this->settings
+				];
+				if ($this->settings['email']['sendToAdmin'] && GeneralUtility::validEmail($this->settings['email']['adminEmail'])) {
+					$this->sendTemplateEmail(
+						array($this->settings['email']['adminEmail'] => $this->settings['email']['adminName']),
+						array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
+						$this->settings['email']['adminSubject'],
+						'ToAdmin',
+						$dataArray,
+						TRUE
+					);
+				}
+				if ($this->settings['email']['sendToUser'] && GeneralUtility::validEmail($dataArray['email'])) {
+					$this->sendTemplateEmail(
+						array($dataArray['email'] => $dataArray['name']),
+						array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
+						$this->settings['email']['userSubject'],
+						'ToUser',
+						$dataArray,
+						FALSE
+					);
+				}
     		}
     	} else {
     		$final = 0;
@@ -762,4 +790,42 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$this->view->assign('quiz', $quiz);
     }
     
+    /**
+     * Send an email
+     * 
+     * @param array $recipient recipient of the email in the format array('recipient@domain.tld' => 'Recipient Name')
+     * @param array $sender sender of the email in the format array('sender@domain.tld' => 'Sender Name')
+     * @param string $subject subject of the email
+     * @param string $templateName template name (UpperCamelCase)
+     * @param array $variables variables to be passed to the Fluid view
+     * @param boolean $toAdmin email to the admin?
+     * @return boolean TRUE on success, otherwise false
+     */
+    protected function sendTemplateEmail(array $recipient, array $sender, $subject, $templateName, array $variables = array(), $toAdmin = FALSE) {
+    	$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
+    		\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+    	);
+    	
+    	/** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
+    	$emailViewHtml = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+    	$emailViewHtml->setTemplateRootPaths($extbaseFrameworkConfiguration['view']['templateRootPaths']);
+    	$emailViewHtml->setLayoutRootPaths($extbaseFrameworkConfiguration['view']['layoutRootPaths']);
+    	$emailViewHtml->setPartialRootPaths($extbaseFrameworkConfiguration['view']['partialRootPaths']);
+    	$emailViewHtml->setTemplate('Email/' . $templateName . '.html');
+    	$emailViewHtml->setFormat('html');
+    	$emailViewHtml->assignMultiple($variables);
+    	$emailBodyHtml = $emailViewHtml->render();
+    	//echo "###" . $emailBodyHtml . '###';
+        
+    	/** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
+    	$message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+    	$message->setTo($recipient);
+    	$message->setFrom($sender)
+    	->setSubject($subject);
+    
+    	$message->setBody($emailBodyHtml, 'text/html');
+    
+    	$message->send();
+    	return $message->isSent();
+    }
 }
