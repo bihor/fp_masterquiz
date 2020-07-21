@@ -824,7 +824,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	->setSubject($subject);
     
     	$message->setBody($emailBodyHtml, 'text/html');
-    
+		//return true;
     	$message->send();
     	return $message->isSent();
     }

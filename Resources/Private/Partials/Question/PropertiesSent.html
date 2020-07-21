@@ -15,7 +15,7 @@
 		<div class="col {settings.template.colText}">
 			<div class="text-buttons">
 				<f:if condition="{selection.question.qmode} != 6">
-					<f:if condition="{settings.showOwnAnswers}">
+					<f:if condition="{settings.showOwnAnswers} || {isEmail}">
 						<p>{f:translate(key: "text.yourAnswers")}</p>
 						<ul>
 						<f:for each="{selection.answers}" as="answer" iteration="nr">
