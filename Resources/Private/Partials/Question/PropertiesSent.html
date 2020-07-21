@@ -5,7 +5,7 @@
 	</f:if>
 	<f:if condition="({settings.showQuestionNo} == 1)">
 	  <p class="quiz-question-no">{f:translate(key: "text.question")} 
-		<span id="quiz-questno"><f:if condition="{settings.ajax} == 1"><f:then>{pageiterator.cycle}</f:then><f:else>
+		<span id="quiz-questno"><f:if condition="({settings.ajax} == 1) || {isEmail}"><f:then>{pageiterator.cycle}</f:then><f:else>
 			<f:if condition="{final} == 0"><f:then>{pageiterator.cycle + pageBasis}</f:then><f:else>{pageiterator.cycle}</f:else></f:if></f:else></f:if></span>
 		{f:translate(key: "text.of")} {questions}</p>
 	</f:if>
@@ -16,7 +16,7 @@
 			<div class="text-buttons">
 				<f:if condition="{selection.question.qmode} != 6">
 					<f:if condition="{settings.showOwnAnswers} || {isEmail}">
-						<p>{f:translate(key: "text.yourAnswers")}</p>
+						<p>{f:translate(key: "text.yourAnswers", default: 'Given answers:')}</p>
 						<ul>
 						<f:for each="{selection.answers}" as="answer" iteration="nr">
 							<li>
@@ -58,7 +58,7 @@
 					</f:if>
 				
 					<f:if condition="{settings.showCorrectAnswers}">
-						<p>{f:translate(key: "text.correctAnswers")}</p>
+						<p>{f:translate(key: "text.correctAnswers", default: 'Correct answers:')}</p>
 						<ul>
 						<f:for each="{selection.question.answers}" as="answer2" iteration="nr">
 						<f:if condition="{answer2.points} > 0">
@@ -116,7 +116,7 @@
 					</f:if>
 					
 					<f:if condition="{settings.showPoints}">
-						<p>{f:translate(key: "text.pointsQuestion")} {selection.points}/{selection.maximumPoints}.</p>
+						<p>{f:translate(key: "text.pointsQuestion", default: 'Points: ')} {selection.points}/{selection.maximumPoints}.</p>
 					</f:if>
 				</f:if>
 			</div>
@@ -129,7 +129,7 @@
 	</div>
 	<f:if condition="{selection.question.explanation}">
 		<br />
-		<p>{f:translate(key: "text.explanation")}</p>
+		<p>{f:translate(key: "text.explanation", default: 'Explanation: ')}</p>
 		<f:format.html>{selection.question.explanation}</f:format.html>
 	</f:if>
 </div>
