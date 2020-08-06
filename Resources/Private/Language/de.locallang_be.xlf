@@ -73,6 +73,9 @@
 			<trans-unit id="tasks.validate.invalidLanguage">
 				<target>Diese Sprache gibt es nicht!</target>
 			</trans-unit>
+			<trans-unit id="tasks.validate.invalidFile">
+				<target>Die CSV-Datei ist nicht valide!</target>
+			</trans-unit>
 			<trans-unit id="tasks.validate.simulate">
 				<target>Nur simulieren?</target>
 			</trans-unit>

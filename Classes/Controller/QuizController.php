@@ -3,6 +3,7 @@ namespace Fixpunkt\FpMasterquiz\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+use \TYPO3\CMS\Core\Context\Context;
 
 /***
  *
@@ -24,7 +25,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * quizRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $quizRepository = null;
 
@@ -32,7 +33,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * answerRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $answerRepository = null;
 
@@ -40,7 +41,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * participantRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $participantRepository = null;
     
@@ -48,7 +49,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * selectedRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $selectedRepository = null;
     
@@ -105,6 +106,23 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
     
     /**
+     * action getFeUser
+     *
+     * @param int $userid
+     * @return array
+     */
+    public function getFeUser($userid) {
+    	$connection = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable('fe_users');
+    	$queryBuilder = $connection->createQueryBuilder();
+    	$statement = $queryBuilder->select('*')->from('fe_users')->where(
+   			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($userid, \PDO::PARAM_INT))
+    	)->setMaxResults(1)->execute();
+    	while ($row = $statement->fetch()) {
+    		return $row;
+    	}
+    }
+    
+    /**
      * action doAll
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
@@ -125,6 +143,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$quizUid = $quiz->getUid();
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
+    	$context = GeneralUtility::makeInstance(Context::class);
+    	$fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
+    	
     	if ($this->request->hasArgument('session')) {
     		$session = $this->request->getArgument('session');
     	} else if (!$this->request->hasArgument('participant')) {
@@ -136,22 +157,26 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     		if ($session) {
     			$this->participant = $this->participantRepository->findOneBySession($session);
-    			if ($this->settings['debug'])
+    			if ($this->settings['debug']) {
 	    			$debug .= "\nsession from cookie: " . $session . '; and the participant-uid of that session: ' . $this->participant->getUid();
+    			}
     		} else {
-    			if ($this->settings['user']['checkFEuser']) {
-    				$this->participant = $this->participantRepository->findOneByUserAndQuiz(intval($GLOBALS['TSFE']->fe_user->user['uid']), $quizUid);
+    			if ($this->settings['user']['checkFEuser'] && $fe_user_uid) {
+    				$this->participant = $this->participantRepository->findOneByUserAndQuiz($fe_user_uid, $quizUid);
     				if ($this->participant) {
     					$session = $this->participant->getSession();
-    					if ($this->settings['debug'])
+    					if ($this->settings['debug']) {
     						$debug .= "\nsession from FEuser: " . $session . '; and the participant-uid: ' . $this->participant->getUid();
+    					}
     				}
     			}
     			if (!$session) {
-    				$session = uniqid( mt_rand(1000,9999) );
+    				$session = uniqid( random_int(1000,9999) );
     				$newUser = TRUE;
     				$this->participant = NULL;
-    				if ($this->settings['debug']) $debug .= "\ncreating new session: " . $session;
+    				if ($this->settings['debug']) {
+    					$debug .= "\ncreating new session: " . $session;
+    				}
     			}
     		}
     	}
@@ -168,11 +193,15 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$participantUid = intval($this->request->getArgument('participant'));
     		$this->participant = $this->participantRepository->findOneByUid($participantUid);
     		$session = $this->participant->getSession();
-    		if ($this->settings['debug']) $debug .= "\nparticipant from request: " . $participantUid;
+    		if ($this->settings['debug']) {
+    			$debug .= "\nparticipant from request: " . $participantUid;
+    		}
     	} else {
     		if (!$this->participant) {
     			$this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
-    			if ($this->settings['debug']) $debug .= "\nmaking new participant.";
+    			if ($this->settings['debug']) {
+    				$debug .= "\nmaking new participant.";
+    			}
     		}
     	}
     	$page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
@@ -216,12 +245,21 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			if ($partBySes) {
     				$this->participant = $partBySes;
     				$reload = TRUE;
-    				if ($this->settings['debug']) $debug .= "\nReload nach absenden von Seite 1 detektiert.";
+    				if ($this->settings['debug']) {
+    					$debug .= "\nReload nach absenden von Seite 1 detektiert.";
+    				}
     			} else {
-	    			$defaultName = $this->settings['user']['defaultName'];
-	    			$defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
-	    			$defaultEmail = $this->settings['user']['defaultEmail'];
-	    			$defaultHomepage = $this->settings['user']['defaultHomepage'];
+    				if ($this->settings['user']['checkFEuser'] && $fe_user_uid) {
+    					$feuserData = $this->getFeUser($fe_user_uid);
+    					$defaultName = $feuserData['name'];
+    					$defaultEmail = $feuserData['email'];
+    					$defaultHomepage = $feuserData['www'];
+    				} else {
+		    			$defaultName = $this->settings['user']['defaultName'];
+		    			$defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
+		    			$defaultEmail = $this->settings['user']['defaultEmail'];
+		    			$defaultHomepage = $this->settings['user']['defaultHomepage'];
+    				}
 	    			if ($this->settings['user']['askForData']) {
 	    			    if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
 	    			        $defaultName = $this->request->getArgument('name');
@@ -629,6 +667,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         	$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
         	$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
         }
+        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+        $sys_language_uid = $languageAspect->getId();
+        
         $this->view->assign('nextPage', $data['nextPage']);
         $this->view->assign('pages', $pages);
         $this->view->assign('pagesInclFinalPage', ($pages+1));
@@ -639,7 +680,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('session', $data['session']);
         $this->view->assign('showAnswers', $data['showAnswers']);
         $this->view->assign('showAnswersNext', $data['showAnswersNext']);
-        $this->view->assign("sysLanguageUid", $GLOBALS['TSFE']->sys_language_uid);
+        $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
        // $this->view->assign("action", ($this->settings['ajax']) ? 'showAjax' : 'show');
@@ -672,6 +713,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
     			$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
     		}
+    		$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+    		$sys_language_uid = $languageAspect->getId();
+    		
     		$this->view->assign('nextPage', $data['nextPage']);
     		$this->view->assign('pages', $pages);
     		$this->view->assign('pagesInclFinalPage', ($pages+1));
@@ -682,7 +726,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->view->assign('session', $data['session']);
     		$this->view->assign('showAnswers', $data['showAnswers']);
     		$this->view->assign('showAnswersNext', $data['showAnswersNext']);
-    		$this->view->assign("sysLanguageUid", $GLOBALS['TSFE']->sys_language_uid);
+    		$this->view->assign("sysLanguageUid", $sys_language_uid);
     		$this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
 			
     		$this->view->assign('from', $from);

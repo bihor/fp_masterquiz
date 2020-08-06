@@ -23,7 +23,7 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * participantRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $participantRepository = null;
 

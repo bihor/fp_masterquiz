@@ -6,36 +6,43 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
+use TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider;
+use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
+use TYPO3\CMS\Scheduler\Task\Enumeration\Action;
+use TYPO3\CMS\Core\Messaging\FlashMessage;
 
-class DeleteParticipantAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface {
-	
+class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldProvider
+{
 	/**
 	 * Render additional information fields within the scheduler backend.
 	 *
 	 * @param array $taskInfo Array information of task to return
-	 * @param ValidatorTask $task Task object
-	 * @param \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule Reference to the BE module of the Scheduler
+	 * @param ValidatorTask|null $task The task object being edited. Null when adding a task!
+	 * @param SchedulerModuleController $schedulerModule Reference to the BE module of the Scheduler
 	 * @return array Additional fields
-	 * @see \TYPO3\CMS\Scheduler\AdditionalFieldProviderInterface->getAdditionalFields($taskInfo, $task, $schedulerModule)
+	 * @see AdditionalFieldProviderInterface->getAdditionalFields($taskInfo, $task, $schedulerModule)
 	 */
-	public function getAdditionalFields(array &$taskInfo, $task, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
+	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule)
+	{
 		$additionalFields = array();
+		$currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
 		if (empty($taskInfo['page'])) {
-			if ($schedulerModule->CMD == 'add') {
+			if ($currentSchedulerModuleAction->equals(Action::ADD)) {
 				$taskInfo['page'] = '';
 			} else {
 				$taskInfo['page'] = $task->getPage();
 			}
 		}
 		if (empty($taskInfo['days'])) {
-			if ($schedulerModule->CMD == 'add') {
+			if ($currentSchedulerModuleAction->equals(Action::ADD)) {
 				$taskInfo['days'] = '0';
 			} else {
 				$taskInfo['days'] = $task->getDays();
 			}
 		}
 		if (empty($taskInfo['flag'])) {
-		    if ($schedulerModule->CMD == 'add') {
+			if ($currentSchedulerModuleAction->equals(Action::ADD)) {
 		        $taskInfo['flag'] = 0;
 		    } else {
 		        $taskInfo['flag'] = $task->getFlag();
@@ -78,10 +85,11 @@ class DeleteParticipantAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\A
 	 * If the task class is not relevant, the method is expected to return TRUE.
 	 *
 	 * @param array $submittedData Reference to the array containing the data submitted by the user
-	 * @param \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule Reference to the BE module of the Scheduler
-	 * @return boolean TRUE if validation was ok (or selected class is not relevant), FALSE otherwise
+	 * @param SchedulerModuleController $schedulerModule Reference to the BE module of the Scheduler
+	 * @return bool TRUE if validation was ok (or selected class is not relevant), FALSE otherwise
 	 */
-	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
+	public function validateAdditionalFields(array &$submittedData, SchedulerModuleController $schedulerModule)
+	{
 		$isValid = TRUE;
         if ($submittedData['fp_masterquiz']['page'] > 0) {
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('pages');
@@ -95,23 +103,23 @@ class DeleteParticipantAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\A
                 ->fetchColumn(0);
 			if ($count == 0) {
 				$isValid = FALSE;
-				$schedulerModule->addMessage(
+				$this->addMessage(
 					$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidPage'),
-					\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
+					FlashMessage::ERROR
 				);
 			}
 		} else {
 			$isValid = FALSE;
-			$schedulerModule->addMessage(
+			$this->addMessage(
 				$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidPage'),
-				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
+				FlashMessage::ERROR
 			);
 		}
 		if (intval($submittedData['fp_masterquiz']['days']) < 1) {
 			$isValid = FALSE;
-			$schedulerModule->addMessage(
+			$this->addMessage(
 				$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidDays'),
-				\TYPO3\CMS\Core\Messaging\FlashMessage::ERROR
+				FlashMessage::ERROR
 			);
 		}
 		return $isValid;
@@ -122,10 +130,10 @@ class DeleteParticipantAdditionalFieldProvider implements \TYPO3\CMS\Scheduler\A
 	 * if the task class matches.
 	 *
 	 * @param array $submittedData Array containing the data submitted by the user
-	 * @param \TYPO3\CMS\Scheduler\Task\AbstractTask $task Reference to the current task object
-	 * @return void
+	 * @param AbstractTask $task Reference to the current task object
 	 */
-	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
+	public function saveAdditionalFields(array $submittedData, AbstractTask $task)
+	{
 		/** @var $task ValidatorTask */
 		$task->setPage($submittedData['fp_masterquiz']['page']);
 		$task->setDays($submittedData['fp_masterquiz']['days']);

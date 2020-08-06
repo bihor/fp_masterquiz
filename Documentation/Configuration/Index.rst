@@ -54,6 +54,15 @@ Properties
 	user.defaultName            string      Default user name ({TIME} will be replaced).   default {TIME}
 	user.defaultEmail           string      Default user email.
 	user.defaultHomepage        string      Default user homepage.
+	email.fromEmail             string      Your email-address.
+	email.fromName              string      Your name.
+	email.adminEmail            string      Admin email-address.
+	email.adminName             string      Admin name.
+	email.adminSubject          string      Subject of the admin-email.                    New poll/quiz-result
+	email.userSubject           string      Subject of the email to the user.              Your poll/quiz-result
+	email.sendToAdmin           boolean     Send an email to the admin at the final page?  0
+	email.sendToUser            boolean     Send an email to the user at the final page?   0
+	email.answers               string      Send email to specific admins (see manual)?
 	pagebrowser.itemsPerPage    integer     Number of questions on a page.                 1
 	pagebrowser.insertAbove     boolean     You don´t need this.                           0
 	pagebrowser.insertBelow     boolean     You don´t need this.                           0

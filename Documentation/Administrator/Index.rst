@@ -29,10 +29,6 @@ To install the extension, perform the following steps:
 
 For a list of configuration options, go to the chapter Configuration.
 
-.. important::
-
-   If you are using TYPO3 9 and you want to import myquizpoll-questions, then you will need the extension typo3db_legacy too!
-
 
 .. _admin-configuration:
 
@@ -47,6 +43,19 @@ User results
 
    If you want to change the layout of a quiz, you do not need to change the templates necessarily.
    Take a look at the TypoScript configuration. You can change the layout with the settings.template.*
+
+
+.. _admin-import:
+
+Importing myquizpoll entries
+----------------------------
+
+* There is a scheduler task which whom you can import simple question from the old extension myquizpoll.
+
+.. important::
+
+   You will need TYPO3 8 or 9 if you use this import task.
+   If you are using TYPO3 9 and you want to import myquizpoll-questions, then you will need the extension typo3db_legacy too!
 
 
 .. _admin-faq:

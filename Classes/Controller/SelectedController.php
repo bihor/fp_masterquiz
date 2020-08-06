@@ -21,7 +21,7 @@ class SelectedController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * selectedRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $selectedRepository = null;
 

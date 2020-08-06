@@ -21,7 +21,7 @@ class AnswerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      * answerRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository
-     * @inject
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $answerRepository = null;
 

@@ -39,5 +39,7 @@ ChangeLog
 
 1.0.0: Question mode "Show a comment" and "Star rating" implemented.
 
-1.0.2: Question mode "Enter a comment (textarea)" implemented.
+1.1.0: Question mode "Enter a comment (textarea)" implemented.
   New settings: checkAllStars.
+  Sending of emails now possible.
+  Dropped support for TYPO3 8. Now for TYPO3 9 and 10.

@@ -82,6 +82,9 @@
 			<trans-unit id="tasks.validate.invalidLanguage">
 				<source>Invalid language uid, please enter a valid language uid!</source>
 			</trans-unit>
+			<trans-unit id="tasks.validate.invalidFile">
+				<source>Invalid csv-file!</source>
+			</trans-unit>
 			<trans-unit id="tasks.validate.simulate">
 				<source>Only simulation?</source>
 			</trans-unit>

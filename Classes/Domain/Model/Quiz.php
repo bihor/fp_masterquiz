@@ -21,7 +21,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Name / Title
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $name = '';
 
@@ -36,7 +36,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Questions
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Question>
-     * @cascade remove
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $questions = null;
 
@@ -44,7 +44,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Evaluations
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Evaluation>
-     * @cascade remove
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $evaluations = null;
     

@@ -91,7 +91,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Participated quiz
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Model\Quiz
-     * @lazy
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $quiz = null;
 
@@ -99,7 +99,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Answered questions
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Selected>
-     * @cascade remove
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $selections = null;
     

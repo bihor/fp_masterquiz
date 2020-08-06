@@ -254,7 +254,7 @@ class CsvImportTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		$fields_names = explode(',', $fields);	// field-array
 		
 		// files sortiert nach Name, dann umkehren
-		$path = PATH_site . $this->getCsvfile();
+		$path = \TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/' . $this->getCsvfile();
 		$files = array_filter(glob($path), 'is_file');
 		$total = count($files);
 		if ($total > 1) $files = array_reverse($files);

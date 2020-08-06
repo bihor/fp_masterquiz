@@ -21,7 +21,7 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Title
      *
      * @var string
-     * @validate NotEmpty
+     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected $title = '';
 
@@ -36,7 +36,7 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Image
      *
      * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @cascade remove
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $image = null;
 
@@ -58,7 +58,7 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Answers of this question
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Answer>
-     * @cascade remove
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $answers = null;
     
