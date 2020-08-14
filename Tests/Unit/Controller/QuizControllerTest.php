@@ -64,18 +64,4 @@ class QuizControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
         $this->subject->showAction($quiz);
     }
-
-    /**
-     * @test
-     */
-    public function showActionAssignsTheGivenQuizToView()
-    {
-        $quiz = new \Fixpunkt\FpMasterquiz\Domain\Model\Quiz();
-
-        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
-        $this->inject($this->subject, 'view', $view);
-        $view->expects(self::once())->method('assign')->with('quiz', $quiz);
-
-        $this->subject->showAction($quiz);
-    }
 }
