@@ -55,7 +55,7 @@ plugin.tx_fpmasterquiz {
 			sendToAdmin = 0
 			sendToUser = 0
 			# Send e-mail if specific answer(s) (JSON object formatted)
-			answers =
+			specific =
 		}
 		pagebrowser {
 			itemsPerPage         = 1

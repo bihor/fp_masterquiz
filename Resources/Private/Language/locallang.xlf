@@ -165,6 +165,9 @@
 			<trans-unit id="text.yourAnswers">
 				<source>Your answer(s):</source>
 			</trans-unit>
+			<trans-unit id="text.yourTextAnswer">
+				<source>Your text-answer:</source>
+			</trans-unit>
 			<trans-unit id="text.correctAnswers">
 				<source>Correct answer(s):</source>
 			</trans-unit>

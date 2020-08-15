@@ -162,6 +162,9 @@
 			<trans-unit id="text.yourAnswers">
 				<target>Ihre Antwort(en):</target>
 			</trans-unit>
+			<trans-unit id="text.yourTextAnswer">
+				<target>Ihre Eingabe:</target>
+			</trans-unit>
 			<trans-unit id="text.correctAnswers">
 				<target>Richtige Antwort(en):</target>
 			</trans-unit>

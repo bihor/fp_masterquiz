@@ -138,8 +138,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$pages = 0;
     	$questions = 0;
     	$maximum1 = 0;
-    	$finalContent = '';
-    	$debug = '';
+    	$finalContent = '';		// special content for the final page
+    	$emailAnswers = [];		// special admin email to answer relations
+    	$specialRecievers = [];	// special admin email recievers
+    	$debug = '';			// debug output
     	$quizUid = $quiz->getUid();
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
@@ -158,7 +160,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		if ($session) {
     			$this->participant = $this->participantRepository->findOneBySession($session);
     			if ($this->settings['debug']) {
-	    			$debug .= "\nsession from cookie: " . $session . '; and the participant-uid of that session: ' . $this->participant->getUid();
+    				if ($this->participant) {
+		    			$debug .= "\nsession from cookie: " . $session . '; and the participant-uid of that session: ' . $this->participant->getUid();
+    				} else {
+    					$debug .= "\nsession from cookie: " . $session . '; but participant NOT FOUND!';
+    				}
     			}
     		} else {
     			if ($this->settings['user']['checkFEuser'] && $fe_user_uid) {
@@ -289,6 +295,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     	}
     	if ($saveIt && !$reload) {
+    		// special preparation
+    		if ($this->settings['email']['sendToAdmin'] && $this->settings['email']['specific']) {
+   				$emailAnswers = json_decode($this->settings['email']['specific'], true);
+   				//var_dump($emailAnswers);
+    		}
     		// cycle through all questions after a submit
     		foreach ($quiz->getQuestions() as $question) {
     			$quid = $question->getUid();
@@ -338,6 +349,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		    								$this->participant->addPoints($newPoints);
 		    								$debug .= '+' .$newPoints . 'P ';
 		    							}
+		    							if ($emailAnswers[$quid][$auid]) {
+		    								$specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
+		    							}
 	    							}
 	    							$maximum1 += $answer->getPoints();
 	    						}
@@ -345,7 +359,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    					case 1:
 	    					case 2:
 							case 7:
-	    					    // Radio-box und Select-option
+	    					    // Radio-box, Select-option und star rating
 	    						if ($this->request->hasArgument('answer_' . $quid) && $this->request->getArgument('answer_' . $quid)) {
 	    							$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid));
 	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
@@ -374,6 +388,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							    $selected->addPoints($newPoints);
 	    							    $this->participant->addPoints($newPoints);
 	    							    $debug .= '+' .$newPoints . 'P ';
+	    							}
+	    							if ($emailAnswers[$quid][$selectedAnswerUid]) {
+	    								$specialRecievers[$emailAnswers[$quid][$selectedAnswerUid]['email']] = $emailAnswers[$quid][$selectedAnswerUid];
 	    							}
 	    						}
 	    						$maximum1 += $question->getMaximum1();
@@ -482,15 +499,38 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 				    'finalContent' => $finalContent,
 				    'settings' => $this->settings
 				];
-				if ($this->settings['email']['sendToAdmin'] && GeneralUtility::validEmail($this->settings['email']['adminEmail'])) {
-					$this->sendTemplateEmail(
-						array($this->settings['email']['adminEmail'] => $this->settings['email']['adminName']),
-						array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
-						$this->settings['email']['adminSubject'],
-						'ToAdmin',
-						$dataArray,
-						TRUE
-					);
+				if ($this->settings['email']['sendToAdmin'] && ($this->settings['email']['adminEmail'] || !empty($specialRecievers))) {
+					if (GeneralUtility::validEmail($this->settings['email']['adminEmail'])) {
+						$this->sendTemplateEmail(
+							array($this->settings['email']['adminEmail'] => $this->settings['email']['adminName']),
+							array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
+							$this->settings['email']['adminSubject'],
+							'ToAdmin',
+							$dataArray,
+							TRUE
+						);
+						if ($this->settings['debug']) {
+							$debug .= "\n sending email to: " . $this->settings['email']['adminName']
+								.' <'. $this->settings['email']['adminEmail'] . '> : ' . $this->settings['email']['adminSubject'];
+						}
+					}
+					if (!empty($specialRecievers)) {
+						foreach ($specialRecievers as $email => $emailArray) {
+							if (GeneralUtility::validEmail($email)) {
+								$this->sendTemplateEmail(
+									array($email => $emailArray['name']),
+									array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
+									$emailArray['subject'],
+									'ToAdmin',
+									$dataArray,
+									TRUE
+								);
+								if ($this->settings['debug']) {
+									$debug .= "\n sending email to: " . $emailArray['name']	.' <'.  $email . '> : ' . $emailArray['subject'];
+								}
+							}
+						}
+					}
 				}
 				if ($this->settings['email']['sendToUser'] && GeneralUtility::validEmail($dataArray['email'])) {
 					$this->sendTemplateEmail(
@@ -501,6 +541,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 						$dataArray,
 						FALSE
 					);
+					if ($this->settings['debug']) {
+						$debug .= "\n sending email to: " . $dataArray['name'] .' <'. $dataArray['email'] . '> : ' . $this->settings['email']['userSubject'];
+					}
 				}
     		}
     	} else {
@@ -641,7 +684,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     				LocalizationUtility::translate('error.error', 'fp_masterquiz'),
     				\TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
     				false
-    				);
+    			);
     			$this->forward('list');
     		}
     	}

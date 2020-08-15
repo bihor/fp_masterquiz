@@ -16,7 +16,16 @@
 			<div class="text-buttons">
 				<f:if condition="{selection.question.qmode} != 6">
 					<f:if condition="{settings.showOwnAnswers} || {isEmail}">
-						<p>{f:translate(key: "text.yourAnswers", default: 'Given answers:')}</p>
+						<f:if condition="({selection.question.qmode} == 3) || ({selection.question.qmode} == 5)">
+						<f:then>
+							<f:if condition="{selection.entered}">
+								<p>{f:translate(key: "text.yourTextAnswer", default: 'Given text-answer:')}</p>													
+							</f:if>
+						</f:then>
+						<f:else>
+							<p>{f:translate(key: "text.yourAnswers", default: 'Given answers:')}</p>						
+						</f:else>
+						</f:if>
 						<ul>
 						<f:for each="{selection.answers}" as="answer" iteration="nr">
 							<li>

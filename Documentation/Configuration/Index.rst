@@ -62,7 +62,7 @@ Properties
 	email.userSubject           string      Subject of the email to the user.              Your poll/quiz-result
 	email.sendToAdmin           boolean     Send an email to the admin at the final page?  0
 	email.sendToUser            boolean     Send an email to the user at the final page?   0
-	email.answers               string      Send email to specific admins (see manual)?
+	email.specific              string      Send email to specific admins (see below)?
 	pagebrowser.itemsPerPage    integer     Number of questions on a page.                 1
 	pagebrowser.insertAbove     boolean     You don´t need this.                           0
 	pagebrowser.insertBelow     boolean     You don´t need this.                           0
@@ -164,6 +164,28 @@ This even means, that a user can not make a quiz or poll twice!
 -1 means: the cookie will be stored until the browser is closed.
 1 and greater means: a cookie will be stored for X days.
 Please note: sessions and cookies are not working if you enable Ajax. They are currently not supported in the Ajax-version.
+
+
+.. _email.specific:
+
+email.specific
+""""""""""""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.email.specific = {"116":{"415":{"email":"green@test.de","name":"Grün","subject":"Lieblingsfarbe ist grün!"},"416":{"email":"red@test.de","name":"Rot","subject":"Lieblingsfarbe ist rot!"}}}`
+
+Send an email on specific answer? Can be set as an JSON-object:
+
+{"question_uid":{"answer_uid":{"email":"E-mail 1","name":"Name 1","subject":"Subject 1"},"answer_uid":{"email":"E-mail 2","name":"Name 2","subject":"Subject 2"}}}
+
+All values are mandatory. Take care to use correct quotes (")!
+
+Example question: "Frage 1: Lieblingsfarbe" (question_id in the DB: 116), Answer 1: blau (answer_id in the DB: 414), Answer 2 (answer_id in the DB: 415): grün, Answer 3: rot (answer_id in the DB: 416)
+
+Example JSON-object: {"116":{"415":{"email":"green@test.de","name":"Grün","subject":"Lieblingsfarbe ist grün!"},"416":{"email":"red@test.de","name":"Rot","subject":"Lieblingsfarbe ist rot!"}}}
+
+You can extend the object for every answer: {"12":{"2":{…},"3":{…}},13:{"1":{…},"5":{…}}}
+
+Note: this works only if "email.sendToAdmin = 1". If you set email.adminEmail too, then an additional admins gets the email too.
 
 
 .. _Poll:
