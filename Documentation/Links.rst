@@ -21,5 +21,5 @@ Links
 	https://github.com/bihor/fp_masterquiz
 
 :Contact:
-	`k.gusbeth@fixpunkt.com <https://www.fixpunkt.com/webentwicklung/typo3/typo3-extensions/>`__
+	`info@quizpalme.de <https://www.fixpunkt.com/webentwicklung/typo3/typo3-extensions/>`__
 

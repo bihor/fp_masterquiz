@@ -42,4 +42,5 @@ ChangeLog
 1.1.0: Question mode "Enter a comment (textarea)" implemented.
   New settings: checkAllStars.
   Sending of emails now possible.
+  Using of FE-user-data, if user.checkFEuser is set.
   Dropped support for TYPO3 8. Now for TYPO3 9 and 10.

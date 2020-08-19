@@ -139,7 +139,7 @@ defaultName
 :typoscript:`plugin.tx_fpmasterquiz.settings.user.defaultName = User {TIME}`
 
 Every quiz-taker gets a name in the database. If "user.askForData=0" then this name will be used. {TIME} will
-be replaced by date and time.
+be replaced by date and time. If "user.checkFEuser=1" then the name of the FE-user will be used.
 
 
 .. _showAnswerPage:
