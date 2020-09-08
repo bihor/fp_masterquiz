@@ -43,12 +43,14 @@
 				<f:form.hidden name="participant" value="0" id="quiz-form-parti" />
 				<f:form.hidden name="currentPage" value="1" id="quiz-form-page" />
 				<f:form.hidden name="showAnswers" value="0" id="quiz-form-answers" />
+				<f:form.hidden name="useJoker" value="0" id="quiz-form-joker" />
 	            <!--  f:form.hidden name="session" value="{session}" / -->
 	            
 	            <script>
 					var ceuid = '{uidOfCE}';
 					var quizanswers = 0;
 					var quizfinal = 0;
+					var thisPage = {page};
 					var maxPages = {pages};
 					var showQuizAnswers = '{settings.showAnswerPage}';
 		            var text_goon = '{f:translate(key: "text.goon")}';
@@ -114,7 +116,7 @@
 			            form.submit(function (ev) {
 			                ev.preventDefault();
 			                var allSelected = checkQuizForm();
-							if (allSelected) {
+							if (allSelected || ($('#quiz-form'+ceuid+' #quiz-form-joker').val() == '1')) {
 								service.ajaxCall($(this));
 							} else {
 								window.alert(text_errorEmpty);
@@ -122,6 +124,12 @@
 			            });
 			            service.ajaxCall(form);
 			        });
+					function getQuizJoker() {
+						$('#quiz-form'+ceuid+' #quiz-form-page').val(thisPage);
+						$('#quiz-form'+ceuid+' #quiz-form-answers').val('0');
+						$('#quiz-form'+ceuid+' #quiz-form-joker').val('1');
+						$('#quiz-form'+ceuid).submit();
+					}
 			    </script>
 		    </f:form>
 		</f:then>
@@ -212,7 +220,7 @@
 						            var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
 									<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
 									<f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
-										
+									
 									$( "#quiz-GoOn" ).click(function() {
 										// check if there are selected answers to all questions. if not, show an warning
 										var allSelected = checkQuizForm();

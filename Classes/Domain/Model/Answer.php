@@ -33,6 +33,13 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $points = 0;
     
     /**
+     * joker answer (0: ok; 1: deactivate)
+     *
+     * @var int
+     */
+    protected $jokerAnswer = 0;
+    
+    /**
      * own answer (0: no; 1: yes)
      *
      * @var int
@@ -93,6 +100,27 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setPoints($points)
     {
         $this->points = $points;
+    }
+    
+    /**
+     * Returns the jokerAnswer
+     *
+     * @return int $jokerAnswer
+     */
+    public function getJokerAnswer()
+    {
+        return $this->jokerAnswer;
+    }
+    
+    /**
+     * Sets the jokerAnswer
+     *
+     * @param int $joker
+     * @return void
+     */
+    public function setJokerAnswer($jokerAnswer)
+    {
+        $this->jokerAnswer = $jokerAnswer;
     }
     
     /**

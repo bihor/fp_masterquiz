@@ -37,6 +37,7 @@
 										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
 									</label>
 								</div>
+								<!-- Joker: {answer.jokerAnswer} -->
 							</f:case>
 							<f:case value="2">
 								<f:comment>Nicht für jede Antwort ein Select hinzufügen, deshalb erst später hinzufügen</f:comment>

@@ -45,6 +45,7 @@ Properties
 	showQuestionNo              boolean     Show the question no. / no. of questions?      0
 	checkAllStars               boolean     Check all stars on star rating by default?     0
 	allowHtml                   boolean     Allow HTML at question-answers from the BE?    0
+	joker                       boolean     Enable a joker-button? Works only with AJAX.   0
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
 	user.ipSave                 boolean     Save the IP-address of a user?                 1
 	user.ipAnonymous            boolean     Anonymize the IP-address?                      1

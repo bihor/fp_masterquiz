@@ -145,6 +145,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$quizUid = $quiz->getUid();
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
+    	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
     	$context = GeneralUtility::makeInstance(Context::class);
     	$fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
     	
@@ -294,7 +295,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			}
     		}
     	}
-    	if ($saveIt && !$reload) {
+    	if ($saveIt && !$reload && !$useJoker) {
     		// special preparation
     		if ($this->settings['email']['sendToAdmin'] && $this->settings['email']['specific']) {
    				$emailAnswers = json_decode($this->settings['email']['specific'], true);
@@ -561,7 +562,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    			'final' => $final,
    			'finalContent' => $finalContent,
    			'showAnswers' => $showAnswers,
-   			'showAnswersNext' => $showAnswersNext,
+    	    'showAnswersNext' => $showAnswersNext,
+    	    'useJoker' => $useJoker,
     		'session' => $session,
    			'debug' => $debug
     	];
@@ -701,6 +703,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $data = $this->doAll($quiz);
         $page = $data['page'];
         $pages = $data['pages'];
+        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+        $sys_language_uid = $languageAspect->getId();
         
         $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
@@ -709,10 +713,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($pages > 0) {
         	$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
         	$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
-        }
-        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
-        $sys_language_uid = $languageAspect->getId();
-        
+        }        
         $this->view->assign('nextPage', $data['nextPage']);
         $this->view->assign('pages', $pages);
         $this->view->assign('pagesInclFinalPage', ($pages+1));
@@ -747,6 +748,43 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$pages = $data['pages'];
     		$from = 1 + (($page-1) * intval($this->settings['pagebrowser']['itemsPerPage']));
     		$to = ($page * intval($this->settings['pagebrowser']['itemsPerPage']));
+    		$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+    		$sys_language_uid = $languageAspect->getId();
+
+    		if ($data['useJoker']) {
+    		    // Joker-Antworten hier automatisch setzen
+    		    $i=0;
+    		    $jokerSet = 0;
+    		    $jokerMax = 0;
+    		    foreach ($quiz->getQuestions() as $question) {
+    		        $i++;
+    		        if ($i == $page) {
+    		            // Richtige Antworten auf 0 setzen, falsche auf 1
+    		            foreach ($question->getAnswers() as $answer) {
+    		                $jokerMax++;
+    		                $points = $answer->getPoints();
+    		                if ($points > 0) {
+    		                    $answer->setJokerAnswer(0);
+    		                    $jokerSet++;
+    		                } else {
+    		                    $answer->setJokerAnswer(1);
+    		                }
+    		            }
+    		            $jokerHalf = intval(ceil($jokerMax/2));
+    		            $jokerFehlend = $jokerHalf - $jokerSet;
+    		            foreach ($question->getAnswers() as $answer) {
+    		                if ($jokerFehlend && ($answer->getJokerAnswer() == 1)) {
+    		                    // TODO: fall nicht genug ausgewählt wird, nochmal prüfen
+    		                    $random = random_int($jokerSet+1, $jokerMax);
+    		                    if ($random == $jokerMax) {
+    		                        $jokerFehlend--;
+    		                        $answer->setJokerAnswer(0);
+    		                    }
+    		                }
+    		            }
+    		        }
+    		    }
+    		}
     		
     		$this->view->assign('debug', $data['debug']);
     		$this->view->assign('quiz', $quiz);
@@ -756,9 +794,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
     			$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
     		}
-    		$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
-    		$sys_language_uid = $languageAspect->getId();
-    		
     		$this->view->assign('nextPage', $data['nextPage']);
     		$this->view->assign('pages', $pages);
     		$this->view->assign('pagesInclFinalPage', ($pages+1));
@@ -769,6 +804,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->view->assign('session', $data['session']);
     		$this->view->assign('showAnswers', $data['showAnswers']);
     		$this->view->assign('showAnswersNext', $data['showAnswersNext']);
+    		$this->view->assign('useJoker', $data['useJoker']);
     		$this->view->assign("sysLanguageUid", $sys_language_uid);
     		$this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
 			
