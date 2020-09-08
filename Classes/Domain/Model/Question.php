@@ -262,7 +262,10 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $maximum1 = 0;
         foreach ($this->getAnswers() as $answer) {
-            $maximum1 += $answer->getPoints();
+            $points = $answer->getPoints();
+            if ($points > 0) {
+                $maximum1 += $points;
+            }
         }
         return $maximum1;
     }

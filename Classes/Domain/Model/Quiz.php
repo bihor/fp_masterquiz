@@ -208,9 +208,15 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $maximum2 = 0;
         foreach ($this->getQuestions() as $question) {
+            $maximum2 += $question->getMaximum1();
+            /* getMaximum1 macht das hier:
             foreach ($question->getAnswers() as $answer) {
-                $maximum2 += $answer->getPoints();
+                $points = $answer->getPoints();
+                if ($points > 0) {
+                    $maximum2 += $points;
+                }
             }
+            */
         }
         return $maximum2;
     }

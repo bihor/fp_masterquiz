@@ -44,3 +44,5 @@ ChangeLog
   Sending of emails now possible.
   Using of FE-user-data, if user.checkFEuser is set.
   Dropped support for TYPO3 8. Now for TYPO3 9 and 10.
+
+1.2.0: Bugfix: summation of points works now with negative points too. 

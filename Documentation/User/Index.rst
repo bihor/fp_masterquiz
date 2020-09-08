@@ -49,6 +49,13 @@ This screenshots shows you a quiz in the list view and some FlexForm-settings of
 
    Backend view of the plugin (early beta version).
 
+Points
+------
+
+There is no checkbox for correct answers! To check a answer as correct, you need to set a value greater than 0 at the points-field.
+You can set 0 or a negative value for wrong answers.
+You don´t need to set points for polls.
+
 Text-Answers
 ------------
 
