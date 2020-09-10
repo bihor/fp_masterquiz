@@ -16,7 +16,12 @@ The bug tracker is here:
 
 There might be some problems, if you enable Ajax!
 Sessions and Cookies are currently not supported if you enable Ajax.
-Furthermore the default language will be english in TYPO3 9 if you enable Ajax. 
+Furthermore the default language will be english in TYPO3 9 if you enable Ajax. You can solve this problem this way:
+you need to add TypoScript like this to your TypoScript-setup:
+
+:typoscript:`ajaxfpmasterquiz_page.config.language = de`
+:typoscript:`ajaxfpmasterquiz_page.config.sys_language_uid = 0`
+:typoscript:`ajaxfpmasterquiz_page.config.locale_all = de_DE.utf8`
 
 Please note furthermore:
 

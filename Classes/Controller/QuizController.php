@@ -344,7 +344,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							}
 	    							if ($selectedAnswerUid) {
 	    								$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-	    								$selected->addAnswer($selectedAnswer);
 	    								$newPoints = $selectedAnswer->getPoints();
 	    								if ($newPoints != 0) {
 	    								    if ($useJoker == 2) {
@@ -355,6 +354,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		    								$this->participant->addPoints($newPoints);
 		    								$debug .= $newPoints . 'P ';
 		    							}
+		    							// halbierte Punkte setzen? Ändert aber die echte Antwort!
+		    							// so nicht: $selectedAnswer->setPoints($newPoints);
+		    							$selected->addAnswer($selectedAnswer);
 		    							if ($emailAnswers[$quid][$auid]) {
 		    								$specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
 		    							}
@@ -377,7 +379,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						}
 	    						if ($selectedAnswerUid) {
 	    							$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-	    							$selected->addAnswer($selectedAnswer);
 	    							if ($qmode == 7) {
 	    								$cycle = count($question->getAnswers());
 	    								foreach ($question->getAnswers() as $answer) {
@@ -399,6 +400,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							    $this->participant->addPoints($newPoints);
 	    							    $debug .= $newPoints . 'P ';
 	    							}
+	    							// so nicht: $selectedAnswer->setPoints($newPoints);
+	    							$selected->addAnswer($selectedAnswer);
 	    							if ($emailAnswers[$quid][$selectedAnswerUid]) {
 	    								$specialRecievers[$emailAnswers[$quid][$selectedAnswerUid]['email']] = $emailAnswers[$quid][$selectedAnswerUid];
 	    							}
@@ -746,7 +749,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAjaxAction()
     {
-    	// https://www.sklein-medien.de/tutorials/detail/erstellung-einer-typo3-extension-mit-ajax-aufruf/
+    	// siehe: https://www.sebkln.de/tutorials/erstellung-einer-typo3-extension-mit-ajax-aufruf/
     	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
     	if ($quizUid) {
     		// vorerst mal

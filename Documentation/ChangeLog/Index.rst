@@ -45,4 +45,5 @@ ChangeLog
   Using of FE-user-data, if user.checkFEuser is set.
   Dropped support for TYPO3 8. Now for TYPO3 9 and 10.
 
-1.2.0: Bugfix: summation of points works now with negative points too. 
+1.2.0: New feature: 50:50 joker.
+Bugfix: summation of points works now with negative points too. 

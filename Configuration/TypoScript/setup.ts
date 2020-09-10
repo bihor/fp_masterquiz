@@ -114,7 +114,7 @@ module.tx_fpmasterquiz_web_fpmasterquizmod1 {
 
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
-# PAGE object for Ajax call:
+# PAGE object for Ajax call (you need to add your language settings here too!):
 ajaxfpmasterquiz_page = PAGE
 ajaxfpmasterquiz_page {
     typeNum = {$plugin.tx_fpmasterquiz.settings.typeNum}

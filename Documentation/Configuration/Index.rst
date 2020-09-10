@@ -234,6 +234,9 @@ FAQ
 
   This can be configured at every quiz.
 
+- The text changes to english when I activate Ajax. Whats wrong?
+
+  You need to add some more TypoScript to your page. See chapter "Known problems".
 
 .. toctree::
    :maxdepth: 5
