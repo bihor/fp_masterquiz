@@ -12,7 +12,7 @@
 	{settings.template.wrapQuestionTitle1 -> f:format.raw()}{selection.question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
 	{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{selection.question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
 	<div class="row">
-		<div class="col {settings.template.colText}">
+		<div class="{settings.template.colText}">
 			<div class="text-buttons">
 				<f:if condition="{selection.question.qmode} != 6">
 					<f:if condition="{settings.showOwnAnswers} || {isEmail}">
@@ -130,7 +130,7 @@
 				</f:if>
 			</div>
 		</div>
-		<div class="col {settings.template.colImage}">
+		<div class="{settings.template.colImage}">
 			<f:if condition="{selection.question.image.uid}">
 				<f:image src="{selection.question.image.uid}" treatIdAsReference="1" class="img-fluid" />
 			</f:if>

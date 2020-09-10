@@ -150,7 +150,24 @@ showAnswerPage
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.showAnswerPage = 0`
 
-No answer page will be shown after every submit.
+No answers-page will be shown after every submit. The next question(s) will be shown.
+
+
+.. _joker:
+
+joker
+"""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.joker = 1`
+
+A 50:50 joker can be enabled with this setting. This works only, if you set "ajax = 1" too.
+The joker will use all answers with points greater than 0. The rest of the answers will be selected randomly by the joker.
+You can not set in the backend, which answers the joker should show. If the number of answers is odd, than it works like this:
+with 5 answers 3 answers will be disabled by the joker / the joker will hide 2 wrong answers randomly.
+The disabled answers will be hidden by setting the class "d-none". You could change "d-none" to something else in the Partial Question/Properties.html.
+This works only with radio-buttons and check-boxes!
+When a joker is used, the user gets only half of the points.
+The half points will be rounded up, therefore you should not set points to 1. 2 or 10 is a better value if you use this joker.
 
 
 .. _user.useCookie:

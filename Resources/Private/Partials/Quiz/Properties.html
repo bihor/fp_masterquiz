@@ -1,20 +1,10 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<table class="tx-fp-masterquiz" >
-	<tr>
-		<td>
-			<f:translate key="tx_fpmasterquiz_domain_model_quiz.name" />
-		</td>
-		<td>
-		{quiz.name}
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<f:translate key="tx_fpmasterquiz_domain_model_quiz.about" />
-		</td>
-		<td>
-		{quiz.about}
-		</td>
-	</tr>
-</table>
+<div class="row">
+	<div class="col"><f:translate key="tx_fpmasterquiz_domain_model_quiz.name" /></div>
+	<div class="col">{quiz.name}</div>
+</div>
+<div class="row">
+	<div class="col"><f:translate key="tx_fpmasterquiz_domain_model_quiz.about" /></div>
+	<div class="col">{quiz.about}</div>
+</div>
 </html>

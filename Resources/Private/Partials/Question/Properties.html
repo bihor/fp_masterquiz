@@ -14,7 +14,7 @@
 	{settings.template.wrapQuestionTitle1 -> f:format.raw()}{question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
 	{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
 	<div class="row">
-		<div class="col {settings.template.colText}">
+		<div class="{settings.template.colText}">
 			<div class="text-buttons">
 				<div class="quiz-question-buttons">
 					<f:if condition="{question.qmode} == 7">
@@ -23,7 +23,7 @@
 					<f:for each="{question.answers}" as="answer" iteration="nr">
 						<f:switch expression="{question.qmode}">
 							<f:case value="0">
-								<div class="checkbox quiz-checkbox">
+								<div class="checkbox quiz-checkbox {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}">
 									<label>
 										<f:form.checkbox name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-checkboxes" />
 										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
@@ -31,13 +31,12 @@
 								</div>
 							</f:case>
 							<f:case value="1">
-								<div class="radio quiz-radio">
+								<div class="radio quiz-radio {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}">
 									<label>
 										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" />
 										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
 									</label>
 								</div>
-								<!-- Joker: {answer.jokerAnswer} -->
 							</f:case>
 							<f:case value="2">
 								<f:comment>Nicht für jede Antwort ein Select hinzufügen, deshalb erst später hinzufügen</f:comment>
@@ -95,7 +94,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col {settings.template.colImage}">
+		<div class="{settings.template.colImage}">
 			<f:if condition="{question.image.uid}">
 				<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-fluid" />
 			</f:if>

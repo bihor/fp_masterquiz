@@ -35,10 +35,10 @@
 					quizanswers = 0;
 					</script>
 					
-					<f:if condition="{settings.joker}"><f:if condition="{useJoker} == 0">
+					<f:if condition="{settings.joker}"><f:if condition="{useJoker} != 1">
 						<div class="quiz-joker">
 							<f:form.button type="button" name="quizGetJoker" id="quiz-GetJoker" class="btn btn-default" onclick="getQuizJoker();"
-								title="Bei der Benutzung des Jokers fallen zwei Antworten weg. Sie erhalten lediglich die halbe Punktzahl.">50:50 Joker benutzen</f:form.button>
+								title="{f:translate(key: 'text.joker.title')}">{f:translate(key: 'text.joker.button')}</f:form.button>
 						</div>
 					</f:if></f:if>
 					
@@ -47,13 +47,16 @@
 			
 			<script>
 			quizfinal = 0;
+			thisPage = {page};
 			$('#quiz-form'+ceuid+' #quiz-form-parti').val('{participant.uid}');
 			$('#quiz-form'+ceuid+' #quiz-form-page').val('{nextPage}');
 			$('#quiz-form'+ceuid+' #quiz-form-answers').val('{showAnswersNext}');
-			$('#quiz-form'+ceuid+' #quiz-form-joker').val('0');
-			//console.log('puid: '+$('#quiz-form'+ceuid+' #quiz-form-parti').val()+
-			//		'; next-page: '+$('#quiz-form'+ceuid+' #quiz-form-page').val()+
-			//		'show answers: '+$('#quiz-form'+ceuid+' #quiz-form-answers').val());
+			$('#quiz-form'+ceuid+' #quiz-form-joker').val('{nextJoker}');
+			if ({settings.debug} == 1) {
+				console.log('puid: '+$('#quiz-form'+ceuid+' #quiz-form-parti').val()+
+					'; next-page: '+$('#quiz-form'+ceuid+' #quiz-form-page').val()+
+					'; show answers: '+$('#quiz-form'+ceuid+' #quiz-form-answers').val());
+			}
 			</script>
 			
 		</f:then>

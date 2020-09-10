@@ -204,6 +204,12 @@
 			<trans-unit id="text.answer.textarea">
 				<target>Antwort:</target>
 			</trans-unit>
+			<trans-unit id="text.joker.button">
+				<target>50:50 Joker benutzen</target>
+			</trans-unit>
+			<trans-unit id="text.joker.title">
+				<target>Bei der Benutzung des Jokers fallen zwei Antworten weg. Sie erhalten lediglich die halbe Punktzahl.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

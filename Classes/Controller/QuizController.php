@@ -295,7 +295,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			}
     		}
     	}
-    	if ($saveIt && !$reload && !$useJoker) {
+    	// Ausgewählte Antworten auswerten und speichern
+    	if ($saveIt && !$reload && ($useJoker != 1)) {
     		// special preparation
     		if ($this->settings['email']['sendToAdmin'] && $this->settings['email']['specific']) {
    				$emailAnswers = json_decode($this->settings['email']['specific'], true);
@@ -346,9 +347,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    								$selected->addAnswer($selectedAnswer);
 	    								$newPoints = $selectedAnswer->getPoints();
 	    								if ($newPoints != 0) {
+	    								    if ($useJoker == 2) {
+	    								        // Joker wurde eingesetzt: Punkte halbieren
+	    								        $newPoints = intval(ceil($newPoints/2));
+	    								    }
 	    								    $selected->addPoints($newPoints);
 		    								$this->participant->addPoints($newPoints);
-		    								$debug .= '+' .$newPoints . 'P ';
+		    								$debug .= $newPoints . 'P ';
 		    							}
 		    							if ($emailAnswers[$quid][$auid]) {
 		    								$specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
@@ -386,9 +391,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    								$newPoints = $selectedAnswer->getPoints();
 	    							}
 	    							if ($newPoints != 0) {
+	    							    if ($useJoker == 2) {
+	    							        // Joker wurde eingesetzt: Punkte halbieren
+	    							        $newPoints = intval(ceil($newPoints/2));
+	    							    }
 	    							    $selected->addPoints($newPoints);
 	    							    $this->participant->addPoints($newPoints);
-	    							    $debug .= '+' .$newPoints . 'P ';
+	    							    $debug .= $newPoints . 'P ';
 	    							}
 	    							if ($emailAnswers[$quid][$selectedAnswerUid]) {
 	    								$specialRecievers[$emailAnswers[$quid][$selectedAnswerUid]['email']] = $emailAnswers[$quid][$selectedAnswerUid];
@@ -751,15 +760,16 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     		$sys_language_uid = $languageAspect->getId();
 
-    		if ($data['useJoker']) {
+    		if ($data['useJoker'] == 1) {
     		    // Joker-Antworten hier automatisch setzen
     		    $i=0;
     		    $jokerSet = 0;
     		    $jokerMax = 0;
     		    foreach ($quiz->getQuestions() as $question) {
     		        $i++;
+    		        // uns interessiert nur die aktuelle Seite
     		        if ($i == $page) {
-    		            // Richtige Antworten auf 0 setzen, falsche auf 1
+    		            // Schritt 1: richtige Antworten auf 0 setzen, falsche auf 1
     		            foreach ($question->getAnswers() as $answer) {
     		                $jokerMax++;
     		                $points = $answer->getPoints();
@@ -770,15 +780,25 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		                    $answer->setJokerAnswer(1);
     		                }
     		            }
-    		            $jokerHalf = intval(ceil($jokerMax/2));
-    		            $jokerFehlend = $jokerHalf - $jokerSet;
+    		            $jokerHalf = intval(ceil($jokerMax/2));   // aus 5 wird 3, aus 4 wird 2
+    		            $jokerFehlend = $jokerHalf - $jokerSet;   // 3-1=2; 2-1=1 bei 1 richtigen Antwort
+    		            // Schritt 2: # fehlende Joker auf 0 (richtig) setzen
     		            foreach ($question->getAnswers() as $answer) {
     		                if ($jokerFehlend && ($answer->getJokerAnswer() == 1)) {
-    		                    // TODO: fall nicht genug ausgewählt wird, nochmal prüfen
-    		                    $random = random_int($jokerSet+1, $jokerMax);
-    		                    if ($random == $jokerMax) {
+    		                    $random = random_int($jokerSet+1, $jokerMax);     // 2 bis 5 (1/4) bzw. 2 bis 4 (1/3)
+    		                    if ($random == $jokerMax) {       // Wahrscheinlichkeit 1/4 bzw. 1/3
     		                        $jokerFehlend--;
     		                        $answer->setJokerAnswer(0);
+    		                    }
+    		                }
+    		            }
+    		            // Schritt 3: falls nicht genug Antworten als pseudo-richtig ausgewählt wurden...
+    		            if ($jokerFehlend) {
+    		                // ...einfach die ersten Antworten auswählen
+    		                foreach ($question->getAnswers() as $answer) {
+    		                    if ($jokerFehlend && ($answer->getJokerAnswer() == 1)) {
+   		                            $jokerFehlend--;
+   		                            $answer->setJokerAnswer(0);
     		                    }
     		                }
     		            }
@@ -805,12 +825,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->view->assign('showAnswers', $data['showAnswers']);
     		$this->view->assign('showAnswersNext', $data['showAnswersNext']);
     		$this->view->assign('useJoker', $data['useJoker']);
+    		$this->view->assign('nextJoker', (($data['useJoker'] == 1) ? 2 : 0));
     		$this->view->assign("sysLanguageUid", $sys_language_uid);
     		$this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
 			
     		$this->view->assign('from', $from);
     		$this->view->assign('to', $to);
-    		$this->view->assign('uidOfCE', $this->request->hasArgument('uidOfCE') ? intval($this->request->getArgument('uidOfCE')) : 0);
+    		$this->view->assign('uidOfCE', ($this->request->hasArgument('uidOfCE') ? intval($this->request->getArgument('uidOfCE')) : 0));
     	} else {
     		$this->view->assign('error', 1);
     	}

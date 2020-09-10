@@ -207,6 +207,12 @@
 			<trans-unit id="text.answer.textarea">
 				<source>Answer:</source>
 			</trans-unit>
+			<trans-unit id="text.joker.button">
+				<source>Use a 50:50 joker</source>
+			</trans-unit>
+			<trans-unit id="text.joker.title">
+				<source>The joker will hide half of the answers. You will get only half of the points.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
