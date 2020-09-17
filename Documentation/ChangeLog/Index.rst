@@ -46,4 +46,5 @@ ChangeLog
   Dropped support for TYPO3 8. Now for TYPO3 9 and 10.
 
 1.2.0: New feature: 50:50 joker.
-Bugfix: summation of points works now with negative points too. 
+Bugfix: summation of points works now with negative points too.
+Bugfix: FlexForms in TYPO3 10.

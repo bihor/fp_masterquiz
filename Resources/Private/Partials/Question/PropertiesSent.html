@@ -16,6 +16,7 @@
 			<div class="text-buttons">
 				<f:if condition="{selection.question.qmode} != 6">
 					<f:if condition="{settings.showOwnAnswers} || {isEmail}">
+						<f:comment> Eigene Antworten anzeigen </f:comment>
 						<f:if condition="({selection.question.qmode} == 3) || ({selection.question.qmode} == 5)">
 						<f:then>
 							<f:if condition="{selection.entered}">
@@ -26,47 +27,48 @@
 							<p>{f:translate(key: "text.yourAnswers", default: 'Given answers:')}</p>						
 						</f:else>
 						</f:if>
-						<ul>
 						<f:for each="{selection.answers}" as="answer" iteration="nr">
-							<li>
-								<f:comment> {selection.question -> f:debug(title: 'Members of selection.question')} </f:comment> 
-								<f:comment> {selection -> f:debug(title: 'Members of selection')} </f:comment> 
-								<f:switch expression="{selection.question.qmode}">
-								<f:case value="3">
-									<f:comment>When 'Enter an answer' in a text field</f:comment> 
-									<f:comment> {answer -> f:debug(title: 'Members of answer')} / no HTML for entered Text allowed:	</f:comment>
-									{selection.entered -> f:format.nl2br()}
-								</f:case>									
-								<f:case value="5">
-									<f:comment>When 'Enter an answer' in a textarea</f:comment>
-									{selection.entered -> f:format.nl2br()}								
-								</f:case>
-								<f:case value="7">
-									<f:comment>Star rating</f:comment>
-									<div class="star-cb-rating">
-										<f:for each="{selection.question.answers}" as="answer7" iteration="nr7">
-								    		<f:if condition="{nr7.cycle} <= {selection.points}"><f:then>
-								    			<span class="dstar">★</span>
-								    		</f:then><f:else>
-								    			<span class="lstar">☆</span>
-								    		</f:else></f:if>
-								    	</f:for>
-								    </div>
-								</f:case>
-								<f:defaultCase>
-									<f:if condition="{settings.allowHtml} == 1">
-										<f:then>{answer.title -> f:format.raw()}</f:then>
-										<f:else>{answer.title -> f:format.nl2br()}</f:else>
-									</f:if>
-									<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
-								</f:defaultCase>
-								</f:switch>
-							</li>
+							<f:comment> {selection.question -> f:debug(title: 'Members of selection.question')} </f:comment> 
+							<f:comment> {selection -> f:debug(title: 'Members of selection')} </f:comment> 
+							<f:switch expression="{selection.question.qmode}">
+							<f:case value="3">
+								<f:comment>When 'Enter an answer' in a text field</f:comment> 
+								<f:comment> {answer -> f:debug(title: 'Members of answer')} / no HTML for entered Text allowed:	</f:comment>
+								{selection.entered -> f:format.nl2br()}
+							</f:case>									
+							<f:case value="5">
+								<f:comment>When 'Enter an answer' in a textarea</f:comment>
+								{selection.entered -> f:format.nl2br()}								
+							</f:case>
+							<f:case value="7">
+								<f:comment>Star rating</f:comment>
+								<div class="star-cb-rating">
+									<f:for each="{selection.question.answers}" as="answer7" iteration="nr7">
+							    		<f:if condition="{nr7.cycle} <= {selection.points}"><f:then>
+							    			<span class="dstar">★</span>
+							    		</f:then><f:else>
+							    			<span class="lstar">☆</span>
+							    		</f:else></f:if>
+							    	</f:for>
+							    </div>
+							</f:case>
+							<f:defaultCase>
+								<f:if condition="{nr.isFirst}"><ul></f:if>
+								<li>
+								<f:if condition="{settings.allowHtml} == 1">
+									<f:then>{answer.title -> f:format.raw()}</f:then>
+									<f:else>{answer.title -> f:format.nl2br()}</f:else>
+								</f:if>
+								<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
+								</li>
+								<f:if condition="{nr.isLast}"></ul></f:if>
+							</f:defaultCase>
+							</f:switch>
 						</f:for>
-						</ul>
 					</f:if>
 				
 					<f:if condition="{settings.showCorrectAnswers}">
+						<f:comment> Nur die richtigen Antworten bei einem Quiz anzeigen </f:comment>
 						<p>{f:translate(key: "text.correctAnswers", default: 'Correct answers:')}</p>
 						<ul>
 						<f:for each="{selection.question.answers}" as="answer2" iteration="nr">
@@ -84,6 +86,7 @@
 					</f:if>
 				
 					<f:if condition="({settings.showAllAnswers} == 1) && ({final} == 1)">
+						<f:comment> Alle Fragen am Schluss anzeigen </f:comment>
 						<p>{f:translate(key: "text.allAnswers")}</p>
 						<f:if condition="{settings.templateLayout} == 1">
 						<f:then>
@@ -114,7 +117,7 @@
 										</f:if>
 										<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points")})</f:if>
 										({answer3.allAnswers} {f:translate(key: "text.choices")})
-										<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>		
+										<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice")})</f:if>
 									</f:else>
 									</f:if>
 								</li>

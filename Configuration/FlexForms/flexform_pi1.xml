@@ -13,6 +13,7 @@
           <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template</label>
           <config>
           <type>select</type>
+		  <renderType>selectSingle</renderType>
           <items>
             <numIndex index="0">
                 <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.list</numIndex>
@@ -31,6 +32,7 @@
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:templateLayout</label>
 					<config>
 						<type>select</type>
+		  				<renderType>selectSingle</renderType>
 						<itemsProcFunc>Fixpunkt\FpMasterquiz\Hooks\ItemsProcFunc->user_templateLayout</itemsProcFunc>
 						<items>
 							<numIndex index="0" type="array">
