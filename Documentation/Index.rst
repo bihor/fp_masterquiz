@@ -30,7 +30,7 @@ Master-Quiz
 		quiz,test,poll,myquizpoll,myquizandpoll
 
 	:Copyright:
-		2019
+		2020
 
 	:Author:
 		Kurt Gusbeth
@@ -61,4 +61,3 @@ Master-Quiz
 	KnownProblems/Index
 	ToDoList/Index
 	ChangeLog/Index
-	Links

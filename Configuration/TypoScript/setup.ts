@@ -34,6 +34,7 @@ plugin.tx_fpmasterquiz {
 		showQuestionNo = 0
 		checkAllStars = 0
 		allowHtml = 0
+		joker = 0
 		ajax = 0
 		user {
 			ipSave = 1

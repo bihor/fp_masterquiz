@@ -48,3 +48,4 @@ ChangeLog
 1.2.0: New feature: 50:50 joker.
 Bugfix: summation of points works now with negative points too.
 Bugfix: FlexForms in TYPO3 10.
+Bugfix: hidden-fields in the backend.
