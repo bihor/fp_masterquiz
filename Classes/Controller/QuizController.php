@@ -765,6 +765,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     		if ($data['useJoker'] == 1) {
     		    // Joker-Antworten hier automatisch setzen
+    			if ($this->settings['debug']) {
+    				$data['debug'] .= "\nJoker was used. Setting automatic joker answers: ";
+    			}
     		    $i=0;
     		    $jokerSet = 0;
     		    $jokerMax = 0;
@@ -773,6 +776,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		        // uns interessiert nur die aktuelle Seite
     		        if ($i == $page) {
     		            // Schritt 1: richtige Antworten auf 0 setzen, falsche auf 1
+    		        	if ($this->settings['debug']) {
+    		        		$data['debug'] .= $question->getTitle() . "/";
+    		        	}
     		            foreach ($question->getAnswers() as $answer) {
     		                $jokerMax++;
     		                $points = $answer->getPoints();
@@ -792,6 +798,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		                    if ($random == $jokerMax) {       // Wahrscheinlichkeit 1/4 bzw. 1/3
     		                        $jokerFehlend--;
     		                        $answer->setJokerAnswer(0);
+    		                        if ($this->settings['debug']) {
+    		                        	$data['debug'] .= $answer->getTitle() . "#";
+    		                        }
     		                    }
     		                }
     		            }
@@ -802,6 +811,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		                    if ($jokerFehlend && ($answer->getJokerAnswer() == 1)) {
    		                            $jokerFehlend--;
    		                            $answer->setJokerAnswer(0);
+   		                            if ($this->settings['debug']) {
+   		                            	$data['debug'] .= $answer->getTitle() . "##";
+   		                            }
     		                    }
     		                }
     		            }
