@@ -88,10 +88,9 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $page = 0;
     
     /**
-     * Participated quiz
+     * Participated quiz: darf in TYPO3 10 nicht lazy sein!
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Model\Quiz
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Lazy
      */
     protected $quiz = null;
 
