@@ -55,6 +55,22 @@
 				<target>ja</target>
 			</trans-unit>
 			
+			<trans-unit id="pagelayoutview">
+				<target>Masterquiz-PlugIn-Einstellungen:</target>
+			</trans-unit>
+			<trans-unit id="pagemodule.switchToPage">
+				<target>gehe zur Seite</target>
+			</trans-unit>
+			<trans-unit id="pagemodule.pageNotAvailable">
+				<target>keine Seite verfügbar!</target>
+			</trans-unit>
+			<trans-unit id="startingpoint">
+				<target>Ordner mit Inhalten:</target>
+			</trans-unit>
+			<trans-unit id="recursive">
+				<target>Rekursiv:</target>
+			</trans-unit>
+			
 			<trans-unit id="tasks.title">
 				<target>Lösche alle alten Teilnehmer</target>
 			</trans-unit>

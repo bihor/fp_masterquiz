@@ -55,6 +55,22 @@
 				<source>yes</source>
 			</trans-unit>
 			
+			<trans-unit id="pagelayoutview">
+				<source>Masterquiz plugin settings:</source>
+			</trans-unit>
+			<trans-unit id="pagemodule.switchToPage">
+				<source>switch to page</source>
+			</trans-unit>
+			<trans-unit id="pagemodule.pageNotAvailable">
+				<source>page not available!</source>
+			</trans-unit>
+			<trans-unit id="startingpoint">
+				<source>Startingpoint:</source>
+			</trans-unit>
+			<trans-unit id="recursive">
+				<source>Recursive:</source>
+			</trans-unit>
+			
 			<trans-unit id="tasks.title">
 				<source>Delete old participants</source>
 			</trans-unit>

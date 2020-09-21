@@ -4,7 +4,6 @@ namespace Fixpunkt\FpMasterquiz\Hooks;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -35,7 +34,7 @@ class PageLayoutView
      *
      * @var string
      */
-    const KEY = 'fp_masterquiz';
+    const KEY = 'fpmasterquiz';
 
     /**
      * Path to the locallang file
@@ -94,8 +93,7 @@ class PageLayoutView
                 $actionList = GeneralUtility::trimExplode(';', $actions);
                 $actionList2 = GeneralUtility::trimExplode('>', $actionList[0]);
                 
-                // translate the first action into its translation
-                //$actionTranslationKey = strtolower(str_replace('->', '_', $actionList[0]));
+                // 1. action
                 $actionTranslationKey = strtolower($actionList2[1]);
                 $actionTranslation = $this->getLanguageService()->sL(self::LLPATH . 'template.' . $actionTranslationKey);
                 $actionTranslation = ($actionTranslation) ? htmlspecialchars($actionTranslation) : $actionTranslationKey;
@@ -114,22 +112,34 @@ class PageLayoutView
             $this->getStartingPoint($params['row']['pages']);
             
             if (is_array($this->flexformData)) {
-               $listPid = (int)$this->getFieldFromFlexform('settings.listId');
-               if ($listPid > 0) {
-               	$content = $this->getRecordData($listPid);
-               	$this->tableData[] = [
-               			$this->getLanguageService()->sL(self::LLPATH . 'layout.listId'),
+                $startPageUid = (int)$this->getFieldFromFlexform('settings.startPageUid');
+               if ($startPageUid > 0) {
+                   $content = $this->getRecordData($startPageUid);
+               	   $this->tableData[] = [
+               			$this->getLanguageService()->sL(self::LLPATH . 'settings.startPageUid'),
                			$content
-               	];
+               	   ];
                }
-               $detailPid = (int)$this->getFieldFromFlexform('settings.showId');
-               if ($detailPid > 0) {
-               	$content = $this->getRecordData($detailPid);
-               	$this->tableData[] = [
-               			$this->getLanguageService()->sL(self::LLPATH . 'layout.showId'),
+               $defaultQuizUid = (int)$this->getFieldFromFlexform('settings.defaultQuizUid');
+               if ($defaultQuizUid > 0) {
+                   $content = $this->getRecordData($defaultQuizUid, 'tx_fpmasterquiz_domain_model_quiz');
+               	   $this->tableData[] = [
+               			$this->getLanguageService()->sL(self::LLPATH . 'settings.defaultQuizUid'),
                			$content
-               	];
+               	   ];
                }
+               $itemsPerPage = (int)$this->getFieldFromFlexform('settings.pagebrowser.itemsPerPage');
+               if ($itemsPerPage > 0) {
+                   $this->tableData[] = [
+                       $this->getLanguageService()->sL(self::LLPATH . 'settings.itemsPerPage'),
+                       $itemsPerPage
+                   ];
+               }
+               $ajax = (int)$this->getFieldFromFlexform('settings.ajax');
+               $this->tableData[] = [
+                   $this->getLanguageService()->sL(self::LLPATH . 'settings.ajax'),
+                   (($ajax) ? $this->getLanguageService()->sL(self::LLPATH . 'settings.yes') : $this->getLanguageService()->sL(self::LLPATH . 'settings.no'))
+               ];
                if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'])) {
                     $params = [
                         'action' => $actionTranslationKey
@@ -240,10 +250,6 @@ class PageLayoutView
      */
     protected function renderSettingsAsTable($header = '', $recordUid = 0)
     {
-        $pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
-        $pageRenderer->loadRequireJsModule('TYPO3/CMS/fp_masterquiz/PageLayout');
-        $pageRenderer->addCssFile('EXT:fp_masterquiz/Resources/Public/css/PageLayoutView.css');
-
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName('EXT:fp_masterquiz/Resources/Private/Backend/Templates/PageLayoutView.html'));
         $view->assignMultiple([

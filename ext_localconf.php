@@ -54,6 +54,10 @@ call_user_func(
 );
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
+// Page module hook
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['fpmasterquiz_pi1']['fp_masterquiz'] =
+\Fixpunkt\FpMasterquiz\Hooks\PageLayoutView::class . '->getExtensionSummary';
+
 if (TYPO3_MODE === 'BE') {
 	// Add deletion task (sheduler)
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Fixpunkt\\FpMasterquiz\\Task\\DeleteParticipantTask'] = array(
