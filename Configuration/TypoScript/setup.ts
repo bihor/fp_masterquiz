@@ -36,6 +36,7 @@ plugin.tx_fpmasterquiz {
 		allowHtml = 0
 		joker = 0
 		ajax = 0
+		ajaxType = POST
 		user {
 			ipSave = 1
 			ipAnonymous = 1
