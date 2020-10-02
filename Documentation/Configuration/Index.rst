@@ -100,6 +100,8 @@ AJAX*) If you enable AJAX, you should know this:
     This is set by default. You can change the value to 1, if you do not use the AJAX-version.
     If it is still not working, you can disable the cHash-check in the install tool: 
     [FE][pageNotFoundOnCHashError] = false
+  
+  - You have still problems? Then read the chapter "Known problems".
 
 Layout**) If you use template layout 1, you should know this:
 

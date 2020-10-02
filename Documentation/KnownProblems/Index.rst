@@ -16,6 +16,10 @@ The bug tracker is here:
 
 There might be some problems, if you enable Ajax!
 Sessions and Cookies are currently not supported if you enable Ajax.
+
+Note: it might be necessary to change the Quiz/Show.html template, if you will see the startpage
+instead of a question as a ajax result page. You could try to change the type from POST to GET in the $.ajax call.
+
 Furthermore the default language will be english in TYPO3 9 if you enable Ajax. You can solve this problem this way:
 you need to add TypoScript like this to your TypoScript-setup:
 
