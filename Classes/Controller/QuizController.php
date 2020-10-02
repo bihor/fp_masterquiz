@@ -308,7 +308,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			$debug .= "\n#" . $quid . '#: ';
     			if ($this->request->hasArgument('quest_' . $quid) && $this->request->getArgument('quest_' . $quid)) {
     				$isActive = TRUE;
-    			} else if ($_POST['quest_' . $quid]) {
+    			} else if ($_POST['quest_' . $quid] || $_GET['quest_' . $quid]) {
     				// Ajax-call is without extensionname :-(
     				$isActive = TRUE;
     			} else {
@@ -339,7 +339,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							} else if ($_POST['answer_' . $quid . '_' . $auid]) {
 	    								$selectedAnswerUid = intval($_POST['answer_' . $quid . '_' . $auid]);
 	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
-	    							} else {
+	    							} else if ($_GET['answer_' . $quid . '_' . $auid]) {
+	    								$selectedAnswerUid = intval($_GET['answer_' . $quid . '_' . $auid]);
+	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
+	    							}else {
 	    								$selectedAnswerUid = 0;
 	    							}
 	    							if ($selectedAnswerUid) {
@@ -374,7 +377,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						} else if ($_POST['answer_' . $quid]) {
 	    							$selectedAnswerUid = intval($_POST['answer_' . $quid]);
 	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
-	    						} else {
+	    						} else if ($_GET['answer_' . $quid]) {
+	    							$selectedAnswerUid = intval($_GET['answer_' . $quid]);
+	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
+	    						}else {
 	    							$selectedAnswerUid = 0;
 	    						}
 	    						if ($selectedAnswerUid) {
@@ -606,6 +612,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $answerText = $_POST['answer_text_' . $i_quid];
             $c_debug .= "\n" . $i_quid . '- Answer in the Inputbox is: ' . $answerText . ' ';
             
+        // retreive answer over the GET arguments
+        } else if ($_GET['answer_text_' . $i_quid]) {
+        	$answerText = $_GET['answer_text_' . $i_quid];
+        	$c_debug .= "\n" . $i_quid . '- Answer in the Inputbox is: ' . $answerText . ' ';
+        
         // if evereything fails
         } else {
             /* @todo Error handling */
