@@ -73,7 +73,7 @@
 				<script>
 					<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
 					
-			        jQuery(document).ready(function ($) {
+					document.addEventListener('DOMContentLoaded', function(){
 			            var form = $('#quiz-form'+ceuid);
 			            var resultContainer = $('#quiz-ajaxCallResult');
 			            var service = {
@@ -123,7 +123,8 @@
 							}
 			            });
 			            service.ajaxCall(form);
-			        });
+					}, false);
+					
 					function getQuizJoker() {
 						$('#quiz-form'+ceuid+' #quiz-form-page').val(thisPage);
 						$('#quiz-form'+ceuid+' #quiz-form-answers').val('0');
