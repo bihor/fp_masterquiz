@@ -15,7 +15,7 @@
 		<div class="{settings.template.colText}">
 			<div class="text-buttons">
 				<f:if condition="{selection.question.qmode} != 6">
-					<f:if condition="{settings.showOwnAnswers} || {isEmail}">
+					<f:if condition="(({settings.showOwnAnswers} == 2) && ({final} == 0)) || ({settings.showOwnAnswers} == 1) || {isEmail}">
 						<f:comment> Eigene Antworten anzeigen </f:comment>
 						<f:if condition="({selection.question.qmode} == 3) || ({selection.question.qmode} == 5)">
 						<f:then>
@@ -67,7 +67,7 @@
 						</f:for>
 					</f:if>
 				
-					<f:if condition="{settings.showCorrectAnswers}">
+					<f:if condition="(({settings.showCorrectAnswers} == 2) && ({final} == 0)) || ({settings.showCorrectAnswers} == 1)">
 						<f:comment> Nur die richtigen Antworten bei einem Quiz anzeigen </f:comment>
 						<p>{f:translate(key: "text.correctAnswers", default: 'Correct answers:')}</p>
 						<ul>
@@ -82,6 +82,36 @@
 							</li>
 						</f:if>
 						</f:for>
+						</ul>
+					</f:if>
+				
+					<f:if condition="(({settings.showEveryAnswer} == 2) && ({final} == 0)) || ({settings.showEveryAnswer} == 1)">
+						<f:comment> Alle Antworten bei einer Frage anzeigen </f:comment>
+						<ul>
+							<f:for each="{selection.question.answers}" as="answer5" iteration="nr5">
+								<f:for each="{selection.answers}" as="answer6" iteration="nr6">
+									<f:if condition="{answer5.points} && ({answer5.uid} == {answer6.uid})">
+									<f:then>
+										<li class="text-success font-weight-bold">
+									</f:then>
+									<f:else if="{answer5.points}">
+										<li class="text-success">
+									</f:else>
+									<f:else if="{answer5.uid} == {answer6.uid}">
+										<li class="text-danger font-weight-bold">
+									</f:else>
+									<f:else>
+										<li>
+									</f:else>
+									</f:if>
+									<f:if condition="{settings.allowHtml} == 1">
+										<f:then>{answer.title -> f:format.raw()}</f:then>
+										<f:else>{answer.title -> f:format.nl2br()}</f:else>
+									</f:if>
+									<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
+									</li>
+								</f:for>
+							</f:for>
 						</ul>
 					</f:if>
 				

@@ -46,9 +46,10 @@ ChangeLog
   Dropped support for TYPO3 8. Now for TYPO3 9 and 10.
 
 1.2.0: New feature: 50:50 joker.
-Page layout view / preview in the backend. 
-Bugfix: summation of points works now with negative points too.
-Bugfix: FlexForms in TYPO3 10.
-Bugfix: hidden-fields in the backend.
+  Page layout view / preview in the backend. 
+  Bugfix: summation of points works now with negative points too.
+  Bugfix: FlexForms in TYPO3 10.
+  Bugfix: hidden-fields in the backend.
 
 1.3.0: New setting: ajaxType.
+  New settings: showEveryAnswer and option 2 for showOwnAnswers and showCorrectAnswers.

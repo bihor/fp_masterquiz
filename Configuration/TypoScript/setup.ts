@@ -25,9 +25,10 @@ plugin.tx_fpmasterquiz {
 		startPageUid = 1
 		defaultQuizUid = 1
 		showAnswerPage = 1
-		showAnswersAtFinalPage = 0
 		showOwnAnswers = 1
 		showCorrectAnswers = 1
+		showEveryAnswer = 0
+		showAnswersAtFinalPage = 0
 		showAllAnswers = 0
 		showPoints = 1
 		showPageNo = 1
