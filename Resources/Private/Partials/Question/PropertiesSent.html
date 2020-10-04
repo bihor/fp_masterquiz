@@ -89,28 +89,21 @@
 						<f:comment> Alle Antworten bei einer Frage anzeigen </f:comment>
 						<ul>
 							<f:for each="{selection.question.answers}" as="answer5" iteration="nr5">
-								<f:for each="{selection.answers}" as="answer6" iteration="nr6">
-									<f:if condition="{answer5.points} && ({answer5.uid} == {answer6.uid})">
-									<f:then>
-										<li class="text-success font-weight-bold">
-									</f:then>
-									<f:else if="{answer5.points}">
-										<li class="text-success">
-									</f:else>
-									<f:else if="{answer5.uid} == {answer6.uid}">
-										<li class="text-danger font-weight-bold">
-									</f:else>
-									<f:else>
-										<li>
-									</f:else>
-									</f:if>
+								<!-- Alle Antworten der Frage und dann nur die beantworteten Fragen -->
+								<f:spaceless><li class="<f:for each="{selection.answers}" as="answer6" iteration="nr6">
+										<f:if condition="{answer5.points} && ({answer5.uid} == {answer6.uid})">
+										<f:then>text-success font-weight-bold</f:then>
+										<f:else if="{answer5.points}">text-success</f:else>
+										<f:else if="{answer5.uid} == {answer6.uid}">text-danger font-weight-bold</f:else>
+										<f:else></f:else>
+										</f:if>
+									</f:for>">
 									<f:if condition="{settings.allowHtml} == 1">
-										<f:then>{answer.title -> f:format.raw()}</f:then>
-										<f:else>{answer.title -> f:format.nl2br()}</f:else>
+										<f:then>{answer5.title -> f:format.raw()}</f:then>
+										<f:else>{answer5.title -> f:format.nl2br()}</f:else>
 									</f:if>
-									<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points")})</f:if>
-									</li>
-								</f:for>
+									<f:if condition="{settings.showPoints}"> ({answer5.points} {f:translate(key: "text.points")})</f:if>
+								</li></f:spaceless> 
 							</f:for>
 						</ul>
 					</f:if>
