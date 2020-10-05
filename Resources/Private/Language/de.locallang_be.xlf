@@ -39,6 +39,9 @@
 			<trans-unit id="settings.showCorrectAnswers">
 				<target>Zeige die richtigen Antworten an?</target>
 			</trans-unit>
+			<trans-unit id="settings.showEveryAnswer">
+				<target>Zeige alle Antworten an, so wie auf der Fragen-Seite?</target>
+			</trans-unit>
 			<trans-unit id="settings.showAllAnswers">
 				<target>Zeige alle bisherigen Antworten an (nur auf der Schlußseite)?</target>
 			</trans-unit>
@@ -53,6 +56,9 @@
 			</trans-unit>
 			<trans-unit id="settings.yes">
 				<target>ja</target>
+			</trans-unit>
+			<trans-unit id="settings.yesNotFinal">
+				<target>ja, aber nicht auf der Schlußseite</target>
 			</trans-unit>
 			
 			<trans-unit id="pagelayoutview">

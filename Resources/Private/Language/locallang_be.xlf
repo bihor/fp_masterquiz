@@ -39,6 +39,9 @@
 			<trans-unit id="settings.showCorrectAnswers">
 				<source>Show the correct answers?</source>
 			</trans-unit>
+			<trans-unit id="settings.showEveryAnswer">
+				<source>Show every answer like on the question-page?</source>
+			</trans-unit>
 			<trans-unit id="settings.showAllAnswers">
 				<source>Show all answers from everybody (only at the final page)?</source>
 			</trans-unit>
@@ -53,6 +56,9 @@
 			</trans-unit>
 			<trans-unit id="settings.yes">
 				<source>yes</source>
+			</trans-unit>
+			<trans-unit id="settings.yesNotFinal">
+				<source>yes, but not on the final page</source>
 			</trans-unit>
 			
 			<trans-unit id="pagelayoutview">
