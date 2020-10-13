@@ -54,7 +54,7 @@ plugin.tx_fpmasterquiz {
 			adminSubject = New poll/quiz-result
 			userSubject = Your poll/quiz-result
 			fromEmail = 
-			fromNname =
+			fromName =
 			sendToAdmin = 0
 			sendToUser = 0
 			# Send e-mail if specific answer(s) (JSON object formatted)
