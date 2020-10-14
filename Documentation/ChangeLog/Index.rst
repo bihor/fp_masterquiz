@@ -11,8 +11,6 @@
 ChangeLog
 =========
 
-0.1.0: This is the first alpha release!
-
 0.2.0: First release for the TER.
 
 0.2.2: Bug with points fixed.
@@ -52,4 +50,6 @@ ChangeLog
   Bugfix: hidden-fields in the backend.
 
 1.3.0: New setting: ajaxType.
+  New setting: email.likeFinalPage.
   New settings: showEveryAnswer and option 2 for showOwnAnswers and showCorrectAnswers.
+  Bugfix: sending of emails.

@@ -66,6 +66,7 @@ Properties
 	email.sendToAdmin           boolean     Send an email to the admin at the final page?  0
 	email.sendToUser            boolean     Send an email to the user at the final page?   0
 	email.specific              string      Send email to specific admins (see below)?
+	email.likeFinalPage         boolean     Handle the email like a final page?            0
 	pagebrowser.itemsPerPage    integer     Number of questions on a page.                 1
 	pagebrowser.insertAbove     boolean     You don´t need this.                           0
 	pagebrowser.insertBelow     boolean     You don´t need this.                           0

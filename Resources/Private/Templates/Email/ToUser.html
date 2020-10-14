@@ -14,7 +14,7 @@
 	</f:if></f:if>
 	<f:format.raw>{finalContent}</f:format.raw>
 	<f:for each="{participant.selections}" as="selection" iteration="pageiterator">
-		<f:render partial="Question/PropertiesSent" arguments="{settings:settings, final:0, isEmail:1, selection:selection, pageiterator:pageiterator}" />
+		<f:render partial="Question/PropertiesSent" arguments="{settings:settings, final:settings.email.likeFinalPage, isEmail:1, selection:selection, pageiterator:pageiterator}" />
 	</f:for>
 </body>
 </html>
