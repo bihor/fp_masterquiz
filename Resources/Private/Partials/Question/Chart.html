@@ -1,8 +1,9 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <div id="pollChart{question.uid}" class="apexchart apex-{settings.chart.type}"></div>
 <script>
+{
   <f:if condition="{settings.chart.type} == 'pie' || {settings.chart.type} == 'donut'"><f:then>
-	var options{question.uid} = {
+	let chartoptions = {
 		//title: {
 		//	text: '{question.title}',
 		//	align: 'left'
@@ -44,7 +45,7 @@
            }]
 	}
   </f:then><f:else>
-	var options{question.uid} = {
+	let chartoptions = {
          chart: {
              width:	chartwidth,
              type:	charttype,
@@ -68,8 +69,9 @@
 	
 	var chart{question.uid} = new ApexCharts(
 	    document.querySelector("#pollChart{question.uid}"),
-	    options{question.uid}
+	    chartoptions
 	);
-	chart{question.uid}.render();					    
+	chart{question.uid}.render();
+}
 </script>
 </html>

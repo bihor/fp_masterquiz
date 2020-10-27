@@ -51,15 +51,16 @@
 					var quizanswers = 0;
 					var quizfinal = 0;
 					var ajaxType = 'POST';
+					var ajaxTypeSetting = '{settings.ajaxType}';
 					var thisPage = {page};
 					var maxPages = {pages};
 					var showQuizAnswers = '{settings.showAnswerPage}';
 		            var text_goon = '{f:translate(key: "text.goon")}';
 		            var text_gofinal = '{f:translate(key: "text.gofinal")}';
 		            var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
-		            if ('{settings.ajaxType}' == 'GET') {
-		            	ajaxType = 'GET';
-		            }
+		        </script>
+		        <script language="javascript" type="text/javascript">
+		            if (ajaxTypeSetting == 'GET') {	ajaxType = 'GET'; }
 				</script>
 				
 				<div id="quiz-ajaxCallResult"></div>
