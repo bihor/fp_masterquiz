@@ -342,7 +342,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							} else if ($_GET['answer_' . $quid . '_' . $auid]) {
 	    								$selectedAnswerUid = intval($_GET['answer_' . $quid . '_' . $auid]);
 	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
-	    							}else {
+	    							} else {
 	    								$selectedAnswerUid = 0;
 	    							}
 	    							if ($selectedAnswerUid) {
@@ -355,7 +355,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    								    }
 	    								    $selected->addPoints($newPoints);
 		    								$this->participant->addPoints($newPoints);
-		    								$debug .= $newPoints . 'P ';
+		    								if ($this->settings['debug']) {
+		    									$debug .= $newPoints . 'P ';
+		    								}
 		    							}
 		    							// halbierte Punkte setzen? Ändert aber die echte Antwort!
 		    							// so nicht: $selectedAnswer->setPoints($newPoints);
@@ -364,8 +366,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		    								$specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
 		    							}
 	    							}
-	    							$maximum1 += $answer->getPoints();
+	    							// statt hier nun nach der Schleife: $maximum1 += $answer->getPoints();
 	    						}
+	    						$maximum1 += $question->getMaximum1();
 	    						break;
 	    					case 1:
 	    					case 2:
@@ -404,7 +407,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							    }
 	    							    $selected->addPoints($newPoints);
 	    							    $this->participant->addPoints($newPoints);
-	    							    $debug .= $newPoints . 'P ';
+	    							    if ($this->settings['debug']) {
+		    							    $debug .= $newPoints . 'P ';
+	    							    }
 	    							}
 	    							// so nicht: $selectedAnswer->setPoints($newPoints);
 	    							$selected->addAnswer($selectedAnswer);
