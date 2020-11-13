@@ -138,6 +138,12 @@
 			<trans-unit id="text.homepage">
 				<source>Homepage</source>
 			</trans-unit>
+			<trans-unit id="text.yes">
+				<source>yes</source>
+			</trans-unit>
+			<trans-unit id="text.no">
+				<source>no</source>
+			</trans-unit>
 			<trans-unit id="text.done">
 				<source>Done!</source>
 			</trans-unit>
@@ -212,6 +218,12 @@
 			</trans-unit>
 			<trans-unit id="text.joker.title">
 				<source>The joker will hide half of the answers. You will get only half of the points.</source>
+			</trans-unit>
+			<trans-unit id="text.updated">
+				<source>Update completed</source>
+			</trans-unit>
+			<trans-unit id="text.questionAdded">
+				<source>The question was added to the quiz.</source>
 			</trans-unit>
 		</body>
 	</file>

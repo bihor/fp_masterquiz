@@ -23,4 +23,31 @@ class QuestionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     protected $defaultOrderings = [
         'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     ];
+    
+    /**
+     * Fetches questions of with no relation.
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findLostQuestions($pageId) {
+    	$query = $this->createQuery();
+    	$query->getQuerySettings()->setRespectStoragePage(FALSE);
+    	$query->matching(
+    		$query->logicalAnd(
+    			$query->equals('pid', $pageId),
+    			$query->equals('quiz', 0)
+    		)
+    	);
+    	return $query->execute();
+    }
+    
+    /**
+     * Get the PIDs
+     *
+     * @return array
+     */
+    public function getStoragePids() {
+    	$query = $this->createQuery();
+    	return $query->getQuerySettings()->getStoragePageIds();
+    }
 }

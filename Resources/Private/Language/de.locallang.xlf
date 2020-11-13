@@ -135,6 +135,12 @@
 			<trans-unit id="text.email">
 				<target>E-Mail</target>
 			</trans-unit>
+			<trans-unit id="text.yes">
+				<target>ja</target>
+			</trans-unit>
+			<trans-unit id="text.no">
+				<target>nein</target>
+			</trans-unit>
 			<trans-unit id="text.done">
 				<target>Fertig!</target>
 			</trans-unit>
@@ -209,6 +215,12 @@
 			</trans-unit>
 			<trans-unit id="text.joker.title">
 				<target>Bei der Benutzung des Jokers fallen zwei Antworten weg. Sie erhalten lediglich die halbe Punktzahl.</target>
+			</trans-unit>
+			<trans-unit id="text.updated">
+				<target>Update abgeschlossen</target>
+			</trans-unit>
+			<trans-unit id="text.questionAdded">
+				<target>Die Frage wurde zum Quiz hinzugefügt.</target>
 			</trans-unit>
 		</body>
 	</file>

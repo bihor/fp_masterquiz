@@ -54,4 +54,5 @@ ChangeLog
   New settings: showEveryAnswer and option 2 for showOwnAnswers and showCorrectAnswers.
   Bugfix: sending of emails.
 
-1.3.2: Important bugfix for PHP 7.3 and other bugfixes points related.
+1.3.3: Possiblity added to add a question to a quiz.
+  Important bugfix for PHP 7.3 and other bugfixes points related.

@@ -29,7 +29,8 @@ After you have created a quiz with some questions you can add the plugin at a pa
 .. tip::
 
    If you have a quiz with more than 10 questions, the backend will be very slow. To avoid this, create a quiz with nearly empty questions.
-   Finally edit every question individually.
+   Finally edit every question individually. Second posibility: go to the backend module and click on "Show quiz properties".
+   There you could add questions to a quiz after you have created questions first.
 
 .. important::
 

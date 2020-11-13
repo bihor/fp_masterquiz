@@ -889,7 +889,66 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function detailAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+    	$questionRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\QuestionRepository');
+    	$pid = (int)GeneralUtility::_GP('id');
+    	$uid = (int)$quiz->getUid();
+    	$updated = FALSE;
+    	$lost = $this->request->hasArgument('lost') ? intval($this->request->getArgument('lost')) : 0;
+    	if ($lost > 0) {
+    		// wir fügen erst eine verschollene Frage ohne Referenz hinzu
+    		// Es sollte so einfach gehen, aber es funktioniert dennoch NICHT: wer weiß warum es nicht geht???
+    		/* $question2 = $questionRepository->findbyUid($lost);
+    		$quiz->addQuestion($question2);
+    		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+    		$persistenceManager->persistAll(); */
+    		$counter = 0;
+    		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
+    		$statement = $queryBuilder
+    		->select('questions')
+    		->from('tx_fpmasterquiz_domain_model_quiz')
+    		->where(
+    			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+    		)
+    		->setMaxResults(1)
+    		->execute();
+    		while ($row = $statement->fetch()) {
+    			$counter = $row['questions'];
+    		}
+    		$counter++;
+    		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
+    		$queryBuilder
+    		->update('tx_fpmasterquiz_domain_model_quiz')
+    		->where(
+    			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+    		)
+    		->set('questions', $counter)
+    		->execute();
+    		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_question');
+    		$queryBuilder
+    		->update('tx_fpmasterquiz_domain_model_question')
+    		->where(
+    			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($lost, \PDO::PARAM_INT))
+   			)
+   			->set('quiz', $uid)
+   			->execute();
+    		$updated = TRUE;
+    		$this->addFlashMessage(
+    			LocalizationUtility::translate('text.questionAdded', 'fp_masterquiz'),
+    			LocalizationUtility::translate('text.updated', 'fp_masterquiz'),
+    			\TYPO3\CMS\Core\Messaging\AbstractMessage::OK,
+    			false
+    		);
+   			// bringt auch NICHTS: $quiz = $this->quizRepository->findbyUid($uid);
+    	}
+    	$lostArray = [];
+    	$lostQuestions = $questionRepository->findLostQuestions($pid);
+    	foreach ($lostQuestions as $question) {
+    		$lostArray[$question->getUid()] = $question->getTitle();
+    	}
     	$this->view->assign('quiz', $quiz);
+    	$this->view->assign('lostArray', $lostArray);
+    	$this->view->assign('lost', count($lostArray));
+    	$this->view->assign('updated', $updated);
     	if ($this->request->hasArgument('prop')) {
     		$this->view->assign('prop', $this->request->getArgument('prop'));
     	} else {
@@ -923,7 +982,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	}
     	$debug = '';
     	$allResults = [];
-    	$selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
+    	// Alternative: $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
     	foreach ($quiz->getQuestions() as $oneQuestion) {
     	    $votes = 0;
     	    $questionID = $oneQuestion->getUid();
@@ -931,9 +990,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	        $debug .= "\nquestion :" . $questionID;
     	    }
     	    if ($be) {
-    	        $allAnsweredQuestions = $selectedRepository->findFromPidAndQuestion($pid, $questionID);
+    	        $allAnsweredQuestions = $this->selectedRepository->findFromPidAndQuestion($pid, $questionID);
     	    } else {
-    	        $allAnsweredQuestions = $selectedRepository->findByQuestion($questionID);
+    	        $allAnsweredQuestions = $this->selectedRepository->findByQuestion($questionID);
     	    }
     		// alle Ergebnisse durchgehen:
     		foreach ($allAnsweredQuestions as $allAnswers) {

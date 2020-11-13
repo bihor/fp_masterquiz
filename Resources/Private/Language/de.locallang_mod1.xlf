@@ -55,6 +55,12 @@
 			<trans-unit id="entries">
 				<target>Einträge</target>
 			</trans-unit>
+			<trans-unit id="lostQuestions">
+				<target>Fragen, die zu keinem Quiz gehören:</target>
+			</trans-unit>
+			<trans-unit id="addthis">
+				<target>Füge diese Frage zu diesem Quiz hinzu!</target>
+			</trans-unit>
 			<trans-unit id="back">
 				<target>Zurück zur Übersicht</target>
 			</trans-unit>

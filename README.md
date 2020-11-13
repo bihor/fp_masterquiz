@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 1.3.2
+version 1.3.3
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -10,4 +10,4 @@ Features: a quiz, poll or test can be played by submitting a form or by submitti
 
 You find the documentation at typo3.org: https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
 
-Last feature: Bugfix when negative points are used.
+Last feature: Possiblity added to add a question to a quiz.

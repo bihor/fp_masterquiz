@@ -52,6 +52,12 @@
 			<trans-unit id="delete-user">
 				<source>Delete this user-entry!</source>
 			</trans-unit>
+			<trans-unit id="lostQuestions">
+				<source>Questions with no relation to a quiz:</source>
+			</trans-unit>
+			<trans-unit id="addthis">
+				<source>Add this question to this quiz!</source>
+			</trans-unit>
 			<trans-unit id="back">
 				<source>Back to list</source>
 			</trans-unit>

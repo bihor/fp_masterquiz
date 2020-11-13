@@ -50,6 +50,16 @@
 									</label>
 								</div>
 							</f:case>
+							<f:case value="4">
+								<div class="radio quiz-radio">
+									<label>
+										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" />
+										{f:translate(key: "text.yes")}
+										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" />
+										{f:translate(key: "text.no")}
+									</label>
+								</div>
+							</f:case>
 							<f:case value="5">
 								<f:comment>When 'Enter an answer' in a textarea</f:comment> 
 								<br/>
