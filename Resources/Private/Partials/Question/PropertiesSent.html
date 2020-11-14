@@ -59,6 +59,7 @@
 									<f:then>{answer.title -> f:format.raw()}</f:then>
 									<f:else>{answer.title -> f:format.nl2br()}</f:else>
 								</f:if>
+								<f:if condition="{selection.question.qmode} == 4">{f:translate(key: "text.yes")}</f:if>
 								<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points", default: 'P')})</f:if>
 								</li>
 								<f:if condition="{nr.isLast}"></ul></f:if>

@@ -139,7 +139,7 @@
 				<source>Enter an answer (text-field)</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.4">
-				<source>Yes/no-boxes (2 radio-buttons) [NOT YET SUPPORTED]</source>
+				<source>Yes/no-boxes (2 radio-buttons)</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.5">
 				<source>Enter a comment (textarea)</source>

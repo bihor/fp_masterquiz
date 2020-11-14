@@ -86,6 +86,10 @@ That is the opposite logic of the star rating in the extension myquizpoll.
 Do not set the points. In the user-answer, the points shows how many stars were seleced.
 With the setting checkAllStars you can define if one or all stars should be checked by default.
 
+.. important::
+
+   For every question you need to add at least one answer, even for some types the answer is not displayed!
+
 .. _user-faq:
 
 FAQ

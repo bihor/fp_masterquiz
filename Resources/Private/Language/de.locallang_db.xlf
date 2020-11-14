@@ -46,7 +46,7 @@
 				<target>Eine Antwort eingeben (Textfeld)</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.4">
-				<target>Ja/Nein-Felder (2 Radio-Buttons) [NOT YET SUPPORTED]</target>
+				<target>Ja/Nein-Felder (2 Radio-Buttons)</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.5">
 				<target>Einen Kommentar eingeben (textarea)</target>

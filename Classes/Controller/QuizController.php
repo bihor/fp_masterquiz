@@ -106,23 +106,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
     
     /**
-     * action getFeUser
-     *
-     * @param int $userid
-     * @return array
-     */
-    public function getFeUser($userid) {
-    	$connection = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable('fe_users');
-    	$queryBuilder = $connection->createQueryBuilder();
-    	$statement = $queryBuilder->select('*')->from('fe_users')->where(
-   			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($userid, \PDO::PARAM_INT))
-    	)->setMaxResults(1)->execute();
-    	while ($row = $statement->fetch()) {
-    		return $row;
-    	}
-    }
-    
-    /**
      * action doAll
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
@@ -130,7 +113,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz) {
     	/* @var \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answer */
-        $answer = Null;
+        $answer = NULL;
         $saveIt = FALSE;
     	$newUser = FALSE;
     	$reload = FALSE;
@@ -328,39 +311,41 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
 	    				$selected->setQuestion($question);
 	    				$qmode = $question->getQmode();
+	    				$newPoints = 0;
 	    				switch ($qmode) {
 	    					case 0:
-	    					    // Checkbox
+	    					case 4:
+	    					    // Checkbox und ja/nein
 	    						foreach ($question->getAnswers() as $answer) {
 	    							$auid = $answer->getUid();
 	    							if ($this->request->hasArgument('answer_' . $quid . '_' . $auid) && $this->request->getArgument('answer_' . $quid . '_' . $auid)) {
 	    								$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid . '_' . $auid));
-	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
 	    							} else if ($_POST['answer_' . $quid . '_' . $auid]) {
 	    								$selectedAnswerUid = intval($_POST['answer_' . $quid . '_' . $auid]);
-	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
 	    							} else if ($_GET['answer_' . $quid . '_' . $auid]) {
 	    								$selectedAnswerUid = intval($_GET['answer_' . $quid . '_' . $auid]);
-	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
 	    							} else {
-	    								$selectedAnswerUid = 0;
+	    								$selectedAnswerUid = -1;
 	    							}
-	    							if ($selectedAnswerUid) {
+	    							if ($this->settings['debug']) {
+	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
+	    							}
+	    							if ($selectedAnswerUid > 0) {
 	    								$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
 	    								$newPoints = $selectedAnswer->getPoints();
-	    								if ($newPoints != 0) {
-	    								    if ($useJoker == 2) {
-	    								        // Joker wurde eingesetzt: Punkte halbieren
-	    								        $newPoints = intval(ceil($newPoints/2));
-	    								    }
-	    								    $selected->addPoints($newPoints);
-		    								$this->participant->addPoints($newPoints);
-		    								if ($this->settings['debug']) {
-		    									$debug .= $newPoints . 'P ';
-		    								}
-		    							}
 		    							// halbierte Punkte setzen? Ändert aber die echte Antwort!
-		    							// so nicht: $selectedAnswer->setPoints($newPoints);
+	    								// so nicht: $selectedAnswer->setPoints($newPoints);
+	    								if ($newPoints != 0) {
+	    									if ($useJoker == 2) {
+	    										// Joker wurde eingesetzt: Punkte halbieren
+	    										$newPoints = intval(ceil($newPoints/2));
+	    									}
+	    									$selected->addPoints($newPoints);
+	    									$this->participant->addPoints($newPoints);
+	    									if ($this->settings['debug']) {
+	    										$debug .= $newPoints . 'P ';
+	    									}
+	    								}
 		    							$selected->addAnswer($selectedAnswer);
 		    							if ($emailAnswers[$quid][$auid]) {
 		    								$specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
@@ -376,17 +361,17 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    					    // Radio-box, Select-option und star rating
 	    						if ($this->request->hasArgument('answer_' . $quid) && $this->request->getArgument('answer_' . $quid)) {
 	    							$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid));
-	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
 	    						} else if ($_POST['answer_' . $quid]) {
 	    							$selectedAnswerUid = intval($_POST['answer_' . $quid]);
-	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
 	    						} else if ($_GET['answer_' . $quid]) {
 	    							$selectedAnswerUid = intval($_GET['answer_' . $quid]);
-	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
-	    						}else {
+	    						} else {
 	    							$selectedAnswerUid = 0;
 	    						}
-	    						if ($selectedAnswerUid) {
+	    						if ($this->settings['debug']) {
+	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
+	    						}
+	    						if ($selectedAnswerUid) { // Alternative: && $qmode != 4) {
 	    							$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
 	    							if ($qmode == 7) {
 	    								$cycle = count($question->getAnswers());
@@ -400,18 +385,18 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							} else {
 	    								$newPoints = $selectedAnswer->getPoints();
 	    							}
-	    							if ($newPoints != 0) {
-	    							    if ($useJoker == 2) {
-	    							        // Joker wurde eingesetzt: Punkte halbieren
-	    							        $newPoints = intval(ceil($newPoints/2));
-	    							    }
-	    							    $selected->addPoints($newPoints);
-	    							    $this->participant->addPoints($newPoints);
-	    							    if ($this->settings['debug']) {
-		    							    $debug .= $newPoints . 'P ';
-	    							    }
-	    							}
 	    							// so nicht: $selectedAnswer->setPoints($newPoints);
+	    							if ($newPoints != 0) {
+	    								if ($useJoker == 2) {
+	    									// Joker wurde eingesetzt: Punkte halbieren
+	    									$newPoints = intval(ceil($newPoints/2));
+	    								}
+	    								$selected->addPoints($newPoints);
+	    								$this->participant->addPoints($newPoints);
+	    								if ($this->settings['debug']) {
+	    									$debug .= $newPoints . 'P ';
+	    								}
+	    							}
 	    							$selected->addAnswer($selectedAnswer);
 	    							if ($emailAnswers[$quid][$selectedAnswerUid]) {
 	    								$specialRecievers[$emailAnswers[$quid][$selectedAnswerUid]['email']] = $emailAnswers[$quid][$selectedAnswerUid];
@@ -680,6 +665,23 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$ip = substr($ip, 0, $pos) . '.0';
     	}
     	return filter_var($ip, FILTER_VALIDATE_IP);
+    }
+    
+    /**
+     * action getFeUser
+     *
+     * @param int $userid
+     * @return array
+     */
+    public function getFeUser($userid) {
+    	$connection = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable('fe_users');
+    	$queryBuilder = $connection->createQueryBuilder();
+    	$statement = $queryBuilder->select('*')->from('fe_users')->where(
+    		$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($userid, \PDO::PARAM_INT))
+    	)->setMaxResults(1)->execute();
+    	while ($row = $statement->fetch()) {
+    		return $row;
+    	}
     }
     
     

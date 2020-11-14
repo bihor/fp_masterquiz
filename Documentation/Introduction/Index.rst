@@ -20,6 +20,8 @@ What does it do?
 An extension that offers Quiz, Tests and Polls. You can configure, which results should be shown. An evaluation is possible too.
 Automatic deletion of quiz takers via task possible.
 
+Question types/modes: radio-box, checkbox, select-box, yes/no, text-field, textarea, star-rating.
+
 Avaiable languages: english and german.
 
 You will find some examples on my homepage: `quizpalme.de <http://www.quizpalme.de/quiz-umfrage>`_
