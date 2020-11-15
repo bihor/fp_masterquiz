@@ -54,6 +54,7 @@ ChangeLog
   New settings: showEveryAnswer and option 2 for showOwnAnswers and showCorrectAnswers.
   Bugfix: sending of emails.
 
-1.4.0: Possiblity added to add a question to a quiz.
-  Implementation of question mode 4.
+1.4.0: New setting: resultPageUid and new action: result for a result page.
+  Possiblity added to add a question to a quiz via backend module.
+  Question mode "Yes/no-boxes (2 radio-buttons)" implemented.
   Important bugfix for PHP 7.3 and other bugfixes points related.

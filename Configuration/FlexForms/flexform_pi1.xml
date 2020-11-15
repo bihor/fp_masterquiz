@@ -23,6 +23,10 @@
                 <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.show</numIndex>
                 <numIndex index="1">Quiz->default;Quiz->show;Quiz->showAjax</numIndex>
             </numIndex>
+            <numIndex index="2">
+                <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.result</numIndex>
+                <numIndex index="1">Quiz->defaultres;Quiz->result</numIndex>
+            </numIndex>
             </items>
           </config>
           </TCEforms>
@@ -57,10 +61,29 @@
 					</config>
 				</TCEforms>
 		  </settings.startPageUid>
+          <settings.resultPageUid>
+				<TCEforms>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.resultPageUid</label>
+	                <config>
+						<type>group</type>
+						<internal_type>db</internal_type>
+						<allowed>pages</allowed>
+						<size>1</size>
+						<maxitems>1</maxitems>
+						<minitems>0</minitems>
+						<show_thumbs>0</show_thumbs>
+					</config>
+				</TCEforms>
+		  </settings.resultPageUid>
           <settings.defaultQuizUid>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.defaultQuizUid</label>
-					<displayCond><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->default;Quiz->show;Quiz->showAjax]]></displayCond>
+					<displayCond>
+						<OR>
+							<numIndex index="0"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->default;Quiz->show;Quiz->showAjax]]></numIndex>
+							<numIndex index="1"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->defaultres;Quiz->result]]></numIndex>
+						</OR>
+					</displayCond>
 	                <config>
 						<type>group</type>
 						<internal_type>db</internal_type>

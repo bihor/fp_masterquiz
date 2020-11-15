@@ -21,7 +21,7 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	 * @var array
 	 */
 	protected $defaultOrderings = [
-		'uid' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+		'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
 	];
 	
 	/**

@@ -15,14 +15,20 @@
 			<trans-unit id="template.show">
 				<target>Ein bestimmtes Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
+			<trans-unit id="template.result">
+				<target>Ergebnis eines Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
+			</trans-unit>
 			<trans-unit id="templateLayout">
 				<target>Template-Layout (siehe Doku):</target>
 			</trans-unit>
 			<trans-unit id="settings.startPageUid">
-				<target>Startseite des Quiz:</target>
+				<target>Startseite des Quiz/Umfrage:</target>
+			</trans-unit>
+			<trans-unit id="settings.resultPageUid">
+				<target>Ergebnisse eines Quiz/Umfrage hier anzeigen:</target>
 			</trans-unit>
 			<trans-unit id="settings.defaultQuizUid">
-				<target>Dieses Quiz anzeigen:</target>
+				<target>Dieses Quiz/Umfrage anzeigen:</target>
 			</trans-unit>
 			<trans-unit id="settings.itemsPerPage">
 				<target>Anzahl der Fragen pro Seite:</target>

@@ -14,6 +14,8 @@ Known Problems
 The bug tracker is here:
 `bug tracker <https://github.com/bihor/fp_masterquiz/issues>`_?
 
+User answers are sorted by question-ID instaed of the original sorting of the answers of a question. This is bad.
+
 There might be some problems, if you enable Ajax!
 Sessions and Cookies are currently not supported if you enable Ajax.
 

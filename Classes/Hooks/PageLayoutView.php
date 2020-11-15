@@ -112,13 +112,21 @@ class PageLayoutView
             $this->getStartingPoint($params['row']['pages']);
             
             if (is_array($this->flexformData)) {
-                $startPageUid = (int)$this->getFieldFromFlexform('settings.startPageUid');
+               $startPageUid = (int)$this->getFieldFromFlexform('settings.startPageUid');
                if ($startPageUid > 0) {
                    $content = $this->getRecordData($startPageUid);
                	   $this->tableData[] = [
                			$this->getLanguageService()->sL(self::LLPATH . 'settings.startPageUid'),
                			$content
                	   ];
+               }
+               $resultPageUid = (int)$this->getFieldFromFlexform('settings.resultPageUid');
+               if ($resultPageUid > 0) {
+               	$content = $this->getRecordData($resultPageUid);
+               	$this->tableData[] = [
+               		$this->getLanguageService()->sL(self::LLPATH . 'settings.resultPageUid'),
+               		$content
+               	];
                }
                $defaultQuizUid = (int)$this->getFieldFromFlexform('settings.defaultQuizUid');
                if ($defaultQuizUid > 0) {

@@ -1,0 +1,32 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<ul>
+<f:for each="{question.answers}" as="answer3" iteration="nr3">
+	<li>
+		<f:if condition="{question.qmode} == 7">
+		<f:then>
+		 	<span class="star-cb-rating"><!-- t: {answer3.title -> f:format.nl2br()} -->
+				<f:for each="{question.arrayOfAnswers}" as="reverseCycle">
+					<f:if condition="{reverseCycle} < {nr3.cycle}"><f:then>
+		    			<span class="lstar">☆</span>
+		    		</f:then><f:else>
+		    			<span class="dstar">★</span>
+		    		</f:else></f:if>
+			    </f:for>
+		   </span>
+		   ({answer3.allAnswers} {f:translate(key: "text.choices", default: 'choices')})
+			<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice", default: 'my choice')})</f:if>	
+		</f:then>
+		<f:else>
+			<f:if condition="{settings.allowHtml} == 1">
+				<f:then>{answer3.title -> f:format.raw()}</f:then>
+				<f:else>{answer3.title -> f:format.nl2br()}</f:else>
+			</f:if>
+			<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points", default: 'P')})</f:if>
+			({answer3.allAnswers} {f:translate(key: "text.choices")})
+			<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice", default: 'my choice')})</f:if>
+		</f:else>
+		</f:if>
+	</li>
+</f:for>
+</ul>
+</html>

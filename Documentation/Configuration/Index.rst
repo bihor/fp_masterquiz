@@ -34,6 +34,7 @@ Properties
 	Property                    Data type   Description                                    Default
 	=========================== =========== ============================================== ==========================
 	startPageUid                integer     UID of the page where the quiz beginns.        1
+	resultPageUid               integer     UID of the page for the quiz results to show.
 	defaultQuizUid              integer     UID of the quiz to show.                       1
 	showAnswerPage              boolean     Show an answer page after every submit?        1
 	showOwnAnswers              integer     Show the answers of the quiz taker? 0,1 or 2.  1

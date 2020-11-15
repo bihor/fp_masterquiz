@@ -222,6 +222,9 @@
 			<trans-unit id="text.questionAdded">
 				<target>Die Frage wurde zum Quiz hinzugefügt.</target>
 			</trans-unit>
+			<trans-unit id="text.showResultPage">
+				<target>Ergebnisse anzeigen</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

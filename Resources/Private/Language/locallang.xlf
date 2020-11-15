@@ -225,6 +225,9 @@
 			<trans-unit id="text.questionAdded">
 				<source>The question was added to the quiz.</source>
 			</trans-unit>
+			<trans-unit id="text.showResultPage">
+				<source>Show results</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

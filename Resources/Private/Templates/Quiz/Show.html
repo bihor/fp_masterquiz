@@ -138,6 +138,11 @@
 					}
 			    </script>
 		    </f:form>
+			<f:if condition="{settings.resultPageUid}">
+				<br />
+				<f:link.action controller="Quiz" action="result" pageUid="{settings.resultPageUid}" arguments="{quiz:quiz}"
+					class="btn btn-info">{f:translate(key: "text.showResultPage")}</f:link.action>
+			</f:if>
 		</f:then>
 		<f:else>
 			<f:comment> This part is used in normal case! </f:comment>
@@ -240,6 +245,11 @@
 							</f:else>
 						</f:if>
 						
+						<f:if condition="{settings.resultPageUid}">
+							<br />
+							<f:link.action controller="Quiz" action="result" pageUid="{settings.resultPageUid}" arguments="{quiz:quiz}"
+								class="btn btn-info">{f:translate(key: "text.showResultPage")}</f:link.action>
+						</f:if>
 					</f:then>
 					<f:else>
 					

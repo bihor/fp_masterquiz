@@ -1,0 +1,44 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<f:layout name="Default" />
+ 
+	<f:section name="content">
+		<f:flashMessages />
+		<f:if condition="{settings.templateLayout} == 1">
+			<!-- charts-layout -->
+			<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+			<script>
+				var charttype = '{settings.chart.type}';
+				var chartwidth = parseInt({settings.chart.width});
+			</script>
+		</f:if>
+		<f:for each="{quiz.questions}" as="question" iteration="pageiterator">
+			<div class="card">
+				{settings.template.wrapQuestionTitle1 -> f:format.raw()}{question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
+				{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
+				<div class="row">
+					<div class="{settings.template.colText}">
+						<div class="text-buttons">
+							<f:if condition="{settings.templateLayout} == 1">
+							<f:then>
+								<f:render partial="Question/Chart" arguments="{settings:settings, question:question}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Question/Result" arguments="{settings:settings, question:question}" />
+							</f:else>
+							</f:if>
+						</div>
+					</div>
+					<div class="{settings.template.colImage}">
+						<f:if condition="{question.image.uid}">
+							<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-fluid" />
+						</f:if>
+					</div>
+				</div>
+			</div>
+		</f:for>
+			
+		<f:if condition="{settings.debug}">
+			<pre>{debug}</pre>
+		</f:if>
+	</f:section>
+</html>

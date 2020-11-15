@@ -464,7 +464,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		if ($this->settings['showAllAnswers'] == 1) {
     		    $allResults = [];
     		    $ownResults = [];
-    		    $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
+    		    // nicht benötigt: $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
     		    // alle Fragen durchgehen, die der User beantwortet hat:
     		    foreach ($this->participant->getSelections() as $selection) {
     		        $oneQuestion = $selection->getQuestion();
@@ -472,7 +472,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		        $allResults[$questionID] = [];
     		        $ownResults[$questionID] = [];
     		        // User-Antworten einer bestimmten Frage:
-    		        $allAnsweredQuestions = $selectedRepository->findByQuestion($questionID);
+    		        $allAnsweredQuestions = $this->selectedRepository->findByQuestion($questionID);
     		        // alle Ergebnisse durchgehen:
     		        foreach ($allAnsweredQuestions as $allAnswers) {
     		            // alle Antworten auf diese Frage:
@@ -684,6 +684,57 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	}
     }
     
+    /**
+     * Set all user-answers to a quiz
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $c_quiz The Quiz dataset
+     * @param int $pid
+     * @param boolean $be
+     * @return array
+     */
+    protected function setAllUserAnswers(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz, $pid, $be){
+    	$debug = '';
+    	$allResults = [];
+    	// Alternative: $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
+    	foreach ($c_quiz->getQuestions() as $oneQuestion) {
+    		$votes = 0;
+    		$questionID = $oneQuestion->getUid();
+    		if ($this->settings['debug']) {
+    			$debug .= "\nquestion :" . $questionID;
+    		}
+    		if ($be) {
+    			$allAnsweredQuestions = $this->selectedRepository->findFromPidAndQuestion($pid, $questionID);
+    		} else {
+    			$allAnsweredQuestions = $this->selectedRepository->findByQuestion($questionID);
+    		}
+    		// alle Ergebnisse durchgehen:
+    		foreach ($allAnsweredQuestions as $allAnswers) {
+    			// alle Antworten auf diese Frage:
+    			foreach ($allAnswers->getAnswers() as $oneAnswer) {
+    				if ($this->settings['debug']) {
+    					$debug .= "\n all: " . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
+    				}
+    				$allResults[$questionID][$oneAnswer->getUid()]++;
+    			}
+    		}
+    		// gesammeltes speichern bei: alle möglichen Antworten einer Frage
+    		foreach ($oneQuestion->getAnswers() as $oneAnswer) {
+    			$thisVotes = intval($allResults[$questionID][$oneAnswer->getUid()]);
+    			$votes += $thisVotes;
+    			$oneAnswer->setAllAnswers($thisVotes);
+    		}
+    		$oneQuestion->setAllAnswers($votes);
+    		// Prozentwerte setzen
+    		foreach ($oneQuestion->getAnswers() as $oneAnswer) {
+    			if ($this->settings['debug']) {
+    				$debug .= "\n percent: 100*" . $oneAnswer->getAllAnswers() . '/' . $votes;
+    			}
+    			$oneAnswer->setAllPercent( 100 * ($oneAnswer->getAllAnswers() / $votes) );
+    		}
+    	}
+    	return $debug;
+    }
+    
     
     /**
      * action list
@@ -710,6 +761,32 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
     		if ($quiz) {
     			$this->forward('show', NULL, NULL, array('quiz' => $quiz->getUid()));
+    		} else {
+    			$this->addFlashMessage(
+    				LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($this->settings['defaultQuizUid']),
+    				LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+    				\TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+    				false
+    			);
+    			$this->forward('list');
+    		}
+    	}
+    }
+    
+    /**
+     * action defaultres: ein Quiz oder alle Quizze anzeigen.
+     *
+     * @return void
+     */
+    public function defaultresAction()
+    {
+    	$defaultQuizUid = $this->settings['defaultQuizUid'];
+    	if (!$defaultQuizUid) {
+    		$this->forward('list');
+    	} else {
+    		$quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
+    		if ($quiz) {
+    			$this->forward('result', NULL, NULL, array('quiz' => $quiz->getUid()));
     		} else {
     			$this->addFlashMessage(
     				LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($this->settings['defaultQuizUid']),
@@ -871,6 +948,25 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
     
     /**
+     * action result
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @return void
+     */
+    public function resultAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    {
+    	$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+    	$sys_language_uid = $languageAspect->getId();
+    	$pid = (int)$GLOBALS['TSFE']->id;
+	    $debug = $this->setAllUserAnswers($quiz, $pid, FALSE);
+    	$this->view->assign('quiz', $quiz);
+    	$this->view->assign('debug', $debug);
+    	$this->view->assign("sysLanguageUid", $sys_language_uid);
+    	$this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+    	$this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+    }
+    
+    /**
      * Action list for the backend
      *
      * @return 	void
@@ -898,11 +994,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$lost = $this->request->hasArgument('lost') ? intval($this->request->getArgument('lost')) : 0;
     	if ($lost > 0) {
     		// wir fügen erst eine verschollene Frage ohne Referenz hinzu
-    		// Es sollte so einfach gehen, aber es funktioniert dennoch NICHT: wer weiß warum es nicht geht???
-    		/* $question2 = $questionRepository->findbyUid($lost);
+    		$question2 = $questionRepository->findbyUid($lost);
     		$quiz->addQuestion($question2);
+    		$this->quizRepository->update($quiz);
     		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-    		$persistenceManager->persistAll(); */
+    		$persistenceManager->persistAll();
+    		/* Alternative:
     		$counter = 0;
     		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
     		$statement = $queryBuilder
@@ -933,6 +1030,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    			)
    			->set('quiz', $uid)
    			->execute();
+   			*/
     		$updated = TRUE;
     		$this->addFlashMessage(
     			LocalizationUtility::translate('text.questionAdded', 'fp_masterquiz'),
@@ -982,45 +1080,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	} else {
     		$pid = (int)$GLOBALS['TSFE']->id;
     	}
-    	$debug = '';
-    	$allResults = [];
-    	// Alternative: $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
-    	foreach ($quiz->getQuestions() as $oneQuestion) {
-    	    $votes = 0;
-    	    $questionID = $oneQuestion->getUid();
-    	    if ($this->settings['debug']) {
-    	        $debug .= "\nquestion :" . $questionID;
-    	    }
-    	    if ($be) {
-    	        $allAnsweredQuestions = $this->selectedRepository->findFromPidAndQuestion($pid, $questionID);
-    	    } else {
-    	        $allAnsweredQuestions = $this->selectedRepository->findByQuestion($questionID);
-    	    }
-    		// alle Ergebnisse durchgehen:
-    		foreach ($allAnsweredQuestions as $allAnswers) {
-    			// alle Antworten auf diese Frage:
-    			foreach ($allAnswers->getAnswers() as $oneAnswer) {
-    				if ($this->settings['debug']) {
-    					$debug .= "\n all: " . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
-    				}
-    				$allResults[$questionID][$oneAnswer->getUid()]++;
-    			}
-    		}
-    		// gesammeltes speichern bei: alle möglichen Antworten einer Frage
-    		foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-    		    $thisVotes = intval($allResults[$questionID][$oneAnswer->getUid()]);
-    		    $votes += $thisVotes;
-    			$oneAnswer->setAllAnswers($thisVotes);
-    		}
-    		$oneQuestion->setAllAnswers($votes);
-    		// Prozentwerte setzen
-    		foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-    		    if ($this->settings['debug']) {
-    		        $debug .= "\n percent: 100*" . $oneAnswer->getAllAnswers() . '/' . $votes;
-    		    }
-    		    $oneAnswer->setAllPercent( 100 * ($oneAnswer->getAllAnswers() / $votes) );
-    		}
-    	}
+    	$debug = $this->setAllUserAnswers($quiz, $pid, $be);
     	$this->view->assign('debug', $debug);
     	$this->view->assign('pid', $pid);
     	$this->view->assign('quiz', $quiz);

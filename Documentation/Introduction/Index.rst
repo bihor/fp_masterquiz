@@ -31,7 +31,7 @@ You will find some examples on my homepage: `quizpalme.de <http://www.quizpalme.
 Screenshots
 -----------
 
-Here you find 2 examples and 2 more screenshots are in the user manual.
+Here you find 4 examples and 2 more screenshots are in the user manual.
 
 .. figure:: ../Images/QuizExample.jpg
    :width: 400px
@@ -39,11 +39,23 @@ Here you find 2 examples and 2 more screenshots are in the user manual.
 
    This screenshot shows a basic quiz.
 
+.. figure:: ../Images/PollResult.jpg
+   :width: 558px
+   :alt: A basic poll
+
+   This screenshot shows a poll result as a chart.
+
+.. figure:: ../Images/BackendQuiz.jpg
+   :width: 600px
+   :alt: The backend module
+
+   This screenshot shows a poll in the backend module.
+
 .. figure:: ../Images/BackendExample.jpg
    :width: 600px
    :alt: A chart example
 
-   This screenshot shows a chart in the backend. Charts in the frontend are possible too.
+   This screenshot shows a chart in the backend.
 
 Thanks to the
 -------------

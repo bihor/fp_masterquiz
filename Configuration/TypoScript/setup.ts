@@ -23,6 +23,7 @@ plugin.tx_fpmasterquiz {
     }
 	settings {
 		startPageUid = 1
+		resultPageUid =
 		defaultQuizUid = 1
 		showAnswerPage = 1
 		showOwnAnswers = 1
@@ -86,7 +87,7 @@ plugin.tx_fpmasterquiz {
 			width = 492
 		}
 		templateLayout =
-		overrideFlexformSettingsIfEmpty = startPageUid,defaultQuizUid,templateLayout,pagebrowser.itemsPerPage
+		overrideFlexformSettingsIfEmpty = startPageUid,resultPageUid,defaultQuizUid,templateLayout,pagebrowser.itemsPerPage
 		debug = 0
 		typeNum = {$plugin.tx_fpmasterquiz.settings.typeNum}
 	}
