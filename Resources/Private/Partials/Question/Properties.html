@@ -51,11 +51,13 @@
 								</div>
 							</f:case>
 							<f:case value="4">
-								<div class="radio quiz-radio">
+								<div class="radio quiz-radio2">
+									<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if> &nbsp;
 									<label>
-										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
 										<f:form.radio name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-radiobox" />
 										{f:translate(key: "text.yes")} &nbsp;
+									</label>
+									<label>
 										<f:form.radio name="answer_{question.uid}_{answer.uid}" value="0" class="quiz-radiobox" />
 										{f:translate(key: "text.no")}
 									</label>
