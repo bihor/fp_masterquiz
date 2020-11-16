@@ -17,12 +17,15 @@ Introduction
 What does it do?
 ----------------
 
-An extension that offers Quiz, Tests and Polls. You can configure, which results should be shown. An evaluation is possible too.
+An extension that offers Quiz, Polls and Tests. You can configure, which results should be shown.
+The results can be displayed as a chart. An evaluation is possible too.
 Automatic deletion of quiz takers via task possible.
 
 Question types/modes: radio-box, checkbox, select-box, yes/no, text-field, textarea, star-rating.
 
 Avaiable languages: english and german.
+
+It is the official successor extension of myquizpoll. It is not backward compatible, but there is a simple import-task.
 
 You will find some examples on my homepage: `quizpalme.de <http://www.quizpalme.de/quiz-umfrage>`_
 

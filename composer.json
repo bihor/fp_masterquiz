@@ -1,7 +1,7 @@
 {
 	"name" : "fixpunkt/fp-masterquiz",
 	"type" : "typo3-cms-extension",
-	"description" : "A modern TYPO3 extension that offers Quiz, Tests and Polls. With a simple import-task for myquizpoll-questions.",
+	"description" : "A modern extension that offers quiz, polls and tests. The result can be displayed as a chart. Supports 7 question modes.",
 	"authors" : [{
 			"name" : "Kurt Gusbeth",
 			"role" : "Developer"

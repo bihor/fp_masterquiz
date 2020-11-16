@@ -12,7 +12,7 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Master-Quiz',
-    'description' => 'A modern extension that offers Quiz, Tests and Polls. With a simple import-task for myquizpoll-questions.',
+    'description' => 'A modern extension that offers quiz, polls and tests. The result can be displayed as a chart. Supports 7 question modes.',
     'category' => 'plugin',
     'author' => 'Kurt Gusbeth',
 	'author_email' => 'info@quizpalme.de',
@@ -20,7 +20,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.4.0',
+    'version' => '1.4.1',
     'constraints' => [
         'depends' => [
             'typo3' => '9.5.20-10.4.99',
