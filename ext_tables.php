@@ -32,8 +32,6 @@ call_user_func(
 
         }
 
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addStaticFile('fp_masterquiz', 'Configuration/TypoScript', 'Master-Quiz');
-
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_fpmasterquiz_domain_model_quiz', 'EXT:fp_masterquiz/Resources/Private/Language/locallang_csh_tx_fpmasterquiz_domain_model_quiz.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_fpmasterquiz_domain_model_quiz');
 
