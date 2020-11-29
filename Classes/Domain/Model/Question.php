@@ -263,8 +263,16 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $maximum1 = 0;
         foreach ($this->getAnswers() as $answer) {
             $points = $answer->getPoints();
-            if ($points > 0) {
-                $maximum1 += $points;
+            if ($this->qmode >= 1 && $this->qmode <= 3) {
+            	// only one answer is possible
+            	if ($points > $maximum1) {
+            		$maximum1 = $points;
+            	}
+            } else {
+            	// several Answers are possible, all should be choosen
+	            if ($points > 0) {
+    	            $maximum1 += $points;
+        	    }
             }
         }
         return $maximum1;

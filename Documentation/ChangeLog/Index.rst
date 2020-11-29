@@ -58,3 +58,6 @@ ChangeLog
   Possiblity added to add a question to a quiz via backend module.
   Question mode "Yes/no-boxes (2 radio-buttons)" implemented.
   Important bugfix for PHP 7.3 and other bugfixes points related.
+
+1.4.4: Layout of yes/no-questions changed. 
+  Another bugfix points related.
