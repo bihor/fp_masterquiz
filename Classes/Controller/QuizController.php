@@ -12,7 +12,7 @@ use \TYPO3\CMS\Core\Context\Context;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2019 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
+ *  (c) 2020 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
  *
  ***/
 
@@ -121,6 +121,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$pages = 0;
     	$questions = 0;
     	$maximum1 = 0;
+    	$finalBodytext = '';	// bodytext and image for the final page
+    	$finalImageuid = 0;
     	$finalContent = '';		// special content for the final page
     	$emailAnswers = [];		// special admin email to answer relations
     	$specialRecievers = [];	// special admin email recievers
@@ -457,6 +459,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     							'source'       => $evaluation->getCe(),
     							'dontCheckPid' => 1);
     					$finalContent = $this->objectManager->get('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
+    					$finalBodytext = $evaluation->getBodytext();
+    					$finalImageuid = $evaluation->getImage();
+    				} else {
+    					$finalBodytext = $evaluation->getBodytext();
+    					$finalImageuid = $evaluation->getImage();
+    				}
+    				if ($finalImageuid) {
+    					$finalImageuid = $finalImageuid->getUid();
     				}
     			}
     		}
@@ -569,6 +579,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    			'questions' => $questions,
    			'final' => $final,
    			'finalContent' => $finalContent,
+    		'finalBodytext' => $finalBodytext,
+    		'finalImageuid' => $finalImageuid,
    			'showAnswers' => $showAnswers,
     	    'showAnswersNext' => $showAnswersNext,
     	    'useJoker' => $useJoker,
@@ -828,6 +840,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
         $this->view->assign('final', $data['final']);
         $this->view->assign('finalContent', $data['finalContent']);
+        $this->view->assign('finalBodytext', $data['finalBodytext']);
+        $this->view->assign('finalImageuid', $data['finalImageuid']);
         $this->view->assign('session', $data['session']);
         $this->view->assign('showAnswers', $data['showAnswers']);
         $this->view->assign('showAnswersNext', $data['showAnswersNext']);

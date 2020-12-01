@@ -141,6 +141,12 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.maximum">
 				<target>Maximaler Wert</target>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.bodytext">
+				<target>Beschreibung des Ergebnis</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.image">
+				<target>Bild</target>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.ce">
 				<target>Zeige dieses Element auf der letzten Seite</target>
 			</trans-unit>

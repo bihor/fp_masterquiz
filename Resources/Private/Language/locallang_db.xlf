@@ -66,6 +66,12 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.maximum">
 				<source>Maximum value</source>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.image">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.bodytext">
+				<source>Description</source>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.ce">
 				<source>Show this content element at the final page</source>
 			</trans-unit>

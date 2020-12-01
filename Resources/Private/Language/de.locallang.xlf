@@ -60,6 +60,12 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.maximum">
 				<target>Maximalwert</target>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.image">
+				<target>Bild</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.bodytext">
+				<target>Beschreibung</target>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.ce">
 				<target>Zeige diesen Inhalt auf der Schlußseite an</target>
 			</trans-unit>

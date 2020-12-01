@@ -147,6 +147,8 @@ CREATE TABLE tx_fpmasterquiz_domain_model_evaluation (
 	evaluate smallint(5) unsigned DEFAULT '0' NOT NULL,
 	minimum double(11,2) DEFAULT '0.00' NOT NULL,
 	maximum double(11,2) DEFAULT '0.00' NOT NULL,
+	bodytext text,
+	image int(11) DEFAULT '0' NOT NULL,
 	ce int(11) DEFAULT '0' NOT NULL,
 	page int(11) DEFAULT '0' NOT NULL,
 

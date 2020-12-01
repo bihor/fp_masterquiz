@@ -37,7 +37,22 @@ class Evaluation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var float
      */
     protected $maximum = 0;
-
+    
+    /**
+     * Image
+     *
+     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     */
+    protected $image = null;
+    
+    /**
+     * Description
+     *
+     * @var string
+     */
+    protected $bodytext = '';
+    
     /**
      * Show this content element at the final page
      *
@@ -82,7 +97,49 @@ class Evaluation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->evaluate;
     }
-
+    
+    /**
+     * Returns the bodytext
+     *
+     * @return string $bodytext
+     */
+    public function getBodytext()
+    {
+    	return $this->bodytext;
+    }
+    
+    /**
+     * Sets the bodytext
+     *
+     * @param string $bodytext
+     * @return void
+     */
+    public function setBodytext($bodytext)
+    {
+    	$this->bodytext = $bodytext;
+    }
+    
+    /**
+     * Returns the image
+     *
+     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
+     */
+    public function getImage()
+    {
+    	return $this->image;
+    }
+    
+    /**
+     * Sets the image
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
+     * @return void
+     */
+    public function setImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    {
+    	$this->image = $image;
+    }
+    
     /**
      * Returns the ce
      *

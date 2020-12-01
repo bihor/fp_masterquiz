@@ -12,6 +12,12 @@
 			<trans-unit id="maximum.description">
 				<source>Maximum value</source>
 			</trans-unit>
+			<trans-unit id="image.description">
+				<source>Image</source>
+			</trans-unit>
+			<trans-unit id="bodytext.description">
+				<source>Description</source>
+			</trans-unit>
 			<trans-unit id="ce.description">
 				<source>Show this content element</source>
 			</trans-unit>

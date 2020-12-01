@@ -6,7 +6,15 @@
 				<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
         	<br/>
 		</f:if></f:if>
-		<f:format.raw>{finalContent}</f:format.raw>
+		<f:if condition="{finalImageuid}">
+			<f:image src="{finalImageuid}" treatIdAsReference="1" class="img-fluid" />
+		</f:if>
+		<f:if condition="{finalBodytext}">
+			<f:format.html>{finalBodytext}</f:format.html>
+		</f:if>
+		<f:if condition="{finalContent}">
+			<f:format.raw>{finalContent}</f:format.raw>
+		</f:if>
 		<f:if condition="{settings.showAnswersAtFinalPage} == 1">
 			<f:for each="{participant.selections}" as="selection" iteration="pageiterator">
 				<f:render partial="Question/PropertiesSent" arguments="{_all}" />
