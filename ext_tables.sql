@@ -10,6 +10,7 @@ CREATE TABLE tx_fpmasterquiz_domain_model_quiz (
 	about text,
 	questions int(11) unsigned DEFAULT '0' NOT NULL,
 	evaluations int(11) unsigned DEFAULT '0' NOT NULL,
+	categories int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,

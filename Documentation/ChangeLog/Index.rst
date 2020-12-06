@@ -59,6 +59,7 @@ ChangeLog
   Question mode "Yes/no-boxes (2 radio-buttons)" implemented.
   Important bugfix for PHP 7.3 and other bugfixes points related.
 
-1.4.5: Bodytext and image added to the evaluation.
+1.5.0: Bodytext and image added to the evaluation.
+  Categories added to a quiz.
   Layout of yes/no-questions changed. 
   Another bugfix points related.

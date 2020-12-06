@@ -47,6 +47,13 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $evaluations = null;
+
+    /**
+     * category
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     */
+    protected $categories = null;
     
     /**
      * __construct
@@ -55,6 +62,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
     	//Do not remove the next line: It would break the functionality
     	$this->initStorageObjects();
+    	$this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
     
     /**
@@ -200,6 +208,47 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * Returns the categories
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+    
+    /**
+     * Sets the category
+     *
+     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+     * @return void
+     */
+    public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories)
+    {
+        $this->categories = $categories;
+    }
+    
+    /**
+     * Adds a category
+     *
+     * @param  \TYPO3\CMS\Extbase\Domain\Model\Category $category
+     * @return void
+     */
+    public function addCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category) {
+        $this->categories->attach($category);
+    }
+    
+    /**
+     * Removes a category
+     *
+     * @param  \TYPO3\CMS\Extbase\Domain\Model\Category $category
+     * @return void
+     */
+    public function removeCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category) {
+        $this->categories->detach($category);
+    }
+    				
+    /**
      * Returns the maximum points for this quiz
      *
      * @return int $maximum2
@@ -209,14 +258,6 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $maximum2 = 0;
         foreach ($this->getQuestions() as $question) {
             $maximum2 += $question->getMaximum1();
-            /* getMaximum1 macht das hier:
-            foreach ($question->getAnswers() as $answer) {
-                $points = $answer->getPoints();
-                if ($points > 0) {
-                    $maximum2 += $points;
-                }
-            }
-            */
         }
         return $maximum2;
     }

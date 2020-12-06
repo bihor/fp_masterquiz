@@ -12,7 +12,11 @@
 
 		<f:for each="{quizzes}" as="quiz">
 			<div class="row">
-				<div class="col-md-4"><f:link.action action="show" arguments="{quiz : quiz}"> {quiz.name}</f:link.action></div>
+				<div class="col-md-4">
+					<f:link.action action="show" arguments="{quiz : quiz}"> {quiz.name}
+						<f:if condition="{quiz.categories}">(<f:for each="{quiz.categories}" as="category">{category.title}</f:for>)</f:if>
+					</f:link.action>
+				</div>
 				<div class="col-md-8"><f:format.nl2br>{quiz.about}</f:format.nl2br></div>
 			</div>
 		</f:for>
