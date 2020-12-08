@@ -8,6 +8,8 @@ This extension is not backward compatible to myquizpoll, but there is a simple i
 
 Features: a quiz, poll or test can be played by submitting a form or by submitting an AJAX-request.
 
+7 question types/modes available: checkbox, radio-box, select-box, yes/no, text-field, textarea, star-rating.
+
 You find the documentation at typo3.org: https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
 
 Last feature: routing added.
