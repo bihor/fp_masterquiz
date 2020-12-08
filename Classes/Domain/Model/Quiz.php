@@ -62,7 +62,6 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
     	//Do not remove the next line: It would break the functionality
     	$this->initStorageObjects();
-    	$this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
     
     /**
@@ -77,6 +76,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
     	$this->questions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     	$this->evaluations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    	$this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
     
     /**
