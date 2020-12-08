@@ -50,6 +50,7 @@ Properties
 	joker                       boolean     Enable a joker-button? Works only with AJAX.   0
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0
 	ajaxType                    string      POST or GET                                    POST
+	setMetatags                 boolean     Set some metatags and change the title?        0
 	user.ipSave                 boolean     Save the IP-address of a user?                 1
 	user.ipAnonymous            boolean     Anonymize the IP-address?                      1
 	user.useCookie              integer     Save the session in a cookie too? See below.   0

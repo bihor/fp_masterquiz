@@ -825,6 +825,20 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
         
+        if ($this->settings['setMetatags']) {
+            $title = $quiz->getName();
+            $GLOBALS['TSFE']->page['title'] = $title;
+            $metaTagManager = GeneralUtility::makeInstance( \TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry::class);
+            $description = str_replace(array("\r", "\n"), " ", $quiz->getAbout());
+            $description = str_replace("  ", " ", $description);
+            $meta = $metaTagManager->getManagerForProperty('description');
+            $meta->addProperty('description', $description);
+            $meta = $metaTagManager->getManagerForProperty('og:description');
+            $meta->addProperty('og:description', $description);
+            $meta = $metaTagManager->getManagerForProperty('og:title');
+            $meta->addProperty('og:title', $title);
+        }
+        
         $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
         $this->view->assign('participant', $this->participant);

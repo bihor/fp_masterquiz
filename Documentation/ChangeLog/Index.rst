@@ -62,6 +62,7 @@ ChangeLog
 1.5.0: Bodytext and image added to the evaluation.
   Routing/slug/path segment added to a quiz.
   Categories added to a quiz.
-  Layout of yes/no-questions changed. 
+  Layout of yes/no-questions changed.
+  New settings: setMetatags.
   Another bugfix points related.
   See issues #12 - #16.
