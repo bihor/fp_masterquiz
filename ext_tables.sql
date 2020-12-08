@@ -10,6 +10,7 @@ CREATE TABLE tx_fpmasterquiz_domain_model_quiz (
 	about text,
 	questions int(11) unsigned DEFAULT '0' NOT NULL,
 	evaluations int(11) unsigned DEFAULT '0' NOT NULL,
+	path_segment varchar(2048),
 	categories int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -38,6 +39,7 @@ CREATE TABLE tx_fpmasterquiz_domain_model_quiz (
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),
+	KEY path_segment (path_segment(185),uid),
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
 

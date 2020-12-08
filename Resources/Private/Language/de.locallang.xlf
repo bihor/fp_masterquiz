@@ -12,6 +12,9 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.about">
 				<target>Beschreibung</target>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.path_segment">
+				<target>Sprechendes Url Segment</target>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.questions">
 				<target>Fragen</target>
 			</trans-unit>

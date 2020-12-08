@@ -18,6 +18,9 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.about">
 				<target>Beschreibung dieses Quiz/Test</target>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.path_segment">
+				<source>Sprechendes Url Segment</source>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.questions">
 				<target>Fragen des Quiz</target>
 			</trans-unit>

@@ -18,6 +18,9 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.about">
 				<source>Text about this quiz</source>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.path_segment">
+				<source>Path segment</source>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.questions">
 				<source>Questions</source>
 			</trans-unit>

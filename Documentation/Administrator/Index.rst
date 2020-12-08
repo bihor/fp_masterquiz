@@ -76,4 +76,8 @@ FAQ
 
 - How can I rename or hide some fields in the Backend?
 
-  See chapter “Configuration / Page TSConfig”.
+    See chapter “Configuration / Page TSConfig”.
+  
+- How can I use routing / speaking urls?
+
+    See chapter “Configuration / Routing”.
