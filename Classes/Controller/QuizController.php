@@ -479,12 +479,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		    foreach ($this->participant->getSelections() as $selection) {
     		        $oneQuestion = $selection->getQuestion();
     		        $questionID = $oneQuestion->getUid();
+    		        $totalAnswers = 0;
     		        $allResults[$questionID] = [];
     		        $ownResults[$questionID] = [];
     		        // User-Antworten einer bestimmten Frage:
     		        $allAnsweredQuestions = $this->selectedRepository->findByQuestion($questionID);
     		        // alle Ergebnisse durchgehen:
     		        foreach ($allAnsweredQuestions as $allAnswers) {
+    		        	$totalAnswers++;
     		            // alle Antworten auf diese Frage:
     		            foreach ($allAnswers->getAnswers() as $oneAnswer) {
     		                if ($this->settings['debug']) {
@@ -500,9 +502,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		          }
     		          $ownResults[$questionID][$oneAnswer->getUid()]++;
     		        }
+    		        $oneQuestion->setAllAnswers((int) $totalAnswers);
     		        // gesammeltes speichern bei: alle möglichen Antworten einer Frage
     		        foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-    		            $oneAnswer->setAllAnswers(intval($allResults[$questionID][$oneAnswer->getUid()]));
+    		        	$total = (int) $allResults[$questionID][$oneAnswer->getUid()];
+    		        	$oneAnswer->setAllAnswers($total);		// Anzahl aller Antworten
+    		        	if($totalAnswers > 0) {
+    		        		$oneAnswer->setAllPercent(100 * ($total / $totalAnswers));
+    		        	}
     		            $oneAnswer->setOwnAnswer (intval($ownResults[$questionID][$oneAnswer->getUid()]));
     		        }
     		    }
