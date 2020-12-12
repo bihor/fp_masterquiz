@@ -64,5 +64,6 @@ ChangeLog
   Categories added to a quiz.
   Layout of yes/no-questions changed.
   New settings: setMetatags.
+  Sorting of selected answers of a participant: using now an array instead of an object.
   Another bugfix points related.
-  See issues #12 - #16.
+  See issues #12 - #18.

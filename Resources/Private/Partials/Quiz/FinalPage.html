@@ -16,7 +16,7 @@
 			<f:format.raw>{finalContent}</f:format.raw>
 		</f:if>
 		<f:if condition="{settings.showAnswersAtFinalPage} == 1">
-			<f:for each="{participant.selections}" as="selection" iteration="pageiterator">
+			<f:for each="{participant.sortedSelections}" as="selection" iteration="pageiterator">
 				<f:render partial="Question/PropertiesSent" arguments="{_all}" />
 			</f:for>
 		</f:if>

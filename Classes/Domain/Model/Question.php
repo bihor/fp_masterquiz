@@ -70,6 +70,13 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $allAnswers = 0;
     
     /**
+     * Question-sorting
+     *
+     * @var int
+     */
+    protected $sorting = 0;
+    
+    /**
      * __construct
      */
     public function __construct()
@@ -89,6 +96,27 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected function initStorageObjects()
     {
     	$this->answers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+    
+    /**
+     * Returns the sorting
+     *
+     * @return int sorting
+     */
+    public function getSorting()
+    {
+    	return $this->sorting;
+    }
+    
+    /**
+     * Sets the sorting
+     *
+     * @param int $sorting
+     * @return void
+     */
+    public function setSorting($sorting)
+    {
+    	$this->sorting = $sorting;
     }
     
     /**

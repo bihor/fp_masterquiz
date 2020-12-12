@@ -312,6 +312,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    				// selected/answered question
 	    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
 	    				$selected->setQuestion($question);
+	    				$selected->setSorting($question->getSorting());
 	    				$qmode = $question->getQmode();
 	    				$newPoints = 0;
 	    				switch ($qmode) {
@@ -476,7 +477,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		    $ownResults = [];
     		    // nicht benötigt: $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
     		    // alle Fragen durchgehen, die der User beantwortet hat:
-    		    foreach ($this->participant->getSelections() as $selection) {
+    		    foreach ($this->participant->getSortedSelections() as $selection) {
     		        $oneQuestion = $selection->getQuestion();
     		        $questionID = $oneQuestion->getUid();
     		        $totalAnswers = 0;

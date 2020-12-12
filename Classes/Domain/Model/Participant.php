@@ -306,7 +306,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the maximum1
      *
-     * @return int $maximum1
+     * @return int maximum1
      */
     public function getMaximum1()
     {
@@ -316,7 +316,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the maximum1 in percent
      *
-     * @return int $maximum1
+     * @return int percent1
      */
     public function getPercent1()
     {
@@ -348,7 +348,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the maximum2
      *
-     * @return int $maximum2
+     * @return int maximum2
      */
     public function getMaximum2()
     {
@@ -358,7 +358,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the maximum2 in percent
      *
-     * @return int $maximum2
+     * @return int maximum2
      */
     public function getPercent2()
     {
@@ -428,7 +428,28 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->selections;
     }
-
+    
+    /**
+     * Returns the sorted selections
+     *
+     * @return array sortedSelections
+     */
+    public function getSortedSelections()
+    {
+    	$sortedSelections = [];
+    	$i = 0;
+    	foreach ($this->selections as $selection) {
+    		$sorting = $selection->getSorting();
+    		if ($sorting == 0) {
+    			$sorting = $i;
+    		}
+    		$sortedSelections[$sorting] = $selection;
+    		$i++;
+    	}
+    	ksort($sortedSelections);
+    	return $sortedSelections;
+    }
+    
     /**
      * Sets the selections
      *

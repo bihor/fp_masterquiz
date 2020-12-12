@@ -19,7 +19,7 @@ return [
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_selected.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, points, entered, question, answers',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sorting, points, entered, question, answers',
     ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, points, entered, question, answers'],
@@ -84,7 +84,12 @@ return [
                 ],
             ],
         ],
-
+    	'sorting' => [
+    		'label' => 'sorting',
+    		'config' => [
+    			'type' => 'passthrough'
+    		]
+    	],
         'points' => [
             'exclude' => true,
             'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_selected.points',

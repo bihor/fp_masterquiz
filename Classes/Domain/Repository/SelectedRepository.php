@@ -18,11 +18,12 @@ namespace Fixpunkt\FpMasterquiz\Domain\Repository;
 class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 	/**
-	 * @var array
-	 */
-	protected $defaultOrderings = [
-		'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
-	];
+     * @var array
+     */
+    protected $defaultOrderings = [
+        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING,
+    	'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+    ];
 	
 	/**
 	 * Fetches entries of a folder.
@@ -34,7 +35,7 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->setOrderings([
-			'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+			'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 		]);
 		$query->matching($query->equals('pid', $pageId));
 		return $query->execute();
@@ -51,7 +52,7 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	    $query = $this->createQuery();
 	    $query->getQuerySettings()->setRespectStoragePage(FALSE);
 	    $query->setOrderings([
-	        'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+	        'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 	    ]);
 	    $query->matching(
 	        $query->logicalAnd(
@@ -73,7 +74,7 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 		$query = $this->createQuery();
 		$query->getQuerySettings()->setRespectStoragePage(FALSE);
 		$query->setOrderings([
-			'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+			'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 		]);
 		$query->matching(
 			$query->logicalAnd(
