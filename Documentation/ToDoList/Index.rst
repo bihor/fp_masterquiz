@@ -11,10 +11,8 @@
 To-Do list
 ==========
 
-The to-do list is long:
+The to-do list is short:
 
-- implement most of the features of myquizpoll
+- using of more cookie-sessions 
 
-- write a good documentation
-
-- and so on.
+- write a better documentation.

@@ -17,9 +17,9 @@ Introduction
 What does it do?
 ----------------
 
-An extension that offers Quiz, Polls and Tests. You can configure, which results should be shown.
-The results can be displayed as a chart. An evaluation is possible too.
-Automatic deletion of quiz takers via task possible.
+A modern extension that offers Quiz, Polls and Tests. You can configure, which results should be shown.
+The results can be displayed as a chart too. An evaluation is possible too.
+Automatic deletion of quiz takers via task possible. Supporting of Ajax.
 
 Question types/modes: radio-box, checkbox, select-box, yes/no, text-field, textarea, star-rating.
 

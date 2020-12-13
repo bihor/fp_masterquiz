@@ -191,6 +191,17 @@ When a joker is used, the user gets only half of the points.
 The half points will be rounded up, therefore you should not set points to 1. 2 or 10 is a better value if you use this joker.
 
 
+.. _setMetatags:
+
+setMetatags
+"""""""""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.setMetatags = -1`
+
+This will set at least the metatags description, og:description, og:title and it will change the title of the page.
+Used values: name and description of a quiz. This works only in a single view of a quiz. 
+
+
 .. _user.useCookie:
 
 user.useCookie
