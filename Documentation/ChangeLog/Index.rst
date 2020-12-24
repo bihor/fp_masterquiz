@@ -67,3 +67,5 @@ ChangeLog
   Sorting of selected answers of a participant: using now an array instead of an object.
   Another bugfix points related.
   See issues #12 - #18.
+
+1.5.1: the ajax-action gets not the quiz-object. Propabbly you need to flush all caches.

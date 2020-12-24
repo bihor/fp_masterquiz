@@ -874,18 +874,19 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * action showAjax
+     * action showAjax. So könnte es vielleicht auch gehen: at dontverifyrequesthash
      *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
      * @return void
      */
-    public function showAjaxAction()
+    public function showAjaxAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
     	// siehe: https://www.sebkln.de/tutorials/erstellung-einer-typo3-extension-mit-ajax-aufruf/
-    	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
-    	if ($quizUid) {
+    //	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
+    //	if ($quizUid) {
     		// vorerst mal
     		$this->settings['user']['useCookie'] = 0;
-    		$quiz = $this->quizRepository->findOneByUid($quizUid);
+    //		$quiz = $this->quizRepository->findOneByUid($quizUid);
     		$data = $this->doAll($quiz);
     		$page = $data['page'];
     		$pages = $data['pages'];
@@ -978,9 +979,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->view->assign('from', $from);
     		$this->view->assign('to', $to);
     		$this->view->assign('uidOfCE', ($this->request->hasArgument('uidOfCE') ? intval($this->request->getArgument('uidOfCE')) : 0));
-    	} else {
-    		$this->view->assign('error', 1);
-    	}
+    //	} else {
+    //		$this->view->assign('error', 1);
+    //	}
     }
     
     /**
