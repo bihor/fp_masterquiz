@@ -1,6 +1,6 @@
 # You can simply include this Route in your site configuration:
 # imports:
-#  - { resource: "EXT:fp_masterquiz/Configuration/Routes/Default.yaml" }
+#   - { resource: "EXT:fp_masterquiz/Configuration/Routes/Default.yaml" }
 routeEnhancers:
   QuizPlugin:
     type: Extbase
@@ -8,13 +8,13 @@ routeEnhancers:
     plugin: Pi1
     routes:
       - { routePath: '/', _controller: 'FpMasterquiz::list' }
-      - { routePath: '/quiz', _controller: 'FpMasterquiz::show' }
-      - { routePath: '/result', _controller: 'FpMasterquiz::result' }
-      - routePath: '/quiz/{quiz_title}'
+      -
+        routePath: '/quiz/{quiz_title}'
         _controller: 'FpMasterquiz::show'
         _arguments:
           quiz_title: quiz
-      - routePath: '/result/{quiz_title}'
+      -
+        routePath: '/result/{quiz_title}'
         _controller: 'FpMasterquiz::result'
         _arguments:
           quiz_title: quiz
