@@ -9,6 +9,9 @@
 			<trans-unit id="about.description">
 				<source>Text about this quiz</source>
 			</trans-unit>
+			<trans-unit id="media.description">
+				<source>Media</source>
+			</trans-unit>
 			<trans-unit id="path_segment.description">
 				<source>Path segment</source>
 			</trans-unit>

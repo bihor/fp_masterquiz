@@ -14,17 +14,24 @@ Known Problems
 The bug tracker is here:
 `bug tracker <https://github.com/bihor/fp_masterquiz/issues>`_?
 
+jQuery needed to be loaded in the head.
+
 There might be some problems, if you enable Ajax!
 Sessions and Cookies are currently not supported if you enable Ajax.
 
 Note: it might be necessary to change the Quiz/Show.html template, if you will see the startpage
 instead of a question as a ajax result page. You could try to change the type from POST to GET in the $.ajax call.
+But you can change this via TypoScript too:
 
-Furthermore the default language will be english in TYPO3 9 if you enable Ajax. You can solve this problem this way:
-you need to add TypoScript like this to your TypoScript-setup:
+:typoscript:`plugin.tx_fpmasterquiz.settings.ajaxType = GET`
+
+Furthermore the default language will be english in TYPO3 9 (and 10?) if you enable Ajax. You can solve this problem this way:
+you need to add some TypoScript like this to your TypoScript-setup:
 
 :typoscript:`ajaxfpmasterquiz_page.config.language = de`
+
 :typoscript:`ajaxfpmasterquiz_page.config.sys_language_uid = 0`
+
 :typoscript:`ajaxfpmasterquiz_page.config.locale_all = de_DE.utf8`
 
 Please note furthermore:

@@ -8,7 +8,7 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2019 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
+ *  (c) 2021 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
  *
  ***/
 
@@ -31,6 +31,14 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      */
     protected $about = '';
+
+    /**
+     * media
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     */
+    protected $media = null;
 
     /**
      * Questions
@@ -74,6 +82,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
+    	$this->media = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     	$this->questions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     	$this->evaluations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     	$this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
@@ -98,6 +107,42 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     */
+    public function getMedia(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    {
+        return $this->media;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $media
+     */
+    public function setMedia(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $media): void
+    {
+        $this->media = $media;
+    }
+
+    /**
+     * Adds a medium
+     *
+     * @param  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @return void
+     */
+    public function addMedia(\TYPO3\CMS\Extbase\Domain\Model\FileReference $media) {
+        $this->media->attach($media);
+    }
+
+    /**
+     * Removes a medium
+     *
+     * @param  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
+     * @return void
+     */
+    public function removeMedia(\TYPO3\CMS\Extbase\Domain\Model\FileReference $media) {
+        $this->media->detach($media);
     }
 
     /**

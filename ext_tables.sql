@@ -8,6 +8,7 @@ CREATE TABLE tx_fpmasterquiz_domain_model_quiz (
 
 	name varchar(255) DEFAULT '' NOT NULL,
 	about text,
+	media int(11) unsigned NOT NULL default '0',
 	questions int(11) unsigned DEFAULT '0' NOT NULL,
 	evaluations int(11) unsigned DEFAULT '0' NOT NULL,
 	path_segment varchar(2048),

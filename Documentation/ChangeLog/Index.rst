@@ -68,4 +68,6 @@ ChangeLog
   Another bugfix points related.
   See issues #12 - #18.
 
-1.5.1: the ajax-action gets not the quiz-object. Propabbly you need to flush all caches.
+1.6.0: the ajax-action gets now the quiz-object.
+  Media-field added to a quiz.
+  Important: propabbly you need to flush all caches.
