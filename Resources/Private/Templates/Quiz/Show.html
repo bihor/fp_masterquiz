@@ -28,17 +28,8 @@
 		</f:if>
 		
 		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
-		<f:if condition="{quiz.media.0} && {quiz.media.0.originalResource.type} == 2">
-			<f:switch expression="{file.type}">
-				<f:case value="2">
-					<f:defaultCase>
-						<f:image image="{quiz.media.0}" />
-					</f:defaultCase>
-				</f:case>
-				<f:defaultCase>
-					<f:link.typolink parameter="{quiz.media.0.originalResource.publicUrl}">{quiz.media.0.originalResource.name}</f:link.typolink>
-				</f:defaultCase>
-			</f:switch>
+		<f:if condition="{quiz.media.0}">
+			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" />
 		</f:if>
 		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
 		
