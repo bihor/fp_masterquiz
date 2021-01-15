@@ -19,8 +19,6 @@ routeEnhancers:
         _arguments:
           quiz_title: quiz
     defaultController: 'FpMasterquiz::list'
-    requirements:
-      tag_title: '^[a-z0-9].*$'
     aspects:
       quiz_title:
         type: PersistedAliasMapper

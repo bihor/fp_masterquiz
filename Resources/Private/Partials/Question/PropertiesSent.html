@@ -59,7 +59,7 @@
 									<f:then>{answer.title -> f:format.raw()}</f:then>
 									<f:else>{answer.title -> f:format.nl2br()}</f:else>
 								</f:if>
-								<f:if condition="{settings.showPoints}"> ({answer.points} {f:translate(key: "text.points", default: 'P')})</f:if>
+								<f:if condition="{settings.showPoints} && ({selection.maximumPoints} > 0)"> ({answer.points} {f:translate(key: "text.points", default: 'P')})</f:if>
 								</li>
 								<f:if condition="{nr.isLast}"></ul></f:if>
 							</f:defaultCase>
@@ -67,7 +67,7 @@
 						</f:for>
 					</f:if>
 				
-					<f:if condition="(({settings.showCorrectAnswers} == 2) && ({final} == 0)) || ({settings.showCorrectAnswers} == 1)">
+					<f:if condition="((({settings.showCorrectAnswers} == 2) && ({final} == 0)) || ({settings.showCorrectAnswers} == 1)) && ({selection.maximumPoints} > 0)">
 						<f:comment> Nur die richtigen Antworten bei einem Quiz anzeigen </f:comment>
 						<p>{f:translate(key: "text.correctAnswers", default: 'Correct answers:')}</p>
 						<ul>
@@ -77,7 +77,7 @@
 								<f:if condition="{settings.allowHtml} == 1"><f:then>{answer2.title -> f:format.raw()}</f:then><f:else>{answer2.title -> f:format.nl2br()}</f:else></f:if>
 								<f:comment>Don't show the points directly after the answer for Textbox answers </f:comment>
 								<f:if condition="{selection.question.qmode} != 3"><f:if condition="{selection.question.qmode} != 5">
-									<f:if condition="{settings.showPoints}"> ({answer2.points} {f:translate(key: "text.points", default: 'P')})</f:if>
+									<f:if condition="{settings.showPoints} && ({selection.maximumPoints} > 0)"> ({answer2.points} {f:translate(key: "text.points", default: 'P')})</f:if>
 								</f:if></f:if>
 							</li>
 						</f:if>
@@ -102,7 +102,7 @@
 										<f:then>{answer5.title -> f:format.raw()}</f:then>
 										<f:else>{answer5.title -> f:format.nl2br()}</f:else>
 									</f:if>
-									<f:if condition="{settings.showPoints}"> ({answer5.points} {f:translate(key: "text.points", default: 'P')})</f:if>
+									<f:if condition="{settings.showPoints} && ({selection.maximumPoints} > 0)"> ({answer5.points} {f:translate(key: "text.points", default: 'P')})</f:if>
 								</li></f:spaceless> 
 							</f:for>
 						</ul>
@@ -121,7 +121,7 @@
 						</f:if>
 					</f:if>
 					
-					<f:if condition="{settings.showPoints}">
+					<f:if condition="{settings.showPoints} && ({selection.maximumPoints} > 0)">
 						<p>{f:translate(key: "text.pointsQuestion", default: 'Points: ')} {selection.points}/{selection.maximumPoints}.</p>
 					</f:if>
 				</f:if>

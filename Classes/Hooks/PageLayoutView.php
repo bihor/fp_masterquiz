@@ -120,6 +120,14 @@ class PageLayoutView
                			$content
                	   ];
                }
+               $showPageUid = (int)$this->getFieldFromFlexform('settings.showPageUid');
+               if ($showPageUid > 0) {
+                   $content = $this->getRecordData($showPageUid);
+               	   $this->tableData[] = [
+               			$this->getLanguageService()->sL(self::LLPATH . 'settings.showPageUid'),
+               			$content
+               	   ];
+               }
                $resultPageUid = (int)$this->getFieldFromFlexform('settings.resultPageUid');
                if ($resultPageUid > 0) {
                	$content = $this->getRecordData($resultPageUid);

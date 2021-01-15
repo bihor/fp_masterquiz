@@ -22,7 +22,10 @@
 				<target>Template-Layout (siehe Doku):</target>
 			</trans-unit>
 			<trans-unit id="settings.startPageUid">
-				<target>Startseite des Quiz/Umfrage:</target>
+				<target>Startseite des Quiz/Umfrage (listPid):</target>
+			</trans-unit>
+			<trans-unit id="settings.showPageUid">
+				<target>Singleseite für ein Quiz/Umfrage (detailPid):</target>
 			</trans-unit>
 			<trans-unit id="settings.resultPageUid">
 				<target>Ergebnisse eines Quiz/Umfrage hier anzeigen:</target>

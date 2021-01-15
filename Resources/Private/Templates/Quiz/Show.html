@@ -173,7 +173,7 @@
 									</f:for>
 								</f:widget.paginate>
 								
-								<f:if condition="{settings.showPoints}">
+								<f:if condition="{settings.showPoints} && ({participant.maximum1} > 0)">
 									<f:comment> {participant -> f:debug(title: 'Members of participant')} </f:comment> 
 									<p>{f:translate(key: "text.pointsYet")} {participant.points}/{participant.maximum1}.</p>
 								</f:if>

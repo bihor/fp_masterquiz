@@ -20,6 +20,15 @@
 				<f:render partial="Question/PropertiesSent" arguments="{_all}" />
 			</f:for>
 		</f:if>
-		<p><f:link.page class="btn btn-primary btn-lg" pageUid="{settings.startPageUid}" id="quiz-restart"><f:translate key="text.backToStart" /></f:link.page></p>
+		<p>
+		<f:if condition="{settings.startPageUid}">
+		<f:then>
+            <f:link.page class="btn btn-primary btn-lg" pageUid="{settings.startPageUid}" id="quiz-restart"><f:translate key="text.backToStart" /></f:link.page>
+        </f:then>
+        <f:else>
+            <f:link.page class="btn btn-primary btn-lg" id="quiz-restart"><f:translate key="text.backToStart" /></f:link.page>
+        </f:else>
+        </f:if>
+        </p>
 	</div>
 </html>

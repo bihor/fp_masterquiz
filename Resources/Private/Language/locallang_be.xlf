@@ -22,7 +22,10 @@
 				<source>Template layout (see manual):</source>
 			</trans-unit>
 			<trans-unit id="settings.startPageUid">
-				<source>Start page of a quiz/poll:</source>
+				<source>Start page of a quiz/poll (listPid):</source>
+			</trans-unit>
+			<trans-unit id="settings.showPageUid">
+				<source>Single page of a quiz/poll (detailPid):</source>
 			</trans-unit>
 			<trans-unit id="settings.resultPageUid">
 				<source>Page where to show a result of a quiz/poll:</source>

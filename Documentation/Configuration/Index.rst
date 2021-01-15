@@ -33,16 +33,17 @@ Properties
 	=========================== =========== ============================================== ==========================
 	Property                    Data type   Description                                    Default
 	=========================== =========== ============================================== ==========================
-	startPageUid                integer     UID of the page where the quiz beginns.        1
-	resultPageUid               integer     UID of the page for the quiz results to show.
+	startPageUid                integer     UID of the page where to restart (listPid).
+	showPageUid                 integer     UID of the single-page of a quiz (detailPid).
+	resultPageUid               integer     UID of the page where to show quiz results.
 	defaultQuizUid              integer     UID of the quiz to show.                       1
 	showAnswerPage              boolean     Show an answer page after every submit?        1
 	showOwnAnswers              integer     Show the answers of the quiz taker? 0,1 or 2.  1
 	showCorrectAnswers          integer     Show the correct answers? 0, 1 or 2.           1
-	showEveryAnswer             integer     Show every answer? 0, 1 or 2.                  0
-	showAnswersAtFinalPage      boolean     Show solutions at the final page?              0
-	showAllAnswers              boolean     Show finally all answers (no. of choices)?     0
-	showPoints                  boolean     Show the possible/reached points?              1
+	showEveryAnswer             integer     Show every answer? 0, 1 or 2 (see below).      0
+	showAnswersAtFinalPage      boolean     Show solutions at the final page?              1
+	showAllAnswers              boolean     Show finally all answers (no. of choices)?     1
+	showPoints                  boolean     Show the possible/reached points if maximum>0? 1
 	showPageNo                  boolean     Show the page number / number of pages?        1
 	showQuestionNo              boolean     Show the question no. / no. of questions?      0
 	checkAllStars               boolean     Check all stars on star rating by default?     0
@@ -167,7 +168,7 @@ showEveryAnswer
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.showEveryAnswer = 2`
 
-At an answers-page after every submit all answers are shown like on the page before.
+At an answers-page (after every submit) all answers are shown like on the page before.
 Additionally the correct answers are marked green and wrong answered answers are marked red.
 If set to 2, this answers are not shown at the final page.
 Otherwise they are displayed at the final page too if showAnswersAtFinalPage is set to 1.

@@ -37,24 +37,27 @@ Example
 You write your own frontend route configuration by adding the following to your site configuration::
 
   routeEnhancers:
-  QuizPlugin:
-    type: Extbase
-    extension: FpMasterquiz
-    plugin: Pi1
-    routes:
-      - { routePath: '/', _controller: 'FpMasterquiz::list' }
-      - { routePath: '/umfrage', _controller: 'FpMasterquiz::show' }
-      - routePath: '/umfrage/{quiz_title}'
-        _controller: 'FpMasterquiz::show'
-        _arguments:
-          quiz_title: quiz
-    defaultController: 'FpMasterquiz::list'
-    requirements:
-      tag_title: '^[a-z0-9].*$'
-    aspects:
-      quiz_title:
-        type: PersistedAliasMapper
-        tableName: tx_fpmasterquiz_domain_model_quiz
-        routeFieldPattern: '^(?P<path_segment>.+)$'
-        routeFieldResult: '{path_segment}'
-        routeFieldName: path_segment
+    QuizPlugin:
+      type: Extbase
+      limitToPages:
+        - 410
+      extension: FpMasterquiz
+      plugin: Pi1
+      routes:
+        - { routePath: '/', _controller: 'FpMasterquiz::list' }
+        -
+          routePath: '/quiz/{quiz_title}'
+          _controller: 'FpMasterquiz::show'
+          _arguments:
+            quiz_title: quiz
+        -
+          routePath: '/result/{quiz_title}'
+          _controller: 'FpMasterquiz::result'
+          _arguments:
+            quiz_title: quiz
+      defaultController: 'FpMasterquiz::list'
+      aspects:
+        quiz_title:
+          type: PersistedAliasMapper
+          tableName: tx_fpmasterquiz_domain_model_quiz
+          routeFieldName: path_segment

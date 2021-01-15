@@ -68,6 +68,9 @@ ChangeLog
   Another bugfix points related.
   See issues #12 - #18.
 
-1.6.0: the ajax-action gets now the quiz-object.
+2.0.0: The ajax-action gets now the quiz-object.
   Media-field added to a quiz.
-  Important: propabbly you need to flush all caches.
+  Default value of the setting showAnswersAtFinalPage and showAllAnswers changed to 1.
+  Default value of startPageUid removed! Setting showPageUid added.
+  Shows now the points only if the maximum points are greater than 0.
+  Important: probably you need to flush all caches.
