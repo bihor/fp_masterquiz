@@ -23,6 +23,7 @@ TypoScript Reference
 
 The TypoScript settings can be changed via the TypoScript-Object-Browser. tx_fpmasterquiz.view, tx_fpmasterquiz.persistence
 and persistence.features are like in other extensions. Here is only a list of the tx_fpmasterquiz.settings.
+If values 0, 1 and 2 are possible, 1 means: enable this feature, 2 means: enable this feature, but not on the final page.
 
 
 Properties
@@ -38,7 +39,7 @@ Properties
 	resultPageUid               integer     UID of the page where to show quiz results.
 	defaultQuizUid              integer     UID of the quiz to show.                       1
 	showAnswerPage              boolean     Show an answer page after every submit?        1
-	showOwnAnswers              integer     Show the answers of the quiz taker? 0,1 or 2.  1
+	showOwnAnswers              integer     Show the answers of the quiz taker? 0,1 or 2.  2
 	showCorrectAnswers          integer     Show the correct answers? 0, 1 or 2.           1
 	showEveryAnswer             integer     Show every answer? 0, 1 or 2 (see below).      0
 	showAnswersAtFinalPage      boolean     Show solutions at the final page?              1

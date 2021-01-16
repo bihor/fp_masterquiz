@@ -70,7 +70,8 @@ ChangeLog
 
 2.0.0: The ajax-action gets now the quiz-object.
   Media-field added to a quiz.
-  Default value of the setting showAnswersAtFinalPage and showAllAnswers changed to 1.
+  Default value of the setting showAnswersAtFinalPage and showAllAnswers changed from 0 to 1.
+  Default value of the setting showOwnAnswers changed from 1 to 2.
   Default value of startPageUid removed! Setting showPageUid added.
   Shows now the points only if the maximum points are greater than 0.
   Important: probably you need to flush all caches.
