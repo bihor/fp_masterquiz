@@ -233,17 +233,19 @@
 									var quizfinal = 0;
 						            var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
 									<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
-									<f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
-									
-									$( "#quiz-GoOn" ).click(function() {
-										// check if there are selected answers to all questions. if not, show an warning
-										var allSelected = checkQuizForm();
-										if (allSelected) {
-											$('#quiz-form'+ceuid).submit();
-										} else {
-											window.alert(text_errorEmpty);
-										}
-									});
+									document.addEventListener('DOMContentLoaded', function(){
+                                        <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
+                                        
+                                        $( "#quiz-GoOn" ).click(function() {
+                                            // check if there are selected answers to all questions. if not, show an warning
+                                            var allSelected = checkQuizForm();
+                                            if (allSelected) {
+                                                $('#quiz-form'+ceuid).submit();
+                                            } else {
+                                                window.alert(text_errorEmpty);
+                                            }
+                                        });
+									}, false);
 								</script>
 							</f:else>
 						</f:if>

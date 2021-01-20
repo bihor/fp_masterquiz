@@ -70,6 +70,9 @@
 				<source>yes, but not on the final page</source>
 			</trans-unit>
 			
+			<trans-unit id="enables">
+				<source>Enable/disable</source>
+			</trans-unit>
 			<trans-unit id="pagelayoutview">
 				<source>Masterquiz plugin settings:</source>
 			</trans-unit>

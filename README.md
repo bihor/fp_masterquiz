@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 1.5.6
+version 2.0.0
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -14,4 +14,13 @@ This extension is not backward compatible to myquizpoll, but there is a simple i
 
 You find the documentation at typo3.org: https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
 
-Last feature: default values changed! (pre-releade of version 2.0.0). Setting showPageUid added. Bugfix.
+Changes in version 2.0.0:
+  The ajax-action gets now the quiz-object.
+  Media-field added to a quiz.
+  Default value of the setting showAnswersAtFinalPage and showAllAnswers changed from 0 to 1.
+  Default value of the setting showOwnAnswers changed from 1 to 2.
+  Default value of startPageUid removed! Setting showPageUid added.
+  Shows now the points only if the maximum points are greater than 0.
+  jQuery can now be loaded in the footer.
+  Important: probably you need to flush all caches.
+

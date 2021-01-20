@@ -70,6 +70,9 @@
 				<target>ja, aber nicht auf der Schlußseite</target>
 			</trans-unit>
 			
+			<trans-unit id="enables">
+				<target>Ein-/Ausschalten</target>
+			</trans-unit>
 			<trans-unit id="pagelayoutview">
 				<target>Masterquiz-PlugIn-Einstellungen:</target>
 			</trans-unit>

@@ -74,4 +74,5 @@ ChangeLog
   Default value of the setting showOwnAnswers changed from 1 to 2.
   Default value of startPageUid removed! Setting showPageUid added.
   Shows now the points only if the maximum points are greater than 0.
+  jQuery can now be loaded in the footer.
   Important: probably you need to flush all caches.

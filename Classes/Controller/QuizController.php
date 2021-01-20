@@ -3,7 +3,7 @@ namespace Fixpunkt\FpMasterquiz\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
-use \TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\Context;
 
 /***
  *
@@ -12,7 +12,7 @@ use \TYPO3\CMS\Core\Context\Context;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2020 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
+ *  (c) 2021 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
  *
  ***/
 

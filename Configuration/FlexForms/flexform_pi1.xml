@@ -12,9 +12,10 @@
           <TCEforms>
           <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template</label>
           <config>
-          <type>select</type>
-		  <renderType>selectSingle</renderType>
-          <items>
+           <type>select</type>
+           <renderType>selectSingle</renderType>
+           <onChange>reload</onChange>
+           <items>
             <numIndex index="0">
                 <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.list</numIndex>
                 <numIndex index="1">Quiz->list;Quiz->show;Quiz->showAjax</numIndex>
@@ -27,7 +28,7 @@
                 <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.result</numIndex>
                 <numIndex index="1">Quiz->defaultres;Quiz->result</numIndex>
             </numIndex>
-            </items>
+           </items>
           </config>
           </TCEforms>
           </switchableControllerActions>
