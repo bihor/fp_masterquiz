@@ -1,240 +1,322 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-09-14T12:38:32Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-01-21T14:20:01Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
-			<trans-unit id="tx_fpmasterquiz_domain_model_quiz">
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
+				<source>Quiz</source>
 				<target>Quiz</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.name">
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.name" resname="tx_fpmasterquiz_domain_model_quiz.name">
+				<source>Name</source>
 				<target>Name</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.about">
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.about" resname="tx_fpmasterquiz_domain_model_quiz.about">
+				<source>About</source>
 				<target>Beschreibung</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.media">
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.media" resname="tx_fpmasterquiz_domain_model_quiz.media">
+				<source>Media</source>
 				<target>Medien</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.path_segment">
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.path_segment" resname="tx_fpmasterquiz_domain_model_quiz.path_segment">
+				<source>Path segment</source>
 				<target>Sprechendes Url Segment</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.questions">
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.questions" resname="tx_fpmasterquiz_domain_model_quiz.questions">
+				<source>Questions</source>
 				<target>Fragen</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.evaluations">
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.evaluations" resname="tx_fpmasterquiz_domain_model_quiz.evaluations">
+				<source>Evaluations</source>
 				<target>Auswertung</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question">
+			<trans-unit id="tx_fpmasterquiz_domain_model_question" resname="tx_fpmasterquiz_domain_model_question">
+				<source>Question</source>
 				<target>Frage</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question.title">
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.title" resname="tx_fpmasterquiz_domain_model_question.title">
+				<source>Title</source>
 				<target>Titel</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode">
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode" resname="tx_fpmasterquiz_domain_model_question.qmode">
+				<source>Question-mode</source>
 				<target>Frage-Modus</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question.image">
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.image" resname="tx_fpmasterquiz_domain_model_question.image">
+				<source>Image</source>
 				<target>Bild</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question.bodytext">
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.bodytext" resname="tx_fpmasterquiz_domain_model_question.bodytext">
+				<source>Bodytext</source>
 				<target>Beschreibung</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question.explanation">
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.explanation" resname="tx_fpmasterquiz_domain_model_question.explanation">
+				<source>Explanation</source>
 				<target>Erklärung</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question.answers">
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.answers" resname="tx_fpmasterquiz_domain_model_question.answers">
+				<source>Answers</source>
 				<target>Antworten</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_answer">
+			<trans-unit id="tx_fpmasterquiz_domain_model_answer" resname="tx_fpmasterquiz_domain_model_answer">
+				<source>Answer</source>
 				<target>Antwort</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_answer.title">
+			<trans-unit id="tx_fpmasterquiz_domain_model_answer.title" resname="tx_fpmasterquiz_domain_model_answer.title">
+				<source>Title</source>
 				<target>Titel</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_answer.points">
+			<trans-unit id="tx_fpmasterquiz_domain_model_answer.points" resname="tx_fpmasterquiz_domain_model_answer.points">
+				<source>Points</source>
 				<target>Punkte</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation">
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation" resname="tx_fpmasterquiz_domain_model_evaluation">
+				<source>Evaluation</source>
 				<target>Auswertung</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.evaluate">
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.evaluate" resname="tx_fpmasterquiz_domain_model_evaluation.evaluate">
+				<source>Evaluate points (unchecked) or percentage (checked)?</source>
 				<target>Werte Punkte (nicht markiert) oder Prozente (markiert) aus?</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.minimum">
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.minimum" resname="tx_fpmasterquiz_domain_model_evaluation.minimum">
+				<source>Minimum value</source>
 				<target>Mindestwert</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.maximum">
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.maximum" resname="tx_fpmasterquiz_domain_model_evaluation.maximum">
+				<source>Maximum value</source>
 				<target>Maximalwert</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.image">
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.image" resname="tx_fpmasterquiz_domain_model_evaluation.image">
+				<source>Image</source>
 				<target>Bild</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.bodytext">
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.bodytext" resname="tx_fpmasterquiz_domain_model_evaluation.bodytext">
+				<source>Description</source>
 				<target>Beschreibung</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.ce">
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.ce" resname="tx_fpmasterquiz_domain_model_evaluation.ce">
+				<source>Show this content element at the final page</source>
 				<target>Zeige diesen Inhalt auf der Schlußseite an</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.page">
+			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.page" resname="tx_fpmasterquiz_domain_model_evaluation.page">
+				<source>OR redirect to this page at the end of the quiz</source>
 				<target>ODER leite am Ende des Quiz auf diese Seite um</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant" resname="tx_fpmasterquiz_domain_model_participant">
+				<source>Participant</source>
 				<target>Teilnehmer</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.name">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.name" resname="tx_fpmasterquiz_domain_model_participant.name">
+				<source>Name</source>
 				<target>Name</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.email">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.email" resname="tx_fpmasterquiz_domain_model_participant.email">
+				<source>E-Mail</source>
 				<target>E-Mail</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.homepage">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.homepage" resname="tx_fpmasterquiz_domain_model_participant.homepage">
+				<source>Homepage</source>
 				<target>Homepage</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.user">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.user" resname="tx_fpmasterquiz_domain_model_participant.user">
+				<source>fe-user</source>
 				<target>FE-Benutzer</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.ip">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.ip" resname="tx_fpmasterquiz_domain_model_participant.ip">
+				<source>IP-address</source>
 				<target>IP-Adresse</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.session">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.session" resname="tx_fpmasterquiz_domain_model_participant.session">
+				<source>Session-key</source>
 				<target>Session-key</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.points">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.points" resname="tx_fpmasterquiz_domain_model_participant.points">
+				<source>Reached points for this quiz</source>
 				<target>Erreichte Punktzahl</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.maximum1">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.maximum1" resname="tx_fpmasterquiz_domain_model_participant.maximum1">
+				<source>Maximum points for the answered questions</source>
 				<target>Maximal mögliche Punkte bisher</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.maximum2">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.maximum2" resname="tx_fpmasterquiz_domain_model_participant.maximum2">
+				<source>Maximum points for this quiz</source>
 				<target>Maximal mögliche Punkte insgesamt</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.page">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.page" resname="tx_fpmasterquiz_domain_model_participant.page">
+				<source>Reached page</source>
 				<target>Erreichte Seite</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.quiz">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.quiz" resname="tx_fpmasterquiz_domain_model_participant.quiz">
+				<source>Participated quiz/test</source>
 				<target>Gelöstes Quiz/Test</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.selections">
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.selections" resname="tx_fpmasterquiz_domain_model_participant.selections">
+				<source>Answered questions</source>
 				<target>Beantwortete Fragen</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_selected">
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected" resname="tx_fpmasterquiz_domain_model_selected">
+				<source>Selected answews</source>
 				<target>Ausgewählte Antworten</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_selected.points">
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.points" resname="tx_fpmasterquiz_domain_model_selected.points">
+				<source>Points for this question</source>
 				<target>Punkte für diese Frage</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_selected.entered">
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.entered" resname="tx_fpmasterquiz_domain_model_selected.entered">
+				<source>Entered text to this question</source>
 				<target>Eingegebener Text zu dieser Frage</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_selected.question">
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.question" resname="tx_fpmasterquiz_domain_model_selected.question">
+				<source>Question</source>
 				<target>Frage</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_selected.answers">
+			<trans-unit id="tx_fpmasterquiz_domain_model_selected.answers" resname="tx_fpmasterquiz_domain_model_selected.answers">
+				<source>Answers to this question</source>
 				<target>Antworten zu dieser Frage</target>
 			</trans-unit>
-			<trans-unit id="text.goon">
+			<trans-unit id="text.goon" resname="text.goon">
+				<source>go on</source>
 				<target>weiter</target>
 			</trans-unit>
-			<trans-unit id="text.gofinal">
+			<trans-unit id="text.gofinal" resname="text.gofinal">
+				<source>go to the evaluation</source>
 				<target>zur Auswertung</target>
 			</trans-unit>
-			<trans-unit id="text.userData">
+			<trans-unit id="text.userData" resname="text.userData">
+				<source>If you want, you can enter here some personal data (e.g. for a highscore list).</source>
 				<target>Wenn du willst, kannst du hier noch deine persönlichen Daten eintragen (z.B. für eine Highscore-Liste).</target>
 			</trans-unit>
-			<trans-unit id="text.name">
+			<trans-unit id="text.name" resname="text.name">
+				<source>Name</source>
 				<target>Name</target>
 			</trans-unit>
-			<trans-unit id="text.email">
+			<trans-unit id="text.email" resname="text.email">
+				<source>E-Mail</source>
 				<target>E-Mail</target>
 			</trans-unit>
-			<trans-unit id="text.yes">
+			<trans-unit id="text.homepage" resname="text.homepage">
+				<source>Homepage</source>
+				<target>Homepage</target>
+			</trans-unit>
+			<trans-unit id="text.yes" resname="text.yes">
+				<source>yes</source>
 				<target>ja</target>
 			</trans-unit>
-			<trans-unit id="text.no">
+			<trans-unit id="text.no" resname="text.no">
+				<source>no</source>
 				<target>nein</target>
 			</trans-unit>
-			<trans-unit id="text.done">
+			<trans-unit id="text.done" resname="text.done">
+				<source>Done!</source>
 				<target>Fertig!</target>
 			</trans-unit>
-			<trans-unit id="text.youHave">
+			<trans-unit id="text.youHave" resname="text.youHave">
+				<source>You have gotten</source>
 				<target>Du hast</target>
 			</trans-unit>
-			<trans-unit id="text.gottenPoints">
+			<trans-unit id="text.gottenPoints" resname="text.gottenPoints">
+				<source>points. That are</source>
 				<target>Punkte erreicht. Das entspricht</target>
 			</trans-unit>
-			<trans-unit id="text.backToStart">
+			<trans-unit id="text.backToStart" resname="text.backToStart">
+				<source>Start again</source>
 				<target>Zurück zum Anfang</target>
 			</trans-unit>
-			<trans-unit id="text.page">
+			<trans-unit id="text.page" resname="text.page">
+				<source>Page</source>
 				<target>Seite</target>
 			</trans-unit>
-			<trans-unit id="text.question">
+			<trans-unit id="text.question" resname="text.question">
+				<source>Question</source>
 				<target>Frage</target>
 			</trans-unit>
-			<trans-unit id="text.of">
+			<trans-unit id="text.of" resname="text.of">
+				<source>of</source>
 				<target>von</target>
 			</trans-unit>
-			<trans-unit id="text.points">
+			<trans-unit id="text.points" resname="text.points">
+				<source>points</source>
 				<target>Punkte</target>
 			</trans-unit>
-			<trans-unit id="text.yourAnswers">
+			<trans-unit id="text.yourAnswers" resname="text.yourAnswers">
+				<source>Your answer(s):</source>
 				<target>Ihre Antwort(en):</target>
 			</trans-unit>
-			<trans-unit id="text.yourTextAnswer">
+			<trans-unit id="text.yourTextAnswer" resname="text.yourTextAnswer">
+				<source>Your text-answer:</source>
 				<target>Ihre Eingabe:</target>
 			</trans-unit>
-			<trans-unit id="text.correctAnswers">
+			<trans-unit id="text.correctAnswers" resname="text.correctAnswers">
+				<source>Correct answer(s):</source>
 				<target>Richtige Antwort(en):</target>
 			</trans-unit>
-			<trans-unit id="text.allAnswers">
+			<trans-unit id="text.allAnswers" resname="text.allAnswers">
+				<source>All answer(s):</source>
 				<target>Bisherige Antwort(en):</target>
 			</trans-unit>
-			<trans-unit id="text.choices">
+			<trans-unit id="text.choices" resname="text.choices">
+				<source>choices</source>
 				<target>mal ausgewählt</target>
 			</trans-unit>
-			<trans-unit id="text.myChoice">
+			<trans-unit id="text.myChoice" resname="text.myChoice">
+				<source>my choice</source>
 				<target>meine Antwort</target>
 			</trans-unit>
-			<trans-unit id="text.pointsQuestion">
+			<trans-unit id="text.pointsQuestion" resname="text.pointsQuestion">
+				<source>Your points for this question:</source>
 				<target>Punkte für diese Frage:</target>
 			</trans-unit>
-			<trans-unit id="text.pointsYet">
+			<trans-unit id="text.pointsYet" resname="text.pointsYet">
+				<source>Your points yet:</source>
 				<target>Punkte bisher:</target>
 			</trans-unit>
-			<trans-unit id="text.explanation">
+			<trans-unit id="text.explanation" resname="text.explanation">
+				<source>Explanation:</source>
 				<target>Erklärung:</target>
 			</trans-unit>
-			<trans-unit id="text.chooseQuiz">
+			<trans-unit id="text.chooseQuiz" resname="text.chooseQuiz">
+				<source>Please choose a quiz ...</source>
 				<target>Bitte wähle ein Quiz aus ...</target>
 			</trans-unit>
-			<trans-unit id="text.errorEmpty">
+			<trans-unit id="text.errorEmpty" resname="text.errorEmpty">
+				<source>Error: please choose an answer!</source>
 				<target>Bitte wählen Sie erst eine Antwort aus!</target>
 			</trans-unit>
-			<trans-unit id="error.error">
+			<trans-unit id="error.error" resname="error.error">
+				<source>Error!</source>
 				<target>Fehler!</target>
 			</trans-unit>
-			<trans-unit id="error.quizNotFound">
+			<trans-unit id="error.quizNotFound" resname="error.quizNotFound">
+				<source>The quiz with this uid was not found (Record Storage Place set?):</source>
 				<target>Das Quiz mit dieser Uid wurde nicht gefunden (Datensatzsammlung gesetzt?):</target>
 			</trans-unit>
-			<trans-unit id="text.answer.input">
+			<trans-unit id="text.answer.input" resname="text.answer.input">
+				<source>Answer:</source>
 				<target>Antwort:</target>
 			</trans-unit>
-			<trans-unit id="text.answer.textarea">
+			<trans-unit id="text.answer.textarea" resname="text.answer.textarea">
+				<source>Answer:</source>
 				<target>Antwort:</target>
 			</trans-unit>
-			<trans-unit id="text.joker.button">
+			<trans-unit id="text.joker.button" resname="text.joker.button">
+				<source>Use a 50:50 joker</source>
 				<target>50:50 Joker benutzen</target>
 			</trans-unit>
-			<trans-unit id="text.joker.title">
+			<trans-unit id="text.joker.title" resname="text.joker.title">
+				<source>The joker will hide half of the answers. You will get only half of the points.</source>
 				<target>Bei der Benutzung des Jokers fallen zwei Antworten weg. Sie erhalten lediglich die halbe Punktzahl.</target>
 			</trans-unit>
-			<trans-unit id="text.updated">
+			<trans-unit id="text.updated" resname="text.updated">
+				<source>Update completed</source>
 				<target>Update abgeschlossen</target>
 			</trans-unit>
-			<trans-unit id="text.questionAdded">
+			<trans-unit id="text.questionAdded" resname="text.questionAdded">
+				<source>The question was added to the quiz.</source>
 				<target>Die Frage wurde zum Quiz hinzugefügt.</target>
 			</trans-unit>
-			<trans-unit id="text.showResultPage">
+			<trans-unit id="text.showResultPage" resname="text.showResultPage">
+				<source>Show results</source>
 				<target>Ergebnisse anzeigen</target>
 			</trans-unit>
 		</body>

@@ -1,132 +1,171 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="messages" date="2018-09-14T12:38:32Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-01-21T14:39:57Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
-			<trans-unit id="template">
+			<trans-unit id="template" resname="template">
+				<source>HTML-Template:</source>
 				<target>HTML-Template:</target>
 			</trans-unit>
-			<trans-unit id="template.not_configured">
+			<trans-unit id="template.not_configured" resname="template.not_configured">
+				<source>no template layout selected!</source>
 				<target>kein Template ausgewählt!</target>
 			</trans-unit>
-			<trans-unit id="template.list">
+			<trans-unit id="template.list" resname="template.list">
+				<source>List of all quiz of one folder</source>
 				<target>Liste aller Quizze aus dem Ordner</target>
 			</trans-unit>
-			<trans-unit id="template.show">
+			<trans-unit id="template.show" resname="template.show">
+				<source>Shown one selected quiz (save the plugin! | you need to select the storage folder too)</source>
 				<target>Ein bestimmtes Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
-			<trans-unit id="template.result">
+			<trans-unit id="template.result" resname="template.result">
+				<source>Shown a result of a quiz (save the plugin! | you need to select the storage folder too)</source>
 				<target>Ergebnis eines Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
-			<trans-unit id="templateLayout">
+			<trans-unit id="templateLayout" resname="templateLayout">
+				<source>Template layout (see manual):</source>
 				<target>Template-Layout (siehe Doku):</target>
 			</trans-unit>
-			<trans-unit id="settings.startPageUid">
+			<trans-unit id="settings.startPageUid" resname="settings.startPageUid">
+				<source>Start page of a quiz/poll (listPid):</source>
 				<target>Startseite des Quiz/Umfrage (listPid):</target>
 			</trans-unit>
-			<trans-unit id="settings.showPageUid">
+			<trans-unit id="settings.showPageUid" resname="settings.showPageUid">
+				<source>Single page of a quiz/poll (detailPid):</source>
 				<target>Singleseite für ein Quiz/Umfrage (detailPid):</target>
 			</trans-unit>
-			<trans-unit id="settings.resultPageUid">
+			<trans-unit id="settings.resultPageUid" resname="settings.resultPageUid">
+				<source>Page where to show a result of a quiz/poll:</source>
 				<target>Ergebnisse eines Quiz/Umfrage hier anzeigen:</target>
 			</trans-unit>
-			<trans-unit id="settings.defaultQuizUid">
+			<trans-unit id="settings.defaultQuizUid" resname="settings.defaultQuizUid">
+				<source>Show this quiz/poll:</source>
 				<target>Dieses Quiz/Umfrage anzeigen:</target>
 			</trans-unit>
-			<trans-unit id="settings.itemsPerPage">
+			<trans-unit id="settings.itemsPerPage" resname="settings.itemsPerPage">
+				<source>Number of questions per page:</source>
 				<target>Anzahl der Fragen pro Seite:</target>
 			</trans-unit>
-			<trans-unit id="settings.showAnswerPage">
+			<trans-unit id="settings.showAnswerPage" resname="settings.showAnswerPage">
+				<source>Show a solution page after every submit?</source>
 				<target>Zeige eine Auswertung nach jedem absenden an?</target>
 			</trans-unit>
-			<trans-unit id="settings.showAnswersAtFinalPage">
+			<trans-unit id="settings.showAnswersAtFinalPage" resname="settings.showAnswersAtFinalPage">
+				<source>Show the solutions at the final page?</source>
 				<target>Zeige die Auswertung auf der Schlußseite an?</target>
 			</trans-unit>
-			<trans-unit id="settings.showOwnAnswers">
+			<trans-unit id="settings.showOwnAnswers" resname="settings.showOwnAnswers">
+				<source>Show the own answers?</source>
 				<target>Zeige die eigenen Antworten an?</target>
 			</trans-unit>
-			<trans-unit id="settings.showCorrectAnswers">
+			<trans-unit id="settings.showCorrectAnswers" resname="settings.showCorrectAnswers">
+				<source>Show the correct answers?</source>
 				<target>Zeige die richtigen Antworten an?</target>
 			</trans-unit>
-			<trans-unit id="settings.showEveryAnswer">
+			<trans-unit id="settings.showEveryAnswer" resname="settings.showEveryAnswer">
+				<source>Show every answer like on the question-page?</source>
 				<target>Zeige alle Antworten an, so wie auf der Fragen-Seite?</target>
 			</trans-unit>
-			<trans-unit id="settings.showAllAnswers">
+			<trans-unit id="settings.showAllAnswers" resname="settings.showAllAnswers">
+				<source>Show all answers from everybody (only at the final page)?</source>
 				<target>Zeige alle bisherigen Antworten an (nur auf der Schlußseite)?</target>
 			</trans-unit>
-			<trans-unit id="settings.showPoints">
+			<trans-unit id="settings.showPoints" resname="settings.showPoints">
+				<source>Show the possible/reached points?</source>
 				<target>Zeige die möglichen/erreichten Punkte an?</target>
 			</trans-unit>
-			<trans-unit id="settings.ajax">
+			<trans-unit id="settings.ajax" resname="settings.ajax">
+				<source>Enable AJAX-version? Important: all FlexForm-settings will be ignored then.</source>
 				<target>AJAX-Version einschalten? WICHTIG: alle FlexForm-Einstellungen werden dann ignoriert!</target>
 			</trans-unit>
-			<trans-unit id="settings.no">
+			<trans-unit id="settings.no" resname="settings.no">
+				<source>no</source>
 				<target>nein</target>
 			</trans-unit>
-			<trans-unit id="settings.yes">
+			<trans-unit id="settings.yes" resname="settings.yes">
+				<source>yes</source>
 				<target>ja</target>
 			</trans-unit>
-			<trans-unit id="settings.yesNotFinal">
+			<trans-unit id="settings.yesNotFinal" resname="settings.yesNotFinal">
+				<source>yes, but not on the final page</source>
 				<target>ja, aber nicht auf der Schlußseite</target>
 			</trans-unit>
-			
-			<trans-unit id="enables">
+			<trans-unit id="enables" resname="enables">
+				<source>Enable/disable</source>
 				<target>Ein-/Ausschalten</target>
 			</trans-unit>
-			<trans-unit id="pagelayoutview">
+			<trans-unit id="pagelayoutview" resname="pagelayoutview">
+				<source>Masterquiz plugin settings:</source>
 				<target>Masterquiz-PlugIn-Einstellungen:</target>
 			</trans-unit>
-			<trans-unit id="pagemodule.switchToPage">
+			<trans-unit id="pagemodule.switchToPage" resname="pagemodule.switchToPage">
+				<source>switch to page</source>
 				<target>gehe zur Seite</target>
 			</trans-unit>
-			<trans-unit id="pagemodule.pageNotAvailable">
+			<trans-unit id="pagemodule.pageNotAvailable" resname="pagemodule.pageNotAvailable">
+				<source>page not available!</source>
 				<target>keine Seite verfügbar!</target>
 			</trans-unit>
-			<trans-unit id="startingpoint">
+			<trans-unit id="startingpoint" resname="startingpoint">
+				<source>Startingpoint:</source>
 				<target>Ordner mit Inhalten:</target>
 			</trans-unit>
-			<trans-unit id="recursive">
+			<trans-unit id="recursive" resname="recursive">
+				<source>Recursive:</source>
 				<target>Rekursiv:</target>
 			</trans-unit>
-			
-			<trans-unit id="tasks.title">
+			<trans-unit id="tasks.title" resname="tasks.title">
+				<source>Delete old participants</source>
 				<target>Lösche alle alten Teilnehmer</target>
 			</trans-unit>
-			<trans-unit id="tasks.description">
-				<target>Lösche alle alten Teilnehmer eines ausgewählten Ordners.</target>
+			<trans-unit id="tasks.description" resname="tasks.description">
+				<source>Deletes all old participants of a folder.</source>
+				<target>Importiert myquizpoll-Einträge eines ausgewählten Ordners.</target>
 			</trans-unit>
-			<trans-unit id="tasks.validate.page">
+			<trans-unit id="tasks.validate.page" resname="tasks.validate.page">
+				<source>Page with elements (pages UID):</source>
 				<target>Seite mit den Einträgen (Seiten-UID):</target>
 			</trans-unit>
-			<trans-unit id="tasks.validate.invalidPage">
+			<trans-unit id="tasks.validate.invalidPage" resname="tasks.validate.invalidPage">
+				<source>Invalid pages uid or the page is not visible!</source>
 				<target>Diese Seite gibt es nicht oder sie ist nicht freigegeben!</target>
 			</trans-unit>
-			<trans-unit id="tasks.validate.language">
-				<target>Sprach-UID:</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.invalidLanguage">
-				<target>Diese Sprache gibt es nicht!</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.invalidFile">
-				<target>Die CSV-Datei ist nicht valide!</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.simulate">
-				<target>Nur simulieren?</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.days">
+			<trans-unit id="tasks.validate.days" resname="tasks.validate.days">
+				<source>Delete entries older than ... days:</source>
 				<target>Lösche Einträge älter als ... Tage:</target>
 			</trans-unit>
-			<trans-unit id="tasks.validate.invalidDays">
+			<trans-unit id="tasks.validate.invalidDays" resname="tasks.validate.invalidDays">
+				<source>Number of days must be greater than 0!</source>
 				<target>Die Anzahl der Tage muss größer als 0 sein!</target>
 			</trans-unit>
-			<trans-unit id="tasks.validate.flag">
+			<trans-unit id="tasks.validate.flag" resname="tasks.validate.flag">
+				<source>Check this if only the delete-flag should be set. Attention: the recycler does not delete mm-relations! That is a TYPO3-bug.</source>
 				<target>Ankreuzen, wenn stattdessen nur das delete-Flag gesetzt werden soll. Achtung: der Recycler löscht keine mm-Relationen! Das ist ein TYPO3-Bug.</target>
 			</trans-unit>
-			<trans-unit id="tasks.titleImport">
+			<trans-unit id="tasks.validate.language" resname="tasks.validate.language">
+				<source>Language-UID:</source>
+				<target>Sprach-UID:</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.invalidLanguage" resname="tasks.validate.invalidLanguage">
+				<source>Invalid language uid, please enter a valid language uid!</source>
+				<target>Diese Sprache gibt es nicht!</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.invalidFile" resname="tasks.validate.invalidFile">
+				<source>Invalid csv-file!</source>
+				<target>Die CSV-Datei ist nicht valide!</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.simulate" resname="tasks.validate.simulate">
+				<source>Only simulation?</source>
+				<target>Nur simulieren?</target>
+			</trans-unit>
+			<trans-unit id="tasks.titleImport" resname="tasks.titleImport">
+				<source>Import an myquizpoll-quiz</source>
 				<target>Import von myquizpoll-Quizes</target>
 			</trans-unit>
-			<trans-unit id="tasks.description">
-				<target>Importiert myquizpoll-Einträge eines ausgewählten Ordners.</target>
+			<trans-unit id="tasks.descriptionImports" resname="tasks.descriptionImports">
+				<source>Starts an simple import from a folder with myquizpoll-entries.</source>
+				<target>Starte einen simplen Import (alle myquizpoll-Einträge eines Ordners).</target>
 			</trans-unit>
 		</body>
 	</file>
