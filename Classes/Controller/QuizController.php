@@ -175,7 +175,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	if (intval($this->settings['user']['useCookie']) == -1) {
     		// Store the session in a cookie
     		$GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quizUid, $session);
-    		$GLOBALS["TSFE"]->storeSessionData();
+    		$GLOBALS["TSFE"]->fe_user->storeSessionData();
     	} else if (intval($this->settings['user']['useCookie']) > 0) {
     		setcookie('qsession' . $quizUid, $session, time()+(3600*24*intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
     	}
