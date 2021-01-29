@@ -155,6 +155,10 @@
 				<source>Reached page</source>
 				<target>Erreichte Seite</target>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.completed" resname="tx_fpmasterquiz_domain_model_participant.completed">
+				<source>User has completed this quiz/poll/test?</source>
+				<target>Benutzer hat das Quiz/Umfrage/Test abgeschlossen?</target>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.quiz" resname="tx_fpmasterquiz_domain_model_participant.quiz">
 				<source>Participated quiz/test</source>
 				<target>Quiz/Test</target>

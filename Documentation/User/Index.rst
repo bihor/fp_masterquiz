@@ -32,10 +32,6 @@ After you have created a quiz with some questions you can add the plugin at a pa
    Finally edit every question individually. Second posibility: go to the backend module and click on "Show quiz properties".
    There you could add questions to a quiz after you have created questions first.
 
-.. important::
-
-   Not every DB field is used yet. Thats no error. This is not the final version...
-
 This screenshots shows you a quiz in the list view and some FlexForm-settings of the plugin.
 
 .. figure:: ../Images/UserManual/BackendView.png

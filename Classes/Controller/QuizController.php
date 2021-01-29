@@ -428,7 +428,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	}
     	$pages = intval(ceil($questions / $questionsPerPage));
     	if ($this->settings['debug']) {
-    		$debug .= "\nlast page: ".$lastPage.'; page: '.$page.'; reached page before: '.$reachedPage.'; next page: '.$nextPage.'; showAnsers: '.$showAnswers;
+    		$debug .= "\nlast page: ".$lastPage.'; page: '.$page.'; reached page before: '.$reachedPage.'; next page: '.$nextPage.'; showAnswers: '.$showAnswers;
     		$debug .= "\nqs/qpp=" . $questions . '/' . $questionsPerPage . '=' . $pages;
     	}
     	$showAnswersNext = 0;

@@ -33,6 +33,9 @@
 			<trans-unit id="page.description">
 				<source>Reached page</source>
 			</trans-unit>
+			<trans-unit id="completed.description">
+				<source>User has completed this quiz/poll/test?</source>
+			</trans-unit>
 			<trans-unit id="quiz.description">
 				<source>Participated quiz</source>
 			</trans-unit>

@@ -24,6 +24,6 @@ Changes in version 2.0.0:
   jQuery can now be loaded in the footer.
   Important: probably you need to flush all caches.
 
-Changes in version 2.0.2:
+Changes in version 2.0.3:
   Deutsche Übersetzungen.
   Bugfix for TYPO3 10.

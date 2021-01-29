@@ -203,6 +203,7 @@ CREATE TABLE tx_fpmasterquiz_domain_model_participant (
 	points int(11) DEFAULT '0' NOT NULL,
 	maximum1 int(11) DEFAULT '0' NOT NULL,
 	maximum2 int(11) DEFAULT '0' NOT NULL,
+	completed smallint(5) unsigned DEFAULT '0' NOT NULL,
 	page int(11) DEFAULT '0' NOT NULL,
 	quiz int(11) unsigned DEFAULT '0',
 	selections int(11) unsigned DEFAULT '0' NOT NULL,
