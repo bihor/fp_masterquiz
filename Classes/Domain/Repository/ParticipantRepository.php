@@ -24,9 +24,10 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param	integer	$pageId	Page-UID
      * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findFromPid($pageId) {
+    public function findFromPid($pageId)
+    {
         $query = $this->createQuery();
-        $query->getQuerySettings()->setRespectStoragePage(FALSE);
+        $query->getQuerySettings()->setRespectStoragePage(false);
         $query->setOrderings([
             'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
         ]);
@@ -41,9 +42,10 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param	integer	$quizId	Quiz-UID
      * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findFromPidAndQuiz($pageId, $quizId) {
+    public function findFromPidAndQuiz($pageId, $quizId)
+    {
     	$query = $this->createQuery();
-    	$query->getQuerySettings()->setRespectStoragePage(FALSE);
+    	$query->getQuerySettings()->setRespectStoragePage(false);
     	$query->setOrderings([
     		'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
     	]);
@@ -63,7 +65,8 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param	integer	$quizId	Quiz-UID
      * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findOneByUserAndQuiz($userId, $quizId) {
+    public function findOneByUserAndQuiz($userId, $quizId)
+    {
     	$query = $this->createQuery();
     	$query->matching(
     		$query->logicalAnd(

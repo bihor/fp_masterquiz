@@ -42,7 +42,8 @@ class ItemsProcFunc {
 	 * @param array &$config configuration array
 	 * @return void
 	 */
-	public function user_templateLayout(array &$config) {
+	public function user_templateLayout(array &$config)
+	{
 		$row = BackendUtilityCore::getRecord('tt_content', $config['row']['uid']);
 		$pid = $row['pid'];
 		$templateLayoutsUtility = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Utility\\TemplateLayout');

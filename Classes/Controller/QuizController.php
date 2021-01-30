@@ -70,13 +70,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      *
      * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager Instance of the Configuration Manager
      */
-    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager) {
+    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager)
+    {
             $this->configurationManager = $configurationManager;
-            /*$tsSettings = $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK,
-                'fp_masterquiz',
-                'fpmasterquiz_pi1'
-            );*/
+            /* Alternative:
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'fp_masterquiz', 'fpmasterquiz_pi1'
+            */
             $tsSettings = $this->configurationManager->getConfiguration(
                 \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
             );
@@ -111,18 +110,21 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
      * @return array
      */
-    public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz) {
+    public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    {
     	/* @var \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answer */
-        $answer = NULL;
-        $saveIt = FALSE;
-    	$newUser = FALSE;
-    	$reload = FALSE;
-    	$partBySes = NULL;
+        $answer = null;
+        $saveIt = false;
+    	$newUser = false;
+    	$reload = false;
+    	$completed = false;
+    	$doPersist = false;
+    	$partBySes = null;
     	$pages = 0;
     	$questions = 0;
     	$maximum1 = 0;
     	$finalBodytext = '';	// bodytext and image for the final page
-    	$finalImageuid = 0;
+    	$finalImageuid = 0;     // image for the final page
     	$finalContent = '';		// special content for the final page
     	$emailAnswers = [];		// special admin email to answer relations
     	$specialRecievers = [];	// special admin email recievers
@@ -133,6 +135,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
     	$context = GeneralUtility::makeInstance(Context::class);
     	$fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
+   		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
     	
     	if ($this->request->hasArgument('session')) {
     		$session = $this->request->getArgument('session');
@@ -164,8 +167,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			}
     			if (!$session) {
     				$session = uniqid( random_int(1000,9999) );
-    				$newUser = TRUE;
-    				$this->participant = NULL;
+    				$newUser = true;
+    				$this->participant = null;
     				if ($this->settings['debug']) {
     					$debug .= "\ncreating new session: " . $session;
     				}
@@ -205,7 +208,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$reachedPage = $this->participant->getPage();
     	if ($reachedPage >= $page) {
     		// beantwortete Seiten soll man nicht nochmal beantworten können
-    		$showAnswers = TRUE;
+    		$showAnswers = true;
     	}
     	if (!$questionsPerPage) {
     		$questionsPerPage = 1;
@@ -227,16 +230,15 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		// Antworten sollen ausgewertet und gespeichert werden
     		if ($reachedPage < $page) {
     			// nur nicht beantwortete Seiten speichern
-    			$saveIt = TRUE;
+    			$saveIt = true;
     		}
-    		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
     		if (!$this->participant->getUid()) {
     			if (!$newUser) {
     				$partBySes = $this->participantRepository->findOneBySession($session);
     			}
     			if ($partBySes) {
     				$this->participant = $partBySes;
-    				$reload = TRUE;
+    				$reload = true;
     				if ($this->settings['debug']) {
     					$debug .= "\nReload nach absenden von Seite 1 detektiert.";
     				}
@@ -273,15 +275,17 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$this->participant->setMaximum2($quiz->getMaximum2());
 	    			$this->participantRepository->add($this->participant);
 	    			$persistenceManager->persistAll();
-	    			$newUser = TRUE;
+	    			$newUser = true;
 	    			if ($this->settings['debug']) {
 	    				$debug .= "\nNew participant created: " . $this->participant->getUid();
     				}
     			}
     		}
     	}
+    	$completed = $this->participant->isCompleted();
+    	
     	// Ausgewählte Antworten auswerten und speichern
-    	if ($saveIt && !$reload && ($useJoker != 1)) {
+    	if ($saveIt && !$reload && !$completed && ($useJoker != 1)) {
     		// special preparation
     		if ($this->settings['email']['sendToAdmin'] && $this->settings['email']['specific']) {
    				$emailAnswers = json_decode($this->settings['email']['specific'], true);
@@ -292,12 +296,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			$quid = $question->getUid();
     			$debug .= "\n#" . $quid . '#: ';
     			if ($this->request->hasArgument('quest_' . $quid) && $this->request->getArgument('quest_' . $quid)) {
-    				$isActive = TRUE;
+    				$isActive = true;
     			} else if ($_POST['quest_' . $quid] || $_GET['quest_' . $quid]) {
     				// Ajax-call is without extensionname :-(
-    				$isActive = TRUE;
+    				$isActive = true;
     			} else {
-    				$isActive = FALSE;
+    				$isActive = false;
     			}
     			if ($isActive) {	
     				// Auswertung der abgesendeten Fragen
@@ -424,7 +428,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     		$this->participant->setPage($lastPage);
     		$this->participantRepository->update($this->participant);
-    		$persistenceManager->persistAll();
+    		$doPersist = true;
     	}
     	$pages = intval(ceil($questions / $questionsPerPage));
     	if ($this->settings['debug']) {
@@ -515,7 +519,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		        }
     		    }
     		}
-    		if ($this->settings['email']['sendToAdmin'] || $this->settings['email']['sendToUser']) {
+    		if (!$completed && ($this->settings['email']['sendToAdmin'] || $this->settings['email']['sendToUser'])) {
     			// GGf. Emails versenden
 				$dataArray = [
 				    'uid' => $this->participant->getUid(),
@@ -534,7 +538,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 							$this->settings['email']['adminSubject'],
 							'ToAdmin',
 							$dataArray,
-							TRUE
+							true
 						);
 						if ($this->settings['debug']) {
 							$debug .= "\n sending email to: " . $this->settings['email']['adminName']
@@ -550,7 +554,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 									$emailArray['subject'],
 									'ToAdmin',
 									$dataArray,
-									TRUE
+									true
 								);
 								if ($this->settings['debug']) {
 									$debug .= "\n sending email to: " . $emailArray['name']	.' <'.  $email . '> : ' . $emailArray['subject'];
@@ -566,13 +570,16 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 						$this->settings['email']['userSubject'],
 						'ToUser',
 						$dataArray,
-						FALSE
+						false
 					);
 					if ($this->settings['debug']) {
 						$debug .= "\n sending email to: " . $dataArray['name'] .' <'. $dataArray['email'] . '> : ' . $this->settings['email']['userSubject'];
 					}
 				}
     		}
+			$this->participant->setCompleted(true);
+            $this->participantRepository->update($this->participant);
+            $doPersist = true;
     	} else {
     		$final = 0;
     		// toggle mode for show answers after submit questions
@@ -580,6 +587,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			$showAnswersNext = $showAnswers == 1 ? 0 : 1;
     		}
     	}
+    	if ($doPersist) {
+    		$persistenceManager->persistAll();
+        }
     	$data = [
    			'page' => $page,
    			'pages' => $pages,
@@ -611,7 +621,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                                    \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question, 
                                                    \Fixpunkt\FpMasterquiz\Domain\Model\Selected &$c_selected,
                                                    string &$c_debug,
-                                                   int &$c_maximum1){
+                                                   int &$c_maximum1)
+    {
         // retreive answer over the GET arguments
         if ($this->request->hasArgument('answer_text_' . $i_quid) && $this->request->getArgument('answer_text_' . $i_quid)) {
             $answerText = $this->request->getArgument('answer_text_' . $i_quid);
@@ -693,7 +704,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param int $userid
      * @return array
      */
-    public function getFeUser($userid) {
+    public function getFeUser($userid)
+    {
     	$connection = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getConnectionForTable('fe_users');
     	$queryBuilder = $connection->createQueryBuilder();
     	$statement = $queryBuilder->select('*')->from('fe_users')->where(
@@ -712,7 +724,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param boolean $be
      * @return array
      */
-    protected function setAllUserAnswers(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz, $pid, $be){
+    protected function setAllUserAnswers(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz, $pid, $be)
+    {
     	$debug = '';
     	$allResults = [];
     	// Alternative: $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
@@ -780,7 +793,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	} else {
     		$quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
     		if ($quiz) {
-    			$this->forward('show', NULL, NULL, array('quiz' => $quiz->getUid()));
+    			$this->forward('show', null, null, array('quiz' => $quiz->getUid()));
     		} else {
     			$this->addFlashMessage(
     				LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($this->settings['defaultQuizUid']),
@@ -806,7 +819,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	} else {
     		$quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
     		if ($quiz) {
-    			$this->forward('result', NULL, NULL, array('quiz' => $quiz->getUid()));
+    			$this->forward('result', null, null, array('quiz' => $quiz->getUid()));
     		} else {
     			$this->addFlashMessage(
     				LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($this->settings['defaultQuizUid']),
@@ -995,7 +1008,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     	$sys_language_uid = $languageAspect->getId();
     	$pid = (int)$GLOBALS['TSFE']->id;
-	    $debug = $this->setAllUserAnswers($quiz, $pid, FALSE);
+	    $debug = $this->setAllUserAnswers($quiz, $pid, false);
     	$this->view->assign('quiz', $quiz);
     	$this->view->assign('debug', $debug);
     	$this->view->assign("sysLanguageUid", $sys_language_uid);
@@ -1027,7 +1040,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$questionRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\QuestionRepository');
     	$pid = (int)GeneralUtility::_GP('id');
     	$uid = (int)$quiz->getUid();
-    	$updated = FALSE;
+    	$updated = false;
     	$lost = $this->request->hasArgument('lost') ? intval($this->request->getArgument('lost')) : 0;
     	if ($lost > 0) {
     		// wir fügen erst eine verschollene Frage ohne Referenz hinzu
@@ -1036,39 +1049,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->quizRepository->update($quiz);
     		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
     		$persistenceManager->persistAll();
-    		/* Alternative:
-    		$counter = 0;
-    		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
-    		$statement = $queryBuilder
-    		->select('questions')
-    		->from('tx_fpmasterquiz_domain_model_quiz')
-    		->where(
-    			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
-    		)
-    		->setMaxResults(1)
-    		->execute();
-    		while ($row = $statement->fetch()) {
-    			$counter = $row['questions'];
-    		}
-    		$counter++;
-    		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
-    		$queryBuilder
-    		->update('tx_fpmasterquiz_domain_model_quiz')
-    		->where(
-    			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
-    		)
-    		->set('questions', $counter)
-    		->execute();
-    		$queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_question');
-    		$queryBuilder
-    		->update('tx_fpmasterquiz_domain_model_question')
-    		->where(
-    			$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($lost, \PDO::PARAM_INT))
-   			)
-   			->set('quiz', $uid)
-   			->execute();
-   			*/
-    		$updated = TRUE;
+    		$updated = true;
     		$this->addFlashMessage(
     			LocalizationUtility::translate('text.questionAdded', 'fp_masterquiz'),
     			LocalizationUtility::translate('text.updated', 'fp_masterquiz'),
@@ -1111,7 +1092,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function chartsAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-    	$be = $this->request->hasArgument('be') ? TRUE : FALSE;
+    	$be = $this->request->hasArgument('be') ? true : false;
     	if ($be) {
     		$pid = (int)GeneralUtility::_GP('id');
     	} else {
@@ -1134,7 +1115,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param boolean $toAdmin email to the admin?
      * @return boolean TRUE on success, otherwise false
      */
-    protected function sendTemplateEmail(array $recipient, array $sender, $subject, $templateName, array $variables = array(), $toAdmin = FALSE) {
+    protected function sendTemplateEmail(array $recipient, array $sender, $subject, $templateName, array $variables = array(), $toAdmin = false)
+    {
     	$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
     		\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
     	);

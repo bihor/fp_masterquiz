@@ -79,7 +79,8 @@ class PageLayoutView
 	 * @param	object		$pObj	A reference to calling object
      * @return string Information about pi1 plugin
      */
-    public function getExtensionSummary($params, &$pObj) {
+    public function getExtensionSummary($params, &$pObj)
+    {
         $actionTranslationKey = $result = '';
 
         $header = '<strong>' . $this->getLanguageService()->sL(self::LLPATH . 'pagelayoutview') . '</strong>';

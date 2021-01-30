@@ -29,9 +29,10 @@ class QuestionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findLostQuestions($pageId) {
+    public function findLostQuestions($pageId)
+    {
     	$query = $this->createQuery();
-    	$query->getQuerySettings()->setRespectStoragePage(FALSE);
+    	$query->getQuerySettings()->setRespectStoragePage(false);
     	$query->matching(
     		$query->logicalAnd(
     			$query->equals('pid', $pageId),
@@ -46,7 +47,8 @@ class QuestionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return array
      */
-    public function getStoragePids() {
+    public function getStoragePids()
+    {
     	$query = $this->createQuery();
     	return $query->getQuerySettings()->getStoragePageIds();
     }

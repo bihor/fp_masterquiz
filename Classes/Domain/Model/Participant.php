@@ -88,6 +88,13 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $page = 0;
     
     /**
+     * Quiz completed?
+     *
+     * @var bool
+     */
+    protected $completed = false;
+    
+    /**
      * Participated quiz: darf in TYPO3 10 nicht lazy sein!
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Model\Quiz
@@ -395,6 +402,37 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getPage()
     {
     	return $this->page;
+    }
+    
+    /**
+     * Returns the completed
+     *
+     * @return bool $completed
+     */
+    public function getCompleted()
+    {
+        return $this->completed;
+    }
+
+    /**
+     * Sets the completed
+     *
+     * @param bool $completed
+     * @return void
+     */
+    public function setCompleted($completed)
+    {
+        $this->completed = $completed;
+    }
+
+    /**
+     * Returns the boolean state of completed
+     *
+     * @return bool
+     */
+    public function isCompleted()
+    {
+        return $this->completed;
     }
     
     /**

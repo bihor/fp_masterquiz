@@ -31,9 +31,10 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	 * @param	integer	$pageId	Page-UID
 	 * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findFromPid($pageId) {
+	public function findFromPid($pageId)
+	{
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()->setRespectStoragePage(false);
 		$query->setOrderings([
 			'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 		]);
@@ -48,9 +49,10 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	 * @param	integer	$questionId	Question-UID
 	 * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
 	 */
-	public function findFromPidAndQuestion($pageId, $questionId) {
+	public function findFromPidAndQuestion($pageId, $questionId)
+	{
 	    $query = $this->createQuery();
-	    $query->getQuerySettings()->setRespectStoragePage(FALSE);
+	    $query->getQuerySettings()->setRespectStoragePage(false);
 	    $query->setOrderings([
 	        'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 	    ]);
@@ -70,9 +72,10 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 	 * @param	integer	$questionId		Question-UID
 	 * @return	integer
 	 */
-	public function countByParticipantAndQuestion($participantId, $questionId) {
+	public function countByParticipantAndQuestion($participantId, $questionId)
+	{
 		$query = $this->createQuery();
-		$query->getQuerySettings()->setRespectStoragePage(FALSE);
+		$query->getQuerySettings()->setRespectStoragePage(false);
 		$query->setOrderings([
 			'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
 		]);

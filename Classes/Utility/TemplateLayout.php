@@ -41,7 +41,8 @@ class TemplateLayout implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param int $pageUid
 	 * @return array
 	 */
-	public function getAvailableTemplateLayouts($pageUid) {
+	public function getAvailableTemplateLayouts($pageUid)
+	{
 		$templateLayouts = array();
 		foreach($this->getTemplateLayoutsFromTsConfig($pageUid) as $templateKey => $title) {
 			$templateLayouts[] = array($title, $templateKey);
@@ -55,7 +56,8 @@ class TemplateLayout implements \TYPO3\CMS\Core\SingletonInterface {
 	 * @param $pageUid
 	 * @return array
 	 */
-	protected function getTemplateLayoutsFromTsConfig($pageUid) {
+	protected function getTemplateLayoutsFromTsConfig($pageUid)
+	{
 		$templateLayouts = array();
 		$pagesTsConfig = \TYPO3\CMS\Backend\Utility\BackendUtility::getPagesTSconfig($pageUid);
 		if (isset($pagesTsConfig['tx_fpmasterquiz.']['templateLayouts.']) && is_array($pagesTsConfig['tx_fpmasterquiz.']['templateLayouts.'])) {

@@ -30,9 +30,10 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findFromPid($pageId) {
+    public function findFromPid($pageId)
+    {
     	$query = $this->createQuery();
-    	$query->getQuerySettings()->setRespectStoragePage(FALSE);
+    	$query->getQuerySettings()->setRespectStoragePage(false);
     	$query->setOrderings([
     		'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
     	]);

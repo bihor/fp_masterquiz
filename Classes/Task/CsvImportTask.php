@@ -239,7 +239,8 @@ class CsvImportTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	}
 	
 	
-	public function execute() {
+	public function execute()
+	{
 		$successfullyExecuted = TRUE;
 		$insert = array();
 		$ln = "\r\n";							// line break
@@ -345,7 +346,8 @@ class CsvImportTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 *
 	 * @return	mixed
 	 */
-	function insertLine($names, $values, $fields, $simulate, $convert) {
+	function insertLine($names, $values, $fields, $simulate, $convert)
+	{
 		$success_global = TRUE;
 		for ($i=0; $i<count($names); $i++) {
 			$feld = trim($names[$i]);
@@ -383,7 +385,8 @@ class CsvImportTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 	 *
 	 * @return	string
 	 */
-	function build_table($array){
+	function build_table($array)
+	{
 		// start table
 		$html = '<style>table tr th, table tr td {padding:3px;border:1px solid #666;}</style><table class="dump">';
 		// header row
