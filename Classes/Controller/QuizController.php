@@ -103,7 +103,31 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
             $this->settings = $originalSettings;
     }
-    
+
+    /**
+     * initialize action highscore
+     * @return void
+     */
+    public function initializeHighscoreAction() {
+        if ($this->request->hasArgument('quiz')){
+            return;
+        }
+        $defaultQuizUid = $this->settings['defaultQuizUid'];
+        if ($defaultQuizUid) {
+            if ($quiz = $this->quizRepository->findOneByUid(intval($defaultQuizUid))) {
+                $this->request->setArgument('quiz',$quiz);
+                return;
+            }
+        }
+        $this->addFlashMessage(
+            LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($defaultQuizUid),
+            LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+            \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+            false
+        );
+        $this->forward('list');
+    }
+
     /**
      * action doAll
      *
@@ -715,7 +739,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		return $row;
     	}
     }
-    
+
     /**
      * Set all user-answers to a quiz
      *
@@ -724,7 +748,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param boolean $be
      * @return array
      */
-    protected function setAllUserAnswers(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz, $pid, $be)
+    protected function setAllUserAnswers(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz, int $pid, bool $be)
     {
     	$debug = '';
     	$allResults = [];
@@ -831,7 +855,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     	}
     }
-    
+
     /**
      * action show
      *
@@ -1012,10 +1036,31 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$this->view->assign('quiz', $quiz);
     	$this->view->assign('debug', $debug);
     	$this->view->assign("sysLanguageUid", $sys_language_uid);
-    	$this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+    	$this->view->assign('uidOfPage', $pid);
     	$this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
     }
-    
+
+    /**
+     * action highscore
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @return void
+     */
+    public function highscoreAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    {
+        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+        $sys_language_uid = $languageAspect->getId();
+        $pid = (int)$GLOBALS['TSFE']->id;
+        $participants = $this->participantRepository->findFromQuizLimit($quiz->getUid(), intval($this->settings['highscoreLimit']));
+        $debug = '';
+        $this->view->assign('quiz', $quiz);
+        $this->view->assign('participants', $participants);
+        $this->view->assign('debug', $debug);
+        $this->view->assign("sysLanguageUid", $sys_language_uid);
+        $this->view->assign('uidOfPage', $pid);
+        $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+    }
+
     /**
      * Action list for the backend
      *

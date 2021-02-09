@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-01-21T14:39:57Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-02-09T11:07:02Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -16,12 +16,16 @@
 				<target>Liste aller Quizze aus dem Ordner</target>
 			</trans-unit>
 			<trans-unit id="template.show" resname="template.show">
-				<source>Shown one selected quiz (save the plugin! | you need to select the storage folder too)</source>
+				<source>Show one selected quiz (save the plugin! | you need to select the storage folder too)</source>
 				<target>Ein bestimmtes Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
 			<trans-unit id="template.result" resname="template.result">
-				<source>Shown a result of a quiz (save the plugin! | you need to select the storage folder too)</source>
+				<source>Show a result of a quiz (save the plugin! | you need to select the storage folder too)</source>
 				<target>Ergebnis eines Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
+			</trans-unit>
+			<trans-unit id="template.highscore" resname="template.highscore">
+				<source>Show a highscore of a quiz (save the plugin! | you need to select the storage folder too)</source>
+				<target>Highscore eines Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
 			<trans-unit id="templateLayout" resname="templateLayout">
 				<source>Template layout (see manual):</source>
@@ -38,6 +42,10 @@
 			<trans-unit id="settings.resultPageUid" resname="settings.resultPageUid">
 				<source>Page where to show a result of a quiz/poll:</source>
 				<target>Ergebnisse eines Quiz/Umfrage hier anzeigen:</target>
+			</trans-unit>
+			<trans-unit id="settings.highscorePageUid" resname="settings.highscorePageUid">
+				<source>Page where to show a highscore of a quiz:</source>
+				<target>Highscore eines Quiz hier anzeigen:</target>
 			</trans-unit>
 			<trans-unit id="settings.defaultQuizUid" resname="settings.defaultQuizUid">
 				<source>Show this quiz/poll:</source>

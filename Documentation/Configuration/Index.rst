@@ -37,6 +37,7 @@ Properties
 	startPageUid                integer     UID of the page where to restart (listPid).
 	showPageUid                 integer     UID of the single-page of a quiz (detailPid).
 	resultPageUid               integer     UID of the page where to show quiz results.
+    highscorePageUid            integer     UID of the page where to show a highscore.
 	defaultQuizUid              integer     UID of the quiz to show.                       1
 	showAnswerPage              boolean     Show an answer page after every submit?        1
 	showOwnAnswers              integer     Show the answers of the quiz taker? 0,1 or 2.  2
@@ -48,6 +49,7 @@ Properties
 	showPageNo                  boolean     Show the page number / number of pages?        1
 	showQuestionNo              boolean     Show the question no. / no. of questions?      0
 	checkAllStars               boolean     Check all stars on star rating by default?     0
+    highscoreLimit              integer     Number of entries in the highscore             10
 	allowHtml                   boolean     Allow HTML at question-answers from the BE?    0
 	joker                       boolean     Enable a joker-button? Works only with AJAX.   0
 	ajax                        boolean     Enable the AJAX-version* of the quiz?          0

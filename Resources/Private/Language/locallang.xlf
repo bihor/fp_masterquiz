@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-01-21T14:20:01Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-02-09T11:01:44Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -141,6 +141,12 @@
 			<trans-unit id="text.userData" resname="text.userData">
 				<source>If you want, you can enter here some personal data (e.g. for a highscore list).</source>
 			</trans-unit>
+			<trans-unit id="text.position" resname="text.position">
+				<source>Position</source>
+			</trans-unit>
+			<trans-unit id="text.participant" resname="text.participant">
+				<source>Participant</source>
+			</trans-unit>
 			<trans-unit id="text.name" resname="text.name">
 				<source>Name</source>
 			</trans-unit>
@@ -239,6 +245,9 @@
 			</trans-unit>
 			<trans-unit id="text.showResultPage" resname="text.showResultPage">
 				<source>Show results</source>
+			</trans-unit>
+			<trans-unit id="text.showHighscorePage" resname="text.showHighscorePage">
+				<source>Show highscore</source>
 			</trans-unit>
 		</body>
 	</file>

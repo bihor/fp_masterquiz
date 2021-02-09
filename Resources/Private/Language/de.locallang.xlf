@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-01-21T14:20:01Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-02-09T11:01:44Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -187,6 +187,14 @@
 				<source>If you want, you can enter here some personal data (e.g. for a highscore list).</source>
 				<target>Wenn du willst, kannst du hier noch deine persönlichen Daten eintragen (z.B. für eine Highscore-Liste).</target>
 			</trans-unit>
+			<trans-unit id="text.position" resname="text.position">
+				<source>Position</source>
+				<target>Platz</target>
+			</trans-unit>
+			<trans-unit id="text.participant" resname="text.participant">
+				<source>Participant</source>
+				<target>Teilnehmer</target>
+			</trans-unit>
 			<trans-unit id="text.name" resname="text.name">
 				<source>Name</source>
 				<target>Name</target>
@@ -318,6 +326,10 @@
 			<trans-unit id="text.showResultPage" resname="text.showResultPage">
 				<source>Show results</source>
 				<target>Ergebnisse anzeigen</target>
+			</trans-unit>
+			<trans-unit id="text.showHighscorePage" resname="text.showHighscorePage">
+				<source>Show highscore</source>
+				<target>Highscore anzeigen</target>
 			</trans-unit>
 		</body>
 	</file>

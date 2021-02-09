@@ -34,7 +34,7 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $query->matching($query->equals('pid', $pageId));
         return $query->execute();
     }
-    
+
     /**
      * Fetches entries of a folder and quiz.
      *
@@ -44,17 +44,36 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function findFromPidAndQuiz($pageId, $quizId)
     {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->setOrderings([
+            'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+        ]);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('pid', $pageId),
+                $query->equals('quiz', $quizId)
+            )
+        );
+        return $query->execute();
+    }
+
+    /**
+     * Fetches entries of a quiz with a limit.
+     *
+     * @param integer $quizId Quiz-UID
+     * @param integer $limit Limit for highscore
+     * @return    array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findFromQuizLimit(int $quizId, $limit = 10)
+    {
     	$query = $this->createQuery();
-    	$query->getQuerySettings()->setRespectStoragePage(false);
     	$query->setOrderings([
-    		'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+    		'points' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
     	]);
     	$query->matching(
-    		$query->logicalAnd(
-    			$query->equals('pid', $pageId),
-    			$query->equals('quiz', $quizId)
-    		)
-    	);
+   			$query->equals('quiz', $quizId)
+    	)->setLimit($limit);
     	return $query->execute();
     }
     

@@ -255,6 +255,10 @@
 							<f:link.action controller="Quiz" action="result" pageUid="{settings.resultPageUid}" arguments="{quiz:quiz}"
 								class="btn btn-info">{f:translate(key: "text.showResultPage")}</f:link.action>
 						</f:if>
+						<f:if condition="{settings.highscorePageUid}">
+							<f:link.action controller="Quiz" action="highscore" pageUid="{settings.highscorePageUid}" arguments="{quiz:quiz}"
+										   class="btn btn-info">{f:translate(key: "text.showHighscorePage")}</f:link.action>
+						</f:if>
 					</f:then>
 					<f:else>
 					

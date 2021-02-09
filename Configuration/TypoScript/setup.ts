@@ -25,6 +25,7 @@ plugin.tx_fpmasterquiz {
 		startPageUid =
 		showPageUid =
 		resultPageUid =
+		highscorePageUid =
 		defaultQuizUid = 1
 		showAnswerPage = 1
 		showOwnAnswers = 2
@@ -41,6 +42,7 @@ plugin.tx_fpmasterquiz {
 		ajax = 0
 		ajaxType = POST
 		setMetatags = 0
+		highscoreLimit = 10
 		user {
 			ipSave = 1
 			ipAnonymous = 1
@@ -89,7 +91,7 @@ plugin.tx_fpmasterquiz {
 			width = 492
 		}
 		templateLayout =
-		overrideFlexformSettingsIfEmpty = startPageUid,showPageUid,resultPageUid,defaultQuizUid,templateLayout,pagebrowser.itemsPerPage
+		overrideFlexformSettingsIfEmpty = startPageUid,showPageUid,resultPageUid,highscorePageUid,defaultQuizUid,templateLayout,pagebrowser.itemsPerPage
 		debug = 0
 		typeNum = {$plugin.tx_fpmasterquiz.settings.typeNum}
 	}

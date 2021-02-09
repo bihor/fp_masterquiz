@@ -77,7 +77,8 @@ ChangeLog
   jQuery can now be loaded in the footer.
   Important: probably you need to flush all caches.
 
-2.0.4:
+2.1.0:
+  Highscore action added.
   Completed-field added: final page reached?
   Deutsche Übersetzungen.
   Bugfix for TYPO3 10.

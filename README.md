@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 2.0.4
+version 2.0.5
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -24,7 +24,8 @@ Changes in version 2.0.0:
   jQuery can now be loaded in the footer.
   Important: probably you need to flush all caches.
 
-Changes in version 2.0.4:
+Changes in version 2.0.5:
+  Highscore action added.
   Completed-field added: final page reached?
   Deutsche Übersetzungen.
   Bugfix for TYPO3 10.
