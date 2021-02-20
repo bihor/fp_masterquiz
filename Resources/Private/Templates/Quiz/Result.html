@@ -27,6 +27,11 @@
 							</f:else>
 							</f:if>
 						</div>
+						<f:if condition="{question.explanation}">
+							<br />
+							<p>{f:translate(key: "text.explanation", default: 'Explanation: ')}</p>
+							<f:format.html>{question.explanation}</f:format.html>
+						</f:if>
 					</div>
 					<div class="{settings.template.colImage}">
 						<f:if condition="{question.image.uid}">

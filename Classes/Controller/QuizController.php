@@ -90,13 +90,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     // Multilevel
                     $keyAsArray = explode('.', $fieldName);
                     if (!($originalSettings[$keyAsArray[0]][$keyAsArray[1]]) && isset($tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]])) {
-                        //echo $keyAsArray[0].'.'.$keyAsArray[1] .': #'.$originalSettings[$keyAsArray[0]][$keyAsArray[1]] . '#' .$tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]].'#';
                         $originalSettings[$keyAsArray[0]][$keyAsArray[1]] = $tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]];
                     }
                 } else {
                     // Simple
                     if (!($originalSettings[$fieldName]) && isset($tsSettings[$fieldName])) {
-                        //echo $fieldName .': #'.$originalSettings[$fieldName] .'#'. $tsSettings[$fieldName].'#';
                         $originalSettings[$fieldName] = $tsSettings[$fieldName];
                     }
                 }
@@ -108,7 +106,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * initialize action highscore
      * @return void
      */
-    public function initializeHighscoreAction() {
+    public function initializeHighscoreAction()
+    {
         if ($this->request->hasArgument('quiz')){
             return;
         }
@@ -440,6 +439,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                                 // When enter an answer in a textbox: try to evaluate the answer of the textbox
 	    					    $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug, $maximum1);
 	    					    break;
+                            default:
+                                // hier passiert nichts
 	    				}
 	    				// assign the selected dataset to the participant
 	    				$this->participant->addSelection($selected);

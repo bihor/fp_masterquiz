@@ -29,8 +29,11 @@ After you have created a quiz with some questions you can add the plugin at a pa
 .. tip::
 
    If you have a quiz with more than 10 questions, the backend will be very slow. To avoid this, create a quiz with nearly empty questions.
-   Finally edit every question individually. Second posibility: go to the backend module and click on "Show quiz properties".
+   Finally edit every question individually.
+   Second possibility: go to the backend module and click on "Show quiz properties".
    There you could add questions to a quiz after you have created questions first.
+   Third possibility: you can use the "Extended view" ("Erweitere Ansicht") in the list view. There you could edit every field of a quiz
+   after you have created the whole quiz/poll. See screenshot below.
 
 This screenshots shows you a quiz in the list view and some FlexForm-settings of the plugin.
 
@@ -45,6 +48,12 @@ This screenshots shows you a quiz in the list view and some FlexForm-settings of
    :alt: Backend view of the plugin
 
    Backend view of the plugin (early beta version).
+
+.. figure:: ../Images/UserManual/BackendQuiz2.jpg
+   :width: 800px
+   :alt: Backend view in the list view.
+
+   You can edit every field of a quiz in the extended view.
 
 Points
 ------

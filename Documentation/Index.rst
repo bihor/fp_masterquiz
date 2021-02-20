@@ -30,7 +30,7 @@ Master-Quiz
 		quiz,test,poll,myquizpoll,myquizandpoll
 
 	:Copyright:
-		2020
+		2021
 
 	:Author:
 		Kurt Gusbeth

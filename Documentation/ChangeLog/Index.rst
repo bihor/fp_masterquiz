@@ -79,6 +79,7 @@ ChangeLog
 
 2.1.0:
   Highscore action added.
+  Explanation added to the result action/view.
   Completed-field added: final page reached?
   Deutsche Übersetzungen.
   Bugfix for TYPO3 10.
