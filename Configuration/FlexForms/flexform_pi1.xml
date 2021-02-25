@@ -4,7 +4,7 @@
     <sDEF>
       <ROOT>
         <TCEforms>
-          <sheetTitle>Einstellungen</sheetTitle>
+          <sheetTitle>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings</sheetTitle>
         </TCEforms>
         <type>array</type>
         <el>
@@ -299,5 +299,79 @@
         </el>
       </ROOT>
     </sDEF>
+	  <sUSER>
+		  <ROOT>
+		  <TCEforms>
+			  <sheetTitle>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:userSettings</sheetTitle>
+		  </TCEforms>
+		  <type>array</type>
+		  <el>
+			  <settings.user.askForData>
+				  <TCEforms>
+					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.askForData</label>
+					  <config>
+						  <type>radio</type>
+						  <items type="array">
+							  <numIndex index="0" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								  <numIndex index="1">0</numIndex>
+							  </numIndex>
+							  <numIndex index="1" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								  <numIndex index="1">1</numIndex>
+							  </numIndex>
+						  </items>
+					  </config>
+				  </TCEforms>
+			  </settings.user.askForData>
+		  </el>
+		  </ROOT>
+	  </sUSER>
+	  <sEMAIL>
+		  <ROOT>
+			  <TCEforms>
+				  <sheetTitle>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:emailSettings</sheetTitle>
+			  </TCEforms>
+			  <type>array</type>
+			  <el>
+				  <settings.email.sendToAdmin>
+					  <TCEforms>
+						  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.email.sendToAdmin</label>
+						  <config>
+							  <type>radio</type>
+							  <items type="array">
+								  <numIndex index="0" type="array">
+									  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+									  <numIndex index="1">0</numIndex>
+								  </numIndex>
+								  <numIndex index="1" type="array">
+									  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+									  <numIndex index="1">1</numIndex>
+								  </numIndex>
+							  </items>
+						  </config>
+					  </TCEforms>
+				  </settings.email.sendToAdmin>
+				  <settings.email.sendToUser>
+					  <TCEforms>
+						  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.email.sendToUser</label>
+						  <config>
+							  <type>radio</type>
+							  <items type="array">
+								  <numIndex index="0" type="array">
+									  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+									  <numIndex index="1">0</numIndex>
+								  </numIndex>
+								  <numIndex index="1" type="array">
+									  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+									  <numIndex index="1">1</numIndex>
+								  </numIndex>
+							  </items>
+						  </config>
+					  </TCEforms>
+				  </settings.email.sendToUser>
+			  </el>
+		  </ROOT>
+	  </sEMAIL>
   </sheets>
 </T3DataStructure>

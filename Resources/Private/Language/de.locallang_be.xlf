@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-02-09T11:07:02Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-02-25T21:59:31Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -30,6 +30,10 @@
 			<trans-unit id="templateLayout" resname="templateLayout">
 				<source>Template layout (see manual):</source>
 				<target>Template-Layout (siehe Doku):</target>
+			</trans-unit>
+			<trans-unit id="settings" resname="settings">
+				<source>Configuration</source>
+				<target>Allgemeine Einstellungen</target>
 			</trans-unit>
 			<trans-unit id="settings.startPageUid" resname="settings.startPageUid">
 				<source>Start page of a quiz/poll (listPid):</source>
@@ -174,6 +178,26 @@
 			<trans-unit id="tasks.descriptionImports" resname="tasks.descriptionImports">
 				<source>Starts an simple import from a folder with myquizpoll-entries.</source>
 				<target>Starte einen simplen Import (alle myquizpoll-Einträge eines Ordners).</target>
+			</trans-unit>
+			<trans-unit id="userSettings" resname="userSettings">
+				<source>User settings</source>
+				<target>Teilnehmer-Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="settings.user.askForData" resname="settings.user.askForData">
+				<source>Ask for user data at the first page of a quiz?</source>
+				<target>Frage nach Teilnehmer-Daten auf der 1. Seite?</target>
+			</trans-unit>
+			<trans-unit id="emailSettings" resname="emailSettings">
+				<source>Email settings</source>
+				<target>Email-Einstellungen</target>
+			</trans-unit>
+			<trans-unit id="settings.email.sendToAdmin" resname="settings.email.sendToAdmin">
+				<source>Send an email to the admin at the final page?</source>
+				<target>Sende eine Email an den Admin am Schluss?</target>
+			</trans-unit>
+			<trans-unit id="settings.email.sendToUser" resname="settings.email.sendToUser">
+				<source>Send an email to the user at the final page?</source>
+				<target>Sende eine Email an den Teilnehmer am Schluss?</target>
 			</trans-unit>
 		</body>
 	</file>
