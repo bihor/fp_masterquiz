@@ -21,10 +21,10 @@ return [
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_question.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sorting, title, qmode, image, bodytext, explanation, answers',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sorting, title, qmode, image, bodytext, explanation, tag, answers',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, qmode, image, bodytext, explanation, answers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, qmode, image, bodytext, explanation, tag, answers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -231,7 +231,21 @@ return [
                 'rows' => 15,
                 'eval' => 'trim',
             ],
-            
+        ],
+        'tag' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.tag',
+            'config' => [
+                'type' => 'select',
+                'renderType' => 'selectSingle',
+                'items' => [
+                    ['',0],
+                ],
+                'foreign_table' => 'tx_fpmasterquiz_domain_model_tag',
+                'default' => 0,
+                'minitems' => 0,
+                'maxitems' => 1,
+            ],
         ],
         'answers' => [
             'exclude' => true,

@@ -26,6 +26,8 @@ After you have created a quiz with some questions you can add the plugin at a pa
 
   - The AJAX-call calls an normal action and not an eID-script. The cHash-check must be disabled (this is set by default) if you use AJAX.
 
+  - The AJAX-solution is currently not working then using the action "show by tag".
+
 .. tip::
 
    If you have a quiz with more than 10 questions, the backend will be very slow. To avoid this, create a quiz with nearly empty questions.
@@ -54,6 +56,21 @@ This screenshots shows you a quiz in the list view and some FlexForm-settings of
    :alt: Backend view in the list view.
 
    You can edit every field of a quiz in the extended view.
+
+Actions
+-------
+
+You can select in the plugin-configuration via FlexForms between this actions:
+
+- List of all quiz/poll/test of one folder
+
+- Show a selected quiz/poll/test and use a pagebrowser
+
+- Show a selected quiz/poll/test and order the questions by tag: on each page will be shown questions of one tag
+
+- Show a result of a quiz/poll/test
+
+- Show a highscore of a quiz
 
 Points
 ------

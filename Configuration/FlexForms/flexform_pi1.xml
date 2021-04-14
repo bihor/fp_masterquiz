@@ -16,22 +16,26 @@
            <renderType>selectSingle</renderType>
            <onChange>reload</onChange>
            <items>
-            <numIndex index="0">
+             <numIndex index="0">
                 <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.list</numIndex>
                 <numIndex index="1">Quiz->list;Quiz->show;Quiz->showAjax</numIndex>
-            </numIndex>
-            <numIndex index="1">
+             </numIndex>
+             <numIndex index="1">
                 <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.show</numIndex>
                 <numIndex index="1">Quiz->default;Quiz->show;Quiz->showAjax</numIndex>
-            </numIndex>
-            <numIndex index="2">
+             </numIndex>
+			 <numIndex index="2">
+			    <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.showByTag</numIndex>
+				<numIndex index="1">Quiz->showByTag</numIndex>
+			 </numIndex>
+             <numIndex index="3">
                 <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.result</numIndex>
                 <numIndex index="1">Quiz->defaultres;Quiz->result</numIndex>
-            </numIndex>
-			   <numIndex index="3">
-				   <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.highscore</numIndex>
-				   <numIndex index="1">Quiz->highscore</numIndex>
-			   </numIndex>
+             </numIndex>
+			 <numIndex index="4">
+				<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.highscore</numIndex>
+				<numIndex index="1">Quiz->highscore</numIndex>
+			 </numIndex>
            </items>
           </config>
           </TCEforms>
@@ -114,8 +118,9 @@
 					<displayCond>
 						<OR>
 							<numIndex index="0"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->default;Quiz->show;Quiz->showAjax]]></numIndex>
-							<numIndex index="1"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->defaultres;Quiz->result]]></numIndex>
-							<numIndex index="2"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->highscore]]></numIndex>
+							<numIndex index="1"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->showByTag]]></numIndex>
+							<numIndex index="2"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->defaultres;Quiz->result]]></numIndex>
+							<numIndex index="3"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->highscore]]></numIndex>
 						</OR>
 					</displayCond>
 	                <config>

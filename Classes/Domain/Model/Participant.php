@@ -466,7 +466,31 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->selections;
     }
-    
+
+    /**
+     * Returns the selections by tag
+     *
+     * @param string $tag Tag-Name
+     * @return array $sortedSelections
+     */
+    public function getSelectionsByTag($tag)
+    {
+        $sortedSelections = [];
+        $i = 0;
+        foreach ($this->selections as $selection) {
+            $sorting = $selection->getSorting();
+            if ($sorting == 0) {
+                $sorting = $i;
+            }
+            if ($selection->getQuestion()->getTag()->getName() == $tag) {
+                $sortedSelections[$sorting] = $selection;
+            }
+            $i++;
+        }
+        ksort($sortedSelections);
+        return $sortedSelections;
+    }
+
     /**
      * Returns the sorted selections
      *

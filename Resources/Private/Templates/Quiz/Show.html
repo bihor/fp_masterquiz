@@ -29,7 +29,7 @@
 		
 		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
 		<f:if condition="{quiz.media.0}">
-			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" />
+			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" class="img-fluid" />
 		</f:if>
 		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
 		
@@ -202,7 +202,7 @@
 										<f:render partial="Question/Properties" arguments="{_all}" />
 									</f:for>
 								</f:widget.paginate>
-								
+
 								<f:if condition="{settings.user.askForData}">
 									<f:if condition="{page} == 1">
 										<f:render partial="Participant/Form" arguments="{_all}" />

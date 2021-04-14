@@ -128,12 +128,38 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * initialize action showByTag
+     * @return void
+     */
+    public function initializeShowByTagAction()
+    {
+        if ($this->request->hasArgument('quiz')){
+            return;
+        }
+        $defaultQuizUid = $this->settings['defaultQuizUid'];
+        if ($defaultQuizUid) {
+            if ($quiz = $this->quizRepository->findOneByUid(intval($defaultQuizUid))) {
+                $this->request->setArgument('quiz',$quiz);
+                return;
+            }
+        }
+        $this->addFlashMessage(
+            LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($defaultQuizUid),
+            LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+            \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+            false
+        );
+        $this->forward('list');
+    }
+
+    /**
      * action doAll
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @param int $pages No. of pages if tags are used
      * @return array
      */
-    public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz, $pages): array
     {
     	/* @var \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answer */
         $answer = null;
@@ -143,9 +169,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$completed = false;
     	$doPersist = false;
     	$partBySes = null;
-    	$pages = 0;
     	$questions = 0;
     	$maximum1 = 0;
+    	$session = '';          // session key
     	$finalBodytext = '';	// bodytext and image for the final page
     	$finalImageuid = 0;     // image for the final page
     	$finalContent = '';		// special content for the final page
@@ -314,6 +340,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    				$emailAnswers = json_decode($this->settings['email']['specific'], true);
    				//var_dump($emailAnswers);
     		}
+    		$i = 0;
     		// cycle through all questions after a submit
     		foreach ($quiz->getQuestions() as $question) {
     			$quid = $question->getUid();
@@ -339,7 +366,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    				// selected/answered question
 	    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
 	    				$selected->setQuestion($question);
-	    				$selected->setSorting($question->getSorting());
+	    				if ($pages) {
+	    				    // bei Verwendung von Tags kann die Reihenfolge nicht mit der Reihenfolge der Fragen übereinstimmen
+	    				    $sorting = $page*100 + $i;
+                        } else {
+	    				    // Reihenfolge der Fragen übernehmen
+	    				    $sorting = $question->getSorting();
+                        }
+	    				$selected->setSorting($sorting);
 	    				$qmode = $question->getQmode();
 	    				$newPoints = 0;
 	    				switch ($qmode) {
@@ -446,6 +480,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    				$this->participant->addSelection($selected);
     				}
     			}
+    			$i++;
     		}
     		// Update the participant result
     		if ($maximum1 > 0) {
@@ -455,10 +490,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$this->participantRepository->update($this->participant);
     		$doPersist = true;
     	}
-    	$pages = intval(ceil($questions / $questionsPerPage));
+    	if (!$pages) {
+            $pages = intval(ceil($questions / $questionsPerPage));
+        }
     	if ($this->settings['debug']) {
     		$debug .= "\nlast page: ".$lastPage.'; page: '.$page.'; reached page before: '.$reachedPage.'; next page: '.$nextPage.'; showAnswers: '.$showAnswers;
-    		$debug .= "\nqs/qpp=" . $questions . '/' . $questionsPerPage . '=' . $pages;
+    		$debug .= "\nqs/qpp=pages#" . $questions . '/' . $questionsPerPage . '=' . $pages;
     	}
     	$showAnswersNext = 0;
     	if ($page > $pages) {
@@ -618,6 +655,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$data = [
    			'page' => $page,
    			'pages' => $pages,
+            'lastPage' => $lastPage,
    			'nextPage' => $nextPage,
    			'questions' => $questions,
    			'final' => $final,
@@ -792,7 +830,27 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	}
     	return $debug;
     }
-    
+
+    /**
+     * Set all metatags
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $c_quiz The Quiz dataset
+     * @return void
+     */
+    protected function setMetatags(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz)
+    {
+        $title = $c_quiz->getName();
+        $GLOBALS['TSFE']->page['title'] = $title;
+        $metaTagManager = GeneralUtility::makeInstance( \TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry::class);
+        $description = str_replace(array("\r", "\n"), " ", $c_quiz->getAbout());
+        $description = str_replace("  ", " ", $description);
+        $meta = $metaTagManager->getManagerForProperty('description');
+        $meta->addProperty('description', $description);
+        $meta = $metaTagManager->getManagerForProperty('og:description');
+        $meta->addProperty('og:description', $description);
+        $meta = $metaTagManager->getManagerForProperty('og:title');
+        $meta->addProperty('og:title', $title);
+    }
     
     /**
      * action list
@@ -865,24 +923,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        $data = $this->doAll($quiz);
+        $data = $this->doAll($quiz,0);
         $page = $data['page'];
         $pages = $data['pages'];
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
-        
         if ($this->settings['setMetatags']) {
-            $title = $quiz->getName();
-            $GLOBALS['TSFE']->page['title'] = $title;
-            $metaTagManager = GeneralUtility::makeInstance( \TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry::class);
-            $description = str_replace(array("\r", "\n"), " ", $quiz->getAbout());
-            $description = str_replace("  ", " ", $description);
-            $meta = $metaTagManager->getManagerForProperty('description');
-            $meta->addProperty('description', $description);
-            $meta = $metaTagManager->getManagerForProperty('og:description');
-            $meta->addProperty('og:description', $description);
-            $meta = $metaTagManager->getManagerForProperty('og:title');
-            $meta->addProperty('og:title', $title);
+            $this->setMetatags($quiz);
         }
         
         $this->view->assign('debug', $data['debug']);
@@ -912,6 +959,60 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * action showByTag
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @return void
+     */
+    public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    {
+        $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
+        // Suche Fragen passend zu einer Seite (jeweils nur 1 Tag verwendet)
+        $tagArray = $quiz->getQuestionsSortByTag($page);
+        $tag = $tagArray['pagetags'][$page];
+        $pages = $tagArray['pages'];
+        $data = $this->doAll($quiz, $pages);
+        $lastPage = $data['lastPage'];
+        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+        $sys_language_uid = $languageAspect->getId();
+        if ($this->settings['setMetatags']) {
+            $this->setMetatags($quiz);
+        }
+        if ($lastPage < 1) {
+            $tagSelections = [];
+        } else {
+            $tagSelections = $this->participant->getSelectionsByTag($tagArray['pagetags'][$lastPage]);
+        }
+
+        $this->view->assign('debug', $data['debug']);
+        $this->view->assign('quiz', $quiz);
+        $this->view->assign('tag', $tag);
+        $this->view->assign('tagQuestions', $tagArray['questions']);
+        $this->view->assign('tagSelections', $tagSelections);
+        $this->view->assign('participant', $this->participant);
+        $this->view->assign('page', $page);
+        if ($pages > 0) {
+            $this->view->assign('pagePercent', intval(round(100*($page/$pages))));
+            $this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
+        }
+        $this->view->assign('nextPage', $data['nextPage']);
+        $this->view->assign('pages', $pages);
+        $this->view->assign('pagesInclFinalPage', ($pages+1));
+        $this->view->assign('questions', $data['questions']);
+        $this->view->assign('pageBasis', 0);
+        $this->view->assign('final', $data['final']);
+        $this->view->assign('finalContent', $data['finalContent']);
+        $this->view->assign('finalBodytext', $data['finalBodytext']);
+        $this->view->assign('finalImageuid', $data['finalImageuid']);
+        $this->view->assign('session', $data['session']);
+        $this->view->assign('showAnswers', $data['showAnswers']);
+        $this->view->assign('showAnswersNext', $data['showAnswersNext']);
+        $this->view->assign("sysLanguageUid", $sys_language_uid);
+        $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+        $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+    }
+
+    /**
      * action showAjax. So könnte es vielleicht auch gehen: at dontverifyrequesthash
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
@@ -925,7 +1026,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		// vorerst mal
     		$this->settings['user']['useCookie'] = 0;
     //		$quiz = $this->quizRepository->findOneByUid($quizUid);
-    		$data = $this->doAll($quiz);
+    		$data = $this->doAll($quiz,0);
     		$page = $data['page'];
     		$pages = $data['pages'];
     		$from = 1 + (($page-1) * intval($this->settings['pagebrowser']['itemsPerPage']));

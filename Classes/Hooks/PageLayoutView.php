@@ -95,7 +95,7 @@ class PageLayoutView
                 $actionList2 = GeneralUtility::trimExplode('>', $actionList[0]);
                 
                 // 1. action
-                $actionTranslationKey = strtolower($actionList2[1]);
+                $actionTranslationKey = $actionList2[1];
                 $actionTranslation = $this->getLanguageService()->sL(self::LLPATH . 'template.' . $actionTranslationKey);
                 $actionTranslation = ($actionTranslation) ? htmlspecialchars($actionTranslation) : $actionTranslationKey;
 

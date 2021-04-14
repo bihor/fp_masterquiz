@@ -55,6 +55,13 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $explanation = '';
 
     /**
+     * Tag
+     *
+     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Tag
+     */
+    protected $tag = null;
+
+    /**
      * Answers of this question
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Answer>
@@ -201,6 +208,27 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
     {
         $this->image = $image;
+    }
+
+    /**
+     * Returns the tag
+     *
+     * @return \Fixpunkt\FpMasterquiz\Domain\Model\Tag $tag
+     */
+    public function getTag()
+    {
+        return $this->tag;
+    }
+
+    /**
+     * Sets the tag
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Tag $tag
+     * @return void
+     */
+    public function setTag(\Fixpunkt\FpMasterquiz\Domain\Model\Tag $tag)
+    {
+        $this->tag = $tag;
     }
 
     /**

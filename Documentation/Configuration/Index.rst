@@ -103,7 +103,9 @@ AJAX*) If you enable AJAX, you should know this:
 
   - **Configure the quiz only by TypoScript**.
     You need to set the persistence.storagePid too!
-    
+
+  - The AJAX-solution is currently not supported in the action "show by tag".
+
   - The AJAX-call calls an normal action and not an eID-script. Therefore it is necessary to set this TypoScript: 
     plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0 
     This is set by default. You can change the value to 1, if you do not use the AJAX-version.
@@ -122,6 +124,8 @@ Note: if you enable a cookie or FEuser check, then an user cannot vote again, if
 The participant will see his result of a poll/quiz instead of the checkboxes/radio buttons.
 
 Note: read the chapter "User manual" for more informations about this properties/settings.
+
+Note: the pagebrowser-settings will be ignored if you use the "show by tag" action.
 
 Examples:
 ^^^^^^^^^

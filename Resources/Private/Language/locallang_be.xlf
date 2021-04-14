@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-02-25T21:59:31Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-04-12T15:13:06Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -13,7 +13,10 @@
 				<source>List of all quiz of one folder</source>
 			</trans-unit>
 			<trans-unit id="template.show" resname="template.show">
-				<source>Show one selected quiz (save the plugin! | you need to select the storage folder too)</source>
+				<source>Show a selected quiz and use a pagebrowser (save the plugin! | you need to select the storage folder too)</source>
+			</trans-unit>
+			<trans-unit id="template.showByTag" resname="template.showByTag">
+				<source>Show a selected quiz and order questions by tag (save the plugin! | you need to select the storage folder too)</source>
 			</trans-unit>
 			<trans-unit id="template.result" resname="template.result">
 				<source>Show a result of a quiz (save the plugin! | you need to select the storage folder too)</source>

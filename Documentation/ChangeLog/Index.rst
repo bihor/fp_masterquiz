@@ -84,3 +84,6 @@ ChangeLog
   Deutsche Übersetzungen.
   Bugfix for TYPO3 10.
   Important: probably you need to flush all caches.
+
+2.2.0:
+  showByTag action added. Tag for a question added.

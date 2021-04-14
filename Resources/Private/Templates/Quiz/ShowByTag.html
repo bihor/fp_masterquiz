@@ -1,0 +1,154 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<f:layout name="Default" />
+ 
+	<f:section name="content">
+		<f:flashMessages />
+		<f:form.validationResults>
+		  <f:if condition="{validationResults.flattenedErrors}">
+		    <ul class="errors">
+		      <f:for each="{validationResults.flattenedErrors}" as="errors" key="propertyPath">
+		        <li>{propertyPath}
+		          <ul>
+		          <f:for each="{errors}" as="error">
+		            <li>{error.code}: {error}</li>
+		          </f:for>
+		          </ul>
+		        </li>
+		      </f:for>
+		    </ul>
+		  </f:if>
+		</f:form.validationResults>
+		<f:if condition="{settings.templateLayout} == 1">
+			<!-- charts-layout -->
+			<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+			<script>
+				var charttype = '{settings.chart.type}';
+				var chartwidth = parseInt({settings.chart.width});
+			</script>
+		</f:if>
+		
+		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
+		<f:if condition="{quiz.media.0}">
+			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" class="img-fluid" />
+		</f:if>
+		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
+
+		<f:form action="show" id="quiz-form{uidOfCE}" method="POST">
+			<f:form.hidden name="quiz" value="{quiz.uid}" />
+			<f:form.hidden name="participant" value="{participant.uid}" />
+			<f:form.hidden name="currentPage" value="{nextPage}" />
+			<f:form.hidden name="showAnswers" value="{showAnswersNext}" />
+			<f:form.hidden name="session" value="{session}" />
+
+			<f:if condition="{final} == 0">
+				<f:then>
+
+					<f:if condition="({settings.showPageNo} == 1) && ({pages} != 1)">
+						<p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
+					</f:if>
+
+					<f:if condition="{showAnswers}">
+						<f:then>
+
+							<!--  show answers after submit -->
+							<f:for each="{tagSelections}" as="selection" iteration="pageiterator">
+								<f:render partial="Question/PropertiesSent" arguments="{_all}" />
+							</f:for>
+
+							<f:if condition="{settings.showPoints} && ({participant.maximum1} > 0)">
+								<f:comment> {participant -> f:debug(title: 'Members of participant')} </f:comment>
+								<p>{f:translate(key: "text.pointsYet")} {participant.points}/{participant.maximum1}.</p>
+							</f:if>
+
+							<div>
+								<div class="pull-right quiz-subm">
+									<f:form.button type="submit" name="quizGoOn" class="btn btn-primary btn-lg">
+										<f:if condition="{pages} == {page}">
+										<f:then>
+											{f:translate(key: "text.gofinal")}
+										</f:then>
+										<f:else>
+											{f:translate(key: "text.goon")}
+										</f:else>
+										</f:if>
+									</f:form.button>
+								</div>
+							</div>
+
+						</f:then>
+						<f:else>
+
+							<!-- show questions -->
+							<f:for each="{tagQuestions}" as="question" iteration="pageiterator">
+								<f:render partial="Question/Properties" arguments="{_all}" />
+							</f:for>
+
+							<f:if condition="{settings.user.askForData}">
+								<f:if condition="{page} == 1">
+									<f:render partial="Participant/Form" arguments="{_all}" />
+								</f:if>
+							</f:if>
+
+							<div>
+								<div class="pull-right quiz-subm">
+									<f:form.button type="button" name="quizGoOn" id="quiz-GoOn" class="btn btn-primary btn-lg">
+										<f:if condition="{pages} == {page}">
+										<f:then>
+											<f:if condition="{settings.showAnswerPage} == 1"><f:then>
+												{f:translate(key: "text.goon")}
+											</f:then><f:else>
+												{f:translate(key: "text.gofinal")}
+											</f:else></f:if>
+										</f:then>
+										<f:else>
+											{f:translate(key: "text.goon")}
+										</f:else>
+										</f:if>
+									</f:form.button>
+								</div>
+							</div>
+
+							<script>
+								var ceuid = '{uidOfCE}';
+								var quizfinal = 0;
+								var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
+								<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
+								document.addEventListener('DOMContentLoaded', function(){
+									<f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
+
+									$( "#quiz-GoOn" ).click(function() {
+										// check if there are selected answers to all questions. if not, show an warning
+										var allSelected = checkQuizForm();
+										if (allSelected) {
+											$('#quiz-form'+ceuid).submit();
+										} else {
+											window.alert(text_errorEmpty);
+										}
+									});
+								}, false);
+							</script>
+						</f:else>
+					</f:if>
+
+					<f:if condition="{settings.resultPageUid}">
+						<br />
+						<f:link.action controller="Quiz" action="result" pageUid="{settings.resultPageUid}" arguments="{quiz:quiz}"
+							class="btn btn-info">{f:translate(key: "text.showResultPage")}</f:link.action>
+					</f:if>
+					<f:if condition="{settings.highscorePageUid}">
+						<f:link.action controller="Quiz" action="highscore" pageUid="{settings.highscorePageUid}" arguments="{quiz:quiz}"
+									   class="btn btn-info">{f:translate(key: "text.showHighscorePage")}</f:link.action>
+					</f:if>
+				</f:then>
+				<f:else>
+
+					<f:render partial="Quiz/FinalPage" arguments="{_all}" />
+
+				</f:else>
+			</f:if>
+		</f:form>
+		<f:if condition="{settings.debug}">
+			<pre>{debug}</pre>
+		</f:if>
+	</f:section>
+</html>

@@ -189,6 +189,42 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * Returns the questions
+     *
+     * @param integer $page Seite 1..n
+     * @return array
+     */
+    public function getQuestionsSortByTag($page)
+    {
+        // wir brauchen last-page und current-page
+        $pages = 0;
+        $tags = [];
+        $pagetags = [];
+        $questions = [];
+        $result = [];
+        foreach ($this->questions as $question) {
+            $tag = $question->getTag();
+            if ($tags[$tag->getName()]) {
+                $forpage = $tags[$tag->getName()];
+            } else {
+                $pages++;
+                $forpage = $pages;
+                $pagetags[$forpage] = $tag->getName();
+                $tags[$tag->getName()] = $forpage;
+            }
+            if ($page == $forpage) {
+                $questions[] = $question;
+            }
+        }
+        $result['page'] = $page;
+        $result['pages'] = $pages;
+        $result['pagetags'] = $pagetags;
+        $result['tags'] = $tags;
+        $result['questions'] = $questions;
+        return $result;
+    }
+
+    /**
      * Adds a Evaluation
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Evaluation $evaluation

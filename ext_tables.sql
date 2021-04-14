@@ -61,6 +61,7 @@ CREATE TABLE tx_fpmasterquiz_domain_model_question (
 	image int(11) unsigned NOT NULL default '0',
 	bodytext text,
 	explanation text,
+    tag int(11) unsigned DEFAULT '0',
 	answers int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -279,6 +280,16 @@ CREATE TABLE tx_fpmasterquiz_domain_model_selected (
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid),
 	KEY frage (participant,question)
+
+);
+
+#
+# Table structure for table 'tx_fpmasterquiz_domain_model_tag'
+#
+CREATE TABLE tx_fpmasterquiz_domain_model_tag (
+
+    name varchar(255) DEFAULT '' NOT NULL,
+    timeperiod int(11) DEFAULT '0' NOT NULL
 
 );
 

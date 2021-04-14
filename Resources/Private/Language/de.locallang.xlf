@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-02-09T11:01:44Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-03-08T10:59:25Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -54,6 +54,10 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.explanation" resname="tx_fpmasterquiz_domain_model_question.explanation">
 				<source>Explanation</source>
 				<target>Erklärung</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.tag" resname="tx_fpmasterquiz_domain_model_question.tag">
+				<source>Tag</source>
+				<target>Tag</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.answers" resname="tx_fpmasterquiz_domain_model_question.answers">
 				<source>Answers</source>
@@ -174,6 +178,18 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_selected.answers" resname="tx_fpmasterquiz_domain_model_selected.answers">
 				<source>Answers to this question</source>
 				<target>Antworten zu dieser Frage</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_tag" resname="tx_fpmasterquiz_domain_model_tag">
+				<source>Tag</source>
+				<target>Tag</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_tag.name" resname="tx_fpmasterquiz_domain_model_tag.name">
+				<source>Name</source>
+				<target>Name</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_tag.timeperiod" resname="tx_fpmasterquiz_domain_model_tag.timeperiod">
+				<source>Time period in seconds</source>
+				<target>Zeitperiode in Sekunden</target>
 			</trans-unit>
 			<trans-unit id="text.goon" resname="text.goon">
 				<source>go on</source>
