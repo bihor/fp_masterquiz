@@ -83,6 +83,8 @@ Properties
 	template.wrapQuizTitle2     string      Wrap for the quiz title.                       </h2>
 	template.wrapQuizDesc1      string      Wrap for the quiz description.                 <h3>
 	template.wrapQuizDesc2      string      Wrap for the quiz description.                 </h3>
+	template.wrapTagName1       string      Wrap for the tag name.                         <h4>
+	template.wrapTagName2       string      Wrap for the tag name.                         </h4>
 	template.wrapQuestionTitle1 string      Wrap for the question title.                   <div class="mx-auto"><h4>
 	template.wrapQuestionTitle2 string      Wrap for the question title.                   </h4></div>
 	template.wrapQuestionDesc1  string      Wrap for the question description.             <div class="mx-auto">

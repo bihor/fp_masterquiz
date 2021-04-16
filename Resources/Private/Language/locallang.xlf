@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-03-08T10:59:25Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-04-16T08:42:08Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -260,6 +260,9 @@
 			</trans-unit>
 			<trans-unit id="text.showHighscorePage" resname="text.showHighscorePage">
 				<source>Show highscore</source>
+			</trans-unit>
+			<trans-unit id="text.remainingTime" resname="text.remainingTime">
+				<source>Remaining time:</source>
 			</trans-unit>
 		</body>
 	</file>

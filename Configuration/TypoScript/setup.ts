@@ -79,6 +79,8 @@ plugin.tx_fpmasterquiz {
 			wrapQuizTitle2 = </h2>
 			wrapQuizDesc1 = <h3>
 			wrapQuizDesc2 = </h3>
+			wrapTagName1 = <h4>
+			wrapTagName2 = </h4>
 			wrapQuestionTitle1 = <div class="mx-auto"><h4>
 			wrapQuestionTitle2 = </h4></div>
 			wrapQuestionDesc1 = <div class="mx-auto">
