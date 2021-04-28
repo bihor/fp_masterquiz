@@ -23,7 +23,9 @@
 			</f:if>
 			<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points", default: 'P')})</f:if>
 			({answer3.allAnswers} {f:translate(key: "text.choices")}; {answer3.allPercent} %)
-			<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice", default: 'my choice')})</f:if>
+			<f:if condition="({answer3.ownAnswer} > 0) && ({question.qmode} != 3)">
+				({f:translate(key: "text.myChoice", default: 'my choice')})
+			</f:if>
 		</f:else>
 		</f:if>
 	</li>

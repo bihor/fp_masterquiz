@@ -30,6 +30,50 @@ To install the extension, perform the following steps:
 For a list of configuration options, go to the chapter Configuration.
 
 
+.. _admin-variables:
+
+Variables of a quiz
+-------------------
+
+If you want to change some templates, you should know, which variables of a quiz are available.
+There are this sections: quiz, question, answer, evaluation, tag. That are variables, filled in the backend.
+And there are this user-related sections: participant and selection (answers of a participant).
+
+A quiz has this variables:
+name, about, media, questions, questionsSortByTag, categories, evaluations and maximum2 (maximum points for a quiz).
+
+A question has this variables:
+title, qmode (question-mode), image, bodytext, explanation, sorting, tag, answers, selectOptions, numberOfAnswers, arrayOfAnswers.
+Furthermore:
+maximum1 (maximum points for a question),
+allAnswers (no. of all answers/votes - checkboxes counted once),
+totalAnswers (no. of all answers/votes - all checkboxes counted),
+textAnswers (array with entered text answers, only in the BE available).
+
+An answer has this variables:
+title, titleJS, points, jokerAnswer, onwAnswer (yes/no), allAnswers (total answers of all users),
+allPercent (total percent of all users - checkbox counted ounce),
+totalPercent (total percent of all users - all checkboxes counted).
+
+An evaluation has this variables:
+evaluate (evaluate points (unchecked) or percentage (checked)), minimum and maximum, image, bodytext,
+ce (content element ID), page (page ID).
+
+A tag has this variables:
+name, timeperiod (in seconds).
+
+A participant has this variables:
+name, email, homepage, user (FE-user-ID), ip, session, quiz, points,
+maximum1 (maximum points for the answered questions), maximum2 (maximum points for a quiz),
+page (reached page), completed (quiz completed?),
+selections (all answered questions),
+selectionsByTag (answered questions of a tag),
+sortedSelections (answered questions, well sorted).
+
+A selection has this variables:
+question, answers, sorting, points, maximumPoints (maximum points for this question), entered (entered text to this question).
+
+
 .. _admin-configuration:
 
 User results

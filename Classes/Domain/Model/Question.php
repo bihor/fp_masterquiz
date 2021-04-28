@@ -70,12 +70,26 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $answers = null;
     
     /**
-     * total answers of all users
+     * no. of answers of all users (checkboxes: counted once)
      *
      * @var int
      */
     protected $allAnswers = 0;
-    
+
+    /**
+     * no. of answers of all users (checkboxes: counted all)
+     *
+     * @var int
+     */
+    protected $totalAnswers = 0;
+
+    /**
+     * Array with text answers
+     *
+     * @var array
+     */
+    protected $textAnswers = [];
+
     /**
      * Question-sorting
      *
@@ -335,7 +349,7 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
     
     /**
-     * Returns no. of all answers/votes
+     * Returns no. of all answers/votes (checkboxes once counted)
      *
      * @return int $allAnswers
      */
@@ -354,7 +368,49 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->allAnswers = $nr;
     }
-    
+
+    /**
+     * Returns no. of all answers/votes (all checkboxes)
+     *
+     * @return int $totalAnswers
+     */
+    public function getTotalAnswers()
+    {
+        return $this->totalAnswers;
+    }
+
+    /**
+     * Sets the points/votes/answers
+     *
+     * @param int $nr
+     * @return void
+     */
+    public function setTotalAnswers($nr)
+    {
+        $this->totalAnswers = $nr;
+    }
+
+    /**
+     * Returns an array with text answers
+     *
+     * @return array $textAnswers
+     */
+    public function getTextAnswers()
+    {
+        return $this->textAnswers;
+    }
+
+    /**
+     * Sets the array with text answers
+     *
+     * @param array $textAnswers
+     * @return void
+     */
+    public function setTextAnswers($textAnswers)
+    {
+        $this->textAnswers = $textAnswers;
+    }
+
     /**
      * Returns the no. of answers for this question
      *

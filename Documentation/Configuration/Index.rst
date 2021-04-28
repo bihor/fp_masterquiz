@@ -91,7 +91,7 @@ Properties
 	template.wrapQuestionDesc2  string      Wrap for the question description.             </div>
 	template.wrapDone1          string      Wrap for the done-msg at the final page.       <h4>
 	template.wrapDone2          string      Wrap for the done-msg at the final page.       </h4>
-	chart.type                  string      You can choose beetween: pie, donut or bar.    pie
+	chart.type                  string      You can choose between: pie, donut or bar.     pie
 	chart.width                 integer     Width of the chart.                            492
 	templateLayout              integer     See in chapter PageTSconfig**.
 	overrideFlexformSettings... string      Fields that should be overwritten if empty.    startPageUid,...

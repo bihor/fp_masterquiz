@@ -54,12 +54,19 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $allAnswers = 0;
     
     /**
-     * total percent of all users
+     * total percent of all users (checkbox counted ounce)
      *
      * @var float
      */
     protected $allPercent = 0.0;
-    
+
+    /**
+     * total percent of all users (all checkboxes counted)
+     *
+     * @var float
+     */
+    protected $totalPercent = 0.0;
+
     /**
      * Returns the title
      *
@@ -68,6 +75,17 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * Returns the title for JS
+     *
+     * @return string $title
+     */
+    public function getTitleJS()
+    {
+        $title = str_replace(array("'"), "\'", $this->title);
+        return str_replace(array("\r\n", "\r", "\n"), "<br />", $title);
     }
 
     /**
@@ -184,5 +202,26 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setAllPercent($percent)
     {
         $this->allPercent = $percent;
+    }
+
+    /**
+     * Returns percent of all answers (all checkboxes counted)
+     *
+     * @return string $totalPercent
+     */
+    public function getTotalPercent()
+    {
+        return number_format ( $this->totalPercent, 2 );
+    }
+
+    /**
+     * Sets the percent
+     *
+     * @param float $percent
+     * @return void
+     */
+    public function setTotalPercent($percent)
+    {
+        $this->totalPercent = $percent;
     }
 }

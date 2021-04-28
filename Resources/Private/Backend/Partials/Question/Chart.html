@@ -57,13 +57,21 @@
 </style>
 
 <h4>{question.title}</h4>
-<p><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:votes" />: {question.allAnswers}</p>
+<p>
+  <f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:votes" />: {question.allAnswers}
+  <f:if condition="{question.qmode} == 0"> / {question.totalAnswers}</f:if>
+</p>
 
 <ul class="chart">
 <f:for each="{question.answers}" as="answer3" iteration="iter3">
   <li>
-    <span style="height:{answer3.allPercent}%" title="{answer3.title}: {answer3.allAnswers}x"></span>
+    <span style="height:{answer3.allPercent}%" title="{answer3.title}: {answer3.allAnswers}x ({answer3.allPercent}%)"></span>
   </li>
+  <f:if condition="{question.qmode} == 3">
+    <f:for each="{question.textAnswers}" key="textAnswer" as="textCount">
+      <li><span style="height:{textCount.percent}%" title="{textAnswer}: {textCount.sum}x ({textCount.percent}%)"></span></li>
+    </f:for>
+  </f:if>
 </f:for>
 </ul>
 <p>&nbsp;</p><br />

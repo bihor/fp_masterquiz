@@ -204,16 +204,19 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $result = [];
         foreach ($this->questions as $question) {
             $tag = $question->getTag();
-            if ($tags[$tag->getName()]) {
-                $forpage = $tags[$tag->getName()];
-            } else {
-                $pages++;
-                $forpage = $pages;
-                $pagetags[$forpage] = $tag->getName();
-                $tags[$tag->getName()] = $forpage;
-            }
-            if ($page == $forpage) {
-                $questions[] = $question;
+            if ($tag) {
+                // Nur Fragen mit einem Tag interessieren uns hier!
+                if ($tags[$tag->getName()]) {
+                    $forpage = $tags[$tag->getName()];
+                } else {
+                    $pages++;
+                    $forpage = $pages;
+                    $pagetags[$forpage] = $tag->getName();
+                    $tags[$tag->getName()] = $forpage;
+                }
+                if ($page == $forpage) {
+                    $questions[] = $question;
+                }
             }
         }
         $result['page'] = $page;

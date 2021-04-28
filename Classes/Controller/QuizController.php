@@ -539,46 +539,21 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     		// Alle Ergebnisse nicht nur das eigene anzeigen
     		if ($this->settings['showAllAnswers'] == 1) {
-    		    $allResults = [];
-    		    $ownResults = [];
-    		    // nicht benötigt: $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
     		    // alle Fragen durchgehen, die der User beantwortet hat:
     		    foreach ($this->participant->getSortedSelections() as $selection) {
     		        $oneQuestion = $selection->getQuestion();
-    		        $questionID = $oneQuestion->getUid();
-    		        $totalAnswers = 0;
-    		        $allResults[$questionID] = [];
-    		        $ownResults[$questionID] = [];
-    		        // User-Antworten einer bestimmten Frage:
-    		        $allAnsweredQuestions = $this->selectedRepository->findByQuestion($questionID);
-    		        // alle Ergebnisse durchgehen:
-    		        foreach ($allAnsweredQuestions as $allAnswers) {
-    		        	$totalAnswers++;
-    		            // alle Antworten auf diese Frage:
-    		            foreach ($allAnswers->getAnswers() as $oneAnswer) {
-    		                if ($this->settings['debug']) {
-    		                  $debug .= "\n all:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
-    		                }
-    		                $allResults[$questionID][$oneAnswer->getUid()]++;
-    		            }
-    		        }
-    		        // eigene Ergebnisse durchgehen
-    		        foreach ($selection->getAnswers() as $oneAnswer) {
-    		          if ($this->settings['debug']) {
-    		             $debug .= "\n own:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
-    		          }
-    		          $ownResults[$questionID][$oneAnswer->getUid()]++;
-    		        }
-    		        $oneQuestion->setAllAnswers((int) $totalAnswers);
-    		        // gesammeltes speichern bei: alle möglichen Antworten einer Frage
-    		        foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-    		        	$total = (int) $allResults[$questionID][$oneAnswer->getUid()];
-    		        	$oneAnswer->setAllAnswers($total);		// Anzahl aller Antworten
-    		        	if($totalAnswers > 0) {
-    		        		$oneAnswer->setAllPercent(100 * ($total / $totalAnswers));
-    		        	}
-    		            $oneAnswer->setOwnAnswer (intval($ownResults[$questionID][$oneAnswer->getUid()]));
-    		        }
+                    $debug .= $this->setAllUserAnswersForOneQuestion($oneQuestion, 0,false);
+                    // eigene Ergebnisse durchgehen
+                    $ownResults = [];
+                    foreach ($selection->getAnswers() as $oneAnswer) {
+                        if ($this->settings['debug']) {
+                            $debug .= "\n own:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
+                        }
+                        $ownResults[$oneAnswer->getUid()]++;
+                    }
+                    foreach ($oneQuestion->getAnswers() as $oneAnswer) {
+                        $oneAnswer->setOwnAnswer (intval($ownResults[$oneAnswer->getUid()]));
+                    }
     		    }
     		}
     		if (!$completed && ($this->settings['email']['sendToAdmin'] || $this->settings['email']['sendToUser'])) {
@@ -780,53 +755,99 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * Set all user-answers to a question
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $oneQuestion The question dataset
+     * @param int $pid
+     * @param boolean $be
+     * @return string
+     */
+    protected function setAllUserAnswersForOneQuestion(\Fixpunkt\FpMasterquiz\Domain\Model\Question &$oneQuestion, int $pid, bool $be)
+    {
+        $votes = 0;
+        $votesTotal = 0;
+        $debug = '';
+        $allResults = [];
+        $questionID = $oneQuestion->getUid();
+        if ($this->settings['debug']) {
+            $debug .= "\nquestion :" . $questionID;
+        }
+        if ($be) {
+            $allAnsweredQuestions = $this->selectedRepository->findFromPidAndQuestion($pid, $questionID);
+        } else {
+            $allAnsweredQuestions = $this->selectedRepository->findByQuestion($questionID);
+        }
+        // alle User-Ergebnisse durchgehen:
+        foreach ($allAnsweredQuestions as $aSelectedQuestion) {
+            $votes++;
+            // alle Antworten auf diese Frage:
+            foreach ($aSelectedQuestion->getAnswers() as $oneAnswer) {
+                if ($this->settings['debug']) {
+                    $debug .= "\n all: " . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
+                }
+                if ((($oneQuestion->getQmode() == 3) && ($aSelectedQuestion->getEntered() == $oneAnswer->getTitle())) || ($oneQuestion->getQmode() != 3)) {
+                    $allResults[$oneAnswer->getUid()]++;
+                } else if ($be) {
+                    // Text-Antworten anderer interessieren uns nur im Backend
+                    if (!is_array($allResults['text'])) {
+                        $allResults['text'] = [];
+                    }
+                    if (!is_array($allResults['text'][$aSelectedQuestion->getEntered()])) {
+                        $allResults['text'][$aSelectedQuestion->getEntered()] = [];
+                    }
+                    $allResults['text'][$aSelectedQuestion->getEntered()]['sum']++;
+                }
+            }
+        }
+        // gesammeltes speichern bei: alle möglichen Antworten einer Frage und Prozentwerte setzen
+        foreach ($oneQuestion->getAnswers() as $oneAnswer) {
+            $thisVotes = intval($allResults[$oneAnswer->getUid()]);
+            $votesTotal += $thisVotes;
+            if ($be && ($oneQuestion->getQmode() == 3) && is_array($allResults) && is_array($allResults['text'])) {
+                // bei Text-Antworten alle Textantworten berücksichtigen
+                foreach ($allResults['text'] as $otherKey => $otherValue) {
+                    $votesTotal += $otherValue['sum'];
+                    $allResults['text'][$otherKey]['percent'] = number_format(100 * ($otherValue['sum'] / $votes), 2, '.', '');
+                }
+                $oneQuestion->setTextAnswers($allResults['text']);
+            }
+            $oneAnswer->setAllAnswers($thisVotes);
+        }
+        foreach ($oneQuestion->getAnswers() as $oneAnswer) {
+            $thisVotes = intval($allResults[$oneAnswer->getUid()]);
+            $percentage = 0;
+            if ($votes) {
+                $percentage = 100 * ($thisVotes / $votes);
+            }
+            $oneAnswer->setAllPercent( $percentage );
+            $percentage = 0;
+            if ($votesTotal) {
+                $percentage = 100 * ($thisVotes / $votesTotal);
+            }
+            if ($this->settings['debug']) {
+                $debug .= "\n percent: 100*" . $thisVotes . '/' . $votes . ' = ' . 100 * ($thisVotes / $votes);
+                $debug .= "\n total percent: 100*" . $thisVotes . '/' . $votesTotal . ' = ' . $percentage;
+            }
+            $oneAnswer->setTotalPercent( $percentage );
+        }
+        $oneQuestion->setAllAnswers($votes);
+        $oneQuestion->setTotalAnswers($votesTotal);
+    }
+
+    /**
      * Set all user-answers to a quiz
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $c_quiz The Quiz dataset
      * @param int $pid
      * @param boolean $be
-     * @return array
+     * @return string
      */
     protected function setAllUserAnswers(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz, int $pid, bool $be)
     {
     	$debug = '';
-    	$allResults = [];
     	// Alternative: $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
     	foreach ($c_quiz->getQuestions() as $oneQuestion) {
-    		$votes = 0;
-    		$questionID = $oneQuestion->getUid();
-    		if ($this->settings['debug']) {
-    			$debug .= "\nquestion :" . $questionID;
-    		}
-    		if ($be) {
-    			$allAnsweredQuestions = $this->selectedRepository->findFromPidAndQuestion($pid, $questionID);
-    		} else {
-    			$allAnsweredQuestions = $this->selectedRepository->findByQuestion($questionID);
-    		}
-    		// alle Ergebnisse durchgehen:
-    		foreach ($allAnsweredQuestions as $allAnswers) {
-    			// alle Antworten auf diese Frage:
-    			foreach ($allAnswers->getAnswers() as $oneAnswer) {
-    				if ($this->settings['debug']) {
-    					$debug .= "\n all: " . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
-    				}
-    				$allResults[$questionID][$oneAnswer->getUid()]++;
-    			}
-    		}
-    		// gesammeltes speichern bei: alle möglichen Antworten einer Frage
-    		foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-    			$thisVotes = intval($allResults[$questionID][$oneAnswer->getUid()]);
-    			$votes += $thisVotes;
-    			$oneAnswer->setAllAnswers($thisVotes);
-    		}
-    		$oneQuestion->setAllAnswers($votes);
-    		// Prozentwerte setzen
-    		foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-    			if ($this->settings['debug']) {
-    				$debug .= "\n percent: 100*" . $oneAnswer->getAllAnswers() . '/' . $votes;
-    			}
-    			$oneAnswer->setAllPercent( 100 * ($oneAnswer->getAllAnswers() / $votes) );
-    		}
+    		$debug .= $this->setAllUserAnswersForOneQuestion($oneQuestion, $pid, $be);
     	}
     	return $debug;
     }

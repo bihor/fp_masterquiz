@@ -26,7 +26,7 @@
        	      }
        	    }
            },
-           labels: [<f:for each="{question.answers}" as="answer3" iteration="iter3">'{answer3.title}'<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>],
+           labels: [<f:for each="{question.answers}" as="answer3" iteration="iter3">'{answer3.titleJS -> f:format.raw()}'<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>],
            series: [<f:for each="{question.answers}" as="answer3" iteration="iter3">{answer3.allAnswers}<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>],
            theme: {
                monochrome: {
@@ -60,7 +60,7 @@
              enabled: false
          },
          xaxis: {
-        	 categories: [<f:for each="{question.answers}" as="answer3" iteration="iter3">'{answer3.title}'<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>], 
+        	 categories: [<f:for each="{question.answers}" as="answer3" iteration="iter3">'{answer3.titleJS -> f:format.raw()}'<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>],
          },
          series: [{
         	 data: [<f:for each="{question.answers}" as="answer3" iteration="iter3">{answer3.allAnswers}<f:if condition="{iter3.isLast}"><f:then></f:then><f:else>,</f:else></f:if></f:for>]
