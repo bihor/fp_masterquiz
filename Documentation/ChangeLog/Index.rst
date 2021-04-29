@@ -87,3 +87,5 @@ ChangeLog
 
 2.2.0:
   showByTag action added. Tag for a question added.
+  Showing all answers of a text-answer in the chart in the backend.
+  Refactoring.

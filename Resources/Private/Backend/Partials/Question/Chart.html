@@ -59,7 +59,7 @@
 <h4>{question.title}</h4>
 <p>
   <f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:votes" />: {question.allAnswers}
-  <f:if condition="{question.qmode} == 0"> / {question.totalAnswers}</f:if>
+  <f:if condition="({question.qmode} == 0) || ({question.qmode} == 4)"> / {question.totalAnswers}</f:if>
 </p>
 
 <ul class="chart">
