@@ -1,73 +1,75 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-03-14T13:17:17Z" product-name="fp_masterquiz">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf" date="2021-04-29T13:59:11Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
-			<trans-unit id="mlang_tabs_tab">
+			<trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
 				<source>Quiz evaluation</source>
 			</trans-unit>
-			<trans-unit id="mlang_labels_tabdescr">
+			<trans-unit id="mlang_labels_tabdescr" resname="mlang_labels_tabdescr">
 				<source>Evaluations of quiz/poll/test</source>
 			</trans-unit>
-			
-			<trans-unit id="index.quiz">
+			<trans-unit id="index.quiz" resname="index.quiz">
 				<source>Listing of quizzes</source>
 			</trans-unit>
-			<trans-unit id="index.participant">
+			<trans-unit id="index.participant" resname="index.participant">
 				<source>Listing of participants</source>
 			</trans-unit>
-			<trans-unit id="index.charts">
+			<trans-unit id="index.charts" resname="index.charts">
 				<source>Charts</source>
 			</trans-unit>
-			<trans-unit id="list">
+			<trans-unit id="list" resname="list">
 				<source>Listing of quizzes for the folder</source>
 			</trans-unit>
-			<trans-unit id="nothing">
+			<trans-unit id="nothing" resname="nothing">
 				<source>No entries found...</source>
 			</trans-unit>
-			<trans-unit id="detail-prop">
+			<trans-unit id="detail-prop" resname="detail-prop">
 				<source>Show quiz properties</source>
 			</trans-unit>
-			<trans-unit id="detail-user">
+			<trans-unit id="detail-user" resname="detail-user">
 				<source>Show user results</source>
 			</trans-unit>
-			<trans-unit id="detail-chart">
+			<trans-unit id="detail-chart" resname="detail-chart">
 				<source>Show a chart</source>
 			</trans-unit>
-			<trans-unit id="votes">
+			<trans-unit id="details" resname="details">
+				<source>Details</source>
+			</trans-unit>
+			<trans-unit id="votes" resname="votes">
 				<source>Votes</source>
 			</trans-unit>
-			<trans-unit id="quiz">
+			<trans-unit id="quiz" resname="quiz">
 				<source>Quiz</source>
 			</trans-unit>
-			<trans-unit id="questions">
+			<trans-unit id="questions" resname="questions">
 				<source>Questions</source>
 			</trans-unit>
-			<trans-unit id="answers">
+			<trans-unit id="answers" resname="answers">
 				<source>Answers</source>
 			</trans-unit>
-			<trans-unit id="user">
+			<trans-unit id="user" resname="user">
 				<source>User</source>
 			</trans-unit>
-			<trans-unit id="delete-user">
+			<trans-unit id="delete-user" resname="delete-user">
 				<source>Delete this user-entry!</source>
 			</trans-unit>
-			<trans-unit id="lostQuestions">
+			<trans-unit id="lostQuestions" resname="lostQuestions">
 				<source>Questions with no relation to a quiz:</source>
 			</trans-unit>
-			<trans-unit id="addthis">
+			<trans-unit id="addthis" resname="addthis">
 				<source>Add this question to this quiz!</source>
 			</trans-unit>
-			<trans-unit id="back">
+			<trans-unit id="back" resname="back">
 				<source>Back to list</source>
 			</trans-unit>
-			<trans-unit id="entries">
+			<trans-unit id="entries" resname="entries">
 				<source>Entries</source>
 			</trans-unit>
-			<trans-unit id="list-participants">
+			<trans-unit id="list-participants" resname="list-participants">
 				<source>Listing of participants for the folder</source>
 			</trans-unit>
-			<trans-unit id="charts-participants">
+			<trans-unit id="charts-participants" resname="charts-participants">
 				<source>Charts of participants for the folder</source>
 			</trans-unit>
 		</body>

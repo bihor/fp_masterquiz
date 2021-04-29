@@ -18,6 +18,16 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
 class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
+     * @var \DateTime
+     */
+    protected $tstamp = null;
+
+    /**
+     * @var \DateTime
+     */
+    protected $crdate = null;
+
+    /**
      * Name
      *
      * @var string
@@ -130,7 +140,27 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
     	$this->selections = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
-    
+
+    /**
+     * Returns the creation date
+     *
+     * @return \DateTime $crdate
+     */
+    public function getCrdate()
+    {
+        return $this->crdate;
+    }
+
+    /**
+     * Returns the last modified date
+     *
+     * @return \DateTime $tstamp
+     */
+    public function getTstamp()
+    {
+        return $this->tstamp;
+    }
+
     /**
      * Returns the name
      *

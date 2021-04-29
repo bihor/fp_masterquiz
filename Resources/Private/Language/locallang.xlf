@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-04-16T08:42:08Z" product-name="fp_masterquiz">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-04-29T14:03:08Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -119,6 +119,9 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.selections" resname="tx_fpmasterquiz_domain_model_participant.selections">
 				<source>Answered questions</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.time" resname="tx_fpmasterquiz_domain_model_participant.time">
+				<source>Date and time</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_selected" resname="tx_fpmasterquiz_domain_model_selected">
 				<source>Selected answews</source>

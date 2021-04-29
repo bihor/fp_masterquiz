@@ -64,7 +64,7 @@ name, timeperiod (in seconds).
 
 A participant has this variables:
 name, email, homepage, user (FE-user-ID), ip, session, quiz, points,
-maximum1 (maximum points for the answered questions), maximum2 (maximum points for a quiz),
+maximum1 (maximum points for the answered questions), maximum2 (maximum points for a quiz), crdate, tstamp,
 page (reached page), completed (quiz completed?),
 selections (all answered questions),
 selectionsByTag (answered questions of a tag),

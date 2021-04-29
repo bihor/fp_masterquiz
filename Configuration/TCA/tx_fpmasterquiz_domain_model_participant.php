@@ -84,6 +84,16 @@ return [
             ],
         ],
 
+        'tstamp' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
+        'crdate' => [
+            'config' => [
+                'type' => 'passthrough',
+            ],
+        ],
         'name' => [
             'exclude' => true,
             'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_participant.name',
