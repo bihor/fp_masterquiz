@@ -27,7 +27,11 @@
 			<td>{participant.points}</td>
 			<td>{participant.maximum1}</td>
 			<td>{participant.maximum2}</td>
-			<td>{f:format.date(date: participant.crdate, format: 'd.m.y')} {f:format.date(date: participant.crdate, format: 'H:i:s')} - {f:format.date(date: participant.tstamp, format: 'H:i:s')}</td>
+			<td>
+				{f:format.date(date: participant.startdate, format: 'd.m.y')}
+				{f:format.date(date: participant.startdate, format: 'H:i:s')}
+				<f:if condition="{participant.datesNotEqual}">- {f:format.date(date: participant.tstamp, format: 'H:i:s')}</f:if>
+			</td>
 		</tr>
 	</table>
 	</div>

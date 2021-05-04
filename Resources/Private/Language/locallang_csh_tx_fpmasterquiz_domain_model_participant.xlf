@@ -21,6 +21,9 @@
 			<trans-unit id="session.description">
 				<source>Session-key</source>
 			</trans-unit>
+			<trans-unit id="sessionstart.description">
+				<source>Time in seconds for the first page</source>
+			</trans-unit>
 			<trans-unit id="points.description">
 				<source>Reached points for this quiz</source>
 			</trans-unit>

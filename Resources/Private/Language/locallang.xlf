@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-04-29T14:03:08Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-05-04T09:27:08Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -101,6 +101,9 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.session" resname="tx_fpmasterquiz_domain_model_participant.session">
 				<source>Session-key</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.sessionstart" resname="tx_fpmasterquiz_domain_model_participant.sessionstart">
+				<source>Time in seconds for the first page</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.points" resname="tx_fpmasterquiz_domain_model_participant.points">
 				<source>Reached points for this quiz</source>

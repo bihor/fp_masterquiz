@@ -67,12 +67,14 @@
   <li>
     <span style="height:{answer3.allPercent}%" title="{answer3.title}: {answer3.allAnswers}x ({answer3.allPercent}%)"></span>
   </li>
-  <f:if condition="{question.qmode} == 3">
-    <f:for each="{question.textAnswers}" key="textAnswer" as="textCount">
-      <li><span style="height:{textCount.percent}%" title="{textAnswer}: {textCount.sum}x ({textCount.percent}%)"></span></li>
-    </f:for>
-  </f:if>
 </f:for>
 </ul>
+<f:if condition="({question.qmode} == 3) || ({question.qmode} == 5)">
+  <ul>
+  <f:for each="{question.textAnswers}" key="textAnswer" as="textCount">
+    <li>{textAnswer}: {textCount.sum}x ({textCount.percent}%)
+  </f:for>
+  </ul>
+</f:if>
 <p>&nbsp;</p><br />
 </html>

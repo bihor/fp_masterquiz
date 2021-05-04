@@ -18,10 +18,10 @@ return [
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_participant.gif'
     ],
     'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, points, maximum1, maximum2, page, completed, quiz, selections',
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, sessionstart, points, maximum1, maximum2, page, completed, quiz, selections',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, points, maximum1, maximum2, page, completed, quiz, selections'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, sessionstart, points, maximum1, maximum2, page, completed, quiz, selections'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -150,6 +150,15 @@ return [
                 'size' => 30,
                 'eval' => 'trim'
             ],
+        ],
+        'sessionstart' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_participant.sessionstart',
+            'config' => [
+                'type' => 'input',
+                'size' => 4,
+                'eval' => 'int'
+            ]
         ],
         'points' => [
             'exclude' => true,

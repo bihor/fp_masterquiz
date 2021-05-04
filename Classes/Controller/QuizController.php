@@ -172,6 +172,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$questions = 0;
     	$maximum1 = 0;
     	$session = '';          // session key
+        $sessionStart = 0;      // session start time
     	$finalBodytext = '';	// bodytext and image for the final page
     	$finalImageuid = 0;     // image for the final page
     	$finalContent = '';		// special content for the final page
@@ -225,10 +226,19 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     	}
     	if (intval($this->settings['user']['useCookie']) == -1) {
+    	    // Read start time
+            $sessionStart = $GLOBALS['TSFE']->fe_user->getKey('ses', 'qsessionstart' . $quizUid);
+            if (!$sessionStart) {
+                $GLOBALS['TSFE']->fe_user->setKey('ses', 'qsessionstart' . $quizUid, time());
+            }
     		// Store the session in a cookie
     		$GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quizUid, $session);
     		$GLOBALS["TSFE"]->fe_user->storeSessionData();
     	} else if (intval($this->settings['user']['useCookie']) > 0) {
+    	    $sessionStart = $_COOKIE['qsessionstart' . $quizUid];
+    	    if (!$sessionStart) {
+                setcookie('gsessionstart' . $quizUid, time(), 0);
+            }
     		setcookie('qsession' . $quizUid, $session, time()+(3600*24*intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
     	}
     	
@@ -320,6 +330,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$this->participant->setUser(intval($GLOBALS['TSFE']->fe_user->user['uid']));
 	    			$this->participant->setIp($this->getRealIpAddr());
 	    			$this->participant->setSession($session);
+	    			if ($sessionStart) {
+                        $this->participant->setSessionstart(time() - $sessionStart);
+                    }
 	    			$this->participant->setQuiz($quiz);
 	    			$this->participant->setMaximum2($quiz->getMaximum2());
 	    			$this->participantRepository->add($this->participant);
@@ -769,6 +782,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $debug = '';
         $allResults = [];
         $questionID = $oneQuestion->getUid();
+        $isEnterQuestion = (($oneQuestion->getQmode() == 3) || ($oneQuestion->getQmode() == 5));
         if ($this->settings['debug']) {
             $debug .= "\nquestion :" . $questionID;
         }
@@ -785,7 +799,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 if ($this->settings['debug']) {
                     $debug .= "\n all: " . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
                 }
-                if ((($oneQuestion->getQmode() == 3) && ($aSelectedQuestion->getEntered() == $oneAnswer->getTitle())) || ($oneQuestion->getQmode() != 3)) {
+                if (($isEnterQuestion && ($aSelectedQuestion->getEntered() == $oneAnswer->getTitle())) || !$isEnterQuestion) {
                     $allResults[$oneAnswer->getUid()]++;
                 } else if ($be) {
                     // Text-Antworten anderer interessieren uns nur im Backend
@@ -803,7 +817,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
             $thisVotes = intval($allResults[$oneAnswer->getUid()]);
             $votesTotal += $thisVotes;
-            if ($be && ($oneQuestion->getQmode() == 3) && is_array($allResults) && is_array($allResults['text'])) {
+            if ($be && $isEnterQuestion && is_array($allResults) && is_array($allResults['text'])) {
                 // bei Text-Antworten alle Textantworten berücksichtigen
                 foreach ($allResults['text'] as $otherKey => $otherValue) {
                     $votesTotal += $otherValue['sum'];

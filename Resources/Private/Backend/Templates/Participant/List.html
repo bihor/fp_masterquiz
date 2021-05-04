@@ -28,7 +28,11 @@ ul.f3-widget-paginator li { float: left; margin-left: 15px; }
 			<td>{participant.homepage}</td>
 			<td>{participant.user}</td>
 			<td>{participant.points}</td>
-			<td>{f:format.date(date: participant.crdate, format: 'd.m.y')} {f:format.date(date: participant.crdate, format: 'H:i:s')} - {f:format.date(date: participant.tstamp, format: 'H:i:s')}</td>
+			<td>
+				{f:format.date(date: participant.startdate, format: 'd.m.y')}
+				{f:format.date(date: participant.startdate, format: 'H:i:s')}
+				<f:if condition="{participant.datesNotEqual}">- {f:format.date(date: participant.tstamp, format: 'H:i:s')}</f:if>
+			</td>
 			<td>{participant.quiz.name}</td>
 			<td><f:link.action action="detail" arguments="{participant : participant}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:details" /></f:link.action></td>
 		</tr>

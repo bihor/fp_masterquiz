@@ -63,12 +63,12 @@ A tag has this variables:
 name, timeperiod (in seconds).
 
 A participant has this variables:
-name, email, homepage, user (FE-user-ID), ip, session, quiz, points,
-maximum1 (maximum points for the answered questions), maximum2 (maximum points for a quiz), crdate, tstamp,
-page (reached page), completed (quiz completed?),
-selections (all answered questions),
-selectionsByTag (answered questions of a tag),
+name, email, homepage, user (FE-user-ID), ip, session, sessionstart, quiz, points,
+maximum1 (maximum points for the answered questions), maximum2 (maximum points for a quiz),
+startdate, crdate, tstamp, datesNotEqual, page (reached page), completed (quiz completed?),
+selections (all answered questions), selectionsByTag (answered questions of a tag),
 sortedSelections (answered questions, well sorted).
+Note: sessionstart will only be set, if cookie-sessions are activated. If not, startdate and crdate will be equal.
 
 A selection has this variables:
 question, answers, sorting, points, maximumPoints (maximum points for this question), entered (entered text to this question).
@@ -125,3 +125,7 @@ FAQ
 - How can I use routing / speaking urls?
 
     See chapter “Configuration / Routing”.
+
+- Does the extension uses cookies?
+
+    Only if you enable them via settings.user.useCookie. See chapter “Configuration”.

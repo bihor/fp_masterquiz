@@ -70,6 +70,13 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $session = '';
 
     /**
+     * Start time of the session
+     *
+     * @var int
+     */
+    protected $sessionstart = 0;
+
+    /**
      * Reached points for this quiz
      *
      * @var int
@@ -159,6 +166,31 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getTstamp()
     {
         return $this->tstamp;
+    }
+
+    /**
+     * Returns the creation date - start-session-time in seconds
+     *
+     * @return \DateTime $crdate
+     */
+    public function getStartdate()
+    {
+        if ($this->sessionstart > 0) {
+            $date = clone $this->crdate;
+            return $date->sub(new \DateInterval('PT' . $this->sessionstart . 'S'));
+        } else {
+            return $this->crdate;
+        }
+    }
+
+    /**
+     * Returns the dates are equal?
+     *
+     * @return bool
+     */
+    public function getDatesNotEqual()
+    {
+        return ($this->getStartdate() != $this->tstamp);
     }
 
     /**
@@ -264,6 +296,27 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setSession($session)
     {
         $this->session = $session;
+    }
+
+    /**
+     * Returns the session start time
+     *
+     * @return int $sessionstart
+     */
+    public function getSessionstart()
+    {
+        return $this->sessionstart;
+    }
+
+    /**
+     * Sets the session start time
+     *
+     * @param int $sessionstart
+     * @return void
+     */
+    public function setSessionstart($sessionstart)
+    {
+        $this->sessionstart = $sessionstart;
     }
 
     /**
@@ -437,7 +490,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the completed
      *
-     * @return bool $completed
+     * @return bool
      */
     public function getCompleted()
     {
