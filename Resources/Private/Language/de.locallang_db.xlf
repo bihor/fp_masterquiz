@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2021-03-08T10:59:44Z" product-name="fp_masterquiz">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2021-05-04T09:27:24Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fp_masterquiz_pi1.name" resname="tx_fp_masterquiz_pi1.name">
@@ -142,6 +142,10 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.session" resname="tx_fpmasterquiz_domain_model_participant.session">
 				<source>Session-key</source>
 				<target>Session-key</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.sessionstart" resname="tx_fpmasterquiz_domain_model_participant.sessionstart">
+				<source>Time in seconds for the first page</source>
+				<target>Zeit in Sekunden für die 1. Seite</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.points" resname="tx_fpmasterquiz_domain_model_participant.points">
 				<source>Reached points for this quiz</source>

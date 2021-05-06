@@ -89,4 +89,5 @@ ChangeLog
   showByTag action added. Tag for a question added.
   Showing all answers of a text-answer in the chart in the backend.
   Showing the start and end time in the backend.
+  TCA-Bugfix for TYPO3 10.
   Refactoring.
