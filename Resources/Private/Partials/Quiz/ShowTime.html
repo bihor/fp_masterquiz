@@ -1,0 +1,16 @@
+function secondsTimeSpanToHMS(s) {
+  var sign = '';
+  if (s < 0) {
+  sign = '-';
+  s = -1*s;
+  }
+  var h = Math.floor(s / 3600);
+  s -= h * 3600;
+  var m = Math.floor(s / 60);
+  s -= m * 60;
+  var result = (m < 10 ? '0' + m : m) + ":" + (s < 10 ? '0' + s : s);
+  if (h>0) {
+  result = h + ":" + result;
+  }
+  return sign + result;
+}

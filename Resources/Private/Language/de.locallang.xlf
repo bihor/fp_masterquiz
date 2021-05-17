@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-05-04T09:27:08Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-05-17T12:50:31Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -14,6 +14,10 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.about" resname="tx_fpmasterquiz_domain_model_quiz.about">
 				<source>About</source>
 				<target>Beschreibung</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.timeperiod" resname="tx_fpmasterquiz_domain_model_quiz.timeperiod">
+				<source>Time in seconds after the quiz will be terminated</source>
+				<target>Zeitspanne in Sekunden, nach der das Quiz beendet wird</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.media" resname="tx_fpmasterquiz_domain_model_quiz.media">
 				<source>Media</source>
@@ -358,6 +362,14 @@
 			<trans-unit id="text.remainingTime" resname="text.remainingTime">
 				<source>Remaining time:</source>
 				<target>Verbleibende Zeit:</target>
+			</trans-unit>
+			<trans-unit id="text.remainingTimePage" resname="text.remainingTimePage">
+				<source>Remaining time for this page:</source>
+				<target>Verbleibende Zeit für diese Seite:</target>
+			</trans-unit>
+			<trans-unit id="text.expiredTime" resname="text.expiredTime">
+				<source>The time has expired! The form will now be sent!</source>
+				<target>Die Zeit ist abgelaufen! Das Formular wird nun abgesendet!</target>
 			</trans-unit>
 		</body>
 	</file>

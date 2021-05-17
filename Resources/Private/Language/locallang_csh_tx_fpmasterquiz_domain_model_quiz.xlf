@@ -9,6 +9,9 @@
 			<trans-unit id="about.description">
 				<source>Text about this quiz</source>
 			</trans-unit>
+			<trans-unit id="timeperiod.description">
+				<source>Time in seconds after the quiz will be terminated</source>
+			</trans-unit>
 			<trans-unit id="media.description">
 				<source>Media</source>
 			</trans-unit>

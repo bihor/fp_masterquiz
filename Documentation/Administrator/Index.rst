@@ -40,7 +40,8 @@ There are this sections: quiz, question, answer, evaluation, tag. That are varia
 And there are this user-related sections: participant and selection (answers of a participant).
 
 A quiz has this variables:
-name, about, media, questions, questionsSortByTag, categories, evaluations and maximum2 (maximum points for a quiz).
+name, about, timeperiod (in seconds), media, questions, questionsSortByTag, categories, evaluations and
+maximum2 (maximum points for a quiz).
 
 A question has this variables:
 title, qmode (question-mode), image, bodytext, explanation, sorting, tag, answers, selectOptions, numberOfAnswers, arrayOfAnswers.
@@ -65,7 +66,7 @@ name, timeperiod (in seconds).
 A participant has this variables:
 name, email, homepage, user (FE-user-ID), ip, session, sessionstart, quiz, points,
 maximum1 (maximum points for the answered questions), maximum2 (maximum points for a quiz),
-startdate, crdate, tstamp, datesNotEqual, page (reached page), completed (quiz completed?),
+startdate, crdate, tstamp, datesNotEqual, timePassed, page (reached page), completed (quiz completed?),
 selections (all answered questions), selectionsByTag (answered questions of a tag),
 sortedSelections (answered questions, well sorted).
 Note: sessionstart will only be set, if cookie-sessions are activated. If not, startdate and crdate will be equal.

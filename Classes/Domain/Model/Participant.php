@@ -184,6 +184,20 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * Returns the time passed till now
+     *
+     * @return int
+     */
+    public function getTimePassed()
+    {
+        if ($this->crdate && $this->crdate->getTimestamp()) {
+            return time() - ($this->crdate->getTimestamp() - $this->sessionstart);
+        } else {
+            return 0;
+        }
+    }
+
+    /**
      * Returns the dates are equal?
      *
      * @return bool

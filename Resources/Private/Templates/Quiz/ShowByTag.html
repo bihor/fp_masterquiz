@@ -27,7 +27,7 @@
         </script>
     </f:if>
     <script>
-        var tagtimeperiod = 0;
+        var tagTimePeriod = 0;
     </script>
 
     {settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
@@ -50,8 +50,14 @@
             <f:then>
 
                 <f:if condition="({settings.showPageNo} == 1) && ({pages} != 1)">
-                    <p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key:
-                        "text.of")} {pages} ({pagePercent}%)</p>
+                    <p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span>
+                        {f:translate(key: "text.of")} {pages}
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped" style="width: {pagePercent}%" role="progressbar" aria-valuenow="{pagePercent}" aria-valuemin="0" aria-valuemax="100">
+                                {pagePercent}%
+                            </div>
+                        </div>
+                    </p>
                 </f:if>
 
                 <f:if condition="{showAnswers}">
@@ -102,11 +108,11 @@
 
                             <f:if condition="{pageiterator.isLast} && {question.tag.timeperiod}">
                                 <script>
-                                    tagtimeperiod = parseInt({question.tag.timeperiod});
+                                    tagTimePeriod = parseInt('{question.tag.timeperiod}');
                                 </script>
-                                <div class="alert alert-info" id="quiz-time-alert" role="alert" style="display:block;">
-                                    {f:translate(key: "text.remainingTime")}
-                                    <span id="quiz-time-left">{question.tag.timeperiod}</span> s.
+                                <div class="alert alert-info" id="quiz-time-page-alert" role="alert" style="display:block;">
+                                    {f:translate(key: "text.remainingTimePage")}
+                                    <span id="quiz-time-page-left">{question.tag.timeperiod}</span>
                                 </div>
                             </f:if>
                         </f:for>
@@ -144,24 +150,27 @@
                             var ceuid = '{uidOfCE}';
                             var quizfinal = 0;
                             var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
+                            var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
                             <f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}"/>
                             document.addEventListener('DOMContentLoaded', function () {
                                 <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}"/>
+                                <f:render partial="Quiz/ShowTime" />
 
-                                if (tagtimeperiod > 0) {
-                                    quizIntervalId = window.setInterval(function () {
-                                        tagtimeperiod--;
-                                        $('#quiz-time-left').html(tagtimeperiod);
-                                        if (tagtimeperiod <= 10) {
-                                            $('#quiz-time-alert').removeClass('alert-warning');
-                                            $('#quiz-time-alert').addClass('alert-danger');
-                                        } else if (tagtimeperiod <= 60) {
-                                            $('#quiz-time-alert').removeClass('alert-info');
-                                            $('#quiz-time-alert').addClass('alert-warning');
+                                if (tagTimePeriod > 0) {
+                                    tagIntervalId = window.setInterval(function () {
+                                        tagTimePeriod--;
+                                        $('#quiz-time-page-left').html(secondsTimeSpanToHMS(tagTimePeriod));
+                                        if (tagTimePeriod <= 10) {
+                                            $('#quiz-time-page-alert').removeClass('alert-warning');
+                                            $('#quiz-time-page-alert').addClass('alert-danger');
+                                        } else if (tagTimePeriod <= 60) {
+                                            $('#quiz-time-page-alert').removeClass('alert-info');
+                                            $('#quiz-time-page-alert').addClass('alert-warning');
                                         }
-                                        if (tagtimeperiod == 0) {
-                                            clearInterval(quizIntervalId);
-                                            window.alert('Zeit abgelaufen!');
+                                        if (tagTimePeriod == 0) {
+                                            clearInterval(tagIntervalId);
+                                            window.alert(text_errorTimeUp);
+                                            $('#quiz-form' + ceuid).submit();
                                         }
                                     }, 1000);
                                 }

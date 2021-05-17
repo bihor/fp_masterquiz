@@ -33,6 +33,13 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $about = '';
 
     /**
+     * Period in seconds
+     *
+     * @var int
+     */
+    protected $timeperiod = 0;
+
+    /**
      * media
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
@@ -107,6 +114,27 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * Returns the timeperiod
+     *
+     * @return int timeperiod
+     */
+    public function getTimeperiod()
+    {
+        return $this->timeperiod;
+    }
+
+    /**
+     * Sets the timeperiod
+     *
+     * @param int $timeperiod
+     * @return void
+     */
+    public function setTimeperiod($timeperiod)
+    {
+        $this->timeperiod = $timeperiod;
     }
 
     /**

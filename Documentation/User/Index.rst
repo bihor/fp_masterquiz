@@ -62,11 +62,12 @@ Actions
 
 You can select in the plugin-configuration via FlexForms between this actions:
 
-- List of all quiz/poll/test of one folder
+- List of all quiz/poll/test of one folder with links to the single view
 
 - Show a selected quiz/poll/test and use a pagebrowser
 
 - Show a selected quiz/poll/test and order the questions by tag: on each page will be shown questions of one tag
+  (Ajax-version is not working yet).
 
 - Show a result of a quiz/poll/test
 
