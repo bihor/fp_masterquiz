@@ -18,6 +18,9 @@
 			<f:translate key="tx_fpmasterquiz_domain_model_question.image" />
 		</th>
 		<th>
+			<f:translate key="tx_fpmasterquiz_domain_model_question.tag" />
+		</th>
+		<th>
 			<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:answers" default="Answers" />
 		</th>
 	</tr>
@@ -64,6 +67,11 @@
 		<td>
 			<f:if condition="{question.image.uid}">
 				<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-responsive" title="{question.image.originalResource.name}" width="150" />
+			</f:if>
+		</td>
+		<td>
+			<f:if condition="{question.tag.uid}">
+				{question.tag.name}
 			</f:if>
 		</td>
 		<td><div class="table-responsive"><table class="table">

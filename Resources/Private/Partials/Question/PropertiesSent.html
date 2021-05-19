@@ -54,7 +54,7 @@
 							    </div>
 							</f:case>
 							<f:defaultCase>
-								<f:if condition="{nr.isFirst}"><ul></f:if>
+								<f:if condition="{nr.isFirst}"><ul class="quiz-showOwnAnswers"></f:if>
 								<li>
 								<f:if condition="{settings.allowHtml} == 1">
 									<f:then>{answer.title -> f:format.raw()}</f:then>
@@ -73,7 +73,7 @@
 					<f:if condition="((({settings.showCorrectAnswers} == 2) && ({final} == 0)) || ({settings.showCorrectAnswers} == 1)) && ({enablePoints} > 0)">
 						<f:comment> Nur die richtigen Antworten bei einem Quiz anzeigen </f:comment>
 						<p>{f:translate(key: "text.correctAnswers", default: 'Correct answers:')}</p>
-						<ul>
+						<ul class="quiz-showCorrectAnswers">
 						<f:for each="{selection.question.answers}" as="answer2" iteration="nr2">
 						<f:if condition="{answer2.points} > 0">
 							<li>
@@ -92,10 +92,9 @@
 					</f:if>
 				
 					<f:if condition="(({settings.showEveryAnswer} == 2) && ({final} == 0)) || ({settings.showEveryAnswer} == 1)">
-						<f:comment> Alle Antworten bei einer Frage anzeigen </f:comment>
-						<ul>
+						<f:comment> Alle Antworten bei einer Frage und dann nur die beantworteten Fragen anzeigen </f:comment>
+						<ul class="quiz-showEveryAnswer">
 							<f:for each="{selection.question.answers}" as="answer5" iteration="nr5">
-								<!-- Alle Antworten der Frage und dann nur die beantworteten Fragen -->
 								<f:spaceless><li class="<f:for each="{selection.answers}" as="answer6" iteration="nr6">
 										<f:if condition="({answer5.points} > 0) && ({answer5.uid} == {answer6.uid})">
 										<f:then>text-success font-weight-bold</f:then>

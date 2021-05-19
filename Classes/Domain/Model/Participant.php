@@ -191,8 +191,13 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getTimePassed()
     {
         if ($this->crdate && $this->crdate->getTimestamp()) {
+            // Seite 3-x
             return time() - ($this->crdate->getTimestamp() - $this->sessionstart);
+        } elseif ($this->sessionstart) {
+            // Seite 2
+            return $this->sessionstart;
         } else {
+            // Seite 1
             return 0;
         }
     }

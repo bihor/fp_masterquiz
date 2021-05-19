@@ -226,8 +226,8 @@ This even means, that a user can not make a quiz or poll twice!
 -1 means: the cookie will be stored until the browser is closed.
 1 and greater means: a cookie will be stored for X days.
 Please note: sessions and cookies are not working if you enable Ajax. They are currently not supported in the Ajax-version.
-Note furthermode: if enabling the cookies, 2 cookies will be saved: qsessionXX and qsessionstartXX. XX is the quiz-ID.
-This cookies are not bad!
+Note furthermode: if enabling the cookies, these cookies will be saved: qsessionXX. XX is the quiz-ID.
+This cookies are not bad! You don´t need a cookie bar for it, but you need to tell about it at your GDPR-site.
 
 
 .. _email.specific:

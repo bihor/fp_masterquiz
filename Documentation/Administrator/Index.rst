@@ -69,7 +69,6 @@ maximum1 (maximum points for the answered questions), maximum2 (maximum points f
 startdate, crdate, tstamp, datesNotEqual, timePassed, page (reached page), completed (quiz completed?),
 selections (all answered questions), selectionsByTag (answered questions of a tag),
 sortedSelections (answered questions, well sorted).
-Note: sessionstart will only be set, if cookie-sessions are activated. If not, startdate and crdate will be equal.
 
 A selection has this variables:
 question, answers, sorting, points, maximumPoints (maximum points for this question), entered (entered text to this question).

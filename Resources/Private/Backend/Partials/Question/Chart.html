@@ -1,61 +1,4 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<style>
-.chart {
-  display: table;
-  table-layout: fixed;
-  width: 80%;
-  max-width: 1000px;
-  height: 200px;
-  margin: 0 auto;
-  background-image: linear-gradient(bottom, rgba(0, 0, 0, 0.1) 2%, transparent 2%);
-  background-size: 100% 50px;
-  background-position: left top;
-}
-.chart li {
-  position: relative;
-  display: table-cell;
-  vertical-align: bottom;
-  height: 200px;
-}
-.chart li span {
-  margin: 0 1em;
-  display: block;
-  background: rgba(209, 236, 250, .75);
-  animation: draw 1s ease-in-out;
-}
-.chart li:nth-child(2) span {
-  background: rgba(209, 136, 150, .75);
-}
-.chart li:nth-child(3) span {
-  background: rgba(109, 236, 50, .75);
-}
-.chart li:nth-child(4) span {
-  background: rgba(109, 136, 250, .75);
-}
-.chart li:nth-child(5) span {
-  background: rgba(255, 36, 150, .75);
-}
-.chart li:nth-child(6) span {
-  background: rgba(9, 236, 150, .75);
-}
-.chart li span:before {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 100%;
-  padding: 5px 1em 0;
-  display: block;
-  text-align: center;
-  content: attr(title);
-  word-wrap: break-word;
-}
-@keyframes draw {
-  0% {
-    height: 0;
-  }
-}
-</style>
-
 <h4>{question.title}</h4>
 <p>
   <f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:votes" />: {question.allAnswers}
@@ -76,5 +19,5 @@
   </f:for>
   </ul>
 </f:if>
-<p>&nbsp;</p><br />
+<hr />
 </html>

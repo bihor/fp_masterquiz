@@ -32,7 +32,29 @@
 			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" class="img-fluid" />
 		</f:if>
 		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
-		
+
+		<f:if condition="{quiz.timeperiod} && ({final} == 0)">
+			<script>
+				var quizTimePassed = parseInt({participant.timePassed});
+				var quizTimePeriod = parseInt('{quiz.timeperiod}');
+				var quizTimeCount = quizTimePeriod - quizTimePassed;
+			</script>
+			<div class="text-right" id="quiz-time-counter"><div class="alert alert-info" id="quiz-time-alert" role="alert" style="display:inline-block;">
+				{f:translate(key: "text.remainingTime")}
+				<span id="quiz-time-left">{quiz.timeperiod}</span>
+			</div></div>
+		</f:if>
+
+		<script>
+			var ceuid = '{uidOfCE}';
+			var quizfinal = 0;
+			var quizend = false;
+			var ajaxVersion = false;
+			var quizIntervalId = null;
+			var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
+			var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
+		</script>
+
 		<f:if condition="{settings.ajax} == 1">
 		<f:then>
 			<f:comment> This part is used only, if AJAX is enabled! </f:comment>
@@ -43,6 +65,7 @@
 				<f:form.hidden name="action" value="showAjax" />
 				<f:form.hidden name="quiz" value="{quiz.uid}" />
 				<f:form.hidden name="uidOfCE" value="{uidOfCE}" />
+				<f:form.hidden name="startTime" value="{startTime}" id="quiz-form-time" />
 				<f:form.hidden name="participant" value="0" id="quiz-form-parti" />
 				<f:form.hidden name="currentPage" value="1" id="quiz-form-page" />
 				<f:form.hidden name="showAnswers" value="0" id="quiz-form-answers" />
@@ -50,9 +73,8 @@
 	            <!--  f:form.hidden name="session" value="{session}" / -->
 	            
 	            <script>
-					var ceuid = '{uidOfCE}';
+					ajaxVersion = true;
 					var quizanswers = 0;
-					var quizfinal = 0;
 					var ajaxType = 'POST';
 					var ajaxTypeSetting = '{settings.ajaxType}';
 					var thisPage = {page};
@@ -60,7 +82,6 @@
 					var showQuizAnswers = '{settings.showAnswerPage}';
 		            var text_goon = '{f:translate(key: "text.goon")}';
 		            var text_gofinal = '{f:translate(key: "text.gofinal")}';
-		            var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
 		        </script>
 		        <script language="javascript" type="text/javascript">
 		            if (ajaxTypeSetting == 'GET') {	ajaxType = 'GET'; }
@@ -124,7 +145,7 @@
 			            form.submit(function (ev) {
 			                ev.preventDefault();
 			                var allSelected = checkQuizForm();
-							if (allSelected || ($('#quiz-form'+ceuid+' #quiz-form-joker').val() == '1')) {
+							if (quizend || allSelected || ($('#quiz-form'+ceuid+' #quiz-form-joker').val() == '1')) {
 								service.ajaxCall($(this));
 							} else {
 								window.alert(text_errorEmpty);
@@ -155,21 +176,10 @@
 				<f:form.hidden name="@widget_0[currentPage]" value="{nextPage}" />
 				<f:form.hidden name="showAnswers" value="{showAnswersNext}" />
 				<f:form.hidden name="session" value="{session}" />
+				<f:form.hidden name="startTime" value="{startTime}" />
 				
 				<f:if condition="{final} == 0">
 					<f:then>
-
-						<f:if condition="{quiz.timeperiod}">
-							<script>
-								var quizTimePassed = parseInt({participant.timePassed});
-								var quizTimePeriod = parseInt('{quiz.timeperiod}') - quizTimePassed;
-							</script>
-							<div class="text-right"><div class="alert alert-info" id="quiz-time-alert" role="alert" style="display:inline-block;">
-								{f:translate(key: "text.remainingTime")}
-								<span id="quiz-time-left">{quiz.timeperiod}</span>
-							</div></div>
-						</f:if>
-
 						<f:if condition="({settings.showPageNo} == 1) && ({pages} != 1)">
 							<p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span>
 								{f:translate(key: "text.of")} {pages}
@@ -247,9 +257,6 @@
 								</div>
 						
 								<script>
-									var ceuid = '{uidOfCE}';
-									var quizfinal = 0;
-						            var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
 									<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
 									document.addEventListener('DOMContentLoaded', function(){
                                         <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
@@ -268,37 +275,6 @@
 							</f:else>
 						</f:if>
 
-						<f:if condition="{quiz.timeperiod}">
-							<script>
-								var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
-								<f:render partial="Quiz/ShowTime" />
-
-								document.addEventListener('DOMContentLoaded', function(){
-									$('#quiz-time-left').html(secondsTimeSpanToHMS(quizTimePeriod));
-									if (quizTimePeriod > 0) {
-										quizIntervalId = window.setInterval(function () {
-											quizTimePeriod--;
-											$('#quiz-time-left').html(secondsTimeSpanToHMS(quizTimePeriod));
-											if (quizTimePeriod <= 10) {
-												$('#quiz-time-alert').removeClass('alert-warning');
-												$('#quiz-time-alert').addClass('alert-danger');
-											} else if (quizTimePeriod <= 60) {
-												$('#quiz-time-alert').removeClass('alert-info');
-												$('#quiz-time-alert').addClass('alert-warning');
-											}
-											if (quizTimePeriod == 0) {
-												clearInterval(quizIntervalId);
-												window.alert(text_errorTimeUp);
-												$('#quiz-form' + ceuid).submit();
-											}
-										}, 1000);
-									} else if (quizTimePeriod < 0) {
-										// Problem
-									}
-								});
-							</script>
-						</f:if>
-						
 						<f:if condition="{settings.resultPageUid}">
 							<br />
 							<f:link.action controller="Quiz" action="result" pageUid="{settings.resultPageUid}" arguments="{quiz:quiz}"
@@ -310,7 +286,7 @@
 						</f:if>
 					</f:then>
 					<f:else>
-					
+
 						<f:render partial="Quiz/FinalPage" arguments="{_all}" />
 						
 					</f:else>
@@ -318,6 +294,43 @@
 			</f:form>
 		</f:else>
 		</f:if>
+
+		<f:if condition="{quiz.timeperiod} && ({final} == 0)">
+			<script>
+				<f:render partial="Quiz/ShowTime" />
+
+				function setQuizCounter() {
+					if (quizTimeCount > 0) {
+						quizIntervalId = window.setInterval(function () {
+							quizTimeCount--;
+							$('#quiz-time-left').html(secondsTimeSpanToHMS(quizTimeCount));
+							if (quizTimeCount <= 10) {
+								$('#quiz-time-alert').removeClass('alert-warning');
+								$('#quiz-time-alert').addClass('alert-danger');
+							} else if (quizTimeCount <= 60) {
+								$('#quiz-time-alert').removeClass('alert-info');
+								$('#quiz-time-alert').addClass('alert-warning');
+							}
+							if (quizTimeCount == 0) {
+								clearInterval(quizIntervalId);
+								window.alert(text_errorTimeUp);
+								quizend = true;
+								$('#quiz-form' + ceuid).submit();
+							}
+						}, 1000);
+					} else if (quizTimeCount < 0) {
+						$('#quiz-time-left').html('--');
+						$('#quiz-GoOn').prop("disabled",true);
+					}
+				}
+
+				document.addEventListener('DOMContentLoaded', function(){
+					$('#quiz-time-left').html(secondsTimeSpanToHMS(quizTimeCount));
+					setQuizCounter();
+				});
+			</script>
+		</f:if>
+
 		<f:if condition="{settings.debug}">
 			<pre>{debug}</pre>
 		</f:if>

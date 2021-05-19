@@ -81,6 +81,11 @@ You can choose between the following question modes:
 Multiple answers possible (check-box), Choose one answer (radio-button), Select one answer (select-options),
 Enter an answer (text-field), Yes/no-boxes (2 radio-buttons), Enter a comment (textarea), Show a comment, Star rating.
 
+Time period
+-----------
+
+A time period can be defined at a quiz and at a tag. When the time is up, the form will be send to the next page or to the final page.
+
 Points
 ------
 

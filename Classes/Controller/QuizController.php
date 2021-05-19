@@ -172,7 +172,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$questions = 0;
     	$maximum1 = 0;
     	$session = '';          // session key
-        $sessionStart = 0;      // session start time
     	$finalBodytext = '';	// bodytext and image for the final page
     	$finalImageuid = 0;     // image for the final page
     	$finalContent = '';		// special content for the final page
@@ -183,65 +182,59 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
     	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
+        $startTime = $this->request->hasArgument('startTime') ? intval($this->request->getArgument('startTime')) : 0;
     	$context = GeneralUtility::makeInstance(Context::class);
     	$fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
    		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-    	
-    	if ($this->request->hasArgument('session')) {
-    		$session = $this->request->getArgument('session');
-    	} else if (!$this->request->hasArgument('participant')) {
-    		// keine Session gefunden... und jetzt Cookie checken?
-    		if (intval($this->settings['user']['useCookie']) == -1) {
-    			$session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $quizUid);
-    		} else if ((intval($this->settings['user']['useCookie']) > 0) && isset($_COOKIE['qsession' . $quizUid])) {
-    			$session = $_COOKIE['qsession' . $quizUid];
-    		}
-    		if ($session) {
-    			$this->participant = $this->participantRepository->findOneBySession($session);
-    			if ($this->settings['debug']) {
-    				if ($this->participant) {
-		    			$debug .= "\nsession from cookie: " . $session . '; and the participant-uid of that session: ' . $this->participant->getUid();
-    				} else {
-    					$debug .= "\nsession from cookie: " . $session . '; but participant NOT FOUND!';
-    				}
-    			}
-    		} else {
-    			if ($this->settings['user']['checkFEuser'] && $fe_user_uid) {
-    				$this->participant = $this->participantRepository->findOneByUserAndQuiz($fe_user_uid, $quizUid);
-    				if ($this->participant) {
-    					$session = $this->participant->getSession();
-    					if ($this->settings['debug']) {
-    						$debug .= "\nsession from FEuser: " . $session . '; and the participant-uid: ' . $this->participant->getUid();
-    					}
-    				}
-    			}
-    			if (!$session) {
-    				$session = uniqid( random_int(1000,9999) );
-    				$newUser = true;
-    				$this->participant = null;
-    				if ($this->settings['debug']) {
-    					$debug .= "\ncreating new session: " . $session;
-    				}
-    			}
-    		}
-    	}
-    	if (intval($this->settings['user']['useCookie']) == -1) {
-    	    // Read start time
-            $sessionStart = $GLOBALS['TSFE']->fe_user->getKey('ses', 'qsessionstart' . $quizUid);
-            if (!$sessionStart) {
-                $GLOBALS['TSFE']->fe_user->setKey('ses', 'qsessionstart' . $quizUid, time());
+
+   		if (!$this->settings['ajax']) {
+            if ($this->request->hasArgument('session')) {
+                $session = $this->request->getArgument('session');
+            } else if (!$this->request->hasArgument('participant')) {
+                // keine Session gefunden... und jetzt Cookie checken?
+                if (intval($this->settings['user']['useCookie']) == -1) {
+                    $session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $quizUid);
+                } else if ((intval($this->settings['user']['useCookie']) > 0) && isset($_COOKIE['qsession' . $quizUid])) {
+                    $session = $_COOKIE['qsession' . $quizUid];
+                }
+                if ($session) {
+                    $this->participant = $this->participantRepository->findOneBySession($session);
+                    if ($this->settings['debug']) {
+                        if ($this->participant) {
+                            $debug .= "\nsession from cookie: " . $session . '; and the participant-uid of that session: ' . $this->participant->getUid();
+                        } else {
+                            $debug .= "\nsession from cookie: " . $session . '; but participant NOT FOUND!';
+                        }
+                    }
+                } else {
+                    if ($this->settings['user']['checkFEuser'] && $fe_user_uid) {
+                        $this->participant = $this->participantRepository->findOneByUserAndQuiz($fe_user_uid, $quizUid);
+                        if ($this->participant) {
+                            $session = $this->participant->getSession();
+                            if ($this->settings['debug']) {
+                                $debug .= "\nsession from FEuser: " . $session . '; and the participant-uid: ' . $this->participant->getUid();
+                            }
+                        }
+                    }
+                    if (!$session) {
+                        $session = uniqid(random_int(1000, 9999));
+                        $newUser = true;
+                        $this->participant = null;
+                        if ($this->settings['debug']) {
+                            $debug .= "\ncreating new session: " . $session;
+                        }
+                    }
+                }
             }
-    		// Store the session in a cookie
-    		$GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quizUid, $session);
-    		$GLOBALS["TSFE"]->fe_user->storeSessionData();
-    	} else if (intval($this->settings['user']['useCookie']) > 0) {
-    	    $sessionStart = $_COOKIE['qsessionstart' . $quizUid];
-    	    if (!$sessionStart) {
-                setcookie('gsessionstart' . $quizUid, time(), 0);
+            if (intval($this->settings['user']['useCookie']) == -1) {
+                // Store the session in a cookie
+                $GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quizUid, $session);
+                $GLOBALS["TSFE"]->fe_user->storeSessionData();
+            } else if (intval($this->settings['user']['useCookie']) > 0) {
+                setcookie('qsession' . $quizUid, $session, time() + (3600 * 24 * intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
             }
-    		setcookie('qsession' . $quizUid, $session, time()+(3600*24*intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
-    	}
-    	
+        }
+
     	if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
     		// wir sind nicht auf Seite 1
     		$participantUid = intval($this->request->getArgument('participant'));
@@ -292,7 +285,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			$saveIt = true;
     		}
     		if (!$this->participant->getUid()) {
-    			if (!$newUser) {
+    			if (!$newUser && $session) {
     				$partBySes = $this->participantRepository->findOneBySession($session);
     			}
     			if ($partBySes) {
@@ -330,8 +323,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$this->participant->setUser(intval($GLOBALS['TSFE']->fe_user->user['uid']));
 	    			$this->participant->setIp($this->getRealIpAddr());
 	    			$this->participant->setSession($session);
-	    			if ($sessionStart) {
-                        $this->participant->setSessionstart(time() - $sessionStart);
+                    if ($startTime) {
+                        $this->participant->setSessionstart(time() - $startTime);
                     }
 	    			$this->participant->setQuiz($quiz);
 	    			$this->participant->setMaximum2($quiz->getMaximum2());
@@ -509,11 +502,26 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	if ($this->settings['debug']) {
     		$debug .= "\nlast page: ".$lastPage.'; page: '.$page.'; reached page before: '.$reachedPage.'; next page: '.$nextPage.'; showAnswers: '.$showAnswers;
     		$debug .= "\nqs/qpp=pages#" . $questions . '/' . $questionsPerPage . '=' . $pages;
+            $debug .= "\ntime period=" . $quiz->getTimeperiod() . '; time passed: ' . $this->participant->getTimePassed();
     	}
-    	$showAnswersNext = 0;
+
+        // toggle mode for show answers after submit questions
+        if ($showAnswerPage) {
+            $showAnswersNext = $showAnswers == 1 ? 0 : 1;
+        } else {
+            $showAnswersNext = 0;
+        }
+
+        if (!$showAnswers && $quiz->getTimeperiod() && ($this->participant->getTimePassed() >= $quiz->getTimeperiod())) {
+            // Die Zeit für ein Quiz ist abgelaufen: auf zur finalen Seite
+            $page = $pages + 1;
+            $nextPage = $page;
+        }
+
     	if ($page > $pages) {
     		// finale Auswertung ...
     		$final = 1;
+            $showAnswersNext = 0;
     		foreach ($quiz->getEvaluations() as $evaluation) {
     			if (!$evaluation->isEvaluate()) {
     				// Punkte auswerten
@@ -632,10 +640,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $doPersist = true;
     	} else {
     		$final = 0;
-    		// toggle mode for show answers after submit questions
-    		if ($showAnswerPage) {
-    			$showAnswersNext = $showAnswers == 1 ? 0 : 1;
-    		}
     	}
     	if ($doPersist) {
     		$persistenceManager->persistAll();
@@ -990,6 +994,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+        $this->view->assign('startTime', time());
        // $this->view->assign("action", ($this->settings['ajax']) ? 'showAjax' : 'show');
     }
 
@@ -1045,6 +1050,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+        $this->view->assign('startTime', time());
     }
 
     /**

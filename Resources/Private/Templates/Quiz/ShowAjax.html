@@ -63,20 +63,36 @@
 		<f:else>
 		
 			<f:render partial="Quiz/FinalPage" arguments="{_all}" />
-			
+
 			<script>
-			quizanswers = 0;
-			quizfinal = 1;
-			$( "#quiz-restart" ).click(function(ev) {
-				ev.preventDefault();
-				$('#quiz-form-parti').val('0');
-				$('#quiz-form-page').val('1');
-				$('#quiz-form-answers').val('0');
-				quizfinal = 0;
-				$('#quiz-GoOn').val(text_goon);
-        		$('#quiz-button-wrap').show();
-				$('#quiz-form'+ceuid).submit();
-			});
+				var tmpTimePeriod = parseInt('{quiz.timeperiod}');
+				if (tmpTimePeriod > 0) {
+					clearInterval(quizIntervalId);
+					$('#quiz-time-counter').hide();
+				}
+				quizanswers = 0;
+				quizfinal = 1;
+				$('#quiz-form-page').val('1000');
+
+				$( "#quiz-restart" ).click(function(ev) {
+					ev.preventDefault();
+					$('#quiz-form-parti').val('0');
+					$('#quiz-form-page').val('1');
+					$('#quiz-form-answers').val('0');
+					quizfinal = 0;
+					$('#quiz-GoOn').val(text_goon);
+					$('#quiz-button-wrap').show();
+					if (tmpTimePeriod > 0) {
+						quizTimeCount = quizTimePeriod;
+						$('#quiz-form-time').val((Date.now() / 1000 | 0));
+						$('#quiz-time-alert').removeClass('alert-warning');
+						$('#quiz-time-alert').removeClass('alert-danger');
+						$('#quiz-time-alert').addClass('alert-info');
+						$('#quiz-time-counter').show();
+						setQuizCounter();
+					}
+					$('#quiz-form'+ceuid).submit();
+				});
 			</script>
 			
 		</f:else>

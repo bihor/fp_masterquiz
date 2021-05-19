@@ -30,5 +30,10 @@
 	"license" : "GPL-3.0-or-later",
 	"keywords" : [
 		"quiz poll myquizpoll"
-	]
+	],
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "fp_masterquiz"
+		}
+	}
 }

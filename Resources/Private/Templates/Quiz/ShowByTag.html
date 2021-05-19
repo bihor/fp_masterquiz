@@ -26,9 +26,6 @@
             var chartwidth = parseInt({settings.chart.width});
         </script>
     </f:if>
-    <script>
-        var tagTimePeriod = 0;
-    </script>
 
     {settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
     <f:if condition="{quiz.media.0}">
@@ -39,12 +36,34 @@
         f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}
     </f:if>
 
+    <f:if condition="{quiz.timeperiod} && ({final} == 0)">
+        <script>
+            var quizTimePassed = parseInt({participant.timePassed});
+            var quizTimePeriod = parseInt('{quiz.timeperiod}');
+            var quizTimeCount = quizTimePeriod - quizTimePassed;
+        </script>
+        <div class="text-right" id="quiz-time-counter"><div class="alert alert-info" id="quiz-time-alert" role="alert" style="display:inline-block;">
+            {f:translate(key: "text.remainingTime")}
+            <span id="quiz-time-left">{quiz.timeperiod}</span>
+        </div></div>
+    </f:if>
+
+    <script>
+        var ceuid = '{uidOfCE}';
+        var quizfinal = 0;
+        var tagTimePeriod = 0;
+        var quizIntervalId = null;
+        var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
+        var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
+    </script>
+
     <f:form action="show" id="quiz-form{uidOfCE}" method="POST">
         <f:form.hidden name="quiz" value="{quiz.uid}"/>
         <f:form.hidden name="participant" value="{participant.uid}"/>
         <f:form.hidden name="currentPage" value="{nextPage}"/>
         <f:form.hidden name="showAnswers" value="{showAnswersNext}"/>
         <f:form.hidden name="session" value="{session}"/>
+        <f:form.hidden name="startTime" value="{startTime}" />
 
         <f:if condition="{final} == 0">
             <f:then>
@@ -147,10 +166,6 @@
                         </div>
 
                         <script>
-                            var ceuid = '{uidOfCE}';
-                            var quizfinal = 0;
-                            var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
-                            var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
                             <f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}"/>
                             document.addEventListener('DOMContentLoaded', function () {
                                 <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}"/>
@@ -187,6 +202,41 @@
                             }, false);
                         </script>
                     </f:else>
+                </f:if>
+
+                <f:if condition="{quiz.timeperiod}">
+                    <script>
+                        <f:render partial="Quiz/ShowTime" />
+
+                        function setQuizCounter() {
+                            if (quizTimeCount > 0) {
+                                quizIntervalId = window.setInterval(function () {
+                                    quizTimeCount--;
+                                    $('#quiz-time-left').html(secondsTimeSpanToHMS(quizTimeCount));
+                                    if (quizTimeCount <= 10) {
+                                        $('#quiz-time-alert').removeClass('alert-warning');
+                                        $('#quiz-time-alert').addClass('alert-danger');
+                                    } else if (quizTimeCount <= 60) {
+                                        $('#quiz-time-alert').removeClass('alert-info');
+                                        $('#quiz-time-alert').addClass('alert-warning');
+                                    }
+                                    if (quizTimeCount == 0) {
+                                        clearInterval(quizIntervalId);
+                                        window.alert(text_errorTimeUp);
+                                        $('#quiz-form' + ceuid).submit();
+                                    }
+                                }, 1000);
+                            } else if (quizTimeCount < 0) {
+                                $('#quiz-time-left').html('--');
+                                $('#quiz-GoOn').prop("disabled",true);
+                            }
+                        }
+
+                        document.addEventListener('DOMContentLoaded', function(){
+                            $('#quiz-time-left').html(secondsTimeSpanToHMS(quizTimeCount));
+                            setQuizCounter();
+                        });
+                    </script>
                 </f:if>
 
                 <f:if condition="{settings.resultPageUid}">
