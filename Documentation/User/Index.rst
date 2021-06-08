@@ -69,6 +69,8 @@ You can select in the plugin-configuration via FlexForms between this actions:
 - Show a selected quiz/poll/test and order the questions by tag: on each page will be shown questions of one tag
   (Ajax-version is not working yet).
 
+- Show an intro page and then a quiz.
+
 - Show a result of a quiz/poll/test
 
 - Show a highscore of a quiz

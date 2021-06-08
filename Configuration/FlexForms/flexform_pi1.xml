@@ -28,11 +28,15 @@
 			    <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.showByTag</numIndex>
 				<numIndex index="1">Quiz->showByTag</numIndex>
 			 </numIndex>
-             <numIndex index="3">
+			 <numIndex index="3">
+			   <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.intro</numIndex>
+			   <numIndex index="1">Quiz->intro;Quiz->show;Quiz->showAjax;Quiz->showByTag</numIndex>
+			 </numIndex>
+             <numIndex index="4">
                 <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.result</numIndex>
                 <numIndex index="1">Quiz->defaultres;Quiz->result</numIndex>
              </numIndex>
-			 <numIndex index="4">
+			 <numIndex index="5">
 				<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.highscore</numIndex>
 				<numIndex index="1">Quiz->highscore</numIndex>
 			 </numIndex>
@@ -119,8 +123,9 @@
 						<OR>
 							<numIndex index="0"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->default;Quiz->show;Quiz->showAjax]]></numIndex>
 							<numIndex index="1"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->showByTag]]></numIndex>
-							<numIndex index="2"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->defaultres;Quiz->result]]></numIndex>
-							<numIndex index="3"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->highscore]]></numIndex>
+							<numIndex index="2"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->intro;Quiz->show;Quiz->showAjax;Quiz->showByTag]]></numIndex>
+							<numIndex index="3"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->defaultres;Quiz->result]]></numIndex>
+							<numIndex index="4"><![CDATA[FIELD:sDEF.switchableControllerActions:=:Quiz->highscore]]></numIndex>
 						</OR>
 					</displayCond>
 	                <config>
@@ -134,6 +139,21 @@
 					</config>
 				</TCEforms>
 		  </settings.defaultQuizUid>
+			<settings.introContentUid>
+				<TCEforms>
+					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.introContentUid</label>
+					<displayCond>FIELD:sDEF.switchableControllerActions:=:Quiz->intro;Quiz->show;Quiz->showAjax;Quiz->showByTag</displayCond>
+					<config>
+						<type>group</type>
+						<internal_type>db</internal_type>
+						<allowed>tt_content</allowed>
+						<size>1</size>
+						<maxitems>1</maxitems>
+						<minitems>0</minitems>
+						<show_thumbs>0</show_thumbs>
+					</config>
+				</TCEforms>
+			</settings.introContentUid>
           <settings.pagebrowser.itemsPerPage>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.itemsPerPage</label>
@@ -322,8 +342,12 @@
 								  <numIndex index="1">0</numIndex>
 							  </numIndex>
 							  <numIndex index="1" type="array">
-								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yesFirstPage</numIndex>
 								  <numIndex index="1">1</numIndex>
+							  </numIndex>
+							  <numIndex index="2" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yesIntroPage</numIndex>
+								  <numIndex index="1">2</numIndex>
 							  </numIndex>
 						  </items>
 					  </config>

@@ -954,6 +954,46 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	}
     }
 
+
+    /**
+     * action intro
+     *
+     * @return void
+     */
+    public function introAction()
+    {
+        if ($this->settings['introContentUid'] > 0) {
+            $ttContentConfig = array(
+                'tables'       => 'tt_content',
+                'source'       => $this->settings['introContentUid'],
+                'dontCheckPid' => 1);
+            $contentElement = $this->objectManager->get('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
+        } else {
+            $contentElement = '';
+        }
+        $defaultQuizUid = $this->settings['defaultQuizUid'];
+        if ($defaultQuizUid) {
+            $quiz = $this->quizRepository->findOneByUid(intval($defaultQuizUid));
+            if ($quiz) {
+                $this->view->assign('quiz', $quiz);
+            } else {
+                $this->view->assign('quiz', 0);
+                $this->addFlashMessage(
+                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($defaultQuizUid),
+                    LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                    false
+                );
+            }
+        } else {
+            $this->view->assign('quiz', 0);
+        }
+        $this->view->assign('action', 'show');
+        $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+        $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+        $this->view->assign('contentElement', $contentElement);
+    }
+
     /**
      * action show
      *
@@ -996,6 +1036,17 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
         $this->view->assign('startTime', time());
        // $this->view->assign("action", ($this->settings['ajax']) ? 'showAjax' : 'show');
+        if ($this->settings['user']['askForData'] == 2) {
+            if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
+                $this->view->assign('name', $this->request->getArgument('name'));
+            }
+            if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
+                $this->view->assign('email', $this->request->getArgument('email'));
+            }
+            if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
+                $this->view->assign('homepage', $this->request->getArgument('homepage'));
+            }
+        }
     }
 
     /**
@@ -1051,6 +1102,17 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
         $this->view->assign('startTime', time());
+        if ($this->settings['user']['askForData'] == 2) {
+            if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
+                $this->view->assign('name', $this->request->getArgument('name'));
+            }
+            if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
+                $this->view->assign('email', $this->request->getArgument('email'));
+            }
+            if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
+                $this->view->assign('homepage', $this->request->getArgument('homepage'));
+            }
+        }
     }
 
     /**

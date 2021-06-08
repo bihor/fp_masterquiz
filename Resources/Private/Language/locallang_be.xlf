@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-04-12T15:13:06Z" product-name="fp_masterquiz">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-06-08T12:40:25Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -17,6 +17,9 @@
 			</trans-unit>
 			<trans-unit id="template.showByTag" resname="template.showByTag">
 				<source>Show a selected quiz and order questions by tag (save the plugin! | you need to select the storage folder too)</source>
+			</trans-unit>
+			<trans-unit id="template.intro" resname="template.intro">
+				<source>Show an intro page and then a quiz (save the plugin! | you need to select the storage folder too)</source>
 			</trans-unit>
 			<trans-unit id="template.result" resname="template.result">
 				<source>Show a result of a quiz (save the plugin! | you need to select the storage folder too)</source>
@@ -44,6 +47,9 @@
 			</trans-unit>
 			<trans-unit id="settings.defaultQuizUid" resname="settings.defaultQuizUid">
 				<source>Show this quiz/poll:</source>
+			</trans-unit>
+			<trans-unit id="settings.introContentUid" resname="settings.introContentUid">
+				<source>Content element for the intro page:</source>
 			</trans-unit>
 			<trans-unit id="settings.itemsPerPage" resname="settings.itemsPerPage">
 				<source>Number of questions per page:</source>
@@ -80,6 +86,12 @@
 			</trans-unit>
 			<trans-unit id="settings.yesNotFinal" resname="settings.yesNotFinal">
 				<source>yes, but not on the final page</source>
+			</trans-unit>
+			<trans-unit id="settings.yesFirstPage" resname="settings.yesFirstPage">
+				<source>yes, but only at the first page</source>
+			</trans-unit>
+			<trans-unit id="settings.yesIntroPage" resname="settings.yesIntroPage">
+				<source>yes, but only at the intro page</source>
 			</trans-unit>
 			<trans-unit id="enables" resname="enables">
 				<source>Enable/disable</source>

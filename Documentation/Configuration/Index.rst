@@ -39,6 +39,8 @@ Properties
 	resultPageUid                integer     UID of the page where to show quiz results.     -
 	highscorePageUid             integer     UID of the page where to show a highscore.      -
 	defaultQuizUid               integer     UID of the quiz to show.                        1
+    introContentUid              integer     Content element for the intro page.             -
+    introNextAction              string      Action after the intro page: show or showByTag. show
 	showAnswerPage               boolean     Show an answer page after every submit?         1
 	showOwnAnswers               integer     Show the answers of the quiz taker? 0,1 or 2.   2
 	showCorrectAnswers           integer     Show the correct answers? 0, 1 or 2.            1
@@ -59,7 +61,7 @@ Properties
 	user.ipAnonymous             boolean     Anonymize the IP-address?                       1
 	user.useCookie               integer     Save the session in a cookie too? See below.    0
 	user.checkFEuser             boolean     Check if a FEuser has already participated?     0
-	user.askForData              boolean     Ask for user data at the first page of a quiz?  0
+	user.askForData              integer     Ask for user data? 1: at the 1.; 2: intro page. 0
 	user.defaultName             string      Default user name ({TIME} will be replaced).    default {TIME}
 	user.defaultEmail            string      Default user email.                             -
 	user.defaultHomepage         string      Default user homepage.                          -

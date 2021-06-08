@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-05-17T12:50:31Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-06-08T12:21:04Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -203,6 +203,10 @@
 				<source>Time period in seconds</source>
 				<target>Zeitperiode in Sekunden</target>
 			</trans-unit>
+			<trans-unit id="text.gostart" resname="text.gostart">
+				<source>start with the questions</source>
+				<target>Beginne mit den Fragen</target>
+			</trans-unit>
 			<trans-unit id="text.goon" resname="text.goon">
 				<source>go on</source>
 				<target>weiter</target>
@@ -326,6 +330,10 @@
 			<trans-unit id="error.quizNotFound" resname="error.quizNotFound">
 				<source>The quiz with this uid was not found (Record Storage Place set?):</source>
 				<target>Das Quiz mit dieser Uid wurde nicht gefunden (Datensatzsammlung gesetzt?):</target>
+			</trans-unit>
+			<trans-unit id="error.quizDetailNotFound" resname="error.quizDetailNotFound">
+				<source>No quiz and no detail page was not found!</source>
+				<target>Es wurde kein Quiz und keine Startseite gesetzt! (Datensatzsammlung gesetzt?)</target>
 			</trans-unit>
 			<trans-unit id="text.answer.input" resname="text.answer.input">
 				<source>Answer:</source>

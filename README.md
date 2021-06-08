@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 2.1.9
+version 2.1.10
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -15,6 +15,7 @@ This extension is not backward compatible to myquizpoll, but there is a simple i
 You find the documentation at typo3.org: https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
 
 Changes in the last versions:
+- intro action and settings introContentUid, introNextAction added.
 - date and time of the participant in the BE module.
 - text-answers in the BE module.
 - time period for a quiz.

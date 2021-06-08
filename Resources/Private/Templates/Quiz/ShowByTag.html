@@ -57,7 +57,7 @@
         var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
     </script>
 
-    <f:form action="show" id="quiz-form{uidOfCE}" method="POST">
+    <f:form id="quiz-form{uidOfCE}" method="POST">
         <f:form.hidden name="quiz" value="{quiz.uid}"/>
         <f:form.hidden name="participant" value="{participant.uid}"/>
         <f:form.hidden name="currentPage" value="{nextPage}"/>
@@ -136,10 +136,13 @@
                             </f:if>
                         </f:for>
 
-                        <f:if condition="{settings.user.askForData}">
-                            <f:if condition="{page} == 1">
-                                <f:render arguments="{_all}" partial="Participant/Form"/>
-                            </f:if>
+                        <f:if condition="({settings.user.askForData} == 1) && ({page} == 1)">
+                            <f:render partial="Participant/Form" arguments="{_all}" />
+                        </f:if>
+                        <f:if condition="({settings.user.askForData} == 2) && ({page} == 1)">
+                            <f:form.hidden name="name" value="{name}" />
+                            <f:form.hidden name="email" value="{email}" />
+                            <f:form.hidden name="homepage" value="{homepage}" />
                         </f:if>
 
                         <div>

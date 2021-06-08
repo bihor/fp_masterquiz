@@ -87,6 +87,7 @@ ChangeLog
 
 2.2.0:
   showByTag action added. Tag for a question added.
+  intro action and settings introContentUid, introNextAction added.
   Showing all answers of a text-answer in the chart in the backend.
   Showing the start and end time in the backend.
   A time period can be defined for a quiz and/or a tag.

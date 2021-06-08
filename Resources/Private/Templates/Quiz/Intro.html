@@ -1,0 +1,65 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<f:layout name="Default" />
+	<f:section name="content">
+		<f:flashMessages />
+
+		<f:if condition="{contentElement}">
+			<f:format.raw>{contentElement}</f:format.raw>
+		</f:if>
+
+		<f:if condition="{quiz}">
+			<f:then>
+				<f:if condition="{settings.showPageUid}">
+					<f:then>
+						<f:form id="quiz-form{uidOfCE}" pageUid="{settings.showPageUid}" arguments="{revertAction: '1'}" method="POST">
+							<f:form.hidden name="controller" value="Quiz" />
+							<f:form.hidden name="action" value="{settings.introNextAction}" />
+							<f:form.hidden name="quiz" value="{quiz.uid}" />
+
+							<f:if condition="{settings.user.askForData} == 2">
+								<f:render partial="Participant/Form" arguments="{_all}" />
+							</f:if>
+
+							<f:form.submit class="btn btn-primary btn-lg" value="{f:translate(key: 'text.gostart')}" />
+						</f:form>
+					</f:then>
+					<f:else>
+						<f:form id="quiz-form{uidOfCE}" arguments="{revertAction: '1'}" method="POST">
+							<f:form.hidden name="controller" value="Quiz" />
+							<f:form.hidden name="action" value="{settings.introNextAction}" />
+							<f:form.hidden name="quiz" value="{quiz.uid}" />
+
+							<f:if condition="{settings.user.askForData} == 2">
+								<f:render partial="Participant/Form" arguments="{_all}" />
+							</f:if>
+
+							<f:form.submit class="btn btn-primary btn-lg" value="{f:translate(key: 'text.gostart')}" />
+						</f:form>
+					</f:else>
+				</f:if>
+			</f:then>
+			<f:else>
+				<f:if condition="{settings.showPageUid}">
+					<f:then>
+						<f:form id="quiz-form{uidOfCE}" pageUid="{settings.showPageUid}" arguments="{revertAction: '1'}" method="POST">
+							<f:form.hidden name="controller" value="Quiz" />
+							<f:form.hidden name="action" value="{settings.introNextAction}" />
+
+							<f:if condition="{settings.user.askForData} == 2">
+								<f:render partial="Participant/Form" arguments="{_all}" />
+							</f:if>
+
+							<f:form.submit class="btn btn-primary btn-lg" value="{f:translate(key: 'text.gostart')}" />
+						</f:form>
+					</f:then>
+					<f:else>
+						<p><f:translate key="error.error" /></p>
+						<ul class="errors"><li>
+							<f:translate key="error.quizDetailNotFound" />
+						</li></ul>
+					</f:else>
+				</f:if>
+			</f:else>
+		</f:if>
+	</f:section>
+</html>

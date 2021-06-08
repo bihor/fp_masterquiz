@@ -27,7 +27,7 @@ Avaiable languages: english and german.
 
 It is the official successor extension of myquizpoll. It is not backward compatible, but there is a simple import-task.
 
-You will find some examples on my homepage: `quizpalme.de <http://www.quizpalme.de/quiz-umfrage>`_
+You will find some examples on my homepage: `quizpalme.de <https://www.quizpalme.de/quiz-umfrage>`_
 
 .. _screenshots:
 
