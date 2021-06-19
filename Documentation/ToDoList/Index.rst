@@ -13,6 +13,4 @@ To-Do list
 
 The to-do list is short:
 
-- using of more cookie-sessions 
-
-- write a better documentation.
+- using of more cookie-sessions.

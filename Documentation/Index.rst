@@ -24,7 +24,7 @@ Master-Quiz
 
 	:Description:
 		A modern extension that offers Quiz, Polls and Tests. 7 question-modes supported.
-		It is the official successor extension of myquizpoll. It is not backward compatible! Many features.
+		It is the official successor extension of myquizpoll, but it is not backward compatible! Many features.
 
 	:Keywords:
 		quiz,test,poll,myquizpoll,myquizandpoll
@@ -40,13 +40,13 @@ Master-Quiz
 
 	:License:
 		This document is published under the Open Content License
-		available from http://www.opencontent.org/opl.shtml
+		available from https://www.opencontent.org/opl.shtml
 
 	:Rendered:
 		|today|
 
 	The content of this document is related to TYPO3,
-	a GNU/GPL CMS/Framework available from `www.typo3.org <http://www.typo3.org/>`_.
+	a GNU/GPL CMS/Framework available from `www.typo3.org <https://www.typo3.org/>`_.
 
 	**Table of Contents**
 

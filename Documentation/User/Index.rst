@@ -136,7 +136,13 @@ FAQ
 - I need some features from myquizpoll. What can I do?
 
   You can tell me, which feature you need.
-  
+
+- What about user data like name and email? Where can we ask for them?
+
+  There is a special intro-page possible, where you can ask for the user-name, email and homepage.
+  Or you can ask for the user data at the first page of a quiz. Todo: ask for user data at the final page.
+  If the user is logged in, this data will be taken from fe_users.
+
 - There are some errors or I get a blank page. What can I do?
 
   If you use AJAX: disable it or read the Administration-manual. You can try this TypoScript too: config.contentObjectExceptionHandler = 0
