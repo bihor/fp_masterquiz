@@ -11,26 +11,21 @@ call_user_func(
             'Master-Quiz'
         );
 
-        if (TYPO3_MODE === 'BE') {
-
-            \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-                'Fixpunkt.FpMasterquiz',
-                'web', // Make module a submodule of 'web'
-                'mod1', // Submodule key
-                '', // Position
-                [
-                    'Quiz' => 'index,detail,charts',
-                    'Participant' => 'list,detail,delete',
-                    
-                ],
-                [
-                    'access' => 'user,group',
-                    'icon'   => 'EXT:fp_masterquiz/ext_icon.gif',
-                    'labels' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf',
-                ]
-            );
-
-        }
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+            'Fixpunkt.FpMasterquiz',
+            'web', // Make module a submodule of 'web'
+            'mod1', // Submodule key
+            '', // Position
+            [
+                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'index,detail,charts',
+                \Fixpunkt\FpMasterquiz\Controller\ParticipantController::class => 'list,detail,delete'
+            ],
+            [
+                'access' => 'user,group',
+                'icon'   => 'EXT:fp_masterquiz/ext_icon.gif',
+                'labels' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf'
+            ]
+        );
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_fpmasterquiz_domain_model_quiz', 'EXT:fp_masterquiz/Resources/Private/Language/locallang_csh_tx_fpmasterquiz_domain_model_quiz.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_fpmasterquiz_domain_model_quiz');

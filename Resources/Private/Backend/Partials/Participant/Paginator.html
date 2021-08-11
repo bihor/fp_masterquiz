@@ -1,0 +1,27 @@
+<ul class="pagination pagination-block">
+    <f:if condition="{pagination.previousPageNumber} && {pagination.previousPageNumber} >= {pagination.firstPageNumber}">
+        <f:then>
+            <li class="waves-effect">
+                <a href="{f:uri.action(action:'list', arguments:{currentPage: 1})}">{f:translate(key:'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:pagination.first')}</a>
+            </li>
+            <li class="waves-effect">
+                <a href="{f:uri.action(action:'list', arguments:{currentPage: pagination.previousPageNumber})}">{f:translate(key:'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:pagination.previous')}</a>
+            </li>
+        </f:then>
+    </f:if>
+    <f:for each="{pages}" as="page">
+        <li class="{f:if(condition: '{page} == {paginator.currentPageNumber}', then:'active', else:'waves-effect')}">
+            <a href="{f:uri.action(action:'list', arguments:{currentPage: page})}">{page}</a>
+        </li>
+    </f:for>
+    <f:if condition="{pagination.nextPageNumber} && {pagination.nextPageNumber} <= {pagination.lastPageNumber}">
+        <f:then>
+            <li class="waves-effect">
+                <a href="{f:uri.action(action:'list', arguments:{currentPage: pagination.nextPageNumber})}">{f:translate(key:'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:pagination.next')}</a>
+            </li>
+            <li class="waves-effect">
+                <a href="{f:uri.action(action:'list', arguments:{currentPage: pagination.lastPageNumber})}">{f:translate(key:'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:pagination.last')}</a>
+            </li>
+        </f:then>
+    </f:if>
+</ul>

@@ -93,3 +93,8 @@ ChangeLog
   A time period can be defined for a quiz and/or a tag.
   TCA-Bugfix for TYPO3 10.
   Refactoring.
+
+3.0.0:
+  Version for TYPO3 10 and 11.3.
+  Default-value for setting ajaxType changed from POST to GET.
+  Breaking: myquizpoll-import-task removed.

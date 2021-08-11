@@ -42,7 +42,7 @@ plugin.tx_fpmasterquiz {
 		allowHtml = 0
 		joker = 0
 		ajax = 0
-		ajaxType = POST
+		ajaxType = GET
 		setMetatags = 0
 		highscoreLimit = 10
 		user {
@@ -117,7 +117,7 @@ module.tx_fpmasterquiz_web_fpmasterquizmod1 {
     settings {
 		pagebrowser {
            itemsPerPage         = 25
-           insertAbove          = 0
+           insertAbove          = 1
            insertBelow          = 1
            maximumNumberOfLinks = 70
 		}

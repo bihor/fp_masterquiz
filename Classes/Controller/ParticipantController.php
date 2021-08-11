@@ -2,6 +2,8 @@
 namespace Fixpunkt\FpMasterquiz\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Pagination\ArrayPaginator;
+use TYPO3\CMS\Core\Pagination\SimplePagination;
 
 /***
  *
@@ -23,16 +25,26 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      * participantRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $participantRepository = null;
 
     /**
+     * Injects the participant-Repository
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository
+     */
+    public function injectParticipantRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository)
+    {
+        $this->participantRepository = $participantRepository;
+    }
+
+    /**
      * action list
      *
+     * @param int $currentPage
      * @return void
      */
-    public function listAction()
+    public function listAction(int $currentPage = 1)
     {
         $pid = (int)GeneralUtility::_GP('id');
         $qid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
@@ -41,9 +53,20 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         } else {
         	$participants = $this->participantRepository->findFromPid($pid);
         }
+        if ($participants) {
+            $participantArray = $participants->toArray();
+        } else {
+            $participantArray = [];
+        }
+        $participantPaginator = new ArrayPaginator($participantArray, $currentPage, $this->settings['pagebrowser']['itemsPerPage']);
+        $participantPagination = new SimplePagination($participantPaginator);
+
         $this->view->assign('pid', $pid);
         $this->view->assign('qid', $qid);
         $this->view->assign('participants', $participants);
+        $this->view->assign('paginator', $participantPaginator);
+        $this->view->assign('pagination', $participantPagination);
+        $this->view->assign('pages', range(1, $participantPagination->getLastPageNumber()));
     }
     
     /**

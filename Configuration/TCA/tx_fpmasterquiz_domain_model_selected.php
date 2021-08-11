@@ -18,9 +18,6 @@ return [
         'searchFields' => 'points,entered,question,answers',
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_selected.gif'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sorting, points, entered, question, answers',
-    ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, points, entered, question, answers'],
     ],
@@ -118,6 +115,7 @@ return [
                 'foreign_table' => 'tx_fpmasterquiz_domain_model_question',
                 'minitems' => 0,
                 'maxitems' => 1,
+                'default' => 0
             ],
         ],
         'answers' => [
@@ -130,7 +128,6 @@ return [
                 'foreign_table_where' => 'AND question = ###REC_FIELD_question###',
                 'MM' => 'tx_fpmasterquiz_selected_answer_mm',
             ],
-            
         ],
     
         'participant' => [

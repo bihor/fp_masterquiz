@@ -4,6 +4,7 @@ namespace Fixpunkt\FpMasterquiz\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 
 /***
  *
@@ -25,7 +26,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * quizRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $quizRepository = null;
 
@@ -33,7 +33,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * answerRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $answerRepository = null;
 
@@ -41,7 +40,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * participantRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $participantRepository = null;
     
@@ -49,7 +47,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * selectedRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $selectedRepository = null;
     
@@ -64,7 +61,47 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      */
     protected $configurationManager;
-    
+
+    /**
+     * Injects the quiz-Repository
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository $quizRepository
+     */
+    public function injectQuizRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository $quizRepository)
+    {
+        $this->quizRepository = $quizRepository;
+    }
+
+    /**
+     * Injects the answer-Repository
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository $answerRepository
+     */
+    public function injectAnswerRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository $answerRepository)
+    {
+        $this->answerRepository = $answerRepository;
+    }
+
+    /**
+     * Injects the selected-Repository
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository $selectedRepository
+     */
+    public function injectSelectedRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository $selectedRepository)
+    {
+        $this->selectedRepository = $selectedRepository;
+    }
+
+    /**
+     * Injects the participant-Repository
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository
+     */
+    public function injectParticipantRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository)
+    {
+        $this->participantRepository = $participantRepository;
+    }
+
     /**
      * Injects the Configuration Manager and is initializing the framework settings: wird doppelt aufgerufen!
      *
@@ -161,16 +198,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz, $pages): array
     {
-    	/* @var \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answer */
-        $answer = null;
-        $saveIt = false;
+    	$saveIt = false;
     	$newUser = false;
     	$reload = false;
-    	$completed = false;
     	$doPersist = false;
     	$partBySes = null;
-    	$questions = 0;
-    	$maximum1 = 0;
+    	$maximum1 = 0;          // maximum points
     	$session = '';          // session key
     	$finalBodytext = '';	// bodytext and image for the final page
     	$finalImageuid = 0;     // image for the final page
@@ -251,12 +284,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			}
     		}
     	}
-    	$page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
-    	if (is_array($page)) {
-    		$page = intval($page['currentPage']);
-    	} else {
-    		$page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
-    	}
+    	//$page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
+    	//if (is_array($page)) {
+    	//	$page = intval($page['currentPage']);
+    	//} else {
+    	$page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
+    	//}
     	$reachedPage = $this->participant->getPage();
     	if ($reachedPage >= $page) {
     		// beantwortete Seiten soll man nicht nochmal beantworten können
@@ -267,7 +300,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	}
     	$showAnswerPage = intval($this->settings['showAnswerPage']);
     	if ($showAnswerPage && !$showAnswers) {
-    		// als nächstes erstmal die Antworten dieser Seite zeigen
+    		// als Nächstes erstmal die Antworten dieser Seite zeigen
     		$nextPage = $page;
     	} else {
     		$nextPage = $page + 1;
@@ -542,10 +575,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     				} else if ($evaluation->getCe() > 0) {
     					// Content-Element ausgeben
     					// oder so: https://www.andrerinas.de/tutorials/typo3-viewhelper-zum-rendern-von-tt-content-anhand-der-uid.html
-    					$ttContentConfig = array(
+    					$ttContentConfig = [
     							'tables'       => 'tt_content',
     							'source'       => $evaluation->getCe(),
-    							'dontCheckPid' => 1);
+    							'dontCheckPid' => 1
+                        ];
     					$finalContent = $this->objectManager->get('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
     					$finalBodytext = $evaluation->getBodytext();
     					$finalImageuid = $evaluation->getImage();
@@ -1010,10 +1044,25 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($this->settings['setMetatags']) {
             $this->setMetatags($quiz);
         }
-        
+
+        if ($quiz->getQuestions()) {
+            $questionsArray = $quiz->getQuestions()->toArray();
+        } else {
+            $questionsArray = [];
+        }
+        if ($this->participant && $this->participant->getSelections()) {
+            $participantArray = $this->participant->getSelections()->toArray();
+        } else {
+            $participantArray = [];
+        }
+        $quizPaginator = new ArrayPaginator($questionsArray, $page, $this->settings['pagebrowser']['itemsPerPage']);
+        $participantPaginator = new ArrayPaginator($participantArray, $page, $this->settings['pagebrowser']['itemsPerPage']);
+
         $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
+        $this->view->assign('quizPaginator', $quizPaginator);
         $this->view->assign('participant', $this->participant);
+        $this->view->assign('participantPaginator', $participantPaginator);
         $this->view->assign('page', $page);
         if ($pages > 0) {
         	$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
@@ -1384,30 +1433,22 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         
     	/** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
     	$message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-    	if (TYPO3_branch == '9.5') {
-    	    $message->setTo($recipient);
-    	    $message->setFrom($sender);
-    	    $message->setSubject($subject);
-    	    $message->setBody($emailBodyHtml, 'text/html');
-    	} else {
-        	foreach ($recipient as $key => $value) {
-        	    $email = $key;
-        	    $name = $value;
-        	}
-        	$message->to(
-        	    new \Symfony\Component\Mime\Address($email, $name)
-        	);
-        	foreach ($sender as $key => $value) {
-        	    $email = $key;
-        	    $name = $value;
-        	}
-        	$message->from(
-        	    new \Symfony\Component\Mime\Address($email, $name)
-        	);
-        	$message->subject($subject);
-        	$message->html($emailBodyHtml);
-    	}
-		//return true;
+        foreach ($recipient as $key => $value) {
+            $email = $key;
+            $name = $value;
+        }
+        $message->to(
+            new \Symfony\Component\Mime\Address($email, $name)
+        );
+        foreach ($sender as $key => $value) {
+            $email = $key;
+            $name = $value;
+        }
+        $message->from(
+            new \Symfony\Component\Mime\Address($email, $name)
+        );
+        $message->subject($subject);
+        $message->html($emailBodyHtml);
     	$message->send();
     	return $message->isSent();
     }

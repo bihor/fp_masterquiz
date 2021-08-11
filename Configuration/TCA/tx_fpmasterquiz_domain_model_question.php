@@ -20,9 +20,6 @@ return [
         'searchFields' => 'title,qmode,image,bodytext,explanation,answers',
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_question.gif'
     ],
-    'interface' => [
-        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, sorting, title, qmode, image, bodytext, explanation, tag, answers',
-    ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, qmode, image, bodytext, explanation, tag, answers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
@@ -241,7 +238,7 @@ return [
                 'foreign_table' => 'tx_fpmasterquiz_domain_model_tag',
                 'default' => 0,
                 'minitems' => 0,
-                'maxitems' => 1,
+                'maxitems' => 1
             ],
         ],
         'answers' => [

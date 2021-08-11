@@ -21,9 +21,18 @@ class QuestionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * questionRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository
-     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $questionRepository = null;
+
+    /**
+     * Injects the question-Repository
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository $questionRepository
+     */
+    public function injectQuestionRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository $questionRepository)
+    {
+        $this->questionRepository = $questionRepository;
+    }
 
     /**
      * action list
