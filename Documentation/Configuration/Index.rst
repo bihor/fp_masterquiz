@@ -36,6 +36,7 @@ Properties
 	============================ =========== =============================================== ===========================
 	startPageUid                 integer     UID of the page where to restart (listPid).     -
 	showPageUid                  integer     UID of the single-page of a quiz (detailPid).   -
+    closurePageUid               integer     UID of a closure-page of a quiz.                -
 	resultPageUid                integer     UID of the page where to show quiz results.     -
 	highscorePageUid             integer     UID of the page where to show a highscore.      -
 	defaultQuizUid               integer     UID of the quiz to show.                        1
@@ -61,7 +62,7 @@ Properties
 	user.ipAnonymous             boolean     Anonymize the IP-address?                       1
 	user.useCookie               integer     Save the session in a cookie too? See below.    0
 	user.checkFEuser             boolean     Check if a FEuser has already participated?     0
-	user.askForData              integer     Ask for user data? 1: at the 1.; 2: intro page. 0
+	user.askForData              integer     Ask for user data? 0, 1, 2 or 3 (see below).    0
 	user.defaultName             string      Default user name ({TIME} will be replaced).    default {TIME}
 	user.defaultEmail            string      Default user email.                             -
 	user.defaultHomepage         string      Default user homepage.                          -
@@ -230,6 +231,21 @@ This even means, that a user can not make a quiz or poll twice!
 Please note: sessions and cookies are not working if you enable Ajax. They are currently not supported in the Ajax-version.
 Note furthermode: if enabling the cookies, these cookies will be saved: qsessionXX. XX is the quiz-ID.
 This cookies are not bad! You don´t need a cookie bar for it, but you need to tell about it at your GDPR-site.
+
+
+.. _user.askForData:
+
+user.askForData
+""""""""""""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.user.askForData = 3`
+
+4 options are available: 0, 1, 2 or 3. 0 means: don´t ask for user data like name oder email.
+The other values enables a form, that ask the user for this data: name, email and homepage.
+1: the form will appear at the first page of a quiz.
+2: the form will appear at the intro page.
+3: the form will appear at the final page of a quiz. Note: in this case you will need to define a closure page too!
+Setting: closurePageUid. The form from the final page will redirect to this page.
 
 
 .. _email.specific:

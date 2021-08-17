@@ -98,7 +98,7 @@ Importing myquizpoll entries
 
 .. important::
 
-   You will need TYPO3 8 or 9 if you use this import task.
+   You will need TYPO3 8 or 9 if you use this import task. This task was removed in version 3.0.0 of this extension!
    If you are using TYPO3 9 and you want to import myquizpoll-questions, then you will need the extension typo3db_legacy too!
 
 

@@ -62,18 +62,20 @@ Actions
 
 You can select in the plugin-configuration via FlexForms between this actions:
 
-- List of all quiz/poll/test of one folder with links to the single view
+- list: list of all quiz/poll/test of one folder with links to the single view
 
-- Show a selected quiz/poll/test and use a pagebrowser
+- show: show a selected quiz/poll/test and use a pagebrowser
 
-- Show a selected quiz/poll/test and order the questions by tag: on each page will be shown questions of one tag
-  (Ajax-version is not working yet).
+- showByTag: show a selected quiz/poll/test and order the questions by tag: on each page will be shown questions of one tag
+  (Ajax-version is not working yet)
 
-- Show an intro page and then a quiz.
+- intro: show an intro page and then a quiz
 
-- Show a result of a quiz/poll/test
+- closure: show a closure page after finishing a quiz; this page is only shown when user.askForData=3
 
-- Show a highscore of a quiz
+- result: show a result of a quiz/poll/test
+
+- highscore: show a highscore of a quiz
 
 
 Question modes
@@ -142,6 +144,11 @@ FAQ
   There is a special intro-page possible, where you can ask for the user-name, email and homepage.
   Or you can ask for the user data at the first page of a quiz. Todo: ask for user data at the final page.
   If the user is logged in, this data will be taken from fe_users.
+
+- What is the difference between the final page and the closure page?
+
+  The final page is the page you get when the quiz was completed. When "user.askForData = 3" then that form will
+  redirect from the final page to the closure page. Only in that case you will need a closure page.
 
 - There are some errors or I get a blank page. What can I do?
 

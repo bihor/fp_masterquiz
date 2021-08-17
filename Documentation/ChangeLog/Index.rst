@@ -94,7 +94,8 @@ ChangeLog
   TCA-Bugfix for TYPO3 10.
   Refactoring.
 
-3.0.0:
+3.0.1:
   Version for TYPO3 10 and 11.3.
+  closure action and setting closurePageUid added.
   Default-value for setting ajaxType changed from POST to GET.
   Breaking: myquizpoll-import-task removed.

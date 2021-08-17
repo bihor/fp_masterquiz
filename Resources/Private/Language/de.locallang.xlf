@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-06-08T12:21:04Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-08-17T13:56:14Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -238,6 +238,14 @@
 			<trans-unit id="text.homepage" resname="text.homepage">
 				<source>Homepage</source>
 				<target>Homepage</target>
+			</trans-unit>
+			<trans-unit id="text.saveData" resname="text.saveData">
+				<source>Save data</source>
+				<target>Daten speichern</target>
+			</trans-unit>
+			<trans-unit id="text.dataSaved" resname="text.dataSaved">
+				<source>Your data have been saved.</source>
+				<target>Deine Angaben wurden gespeichert.</target>
 			</trans-unit>
 			<trans-unit id="text.yes" resname="text.yes">
 				<source>yes</source>

@@ -137,6 +137,14 @@ class PageLayoutView
                		$content
                	];
                }
+                $closurePageUid = (int)$this->getFieldFromFlexform('settings.closurePageUid');
+                if ($closurePageUid > 0) {
+                    $content = $this->getRecordData($closurePageUid);
+                    $this->tableData[] = [
+                        $this->getLanguageService()->sL(self::LLPATH . 'settings.closurePageUid'),
+                        $content
+                    ];
+                }
                $defaultQuizUid = (int)$this->getFieldFromFlexform('settings.defaultQuizUid');
                if ($defaultQuizUid > 0) {
                    $content = $this->getRecordData($defaultQuizUid, 'tx_fpmasterquiz_domain_model_quiz');

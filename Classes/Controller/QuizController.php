@@ -696,7 +696,35 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	];
     	return $data;
     }
-    
+
+    /**
+     * Update user data after the final page
+     */
+    protected function checkForClosure() : bool
+    {
+        $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
+        if (($page == 999) && ($this->settings['user']['askForData'] == 3) && $this->settings['closurePageUid'] &&
+            $this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
+            $participantUid = intval($this->request->getArgument('participant'));
+            $this->participant = $this->participantRepository->findOneByUid($participantUid);
+            if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
+                $this->participant->setName($this->request->getArgument('name'));
+            }
+            if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
+                $this->participant->setEmail($this->request->getArgument('email'));
+            }
+            if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
+                $this->participant->setHomepage($this->request->getArgument('homepage'));
+            }
+            $this->participantRepository->update($this->participant);
+            $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+            $persistenceManager->persistAll();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * Try to evaluate the answer of an Input Textbox 
      * 
@@ -1036,6 +1064,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+        if ($this->checkForClosure()) {
+            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant], $this->settings['closurePageUid']);
+        }
         $data = $this->doAll($quiz,0);
         $page = $data['page'];
         $pages = $data['pages'];
@@ -1106,6 +1137,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+        if ($this->checkForClosure()) {
+            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant], $this->settings['closurePageUid']);
+        }
         $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
         // Suche Fragen passend zu einer Seite (jeweils nur 1 Tag verwendet)
         $tagArray = $quiz->getQuestionsSortByTag($page);
@@ -1172,6 +1206,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAjaxAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+        if ($this->checkForClosure()) {
+            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant], $this->settings['closurePageUid']);
+        }
     	// siehe: https://www.sebkln.de/tutorials/erstellung-einer-typo3-extension-mit-ajax-aufruf/
     //	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
     //	if ($quizUid) {
@@ -1313,6 +1350,18 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+    }
+
+    /**
+     * action show
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
+     * @return void
+     */
+    public function closureAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant)
+    {
+        $this->view->assign('participant', $participant);
+        $this->view->assign('quiz', $participant->getQuiz());
     }
 
     /**

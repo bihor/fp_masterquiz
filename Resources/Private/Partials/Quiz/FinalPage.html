@@ -20,6 +20,15 @@
 				<f:render partial="Question/PropertiesSent" arguments="{_all}" />
 			</f:for>
 		</f:if>
+		<f:if condition="({settings.user.askForData} == 3) && ({settings.closurePageUid})">
+			<f:render partial="Participant/Form" arguments="{_all}" />
+			<p><button class="btn btn-primary btn-lg" onclick="$('#quiz-form-page').val(999);if ($('#quiz-form-type').length){$('#quiz-form-type').val(0);}this.form.submit();">
+				<f:translate key="text.saveData" />
+			</button></p>
+			<script>
+				setTimeout(function(){ $('#quiz-userData').show(); }, 1000);
+			</script>
+		</f:if>
 		<p>
 		<f:if condition="{settings.startPageUid}">
 		<f:then>

@@ -9,10 +9,10 @@ call_user_func(
             'Fixpunkt.FpMasterquiz',
             'Pi1',
             [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'list, intro, default, show, showAjax, showByTag, random, defaultres, result, highscore'
+                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'list, intro, default, show, showAjax, showByTag, closure, defaultres, result, highscore'
             ],
             [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'default, show, showAjax, showByTag, random, defaultres, result, highscore'
+                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'default, show, showAjax, showByTag, closure, defaultres, result, highscore'
             ]
         );
 

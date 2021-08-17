@@ -41,3 +41,6 @@ Please note furthermore:
   This is set by default. Or if you disable the cHash-check globally: 
   $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false
   in the install tool.
+
+- the AJAX-version ignores FlexForm-settings during the AJAX-call but not during the initialization.
+  Therefore you should not set any FlexForms if you use AJAX or they should be equal.

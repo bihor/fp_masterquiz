@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-06-08T12:40:25Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-08-16T12:32:48Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -13,19 +13,22 @@
 				<source>List of all quiz of one folder</source>
 			</trans-unit>
 			<trans-unit id="template.show" resname="template.show">
-				<source>Show a selected quiz and use a pagebrowser (save the plugin! | you need to select the storage folder too)</source>
+				<source>Show a selected quiz and use a pagebrowser (you need to select the storage folder too)</source>
 			</trans-unit>
 			<trans-unit id="template.showByTag" resname="template.showByTag">
-				<source>Show a selected quiz and order questions by tag (save the plugin! | you need to select the storage folder too)</source>
+				<source>Show a selected quiz and order questions by tag (you need to select the storage folder too)</source>
 			</trans-unit>
 			<trans-unit id="template.intro" resname="template.intro">
-				<source>Show an intro page and then a quiz (save the plugin! | you need to select the storage folder too)</source>
+				<source>Show an intro page and then a quiz (you need to select the storage folder too)</source>
 			</trans-unit>
 			<trans-unit id="template.result" resname="template.result">
-				<source>Show a result of a quiz (save the plugin! | you need to select the storage folder too)</source>
+				<source>Show a result of a quiz (you need to select the storage folder too)</source>
 			</trans-unit>
 			<trans-unit id="template.highscore" resname="template.highscore">
-				<source>Show a highscore of a quiz (save the plugin! | you need to select the storage folder too)</source>
+				<source>Show a highscore of a quiz (you need to select the storage folder too)</source>
+			</trans-unit>
+			<trans-unit id="template.closure" resname="template.closure">
+				<source>Show a closure page after a quiz (you need to select the storage folder too)</source>
 			</trans-unit>
 			<trans-unit id="templateLayout" resname="templateLayout">
 				<source>Template layout (see manual):</source>
@@ -38,6 +41,9 @@
 			</trans-unit>
 			<trans-unit id="settings.showPageUid" resname="settings.showPageUid">
 				<source>Single page of a quiz/poll (detailPid):</source>
+			</trans-unit>
+			<trans-unit id="settings.closurePageUid" resname="settings.closurePageUid">
+				<source>Page for a closure after a quiz (when askForData=3):</source>
 			</trans-unit>
 			<trans-unit id="settings.resultPageUid" resname="settings.resultPageUid">
 				<source>Page where to show a result of a quiz/poll:</source>
@@ -92,6 +98,9 @@
 			</trans-unit>
 			<trans-unit id="settings.yesIntroPage" resname="settings.yesIntroPage">
 				<source>yes, but only at the intro page</source>
+			</trans-unit>
+			<trans-unit id="settings.yesFinalPage" resname="settings.yesFinalPage">
+				<source>yes, but only at the final page (save the plugin! | you need a closure page too!)</source>
 			</trans-unit>
 			<trans-unit id="enables" resname="enables">
 				<source>Enable/disable</source>

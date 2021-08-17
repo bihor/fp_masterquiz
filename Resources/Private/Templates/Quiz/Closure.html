@@ -1,0 +1,27 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+
+<f:section name="content">
+  <f:flashMessages />
+  {settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
+  <f:if condition="{quiz.media.0}">
+    <f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" />
+  </f:if>
+  <f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
+
+  <p>{f:translate(key: "text.dataSaved")}</p>
+
+  <f:if condition="{settings.resultPageUid}">
+    <br />
+    <f:link.action controller="Quiz" action="result" pageUid="{settings.resultPageUid}" arguments="{quiz:quiz}"
+                   class="btn btn-info">{f:translate(key: "text.showResultPage")}</f:link.action>
+  </f:if>
+  <f:if condition="{settings.highscorePageUid}">
+    <f:link.action controller="Quiz" action="highscore" pageUid="{settings.highscorePageUid}" arguments="{quiz:quiz}"
+                   class="btn btn-info">{f:translate(key: "text.showHighscorePage")}</f:link.action>
+  </f:if>
+  <f:if condition="{settings.debug}">
+    <pre>{debug}</pre>
+  </f:if>
+</f:section>
+</html>
