@@ -279,17 +279,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	} else {
     		if (!$this->participant) {
     			$this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
+                $this->participant->_setProperty('_languageUid', -1);
     			if ($this->settings['debug']) {
     				$debug .= "\nmaking new participant.";
     			}
     		}
     	}
-    	//$page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
-    	//if (is_array($page)) {
-    	//	$page = intval($page['currentPage']);
-    	//} else {
     	$page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
-    	//}
     	$reachedPage = $this->participant->getPage();
     	if ($reachedPage >= $page) {
     		// beantwortete Seiten soll man nicht nochmal beantworten können
@@ -404,6 +400,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    				$debug .= ' OK ';
 	    				// selected/answered question
 	    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
+                        $selected->_setProperty('_languageUid', -1);
 	    				$selected->setQuestion($question);
 	    				if ($pages) {
 	    				    // bei Verwendung von Tags kann die Reihenfolge nicht mit der Reihenfolge der Fragen übereinstimmen

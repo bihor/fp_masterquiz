@@ -245,7 +245,7 @@ The other values enables a form, that ask the user for this data: name, email an
 1: the form will appear at the first page of a quiz.
 2: the form will appear at the intro page.
 3: the form will appear at the final page of a quiz. Note: in this case you will need to define a closure page too!
-Setting: closurePageUid. The form from the final page will redirect to this page.
+Setting: closurePageUid. The form from the final page will redirect to this page. Note: this does not work in the AJAX version.
 
 
 .. _email.specific:
