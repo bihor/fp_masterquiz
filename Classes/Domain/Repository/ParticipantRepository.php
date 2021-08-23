@@ -95,4 +95,24 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     	);
     	return $query->execute()->getFirst();
     }
+
+    /**
+     * Fetches a entry for a pid and user.
+     *
+     * @param	integer	$userId	FEuser-UID
+     * @param	integer	$quizId	Quiz-PID
+     * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findOneByUidAndPid($userId, $quizPid)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('uid', $userId),
+                $query->equals('pid', $quizPid)
+            )
+        );
+        return $query->execute()->getFirst();
+    }
 }

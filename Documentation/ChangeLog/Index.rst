@@ -100,3 +100,6 @@ ChangeLog
   Default-value for setting ajaxType changed from POST to GET.
   Language of a participant and his answers changed from 0 to -1.
   Breaking: myquizpoll-import-task removed.
+
+3.0.3:
+  Setting user.useQuizPid added.

@@ -212,6 +212,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$specialRecievers = [];	// special admin email recievers
     	$debug = '';			// debug output
     	$quizUid = $quiz->getUid();
+    	$quizPid = $quiz->getPid();
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
     	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
@@ -271,7 +272,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
     		// wir sind nicht auf Seite 1
     		$participantUid = intval($this->request->getArgument('participant'));
-    		$this->participant = $this->participantRepository->findOneByUid($participantUid);
+            if ($this->settings['user']['useQuizPid']) {
+                $this->participant = $this->participantRepository->findOneByUidAndPid($participantUid, $quizPid);
+            } else {
+                $this->participant = $this->participantRepository->findOneByUid($participantUid);
+            }
     		$session = $this->participant->getSession();
     		if ($this->settings['debug']) {
     			$debug .= "\nparticipant from request: " . $participantUid;
@@ -280,6 +285,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		if (!$this->participant) {
     			$this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
                 $this->participant->_setProperty('_languageUid', -1);
+                if ($this->settings['user']['useQuizPid']) {
+                    $this->participant->setPid($quizPid);
+                }
     			if ($this->settings['debug']) {
     				$debug .= "\nmaking new participant.";
     			}
@@ -401,6 +409,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    				// selected/answered question
 	    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
                         $selected->_setProperty('_languageUid', -1);
+                        if ($this->settings['user']['useQuizPid']) {
+                            $selected->setPid($quizPid);
+                        }
 	    				$selected->setQuestion($question);
 	    				if ($pages) {
 	    				    // bei Verwendung von Tags kann die Reihenfolge nicht mit der Reihenfolge der Fragen übereinstimmen

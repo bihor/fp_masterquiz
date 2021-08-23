@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.0.2
+version 3.0.3
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -20,3 +20,6 @@ Changes in version 3:
 - Default-value for setting ajaxType changed from POST to GET.
 - Language of a participant and his answers changed to -1.
 - Breaking: myquizpoll-import-task removed.
+
+Version 3.0.3:
+- Setting user.useQuizPid added.

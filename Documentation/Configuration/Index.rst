@@ -61,6 +61,7 @@ setMetatags                  boolean     Set some metatags and change the title?
 user.ipSave                  boolean     Save the IP-address of a user?                  1
 user.ipAnonymous             boolean     Anonymize the IP-address?                       1
 user.useCookie               integer     Save the session in a cookie too? See below.    0
+user.useQuizPid              boolean     Use automatically the pid from the quiz?        0
 user.checkFEuser             boolean     Check if a FEuser has already participated?     0
 user.askForData              integer     Ask for user data? 0, 1, 2 or 3 (see below).    0
 user.defaultName             string      Default user name ({TIME} will be replaced).    default {TIME}
