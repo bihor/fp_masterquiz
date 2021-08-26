@@ -111,7 +111,9 @@ FAQ
 
   No.
 
-- How can I change the translations text? Here an TypoScript example:
+- How can I change the translations text?
+
+  Here an TypoScript example:
 
   ::
 
@@ -120,12 +122,12 @@ FAQ
 
 - How can I rename or hide some fields in the Backend?
 
-    See chapter “Configuration / Page TSConfig”.
+  See chapter “Configuration / Page TSConfig”.
   
 - How can I use routing / speaking urls?
 
-    See chapter “Configuration / Routing”.
+  See chapter “Configuration / Routing”.
 
 - Does the extension uses cookies?
 
-    Only if you enable them via settings.user.useCookie. See chapter “Configuration”.
+  Only if you enable them via settings.user.useCookie. See chapter “Configuration”.

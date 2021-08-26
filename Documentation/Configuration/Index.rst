@@ -105,26 +105,26 @@ typeNum                      integer     Type of the AJAX-call. Don´t change it
 
 AJAX*) If you enable AJAX, you should know this:
 
-  - The FlexForms will be ignored, because the AJAX-call does not know the plugin.
+- The FlexForms will be ignored, because the AJAX-call does not know the plugin.
 
-  - **Configure the quiz only by TypoScript**.
-    You need to set the persistence.storagePid too!
+- **Configure the quiz only by TypoScript**.
+  You need to set the persistence.storagePid too!
 
-  - The AJAX-solution is currently not supported in the action "show by tag".
+- The AJAX-solution is currently not supported in the action "show by tag".
 
-  - The AJAX-call calls an normal action and not an eID-script. Therefore it is necessary to set this TypoScript: 
-    plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0 
-    This is set by default. You can change the value to 1, if you do not use the AJAX-version.
-    If it is still not working, you can disable the cHash-check in the install tool: 
-    [FE][pageNotFoundOnCHashError] = false
+- The AJAX-call calls an normal action and not an eID-script. Therefore it is necessary to set this TypoScript:
+  plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0
+  This is set by default. You can change the value to 1, if you do not use the AJAX-version.
+  If it is still not working, you can disable the cHash-check in the install tool:
+  [FE][pageNotFoundOnCHashError] = false
   
-  - You have still problems? Then read the chapter "Known problems".
+- You have still problems? Then read the chapter "Known problems".
 
 Layout**) If you use template layout 1, you should know this:
 
-  - The charts settings will be ignored if you use another layout.
+- The charts settings will be ignored if you use another layout.
 
-  - The ApexCharts will be used automatically. More information: https://apexcharts.com/
+- The ApexCharts will be used automatically. More information: https://apexcharts.com/
 
 Note: if you enable a cookie or FEuser check, then an user cannot vote again, if he had already voted/participated.
 The participant will see his result of a poll/quiz instead of the checkboxes/radio buttons.

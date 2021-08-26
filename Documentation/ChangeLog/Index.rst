@@ -101,5 +101,6 @@ ChangeLog
   Language of a participant and his answers changed from 0 to -1.
   Breaking: myquizpoll-import-task removed.
 
-3.0.3:
+3.1.0:
   Setting user.useQuizPid added.
+  Possibility added to move question from one quiz to another.

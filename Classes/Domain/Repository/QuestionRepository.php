@@ -41,7 +41,44 @@ class QuestionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     	);
     	return $query->execute();
     }
-    
+
+    /**
+     * Find questions from other quizzes
+     *
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     */
+    public function findOtherThan($pageId, $quizID)
+    {
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('pid', $pageId),
+                $query->logicalNot($query->equals('quiz', $quizID))
+            )
+        );
+        return $query->execute();
+    }
+
+    /**
+     * Move a question
+     *
+     * @param	integer	$questionID	Question
+     * @param	integer	$quizID 	Quiz
+     */
+    public function moveToQuiz($questionID, $quizID)
+    {
+        $table = 'tx_fpmasterquiz_domain_model_question';
+        $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($table);
+        $queryBuilder
+            ->update($table)
+            ->where(
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($questionID, \PDO::PARAM_INT))
+            )
+            ->set('quiz', intval($quizID))
+            ->execute();
+    }
+
     /**
      * Get the PIDs
      *

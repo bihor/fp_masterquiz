@@ -18,6 +18,7 @@ call_user_func(
             '', // Position
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'index,detail,charts',
+                \Fixpunkt\FpMasterquiz\Controller\QuestionController::class => 'move',
                 \Fixpunkt\FpMasterquiz\Controller\ParticipantController::class => 'list,detail,delete'
             ],
             [

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf" date="2021-08-11T14:23:43Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf" date="2021-08-26T09:17:13Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="mlang_tabs_tab" resname="mlang_tabs_tab">
@@ -79,9 +79,25 @@
 				<source>Add this question to this quiz!</source>
 				<target>Füge diese Frage zu diesem Quiz hinzu!</target>
 			</trans-unit>
+			<trans-unit id="moveQuestion" resname="moveQuestion">
+				<source>Move a question from another quiz to this one</source>
+				<target>Verschiebe eine Frage von einem anderen Quiz zu diesem</target>
+			</trans-unit>
+			<trans-unit id="movedQuestion" resname="movedQuestion">
+				<source>This question was moved to this quiz:</source>
+				<target>Diese Frage wurde zu diesem Quiz verschoben:</target>
+			</trans-unit>
+			<trans-unit id="questionsInFolder" resname="questionsInFolder">
+				<source>Questions in this current folder (click on a question to move it):</source>
+				<target>Fragen im aktuelle Ordner (drauf klicken, um sie zu verschieben):</target>
+			</trans-unit>
 			<trans-unit id="back" resname="back">
 				<source>Back to list</source>
 				<target>Zurück zur Übersicht</target>
+			</trans-unit>
+			<trans-unit id="backtoQuiz" resname="backtoQuiz">
+				<source>Back to the quiz</source>
+				<target>Zurück zum Quiz</target>
 			</trans-unit>
 			<trans-unit id="entries" resname="entries">
 				<source>Entries</source>
