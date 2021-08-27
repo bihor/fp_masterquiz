@@ -422,7 +422,7 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
     
     /**
-     * Returns the an array with no. of answers for this question
+     * Returns an array with no. of answers for this question
      *
      * @return array
      */

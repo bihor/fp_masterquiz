@@ -64,6 +64,7 @@
         <f:form.hidden name="showAnswers" value="{showAnswersNext}"/>
         <f:form.hidden name="session" value="{session}"/>
         <f:form.hidden name="startTime" value="{startTime}" />
+        <f:form.hidden name="edit" value="0" id="quiz-form-edit" />
 
         <f:if condition="{final} == 0">
             <f:then>
@@ -77,6 +78,16 @@
                             </div>
                         </div>
                     </p>
+                </f:if>
+
+                <f:if condition="{settings.allowEdit}">
+                    <f:for each="{tags}" key="oneKey" as="oneTag">
+                        <button name="seite{oneKey}" class="btn btn-light {f:if(condition: '{page} == {oneKey}', then: 'active')}"
+                                onclick="$('#quiz-form-edit').val(1);$('#quiz-form-page').val({oneKey});$('quiz-form{uidOfCE}').submit();">
+                            {oneTag}
+                        </button>
+                    </f:for>
+                    <br /><br />
                 </f:if>
 
                 <f:if condition="{showAnswers}">

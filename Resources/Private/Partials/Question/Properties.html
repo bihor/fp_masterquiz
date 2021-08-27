@@ -25,7 +25,7 @@
 							<f:case value="0">
 								<div class="checkbox quiz-checkbox {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}">
 									<label>
-										<f:form.checkbox name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-checkboxes" />
+										<f:form.checkbox name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-checkboxes" checked="{answer.ownAnswer}" />
 										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
 									</label>
 								</div>
@@ -33,8 +33,12 @@
 							<f:case value="1">
 								<div class="radio quiz-radio {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}">
 									<label>
-										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" />
-										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
+										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" checked="{answer.ownAnswer}" />
+										<f:if condition="{settings.allowHtml} == 1"><f:then>
+											{answer.title -> f:format.raw()}
+										</f:then><f:else>
+											{answer.title -> f:format.nl2br()}
+										</f:else></f:if>
 									</label>
 								</div>
 							</f:case>
@@ -46,7 +50,8 @@
 								<br/>
 								<div class="quiz-input">
 									<label>
-										{f:translate(key: "text.answer.input")} <f:form.textfield name="answer_text_{question.uid}" value="" class="quiz-inputbox" autofocus="autofocus" />
+										{f:translate(key: "text.answer.input")}
+										<f:form.textfield name="answer_text_{question.uid}" value="{x->f:for(each:'{question.textAnswers}', as: 'x')}" class="quiz-inputbox" autofocus="autofocus" />
 									</label>
 								</div>
 							</f:case>
@@ -54,7 +59,7 @@
 								<div class="radio quiz-radio2">
 									<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if> &nbsp;
 									<label>
-										<f:form.radio name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-radiobox" />
+										<f:form.radio name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-radiobox" checked="{answer.ownAnswer}" />
 										{f:translate(key: "text.yes")} &nbsp;
 									</label>
 									<label>
@@ -68,7 +73,8 @@
 								<br/>
 								<div class="quiz-textarea">
 									<label>
-										{f:translate(key: "text.answer.textarea")} <f:form.textarea name="answer_text_{question.uid}" value="" class="quiz-textbox" />
+										{f:translate(key: "text.answer.textarea")}
+										<f:form.textarea name="answer_text_{question.uid}" value="{x->f:for(each:'{question.textAnswers}', as: 'x')}" class="quiz-textbox" />
 									</label>
 								</div>
 							</f:case>

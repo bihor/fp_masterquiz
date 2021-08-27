@@ -217,6 +217,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
     	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
         $startTime = $this->request->hasArgument('startTime') ? intval($this->request->getArgument('startTime')) : 0;
+        $edit = $this->request->hasArgument('edit') ? intval($this->request->getArgument('edit')) : 0;
     	$context = GeneralUtility::makeInstance(Context::class);
     	$fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
    		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
@@ -295,10 +296,16 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	}
     	$page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
     	$reachedPage = $this->participant->getPage();
-    	if ($reachedPage >= $page) {
+        if ($edit && !$this->settings['allowEdit']) {
+            $edit = false;
+        }
+    	if (($reachedPage >= $page) && !$edit) {
     		// beantwortete Seiten soll man nicht nochmal beantworten können
     		$showAnswers = true;
     	}
+    	if ($edit) {
+    	    $showAnswers = false;
+        }
     	if (!$questionsPerPage) {
     		$questionsPerPage = 1;
     	}
@@ -317,7 +324,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$questions = count($quiz->getQuestions());
     	if ($showAnswers || (!$showAnswerPage && $page > 1)) {
     		// Antworten sollen ausgewertet und gespeichert werden
-    		if ($reachedPage < $page) {
+    		if (($reachedPage < $page) || $this->settings['allowEdit']) {
     			// nur nicht beantwortete Seiten speichern
     			$saveIt = true;
     		}
@@ -396,31 +403,40 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			} else {
     				$isActive = false;
     			}
-    			if ($isActive) {	
+    			if ($isActive) {
     				// Auswertung der abgesendeten Fragen
+                    $vorhanden = 0;
     				if (!$newUser) {
     					// zuerst prüfen, ob dieser Eintrag schon existiert (z.B. durch Reload)
     					$vorhanden = $this->selectedRepository->countByParticipantAndQuestion($this->participant->getUid(), $quid);
     				}
-    				if ($vorhanden > 0) {
+    				if (($vorhanden > 0) && !$this->settings['allowEdit']) {
     					$debug .= ' reload! ';
     				} else {
 	    				$debug .= ' OK ';
 	    				// selected/answered question
-	    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
+                        if ($vorhanden) {
+                            // alten Eintrag erst löschen
+                            //$this->selectedRepository->deleteByParticipantAndQuestion($this->participant->getUid(), $quid);
+                            $oldSelection = $this->selectedRepository->findByParticipantAndQuestion($this->participant->getUid(), $quid);
+                            if ($oldSelection) {
+                                $this->participant->removeSelection($oldSelection);
+                            }
+                        }
+                        $selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
                         $selected->_setProperty('_languageUid', -1);
                         if ($this->settings['user']['useQuizPid']) {
                             $selected->setPid($quizPid);
                         }
-	    				$selected->setQuestion($question);
-	    				if ($pages) {
-	    				    // bei Verwendung von Tags kann die Reihenfolge nicht mit der Reihenfolge der Fragen übereinstimmen
-	    				    $sorting = $page*100 + $i;
+                        $selected->setQuestion($question);
+                        if ($pages) {
+                            // bei Verwendung von Tags kann die Reihenfolge nicht mit der Reihenfolge der Fragen übereinstimmen
+                            $sorting = $page * 100 + $i;
                         } else {
-	    				    // Reihenfolge der Fragen übernehmen
-	    				    $sorting = $question->getSorting();
+                            // Reihenfolge der Fragen übernehmen
+                            $sorting = $question->getSorting();
                         }
-	    				$selected->setSorting($sorting);
+                        $selected->setSorting($sorting);
 	    				$qmode = $question->getQmode();
 	    				$newPoints = 0;
 	    				switch ($qmode) {
@@ -464,7 +480,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							}
 	    							// statt hier nun nach der Schleife: $maximum1 += $answer->getPoints();
 	    						}
-	    						$maximum1 += $question->getMaximum1();
+	    						if (!$vorhanden) {
+                                    $maximum1 += $question->getMaximum1();
+                                }
 	    						break;
 	    					case 1:
 	    					case 2:
@@ -513,7 +531,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    								$specialRecievers[$emailAnswers[$quid][$selectedAnswerUid]['email']] = $emailAnswers[$quid][$selectedAnswerUid];
 	    							}
 	    						}
-	    						$maximum1 += $question->getMaximum1();
+                                if (!$vorhanden) {
+                                    $maximum1 += $question->getMaximum1();
+                                }
 	    						break;
                             case 3:
                             case 5:
@@ -700,6 +720,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	    'showAnswersNext' => $showAnswersNext,
     	    'useJoker' => $useJoker,
     		'session' => $session,
+            'edit' => $edit,
    			'debug' => $debug
     	];
     	return $data;
@@ -1155,6 +1176,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $pages = $tagArray['pages'];
         $data = $this->doAll($quiz, $pages);
         $lastPage = $data['lastPage'];
+        if ($data['edit']) {
+            $lastPage = $page;
+        }
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
         if ($this->settings['setMetatags']) {
@@ -1165,10 +1189,38 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         } else {
             $tagSelections = $this->participant->getSelectionsByTag($tagArray['pagetags'][$lastPage]);
         }
+        if ($data['edit']) {
+            $answeredQuestions = [];
+            // eigene Antworten holen
+            foreach ($tagSelections as $selection) {
+                $quid = $selection->getQuestion()->getUid();
+                $answeredQuestions[$quid] = [];
+                $answeredQuestions[$quid]['text'] = [];
+                $answeredQuestions[$quid]['check'] = [];
+                $answeredQuestions[$quid]['text'][0] = $selection->getEntered();
+                foreach ($selection->getAnswers() as $answer) {
+                    $answeredQuestions[$quid]['check'][$answer->getTitle()] = 1;
+                }
+            }
+            // eigene Antworten setzen
+            foreach ($tagArray['questions'] as $question) {
+                $quid = $question->getUid();
+                if ($answeredQuestions[$quid]) {
+                    if (is_array($answeredQuestions[$quid]['text'])) {
+                        $question->setTextAnswers($answeredQuestions[$quid]['text']);
+                    }
+                    foreach ($question->getAnswers() as $answer) {
+                        $checked = ($answeredQuestions[$quid]['check'][$answer->getTitle()]) ? 1 : 0;
+                        $answer->setOwnAnswer($checked);
+                    }
+                }
+            }
+        }
 
         $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
         $this->view->assign('tag', $tag);
+        $this->view->assign('tags', $tagArray['pagetags']);
         $this->view->assign('tagQuestions', $tagArray['questions']);
         $this->view->assign('tagSelections', $tagSelections);
         $this->view->assign('participant', $this->participant);

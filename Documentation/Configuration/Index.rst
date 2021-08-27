@@ -53,6 +53,7 @@ showPageNo                   boolean     Show the page number / number of pages?
 showQuestionNo               boolean     Show the question no. / no. of questions?       0
 checkAllStars                boolean     Check all stars on star rating by default?      0
 highscoreLimit               integer     Number of entries in the highscore              10
+allowEdit                    boolean     Show link to pages and allow to edit answers?   0
 allowHtml                    boolean     Allow HTML at question-answers from the BE?     0
 joker                        boolean     Enable a joker-button? Works only with AJAX.    0
 ajax                         boolean     Enable the AJAX-version* of the quiz?           0
@@ -188,6 +189,17 @@ Additionally the correct answers are marked green and wrong answered answers are
 If set to 2, this answers are not shown at the final page.
 Otherwise they are displayed at the final page too if showAnswersAtFinalPage is set to 1.
 Note: this is tested only with checkboxes and radio buttons!
+
+
+.. _allowEdit:
+
+allowEdit
+"""""""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.allowEdit = 1`
+
+If you enable this feature, links to all pages of a quiz are shown, so user can edit their answers.
+Note: this works only for the action "show by tag" and this feature is experimental!
 
 
 .. _joker:
