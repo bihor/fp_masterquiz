@@ -420,6 +420,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             //$this->selectedRepository->deleteByParticipantAndQuestion($this->participant->getUid(), $quid);
                             $oldSelection = $this->selectedRepository->findByParticipantAndQuestion($this->participant->getUid(), $quid);
                             if ($oldSelection) {
+                                $oldPoints = $oldSelection->getPoints();
+                                $this->participant->subtractPoints($oldPoints);
                                 $this->participant->removeSelection($oldSelection);
                             }
                         }

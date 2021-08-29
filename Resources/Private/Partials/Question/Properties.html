@@ -23,7 +23,7 @@
 					<f:for each="{question.answers}" as="answer" iteration="nr">
 						<f:switch expression="{question.qmode}">
 							<f:case value="0">
-								<div class="checkbox quiz-checkbox {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}">
+								<div class="checkbox quiz-checkbox {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
 										<f:form.checkbox name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-checkboxes" checked="{answer.ownAnswer}" />
 										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
@@ -31,7 +31,7 @@
 								</div>
 							</f:case>
 							<f:case value="1">
-								<div class="radio quiz-radio {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}">
+								<div class="radio quiz-radio {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
 										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" checked="{answer.ownAnswer}" />
 										<f:if condition="{settings.allowHtml} == 1"><f:then>
@@ -56,7 +56,7 @@
 								</div>
 							</f:case>
 							<f:case value="4">
-								<div class="radio quiz-radio2">
+								<div class="radio quiz-radio2{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if> &nbsp;
 									<label>
 										<f:form.radio name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-radiobox" checked="{answer.ownAnswer}" />

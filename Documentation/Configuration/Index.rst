@@ -199,7 +199,8 @@ allowEdit
 :typoscript:`plugin.tx_fpmasterquiz.settings.allowEdit = 1`
 
 If you enable this feature, links to all pages of a quiz are shown, so user can edit their answers.
-Note: this works only for the action "show by tag" and this feature is experimental!
+Note: this works only for the action "show by tag" and questions of type radio or checkbox and if there is no answer-page!
+Note: this feature is experimental!
 
 
 .. _joker:

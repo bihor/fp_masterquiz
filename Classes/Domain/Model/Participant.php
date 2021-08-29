@@ -413,6 +413,17 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * Sets the minus points
+     *
+     * @param int $points
+     * @return void
+     */
+    public function subtractPoints($points)
+    {
+        $this->points -= $points;
+    }
+
+    /**
      * Returns the maximum1
      *
      * @return int maximum1
