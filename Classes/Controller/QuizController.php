@@ -299,7 +299,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $questionsPerPage = 1;
         }
         if ($this->settings['allowEdit']) {
-            $showAnswers = false;
+            if ($this->participant->isCompleted()) {
+                $showAnswers = true;
+            } else {
+                $showAnswers = false;
+            }
             $showAnswerPage = false;
         } else {
             if ($reachedPage >= $page) {
