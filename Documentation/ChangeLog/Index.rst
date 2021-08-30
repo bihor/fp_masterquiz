@@ -102,5 +102,5 @@ ChangeLog
   Breaking: myquizpoll-import-task removed.
 
 3.1.0:
-  Setting user.useQuizPid added.
+  Setting user.useQuizPid and allowEdit added.
   Possibility added to move question from one quiz to another.

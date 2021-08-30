@@ -444,7 +444,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the maximum1
+     * Sets the maximum1 (maximum bisher)
      *
      * @param int $maximum1
      * @return void
@@ -486,7 +486,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the maximum2
+     * Sets the maximum2 (maximum gesamt)
      *
      * @param int $maximum2
      * @return void

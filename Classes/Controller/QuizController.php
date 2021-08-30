@@ -217,7 +217,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
     	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
         $startTime = $this->request->hasArgument('startTime') ? intval($this->request->getArgument('startTime')) : 0;
-        $edit = $this->request->hasArgument('edit') ? intval($this->request->getArgument('edit')) : 0;
     	$context = GeneralUtility::makeInstance(Context::class);
     	$fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
    		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
@@ -296,20 +295,19 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	}
     	$page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
     	$reachedPage = $this->participant->getPage();
-        if ($edit && !$this->settings['allowEdit']) {
-            $edit = false;
+        if (!$questionsPerPage) {
+            $questionsPerPage = 1;
         }
-    	if (($reachedPage >= $page) && !$edit) {
-    		// beantwortete Seiten soll man nicht nochmal beantworten können
-    		$showAnswers = true;
-    	}
-    	if ($edit) {
-    	    $showAnswers = false;
+        if ($this->settings['allowEdit']) {
+            $showAnswers = false;
+            $showAnswerPage = false;
+        } else {
+            if ($reachedPage >= $page) {
+                // beantwortete Seiten soll man nicht nochmal beantworten können
+                $showAnswers = true;
+            }
+            $showAnswerPage = intval($this->settings['showAnswerPage']);
         }
-    	if (!$questionsPerPage) {
-    		$questionsPerPage = 1;
-    	}
-    	$showAnswerPage = intval($this->settings['showAnswerPage']);
     	if ($showAnswerPage && !$showAnswers) {
     		// als Nächstes erstmal die Antworten dieser Seite zeigen
     		$nextPage = $page;
@@ -480,7 +478,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 		    								$specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
 		    							}
 	    							}
-	    							// statt hier nun nach der Schleife: $maximum1 += $answer->getPoints();
 	    						}
 	    						if (!$vorhanden) {
                                     $maximum1 += $question->getMaximum1();
@@ -540,7 +537,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             case 3:
                             case 5:
                                 // When enter an answer in a textbox: try to evaluate the answer of the textbox
-	    					    $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug, $maximum1);
+	    					    $tmpMaximum1 = $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug);
+                                if (!$vorhanden) {
+                                    $maximum1 += $tmpMaximum1;
+                                }
 	    					    break;
                             default:
                                 // hier passiert nichts
@@ -722,7 +722,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	    'showAnswersNext' => $showAnswersNext,
     	    'useJoker' => $useJoker,
     		'session' => $session,
-            'edit' => $edit,
    			'debug' => $debug
     	];
     	return $data;
@@ -763,14 +762,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question The Question dataset
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Selected $c_selected The Selected dataset
      * @param string $c_debug Debug
-     * @param int $c_maximum1 The max. possible points until the current question
+     * @return int The max. possible points until the current question
      */
     protected function evaluateInputTextAnswerResult(int $i_quid, 
                                                    \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question, 
                                                    \Fixpunkt\FpMasterquiz\Domain\Model\Selected &$c_selected,
-                                                   string &$c_debug,
-                                                   int &$c_maximum1)
+                                                   string &$c_debug)
     {
+        $maximum1 = 0;
         // retreive answer over the GET arguments
         if ($this->request->hasArgument('answer_text_' . $i_quid) && $this->request->getArgument('answer_text_' . $i_quid)) {
             $answerText = $this->request->getArgument('answer_text_' . $i_quid);
@@ -804,7 +803,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             
             if ($i_question->getQmode() == 3) {
 	            // sum the the points of the current answer to the max. possible point until the current question
-	            $c_maximum1 += $answer->getPoints();
+                $maximum1 += $answer->getPoints();
 	            
 	            // if the answer is right
 	            if (strtoupper(trim($answer->getTitle())) == strtoupper(trim($answerText))) {
@@ -817,6 +816,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	            }
 	        }
         }
+        return $maximum1;
     }
     
     /**
@@ -1178,7 +1178,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $pages = $tagArray['pages'];
         $data = $this->doAll($quiz, $pages);
         $lastPage = $data['lastPage'];
-        if ($data['edit']) {
+        if ($this->settings['allowEdit']) {
             $lastPage = $page;
         }
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
@@ -1188,10 +1188,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         if ($lastPage < 1) {
             $tagSelections = [];
-        } else {
+        } else if ($data['showAnswers'] || $this->settings['allowEdit']) {
+            // Antworten vom user suchen
             $tagSelections = $this->participant->getSelectionsByTag($tagArray['pagetags'][$lastPage]);
         }
-        if ($data['edit']) {
+        if ($this->settings['allowEdit']) {
             $answeredQuestions = [];
             // eigene Antworten holen
             foreach ($tagSelections as $selection) {
