@@ -50,6 +50,7 @@
 
     <script>
         var ceuid = '{uidOfCE}';
+        var noFormCheck = (({settings.noFormCheck} == 1) ? true : false);
         var quizfinal = 0;
         var tagTimePeriod = 0;
         var quizIntervalId = null;
@@ -206,7 +207,7 @@
                                 $("#quiz-GoOn").click(function () {
                                     // check if there are selected answers to all questions. if not, show an warning
                                     var allSelected = checkQuizForm();
-                                    if (allSelected) {
+                                    if (noFormCheck || allSelected) {
                                         $('#quiz-form' + ceuid).submit();
                                     } else {
                                         window.alert(text_errorEmpty);

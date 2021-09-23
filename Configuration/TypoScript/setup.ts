@@ -40,6 +40,7 @@ plugin.tx_fpmasterquiz {
 		showPageNo = 1
 		showQuestionNo = 0
 		checkAllStars = 0
+		noFormCheck = 0
 		allowEdit = 0
 		allowHtml = 0
 		joker = 0

@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-08-29T12:40:18Z" product-name="fp_masterquiz">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-09-23T12:51:18Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -81,8 +81,11 @@
 			<trans-unit id="settings.showPoints" resname="settings.showPoints">
 				<source>Show the possible/reached points?</source>
 			</trans-unit>
+			<trans-unit id="settings.noFormCheck" resname="settings.noFormCheck">
+				<source>Disable form check (set all questions as non mandatory)?</source>
+			</trans-unit>
 			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
-				<source>Allow edit answered questions (works only for show by tag; experimental)?</source>
+				<source>Allow edit answered questions (works only for show by tag)?</source>
 			</trans-unit>
 			<trans-unit id="settings.ajax" resname="settings.ajax">
 				<source>Enable AJAX-version? Important: all FlexForm-settings will be ignored then.</source>

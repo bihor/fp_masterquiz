@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<xliff version="1.0">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-08-29T12:40:18Z" product-name="fp_masterquiz">
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-09-23T12:51:18Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -107,9 +107,13 @@
 				<source>Show the possible/reached points?</source>
 				<target>Zeige die möglichen/erreichten Punkte an?</target>
 			</trans-unit>
+			<trans-unit id="settings.noFormCheck" resname="settings.noFormCheck">
+				<source>Disable form check (check if the user has selected an answer)?</source>
+				<target>Fragen-Check ausschalten (Abfrage, ob alle Fragen beantwortet wurden)?</target>
+			</trans-unit>
 			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
 				<source>Allow edit answered questions (works only for show by tag)?</source>
-				<target>Erlaube es, Antworten zu editieren (funktioniert nur bei &quot;Fragen nach Tag sortieren&quot; - experimental)?</target>
+				<target>Erlaube es, Antworten zu editieren (funktioniert nur bei &quot;Fragen nach Tag sortieren&quot;)?</target>
 			</trans-unit>
 			<trans-unit id="settings.ajax" resname="settings.ajax">
 				<source>Enable AJAX-version? Important: all FlexForm-settings will be ignored then.</source>

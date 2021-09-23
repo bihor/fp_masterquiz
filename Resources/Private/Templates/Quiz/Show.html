@@ -49,6 +49,7 @@
 			var ceuid = '{uidOfCE}';
 			var quizfinal = 0;
 			var quizend = false;
+			var noFormCheck = (({settings.noFormCheck} == 1) ? true : false);
 			var ajaxVersion = false;
 			var quizIntervalId = null;
 			var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
@@ -149,7 +150,7 @@
 			            form.submit(function (ev) {
 			                ev.preventDefault();
 			                var allSelected = checkQuizForm();
-							if (quizend || allSelected || ($('#quiz-form'+ceuid+' #quiz-form-joker').val() == '1')) {
+							if (quizend || noFormCheck || allSelected || ($('#quiz-form'+ceuid+' #quiz-form-joker').val() == '1')) {
 								service.ajaxCall($(this));
 							} else {
 								window.alert(text_errorEmpty);
@@ -267,7 +268,7 @@
                                         $( "#quiz-GoOn" ).click(function() {
                                             // check if there are selected answers to all questions. if not, show an warning
                                             var allSelected = checkQuizForm();
-                                            if (allSelected) {
+                                            if (noFormCheck || allSelected) {
                                                 $('#quiz-form'+ceuid).submit();
                                             } else {
                                                 window.alert(text_errorEmpty);
