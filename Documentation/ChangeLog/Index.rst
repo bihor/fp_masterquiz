@@ -95,12 +95,13 @@ ChangeLog
   Refactoring.
 
 3.0.2:
-  Version for TYPO3 10 and 11.3.
+  Version for TYPO3 10 and 11.
   closure action and setting closurePageUid added.
   Default-value for setting ajaxType changed from POST to GET.
   Language of a participant and his answers changed from 0 to -1.
   Breaking: myquizpoll-import-task removed.
 
 3.1.0:
-  Setting user.useQuizPid and allowEdit added.
+  Setting user.useQuizPid, noFormCheck and allowEdit added.
   Possibility added to move question from one quiz to another.
+  More Flexforms.

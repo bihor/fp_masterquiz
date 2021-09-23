@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-09-23T12:51:18Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-09-23T13:39:20Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -170,6 +170,21 @@
 			</trans-unit>
 			<trans-unit id="settings.user.askForData" resname="settings.user.askForData">
 				<source>Ask for user data at the first page of a quiz?</source>
+			</trans-unit>
+			<trans-unit id="settings.user.checkFEuser" resname="settings.user.checkFEuser">
+				<source>Check if a FE-user has already participated?</source>
+			</trans-unit>
+			<trans-unit id="settings.user.useQuizPid" resname="settings.user.useQuizPid">
+				<source>Use automatically the pid from the quiz?</source>
+			</trans-unit>
+			<trans-unit id="settings.user.ipSave" resname="settings.user.ipSave">
+				<source>Save the IP-address of a user?</source>
+			</trans-unit>
+			<trans-unit id="settings.user.ipAnonymous" resname="settings.user.ipAnonymous">
+				<source>Anonymize the IP-address?</source>
+			</trans-unit>
+			<trans-unit id="settings.user.useCookie" resname="settings.user.useCookie">
+				<source>Save the session in a cookie for X days? -1: sets a session cookie; 0: no cookie; &gt;0 X=days.</source>
 			</trans-unit>
 			<trans-unit id="emailSettings" resname="emailSettings">
 				<source>Email settings</source>

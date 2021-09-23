@@ -99,7 +99,7 @@ plugin.tx_fpmasterquiz {
 			width = 492
 		}
 		templateLayout =
-		overrideFlexformSettingsIfEmpty = startPageUid,showPageUid,closurePageUid,resultPageUid,highscorePageUid,defaultQuizUid,introContentUid,templateLayout,pagebrowser.itemsPerPage
+		overrideFlexformSettingsIfEmpty = startPageUid,showPageUid,closurePageUid,resultPageUid,highscorePageUid,defaultQuizUid,introContentUid,templateLayout,pagebrowser.itemsPerPage,user.useCookie
 		debug = 0
 		typeNum = {$plugin.tx_fpmasterquiz.settings.typeNum}
 	}

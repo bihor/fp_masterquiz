@@ -403,6 +403,89 @@
 					  </config>
 				  </TCEforms>
 			  </settings.user.askForData>
+			  <settings.user.checkFEuser>
+				  <TCEforms>
+					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.checkFEuser</label>
+					  <config>
+						  <type>radio</type>
+						  <items type="array">
+							  <numIndex index="0" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								  <numIndex index="1">0</numIndex>
+							  </numIndex>
+							  <numIndex index="1" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								  <numIndex index="1">1</numIndex>
+							  </numIndex>
+						  </items>
+					  </config>
+				  </TCEforms>
+			  </settings.user.checkFEuser>
+			  <settings.user.useQuizPid>
+				  <TCEforms>
+					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.useQuizPid</label>
+					  <config>
+						  <type>radio</type>
+						  <items type="array">
+							  <numIndex index="0" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								  <numIndex index="1">0</numIndex>
+							  </numIndex>
+							  <numIndex index="1" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								  <numIndex index="1">1</numIndex>
+							  </numIndex>
+						  </items>
+					  </config>
+				  </TCEforms>
+			  </settings.user.useQuizPid>
+			  <settings.user.ipSave>
+				  <TCEforms>
+					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.ipSave</label>
+					  <config>
+						  <type>radio</type>
+						  <items type="array">
+							  <numIndex index="0" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								  <numIndex index="1">0</numIndex>
+							  </numIndex>
+							  <numIndex index="1" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								  <numIndex index="1">1</numIndex>
+							  </numIndex>
+						  </items>
+					  </config>
+				  </TCEforms>
+			  </settings.user.ipSave>
+			  <settings.user.ipAnonymous>
+				  <TCEforms>
+					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.ipAnonymous</label>
+					  <config>
+						  <type>radio</type>
+						  <items type="array">
+							  <numIndex index="0" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.no</numIndex>
+								  <numIndex index="1">0</numIndex>
+							  </numIndex>
+							  <numIndex index="1" type="array">
+								  <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.yes</numIndex>
+								  <numIndex index="1">1</numIndex>
+							  </numIndex>
+						  </items>
+					  </config>
+				  </TCEforms>
+			  </settings.user.ipAnonymous>
+			  <settings.user.useCookie>
+				  <TCEforms>
+					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.useCookie</label>
+					  <config>
+						  <type>input</type>
+						  <size>5</size>
+						  <max>5</max>
+						  <eval>trim</eval>
+					  </config>
+				  </TCEforms>
+			  </settings.user.useCookie>
 		  </el>
 		  </ROOT>
 	  </sUSER>
