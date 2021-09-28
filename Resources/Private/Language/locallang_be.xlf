@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-09-23T13:39:20Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-09-28T09:54:59Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -86,6 +86,9 @@
 			</trans-unit>
 			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
 				<source>Allow edit answered questions (works only for show by tag)?</source>
+			</trans-unit>
+			<trans-unit id="settings.random" resname="settings.random">
+				<source>Enable a random mode for tags (works only for show by tag)?</source>
 			</trans-unit>
 			<trans-unit id="settings.ajax" resname="settings.ajax">
 				<source>Enable AJAX-version? Important: all FlexForm-settings will be ignored then.</source>

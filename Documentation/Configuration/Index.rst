@@ -53,8 +53,9 @@ showPageNo                   boolean     Show the page number / number of pages?
 showQuestionNo               boolean     Show the question no. / no. of questions?       0
 checkAllStars                boolean     Check all stars on star rating by default?      0
 highscoreLimit               integer     Number of entries in the highscore              10
-allowEdit                    boolean     Show link to pages and allow to edit answers?   0
+allowEdit                    boolean     Show links to pages and allow to edit answers?  0
 allowHtml                    boolean     Allow HTML at question-answers from the BE?     0
+random                       boolean     Enable a random mode? Works only with tags.     0
 joker                        boolean     Enable a joker-button? Works only with AJAX.    0
 ajax                         boolean     Enable the AJAX-version* of the quiz?           0
 ajaxType                     string      POST or GET                                     GET
@@ -201,6 +202,17 @@ allowEdit
 If you enable this feature, links to all pages of a quiz are shown, so user can edit their answers.
 Note: this works only for the action "show by tag" and questions of type radio, checkbox or text.
 Note: this feature disables the answer-page!
+
+
+.. _random:
+
+random
+""""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.random = 1`
+
+If you enable this feature, the tags will be shuffled. The changed order will be saved in the DB too.
+Note: this works only for the action "show by tag", because tags and not questions are randomized.
 
 
 .. _joker:

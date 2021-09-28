@@ -203,6 +203,7 @@ CREATE TABLE tx_fpmasterquiz_domain_model_participant (
 	ip varchar(255) DEFAULT '' NOT NULL,
 	session varchar(255) DEFAULT '' NOT NULL,
     sessionstart int(11) DEFAULT '0' NOT NULL,
+    randompages varchar(255) DEFAULT '' NOT NULL,
 	points int(11) DEFAULT '0' NOT NULL,
 	maximum1 int(11) DEFAULT '0' NOT NULL,
 	maximum2 int(11) DEFAULT '0' NOT NULL,

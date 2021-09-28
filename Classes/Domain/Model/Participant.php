@@ -77,6 +77,13 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $sessionstart = 0;
 
     /**
+     * List of random pages for this user
+     *
+     * @var string
+     */
+    protected $randompages = '';
+
+    /**
      * Reached points for this quiz
      *
      * @var int
@@ -125,7 +132,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $selections = null;
-    
+
     /**
      * __construct
      */
@@ -336,6 +343,27 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setSessionstart($sessionstart)
     {
         $this->sessionstart = $sessionstart;
+    }
+
+    /**
+     * Returns the randompages
+     *
+     * @return array $randompages
+     */
+    public function getRandompages()
+    {
+        return explode(',', $this->randompages);
+    }
+
+    /**
+     * Sets the randompages
+     *
+     * @param array $randompages
+     * @return void
+     */
+    public function setRandompages($randompages)
+    {
+        $this->randompages = implode(',', $randompages);
     }
 
     /**

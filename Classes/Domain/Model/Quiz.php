@@ -220,9 +220,11 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * Returns the questions
      *
      * @param integer $page Seite 1..n
+     * @param bool $random Zufällig ordnen?
+     * @param array $randomNumbers andere Seitenreihenfolge?
      * @return array
      */
-    public function getQuestionsSortByTag($page)
+    public function getQuestionsSortByTag(int $page, bool $random, array $randomNumbers)
     {
         // wir brauchen last-page und current-page
         $pages = 0;
@@ -230,6 +232,23 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $pagetags = [];
         $questions = [];
         $result = [];
+        if ($random && !(count($randomNumbers)>1)) {
+            // Seitenanzahl bestimmen
+            foreach ($this->questions as $question) {
+                $tag = $question->getTag();
+                if ($tag) {
+                    if (!$tags[$tag->getName()]) {
+                        $pages++;
+                        $tags[$tag->getName()] = 1;
+                    }
+                }
+            }
+            // jeder Seite eine zufällige Reihenfolge zuordnen
+            $randomNumbers = range(1, $pages);
+            shuffle($randomNumbers);
+            $tags = [];
+            $pages = 0;
+        }
         foreach ($this->questions as $question) {
             $tag = $question->getTag();
             if ($tag) {
@@ -238,7 +257,14 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                     $forpage = $tags[$tag->getName()];
                 } else {
                     $pages++;
-                    $forpage = $pages;
+                    if ($random) {
+                        // Die Seitennummer kommt aus einem random Array 0 .. $pages-1
+                        $forpage = $randomNumbers[$pages - 1];
+                        //echo "### Seite: " . $pages . ' wird zu ' . $forpage . '/' . $tag->getName();
+                    } else {
+                        // Die Seitennummer erhöht sich kontinuierlich
+                        $forpage = $pages;
+                    }
                     $pagetags[$forpage] = $tag->getName();
                     $tags[$tag->getName()] = $forpage;
                 }
@@ -251,6 +277,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $result['pages'] = $pages;
         $result['pagetags'] = $pagetags;
         $result['tags'] = $tags;
+        $result['randomNumbers'] = $randomNumbers;
         $result['questions'] = $questions;
         return $result;
     }

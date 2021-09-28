@@ -43,6 +43,7 @@ plugin.tx_fpmasterquiz {
 		noFormCheck = 0
 		allowEdit = 0
 		allowHtml = 0
+		random = 0
 		joker = 0
 		ajax = 0
 		ajaxType = GET

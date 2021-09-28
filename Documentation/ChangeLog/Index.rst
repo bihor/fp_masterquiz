@@ -102,6 +102,6 @@ ChangeLog
   Breaking: myquizpoll-import-task removed.
 
 3.1.0:
-  Setting user.useQuizPid, noFormCheck and allowEdit added.
-  Possibility added to move question from one quiz to another.
+  Setting user.useQuizPid, noFormCheck, random and allowEdit added.
+  Possibility added to move questions from one quiz to another quiz.
   More Flexforms.

@@ -18,7 +18,7 @@ return [
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_participant.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, sessionstart, points, maximum1, maximum2, page, completed, quiz, selections'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, sessionstart, randompages, points, maximum1, maximum2, page, completed, quiz, selections'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -156,6 +156,15 @@ return [
                 'type' => 'input',
                 'size' => 4,
                 'eval' => 'int'
+            ]
+        ],
+        'randompages' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_participant.randompages',
+            'config' => [
+                'type' => 'input',
+                'size' => 30,
+                'eval' => 'trim'
             ]
         ],
         'points' => [
