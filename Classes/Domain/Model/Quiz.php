@@ -273,6 +273,9 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                 }
             }
         }
+        if ($random && (count($randomNumbers)>1)) {
+            ksort($pagetags);
+        }
         $result['page'] = $page;
         $result['pages'] = $pages;
         $result['pagetags'] = $pagetags;
