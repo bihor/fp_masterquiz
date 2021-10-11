@@ -23,7 +23,7 @@ call_user_func(
             ],
             [
                 'access' => 'user,group',
-                'icon'   => 'EXT:fp_masterquiz/ext_icon.gif',
+                'icon'   => 'EXT:fp_masterquiz/Resources/Public/Icons/user_mod_mod1.gif',
                 'labels' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf'
             ]
         );

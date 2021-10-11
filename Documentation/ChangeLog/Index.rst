@@ -101,7 +101,10 @@ ChangeLog
   Language of a participant and his answers changed from 0 to -1.
   Breaking: myquizpoll-import-task removed.
 
-3.1.0:
+3.1.1:
   Setting user.useQuizPid, noFormCheck, random and allowEdit added.
   Possibility added to move questions from one quiz to another quiz.
   More Flexforms.
+
+3.1.2:
+  Bugfix for breaking change in TYPO3 11.5.0.

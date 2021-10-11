@@ -40,7 +40,7 @@ call_user_func(
 		$iconRegistry->registerIcon(
 			'fp_masterquiz-plugin-pi1',
 		    \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-			['source' => 'EXT:fp_masterquiz/ext_icon.gif']
+			['source' => 'EXT:fp_masterquiz/Resources/Public/Icons/user_plugin_pi1.gif']
 		);
 		$iconRegistry->registerIcon(
 		    'ext-fpmasterquiz-folder-icon',

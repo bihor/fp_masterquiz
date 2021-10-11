@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.1.1
+version 3.1.2
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -25,3 +25,4 @@ Version 3.1:
 - Setting user.useQuizPid, noFormCheck, random and allowEdit added.
 - Possibility added to move question from one quiz to another.
 - More Flexforms.
+- Bugfix for breaking change in TYPO3 11.5.0.
