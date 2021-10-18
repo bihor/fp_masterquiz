@@ -60,6 +60,7 @@ joker                        boolean     Enable a joker-button? Works only with 
 ajax                         boolean     Enable the AJAX-version* of the quiz?           0
 ajaxType                     string      POST or GET                                     GET
 setMetatags                  boolean     Set some metatags and change the title?         0
+includeRatingCSS             boolean     Include the RatingStar.css via f:asset?         1
 user.ipSave                  boolean     Save the IP-address of a user?                  1
 user.ipAnonymous             boolean     Anonymize the IP-address?                       1
 user.useCookie               integer     Save the session in a cookie too? See below.    0

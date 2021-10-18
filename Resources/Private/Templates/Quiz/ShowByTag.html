@@ -18,6 +18,9 @@
             </ul>
         </f:if>
     </f:form.validationResults>
+    <f:if condition="{settings.includeRatingCSS}">
+        <f:asset.css identifier="fpMasterQuizRatingStar" href="EXT:fp_masterquiz/Resources/Public/Css/RatingStar.css" />
+    </f:if>
     <f:if condition="{settings.templateLayout} == 1">
         <!-- charts-layout -->
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>

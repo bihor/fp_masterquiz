@@ -39,6 +39,7 @@ plugin.tx_fpmasterquiz {
 		showPoints = 1
 		showPageNo = 1
 		showQuestionNo = 0
+		highscoreLimit = 10
 		checkAllStars = 0
 		noFormCheck = 0
 		allowEdit = 0
@@ -48,7 +49,7 @@ plugin.tx_fpmasterquiz {
 		ajax = 0
 		ajaxType = GET
 		setMetatags = 0
-		highscoreLimit = 10
+		includeRatingCSS = 1
 		user {
 			ipSave = 1
 			ipAnonymous = 1
@@ -146,6 +147,3 @@ ajaxfpmasterquiz_page {
     }
     10 < tt_content.list.20.fpmasterquiz_pi1
 }
-
-# CSS for Star Rating. You can delete it, if you dont need it
-page.includeCSS.fpMasterQuizRatingStar = EXT:fp_masterquiz/Resources/Public/Css/RatingStar.css

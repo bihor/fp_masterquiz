@@ -107,11 +107,17 @@ a input-field or textarea in the frontend.
 Star-Rating
 -----------
 
-A special case is the star rating feature. For that feature a CSS-file is included by default. If you do not need this feature, you can remove the CSS-file like this::
+A special case is the star rating feature. For that feature a CSS-file is included by default. If you do not need this
+feature, you can remove the CSS-file like this for versions until 3.1.2::
 
   page.includeCSS.fpMasterQuizRatingStar >
 
-Otherwise you should know this: the star rating may not work correct with old browsers. It is a CSS only solution. It looks like this:
+Since version 3.1.3 you can remove the css file via TypoScript (or in the template itself)::
+
+ plugin.tx_fpmasterquiz.settings.includeRatingCSS = 0
+
+Otherwise you should know this: the star rating may not work correct with old browsers. It is a CSS only solution.
+It looks like this:
 
 .. figure:: ../Images/UserManual/StarRating.png
    :width: 164px
@@ -123,7 +129,7 @@ You can use it this way: because it uses radio-boxes in the background, you must
 Select the question mode "star rating" and than add as many answers as you like to have stars. If you want 5 stars, add 5 answers.
 The first answer is the highest rating (e.g. 5 stars) and and last answer is the lowest answer (1 star). 
 That is the opposite logic of the star rating in the extension myquizpoll.
-Do not set the points. In the user-answer, the points shows how many stars were seleced.
+Do not set the points. In the user-answer, the points shows how many stars were selected.
 With the setting checkAllStars you can define if one or all stars should be checked by default.
 
 .. important::
@@ -135,14 +141,11 @@ With the setting checkAllStars you can define if one or all stars should be chec
 FAQ
 ---
 
-- I need some features from myquizpoll. What can I do?
-
-  You can tell me, which feature you need.
-
 - What about user data like name and email? Where can we ask for them?
 
   There is a special intro-page possible, where you can ask for the user-name, email and homepage.
-  Or you can ask for the user data at the first page of a quiz. Todo: ask for user data at the final page.
+  Or you can ask for the user data at the first page of a quiz. And: you can ask for user data at the final page.
+  Then you would need a closure page too.
   If the user is logged in, this data will be taken from fe_users.
 
 - What is the difference between the final page and the closure page?
