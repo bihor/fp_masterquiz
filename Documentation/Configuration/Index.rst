@@ -99,6 +99,7 @@ template.wrapQuestionDesc1   string      Wrap for the question description.     
 template.wrapQuestionDesc2   string      Wrap for the question description.              </div>
 template.wrapDone1           string      Wrap for the done-msg at the final page.        <h4>
 template.wrapDone2           string      Wrap for the done-msg at the final page.        </h4>
+template.mandatoryMark       string      You can define a string for mandatory questions -
 chart.type                   string      You can choose between: pie, donut or bar.      pie
 chart.width                  integer     Width of the chart.                             492
 templateLayout               integer     See in chapter PageTSconfig**.                  -

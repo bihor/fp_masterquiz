@@ -8,7 +8,6 @@ function checkQuizForm() {
 			selectedCounter++;
 			if ($(this).hasClass('quiz-answer-selected') || $(this).hasClass('quiz-answer-optional')) {
 				noneSelected = false;
-			//	console.log('radio click gefunden');
 			}
 		});
 		if (selectedCounter>0 && noneSelected) {
@@ -19,7 +18,6 @@ function checkQuizForm() {
 			selectedCounter++;
 			if ($(this).hasClass('quiz-answer-selected') || $(this).hasClass('quiz-answer-optional')) {
 				noneSelected = false;
-			//	console.log('checkbox click gefunden');
 			}
 		});
 		if (selectedCounter>0 && noneSelected) {
@@ -30,15 +28,16 @@ function checkQuizForm() {
 			selectedCounter++;
 			if ($(this).hasClass('quiz-answer-selected') || $(this).hasClass('quiz-answer-optional')) {
 				noneSelected = false;
-			//	console.log('select click gefunden');
 			}
 		});
+		if (selectedCounter>0 && noneSelected) {
+			allSelected = false;
+		}
 		selectedCounter = 0;
 		$(this).find('.quiz-input').each(function() {
 			selectedCounter++;
 			if ($(this).hasClass('quiz-answer-selected') || $(this).hasClass('quiz-answer-optional')) {
 				noneSelected = false;
-				//	console.log('input click gefunden');
 			}
 		});
 		if (selectedCounter>0 && noneSelected) {

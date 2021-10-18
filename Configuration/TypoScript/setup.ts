@@ -95,6 +95,7 @@ plugin.tx_fpmasterquiz {
 			wrapQuestionDesc2 = </div>
 			wrapDone1 = <h4>
 			wrapDone2 = </h4>
+			mandatoryMark =
 		}
 		chart {
 			type = pie

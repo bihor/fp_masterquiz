@@ -11,8 +11,12 @@
 		<br/>
 	</f:if>
 	<f:comment> {question -> f:debug(title: 'Members of question')} </f:comment>
-	{settings.template.wrapQuestionTitle1 -> f:format.raw()}{question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
-	{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
+	{settings.template.wrapQuestionTitle1 -> f:format.raw()}
+		{question.title}<f:if condition="{settings.template.mandatoryMark}"><f:if condition="{question.optional}"><f:then></f:then><f:else><f:if condition="{settings.allowHtml} == 1"><f:then>{settings.template.mandatoryMark -> f:format.raw()}</f:then><f:else>{settings.template.mandatoryMark}</f:else></f:if></f:else></f:if></f:if>
+	{settings.template.wrapQuestionTitle2 -> f:format.raw()}
+	{settings.template.wrapQuestionDesc1 -> f:format.raw()}
+		<f:format.html>{question.bodytext}</f:format.html>
+	{settings.template.wrapQuestionDesc2 -> f:format.raw()}
 	<div class="row">
 		<div class="{settings.template.colText}">
 			<div class="text-buttons">
