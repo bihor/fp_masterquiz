@@ -62,6 +62,13 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $tag = null;
 
     /**
+     * Beantwortung optional?
+     *
+     * @var bool
+     */
+    protected $optional = false;
+
+    /**
      * Answers of this question
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Answer>
@@ -243,6 +250,37 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTag(\Fixpunkt\FpMasterquiz\Domain\Model\Tag $tag)
     {
         $this->tag = $tag;
+    }
+
+    /**
+     * Returns the Optional
+     *
+     * @return bool
+     */
+    public function getOptional()
+    {
+        return $this->optional;
+    }
+
+    /**
+     * Sets the Optional
+     *
+     * @param bool $optional
+     * @return void
+     */
+    public function setOptional($optional)
+    {
+        $this->optional = $optional;
+    }
+
+    /**
+     * Returns the boolean state of Optional
+     *
+     * @return bool
+     */
+    public function isOptional()
+    {
+        return $this->optional;
     }
 
     /**

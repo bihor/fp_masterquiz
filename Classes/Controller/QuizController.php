@@ -259,28 +259,36 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             } else {
                 $this->participant = $this->participantRepository->findOneByUid($participantUid);
             }
-            $session = $this->participant->getSession();
-            if ($this->settings['debug']) {
-                $debug .= "\nparticipant from request: " . $participantUid;
-            }
-        } else {
-            if (!$this->participant) {
-                $this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
-                $this->participant->_setProperty('_languageUid', -1);
+            if ($this->participant) {
+                $session = $this->participant->getSession();
                 if ($this->settings['debug']) {
-                    $debug .= "\nMaking new participant.";
+                    $debug .= "\nparticipant from request: " . $participantUid;
                 }
-                if ($this->settings['user']['useQuizPid']) {
-                    $this->participant->setPid($quizPid);
-                    if ($this->settings['debug']) {
-                        $debug .= ' Set pid to ' . $quizPid;
-                    }
+            }
+        }
+        if (!$this->participant) {
+            $this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
+            $this->participant->_setProperty('_languageUid', -1);
+            if ($this->settings['debug']) {
+                $debug .= "\nMaking new participant.";
+            }
+            if ($this->settings['user']['useQuizPid']) {
+                $this->participant->setPid($quizPid);
+                if ($this->settings['debug']) {
+                    $debug .= ' Set pid to ' . $quizPid;
                 }
-                if ($this->settings['random'] && $this->request->hasArgument('randomPages') && $this->request->getArgument('randomPages')) {
-                    $this->participant->setRandompages(explode(',', $this->request->getArgument('randomPages')));
-                    if ($this->settings['debug']) {
-                        $debug .= " Set random pages: " . $this->request->getArgument('randomPages');
-                    }
+            }
+            if ($this->settings['random'] && $this->request->hasArgument('randomPages') && $this->request->getArgument('randomPages')) {
+                $this->participant->setRandompages(explode(',', $this->request->getArgument('randomPages')));
+                if ($this->settings['debug']) {
+                    $debug .= " Set random pages: " . $this->request->getArgument('randomPages');
+                }
+            }
+            if (!$session) {
+                $session = uniqid(random_int(1000, 9999));
+                $newUser = true;
+                if ($this->settings['debug']) {
+                    $debug .= "\ncreating new session: " . $session;
                 }
             }
         }

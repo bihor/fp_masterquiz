@@ -21,6 +21,9 @@
 			<trans-unit id="tag.description" resname="tag.description">
 				<source>Tag</source>
 			</trans-unit>
+			<trans-unit id="optional.description" resname="optional.description">
+				<source>The answer is optional</source>
+			</trans-unit>
 			<trans-unit id="answers.description">
 				<source>Answers of this question</source>
 			</trans-unit>

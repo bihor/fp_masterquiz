@@ -53,6 +53,7 @@ showPageNo                   boolean     Show the page number / number of pages?
 showQuestionNo               boolean     Show the question no. / no. of questions?       0
 checkAllStars                boolean     Check all stars on star rating by default?      0
 highscoreLimit               integer     Number of entries in the highscore              10
+noFormCheck                  boolean     Don´t check for answered questions at all?      0
 allowEdit                    boolean     Show links to pages and allow to edit answers?  0
 allowHtml                    boolean     Allow HTML at question-answers from the BE?     0
 random                       boolean     Enable a random mode? Works only with tags.     0
@@ -214,6 +215,19 @@ random
 
 If you enable this feature, the tags will be shuffled. The changed order will be saved in the DB too.
 Note: this works only for the action "show by tag", because tags and not questions are randomized.
+
+
+.. _noFormCheck:
+
+noFormCheck
+"""""""""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.noFormCheck = 1`
+
+Normally every question needs to be answered before the page can be send. You can disable this check generally.
+Since version 3.2.0 you can define at each question if it should be optional or not.
+Note: only question of type radio, checkbox, select-box and input-field are checked. All answers to other type of
+questions are optional (they will not be checked).
 
 
 .. _joker:

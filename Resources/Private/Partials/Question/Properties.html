@@ -23,7 +23,7 @@
 					<f:for each="{question.answers}" as="answer" iteration="nr">
 						<f:switch expression="{question.qmode}">
 							<f:case value="0">
-								<div class="checkbox quiz-checkbox {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
+								<div class="checkbox quiz-checkbox{f:if(condition: '{question.optional}', then: ' quiz-answer-optional')}{f:if(condition: '{answer.jokerAnswer}', then: ' d-none')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
 										<f:form.checkbox name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-checkboxes" checked="{answer.ownAnswer}" />
 										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if>
@@ -31,7 +31,7 @@
 								</div>
 							</f:case>
 							<f:case value="1">
-								<div class="radio quiz-radio {f:if(condition: '{answer.jokerAnswer}', then: 'd-none')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
+								<div class="radio quiz-radio{f:if(condition: '{question.optional}', then: ' quiz-answer-optional')}{f:if(condition: '{answer.jokerAnswer}', then: ' d-none')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
 										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" class="quiz-radiobox" checked="{answer.ownAnswer}" />
 										<f:if condition="{settings.allowHtml} == 1"><f:then>
@@ -48,7 +48,7 @@
 							<f:case value="3">
 								<f:comment>When 'Enter an answer' in a text field</f:comment> 
 								<br/>
-								<div class="quiz-input">
+								<div class="quiz-input{f:if(condition: '{question.optional}', then: ' quiz-answer-optional')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
 										{f:translate(key: "text.answer.input")}
 										<f:form.textfield name="answer_text_{question.uid}" value="{x->f:for(each:'{question.textAnswers}', as: 'x')}" class="quiz-inputbox" autofocus="autofocus" />
@@ -105,7 +105,7 @@
 						</f:switch>
 					</f:for>
 					<f:if condition="{question.qmode} == 2">
-						<f:form.select size="1" name="answer_{question.uid}" options="{question.selectOptions}" class="quiz-select" />
+						<f:form.select size="1" name="answer_{question.uid}" options="{question.selectOptions}" class="quiz-select{f:if(condition: '{question.optional}', then: ' quiz-answer-optional')}" />
 					</f:if>
 					<f:if condition="{question.qmode} == 7">
 						</div>

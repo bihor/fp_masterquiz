@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-08-17T13:56:14Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-10-18T09:26:26Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -44,6 +44,9 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.explanation" resname="tx_fpmasterquiz_domain_model_question.explanation">
 				<source>Explanation</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.optional" resname="tx_fpmasterquiz_domain_model_question.optional">
+				<source>The answer is optional</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.tag" resname="tx_fpmasterquiz_domain_model_question.tag">
 				<source>Tag</source>

@@ -20,4 +20,12 @@ if (quizfinal == 0) {
 			$(this).addClass( 'quiz-answer-selected' );
 		}
 	});
+	$( "#quiz-form"+ceuid+" .quiz-inputbox" ).change(function() {
+		// add selected class to the input if there is a value
+		if ($(this).val() == '') {
+			$(this).closest( ".quiz-input" ).removeClass( 'quiz-answer-selected' );
+		} else {
+			$(this).closest( ".quiz-input" ).addClass( 'quiz-answer-selected' );
+		}
+	});
 }
