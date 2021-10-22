@@ -39,17 +39,23 @@ After you have created a quiz with some questions you can add the plugin at a pa
 
 This screenshots shows you a quiz in the list view and some FlexForm-settings of the plugin.
 
-.. figure:: ../Images/UserManual/BackendView.png
-   :width: 530px
+.. figure:: ../Images/UserManual/BackendView1.jpg
+   :width: 486px
    :alt: Backend view of a quiz
 
-   Backend view of a quiz.
+   Backend view of a quiz/poll.
 
-.. figure:: ../Images/UserManual/BackendPlugin.png
-   :width: 530px
+.. figure:: ../Images/UserManual/BackendPlugin1.jpg
+   :width: 348px
    :alt: Backend view of the plugin
 
-   Backend view of the plugin (early beta version).
+   Backend view of the plugin (part 1). Many Flexform settings!
+
+.. figure:: ../Images/UserManual/BackendPlugin2.jpg
+   :width: 322px
+   :alt: Backend view of the plugin
+
+   Backend view of the plugin (part 2).
 
 .. figure:: ../Images/UserManual/BackendQuiz2.jpg
    :width: 800px
