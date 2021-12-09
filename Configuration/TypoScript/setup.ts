@@ -83,6 +83,7 @@ plugin.tx_fpmasterquiz {
 		template {
 			colText = col-md-8
 			colImage = col-md-4
+			col12 = col-12
 			wrapQuizTitle1 = <h2>
 			wrapQuizTitle2 = </h2>
 			wrapQuizDesc1 = <h3>
@@ -95,7 +96,7 @@ plugin.tx_fpmasterquiz {
 			wrapQuestionDesc2 = </div>
 			wrapDone1 = <h4>
 			wrapDone2 = </h4>
-			mandatoryMark =
+			optionalMark =
 		}
 		chart {
 			type = pie

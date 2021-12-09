@@ -87,6 +87,7 @@ pagebrowser.insertBelow      boolean     You don´t need this.                  
 pagebrowser.maximumNum...    integer     You don´t need this.                            50
 template.colText             string      Class for a question with answers.              col-md-8
 template.colImage            string      Class for the image of a question.              col-md-4
+template.col12               string      Class for the text of a question; if no image.  col-12
 template.wrapQuizTitle1      string      Wrap for the quiz title.                        <h2>
 template.wrapQuizTitle2      string      Wrap for the quiz title.                        </h2>
 template.wrapQuizDesc1       string      Wrap for the quiz description.                  <h3>
@@ -99,7 +100,7 @@ template.wrapQuestionDesc1   string      Wrap for the question description.     
 template.wrapQuestionDesc2   string      Wrap for the question description.              </div>
 template.wrapDone1           string      Wrap for the done-msg at the final page.        <h4>
 template.wrapDone2           string      Wrap for the done-msg at the final page.        </h4>
-template.mandatoryMark       string      You can define a string for mandatory questions -
+template.optionalMark        string      You can define a string for optional questions. -
 chart.type                   string      You can choose between: pie, donut or bar.      pie
 chart.width                  integer     Width of the chart.                             492
 templateLayout               integer     See in chapter PageTSconfig**.                  -
@@ -339,6 +340,10 @@ FAQ
 - What about the evaluation of a quiz?
 
   This can be configured at every quiz.
+
+- Optional questions are not marked. Why not?
+
+  You need to define the mark-symbol by yourself via the TypoScript-setting: settings.template.optionalMark = *.
 
 - The text changes to english when I activate Ajax. Whats wrong?
 

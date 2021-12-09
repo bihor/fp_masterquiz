@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-10-18T09:26:26Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-12-09T13:24:54Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -293,6 +293,9 @@
 			</trans-unit>
 			<trans-unit id="text.expiredTime" resname="text.expiredTime">
 				<source>The time has expired! The form will now be sent!</source>
+			</trans-unit>
+			<trans-unit id="text.optional" resname="text.optional">
+				<source>: optional</source>
 			</trans-unit>
 		</body>
 	</file>

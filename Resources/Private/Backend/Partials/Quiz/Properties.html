@@ -27,7 +27,7 @@
   <f:for each="{quiz.questions}" as="question">
 	<tr>
 		<td>
-			{question.title}
+			{question.title}<f:if condition="{question.optional}">*</f:if>
 		</td>
 		<td>
 			<f:format.html>{question.bodytext}</f:format.html>

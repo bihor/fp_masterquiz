@@ -270,6 +270,12 @@
                                    pageUid="{settings.highscorePageUid}">{f:translate(key: "text.showHighscorePage")}
                     </f:link.action>
                 </f:if>
+
+                <f:if condition="{showAnswers}"><f:then></f:then><f:else>
+                    <f:if condition="{settings.template.optionalMark}">
+                        <br><p>{settings.template.optionalMark -> f:format.raw()}{f:translate(key: "text.optional")}</p>
+                    </f:if>
+                </f:else></f:if>
             </f:then>
             <f:else>
 

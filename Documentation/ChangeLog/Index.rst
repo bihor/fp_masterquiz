@@ -110,6 +110,9 @@ ChangeLog
   Bugfix for breaking change in TYPO3 11.5.0.
 
 3.2.0:
-  Every question can now be set to be optional. Setting template.mandatoryMark added.
+  Every question can now be set to be optional. Setting template.optionalMark added.
   The answer of text-fields is now checked too (it is no longer optional, but can be set to optional).
   The RatingStar.css will now be included by the viewhelper f:asset in the template itself. Use includeRatingCSS=0 to disable it.
+  Setting template.col12 added for questions without an image.
+  Div with class card-body added to all cards.
+  Variable participant.username added.

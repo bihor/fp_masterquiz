@@ -293,6 +293,32 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
+     * Returns the username
+     *
+     * @return string $username
+     */
+    public function getUsername()
+    {
+        if (!$this->user) {
+            return '';
+        } else {
+            $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('fe_users');
+            $statement = $queryBuilder
+                ->select('username')
+                ->from('fe_users')
+                ->where(
+                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($this->user, \PDO::PARAM_INT))
+                )
+                ->setMaxResults(1)
+                ->execute();
+            while ($row = $statement->fetch()) {
+                return $row['username'];
+            }
+            return '';
+        }
+    }
+
+    /**
      * Sets the user
      *
      * @param int $user

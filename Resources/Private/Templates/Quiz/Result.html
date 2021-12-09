@@ -12,11 +12,11 @@
 			</script>
 		</f:if>
 		<f:for each="{quiz.questions}" as="question" iteration="pageiterator">
-			<div class="card">
+			<div class="card"><div class="card-body">
 				{settings.template.wrapQuestionTitle1 -> f:format.raw()}{question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
 				{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
 				<div class="row">
-					<div class="{settings.template.colText}">
+					<div class="{f:if(condition: '{question.image.uid}', then: settings.template.colText, else: settings.template.col12)}">
 						<div class="text-buttons">
 							<f:if condition="{settings.templateLayout} == 1">
 							<f:then>
@@ -33,13 +33,13 @@
 							<f:format.html>{question.explanation}</f:format.html>
 						</f:if>
 					</div>
-					<div class="{settings.template.colImage}">
-						<f:if condition="{question.image.uid}">
+					<f:if condition="{question.image.uid}">
+						<div class="{settings.template.colImage}">
 							<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-fluid" />
-						</f:if>
-					</div>
+						</div>
+					</f:if>
 				</div>
-			</div>
+			</div></div>
 		</f:for>
 			
 		<f:if condition="{settings.debug}">
