@@ -3,9 +3,9 @@
   <f:comment>
   Chart from https://speckyboy.com/code-snippets-css3-bar-graphs/
   </f:comment>
-  <f:section name="content">
+  <f:section name="Content">
     <style>
-      #typo3-inner-docbody hr {
+      hr {
         border-top: 1px dotted #666;
       }
       .chart {
@@ -66,7 +66,6 @@
     </style>
 	<h1><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:charts-participants" default="Listing for" /> {pid}</h1>
     <h2>{quiz.name}</h2>
-    <f:flashMessages />
     <f:for each="{quiz.questions}" as="question">
 	    <f:render partial="Question/Chart" arguments="{_all}" />
     </f:for>

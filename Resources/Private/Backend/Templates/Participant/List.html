@@ -1,11 +1,8 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default" />
-<f:section name="content">
+<f:section name="Content">
 	<h1><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:list-participants" default="Listing for" /> {pid}</h1>
-	<f:flashMessages />
-	<style>
-		ul.f3-widget-paginator li { float: left; margin-left: 15px; }
-	</style>
+
 	<f:if condition="{settings.pagebrowser.insertAbove} && ({paginator.numberOfPages} > 1)">
 		<f:render partial="Participant/Paginator" arguments="{_all}" />
 	</f:if>
@@ -45,8 +42,6 @@
 	</f:for>
 	<f:if condition="{settings.pagebrowser.insertBelow} && ({paginator.numberOfPages} > 1)">
 		<f:render partial="Participant/Paginator" arguments="{_all}" />
-		<p><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:entries" />
-			{pagination.startRecordNumber} - {pagination.endRecordNumber}.</p>
 	</f:if>
 	<p style="clear:both;"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:entries" />: {participants -> f:count()}.</p>
 </f:section>

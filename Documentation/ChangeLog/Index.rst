@@ -116,3 +116,6 @@ ChangeLog
   Setting template.col12 added for questions without an image.
   Div with class card-body added to all cards.
   Variable participant.username added.
+
+3.2.1:
+  Layout adapted for TYPO3 11.5.

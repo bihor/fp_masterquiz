@@ -1,36 +1,27 @@
-<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-	<f:be.container>
-		<div class="typo3-fullDoc">
-			<div id="typo3-docheader">
-				<div class="typo3-docheader-functions">
-					<div class="left">
-						<f:be.buttons.csh />
-						<f:be.menus.actionMenu>
-							<f:be.menus.actionMenuItem label="---" controller="Quiz" action="index" />
-							<f:be.menus.actionMenuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.quiz')}" controller="Quiz" action="index" />
-							<f:be.menus.actionMenuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.participant')}" controller="Participant" action="list" />
-							<!-- f:be.menus.actionMenuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.charts')}" controller="Quiz" action="charts" / -->
-						</f:be.menus.actionMenu>
-					</div>
-					<div class="right">
-						<f:be.pagePath />
-						<f:be.pageInfo />
-					</div>
-				</div>
-				<div class="typo3-docheader-buttons">
-					<div class="left">
-					</div>
-					<div class="right">
-						<f:be.buttons.shortcut />
-					</div>
-				</div>
-			</div>
-			<div id="typo3-docbody">
-				<div id="typo3-inner-docbody">
-					<f:flashMessages />
-					<f:render section="content" />
-				</div>
-			</div>
-		</div>
-	</f:be.container>
+<html
+		xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+		xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
+		data-namespace-typo3-fluid="true">
+
+<be:moduleLayout>
+	<f:be.pageRenderer
+			includeRequireJsModules="{
+            0:'TYPO3/CMS/Backend/ContextMenu'
+        }"
+	/>
+
+	<be:moduleLayout.menu identifier="FpMasterquizModuleMenu">
+		<be:moduleLayout.menuItem label="---" uri="{f:uri.action(controller: 'Quiz', action: 'index')}"/>
+		<be:moduleLayout.menuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.quiz')}" uri="{f:uri.action(controller: 'Quiz', action: 'index')}"/>
+		<be:moduleLayout.menuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.participant')}" uri="{f:uri.action(controller: 'Participant', action: 'list')}"/>
+	</be:moduleLayout.menu>
+
+	<be:moduleLayout.button.shortcutButton displayName="Create a shortcut" />
+
+	<div id="masterquiz-main-content">
+		<f:flashMessages />
+		<f:render section="Content" />
+	</div>
+</be:moduleLayout>
+
 </html>
