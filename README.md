@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.2.1
+version 3.2.2
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -14,7 +14,7 @@ This extension is not backward compatible to myquizpoll, but there is a simple i
 
 You find the documentation at typo3.org: https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
 
-Changes in version 3.2:
+Changes in version 3.2.0:
 - Every question can now be set to be optional. Setting template.optionalMark added (setting mandatoryMark from version 3.1.5 replaced).
 - The answer of text-fields is now checked too (it is no longer optional, but can be set to optional).
 - The RatingStar.css will now be included by the viewhelper f:asset in the template itself.
@@ -22,5 +22,6 @@ Changes in version 3.2:
 - Div with class card-body added to all cards.
 - Variable participant.username added.
 
-Changes in version 3.2.1:
+Changes in version 3.2.2:
 - Layout adapted for TYPO3 11.5.
+- Supports now PHP 8.
