@@ -165,7 +165,8 @@ class PageLayoutView
                    $this->getLanguageService()->sL(self::LLPATH . 'settings.ajax'),
                    (($ajax) ? $this->getLanguageService()->sL(self::LLPATH . 'settings.yes') : $this->getLanguageService()->sL(self::LLPATH . 'settings.no'))
                ];
-               if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'])) {
+               if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'])
+                   && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'])) {
                     $params = [
                         'action' => $actionTranslationKey
                     ];
@@ -302,8 +303,8 @@ class PageLayoutView
         $flexform = $this->flexformData;
         if (isset($flexform['data'])) {
             $flexform = $flexform['data'];
-            if (is_array($flexform) && is_array($flexform[$sheet]) && is_array($flexform[$sheet]['lDEF'])
-                && is_array($flexform[$sheet]['lDEF'][$key]) && isset($flexform[$sheet]['lDEF'][$key]['vDEF'])
+            if (isset($flexform) && isset($flexform[$sheet]) && isset($flexform[$sheet]['lDEF']) 
+                && isset($flexform[$sheet]['lDEF'][$key]) && isset($flexform[$sheet]['lDEF'][$key]['vDEF'])
             ) {
                 return $flexform[$sheet]['lDEF'][$key]['vDEF'];
             }

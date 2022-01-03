@@ -404,7 +404,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$this->participant->setName($defaultName);
 	    			$this->participant->setEmail($defaultEmail);
 	    			$this->participant->setHomepage($defaultHomepage);
-	    			$this->participant->setUser(intval($GLOBALS['TSFE']->fe_user->user['uid']));
+	    			$this->participant->setUser(isset($GLOBALS['TSFE']->fe_user->user['uid']) ? intval($GLOBALS['TSFE']->fe_user->user['uid']) : 0);
 	    			$this->participant->setIp($this->getRealIpAddr());
 	    			$this->participant->setSession($session);
                     if ($startTime) {
@@ -440,7 +440,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     			$debug .= "\n#" . $quid . '#: ';
     			if ($this->request->hasArgument('quest_' . $quid) && $this->request->getArgument('quest_' . $quid)) {
     				$isActive = true;
-    			} else if ($_POST['quest_' . $quid] || $_GET['quest_' . $quid]) {
+    			} else if (isset($_POST['quest_' . $quid]) || isset($_GET['quest_' . $quid])) {
     				// Ajax-call is without extensionname :-(
     				$isActive = true;
     			} else {
@@ -571,7 +571,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    								}
 	    							}
 	    							$selected->addAnswer($selectedAnswer);
-	    							if ($emailAnswers[$quid][$selectedAnswerUid]) {
+	    							if (isset($emailAnswers[$quid][$selectedAnswerUid])) {
 	    								$specialRecievers[$emailAnswers[$quid][$selectedAnswerUid]['email']] = $emailAnswers[$quid][$selectedAnswerUid];
 	    							}
 	    						}
