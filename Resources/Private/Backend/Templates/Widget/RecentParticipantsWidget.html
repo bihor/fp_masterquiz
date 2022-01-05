@@ -1,0 +1,36 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Widget/Default" />
+<f:section name="title">
+    <div class="widget-content-title-badge"><span>{f:translate(id: configuration.title, default: configuration.title)}</span></div>
+</f:section>
+
+<f:section name="main">
+    <table class="table">
+        <tr>
+            <th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.time" /></th>
+            <th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.name" /></th>
+            <th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.points" /></th>
+            <th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:quiz" /></th>
+        </tr>
+        <f:for each="{participants}" as="participant" iteration="iter">
+            <tr>
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                    <f:format.date format="d.m.Y - H:i:s">{participant.startdate}</f:format.date>
+                </td>
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                    {participant.username}
+                </td>
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                    {participant.points} / {participant.maximum2}
+                </td>
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                    {participant.quizname}
+                </td>
+            </tr>
+        </f:for>
+    </table>
+</f:section>
+
+<f:section name="footer">
+</f:section>
+</html>

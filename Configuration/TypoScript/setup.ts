@@ -133,7 +133,16 @@ module.tx_fpmasterquiz_web_fpmasterquizmod1 {
     }
 }
 
-## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
+module.tx_dashboard {
+	view {
+		layoutRootPaths {
+			42 = EXT:fp_masterquiz/Resources/Private/Backend/Layouts/
+		}
+		templateRootPaths {
+			42 = EXT:fp_masterquiz/Resources/Private/Backend/Templates/
+		}
+	}
+}
 
 # PAGE object for Ajax call (you need to add your language settings here too!):
 ajaxfpmasterquiz_page = PAGE

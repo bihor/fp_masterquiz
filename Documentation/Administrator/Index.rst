@@ -131,3 +131,7 @@ FAQ
 - Does the extension uses cookies?
 
   Only if you enable them via settings.user.useCookie. See chapter “Configuration”.
+
+- Is there a widget for the TYPO3 dashboard?
+
+  Yes, of course. It was added in version 3.2.3.

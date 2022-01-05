@@ -117,6 +117,7 @@ ChangeLog
   Div with class card-body added to all cards.
   Variable participant.username added.
 
-3.2.2:
+3.2.3:
   Layout adapted for TYPO3 11.5.
+  Widget for the TYPO3 dashboard added.
   Supports now PHP 8; thanks to Gerald Loss.

@@ -1,0 +1,28 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  Fixpunkt\FpMasterquiz\:
+    resource: '../Classes/*'
+
+  dashboard.widget.fixpunktRecentParticipants:
+    class: 'Fixpunkt\FpMasterquiz\Widgets\RecentParticipantsWidget'
+    arguments:
+      $view: '@dashboard.views.widget'
+      $dataProvider: '@Fixpunkt\FpMasterquiz\Widgets\Provider\RecentParticipantsDataProvider'
+      $options:
+        title: 'Recent votes by participant'
+        subtitle: 'Shows some details from newest votes.'
+        icon: 'content-coffee'
+        template: 'Widget/RecentParticipantsWidget'
+    tags:
+      - name: dashboard.widget
+        identifier: 'fixpunktRecentParticipants'
+        groupNames: 'general'
+        title: 'fp_masterquiz: recent votes by participant'
+        description: 'Shows some details from recent votes like user name, reached points and quiz'
+        iconIdentifier: 'content-widget-list'
+        height: 'medium'
+        width: 'medium'
