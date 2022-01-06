@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 namespace Fixpunkt\FpMasterquiz\Widgets;
 
-use Fixpunkt\FpMasterquiz\Widgets\Provider\RecentParticipantsDataProvider;
+use Fixpunkt\FpMasterquiz\Widgets\Provider\ParticipantsDataProvider;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
@@ -27,15 +27,15 @@ class RecentParticipantsWidget implements WidgetInterface
     private $options;
 
     /**
-     * @var RecentParticipantsDataProvider
+     * @var ParticipantsDataProvider
      */
     private $dataProvider;
 
     public function __construct(
         WidgetConfigurationInterface $configuration,
-        StandaloneView $view,
-        RecentParticipantsDataProvider $dataProvider,
-        array $options = []
+        StandaloneView               $view,
+        ParticipantsDataProvider     $dataProvider,
+        array                        $options = []
     ) {
         $this->configuration = $configuration;
         $this->view = $view;

@@ -8,9 +8,10 @@
     <table class="table">
         <tr>
             <th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.time" /></th>
-            <th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.name" /></th>
-            <th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.points" /></th>
             <th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:quiz" /></th>
+            <th>1. <f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_question" /></th>
+            <th>1. <f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_answer" /></th>
+            <th><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_answer.points" /></th>
         </tr>
         <f:for each="{participants}" as="participant" iteration="iter">
             <tr>
@@ -18,13 +19,16 @@
                     <f:format.date format="d.m.Y - H:i:s">{participant.startdate}</f:format.date>
                 </td>
                 <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
-                    {participant.username}
+                    {participant.quizname}
+                </td>
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                    {participant.question1}
+                </td>
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                    {participant.answer1}
                 </td>
                 <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
                     {participant.points} / {participant.maximum2}
-                </td>
-                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
-                    {participant.quizname}
                 </td>
             </tr>
         </f:for>

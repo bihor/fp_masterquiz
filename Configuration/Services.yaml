@@ -11,7 +11,7 @@ services:
     class: 'Fixpunkt\FpMasterquiz\Widgets\RecentParticipantsWidget'
     arguments:
       $view: '@dashboard.views.widget'
-      $dataProvider: '@Fixpunkt\FpMasterquiz\Widgets\Provider\RecentParticipantsDataProvider'
+      $dataProvider: '@Fixpunkt\FpMasterquiz\Widgets\Provider\ParticipantsDataProvider'
       $options:
         title: 'Recent votes by participant'
         subtitle: 'Shows some details from newest votes.'
@@ -21,8 +21,27 @@ services:
       - name: dashboard.widget
         identifier: 'fixpunktRecentParticipants'
         groupNames: 'general'
-        title: 'fp_masterquiz: recent votes by participant'
-        description: 'Shows some details from recent votes like user name, reached points and quiz'
+        title: 'fp_masterquiz: recent 7 votes'
+        description: 'Shows some details from recent votes by participant like user-name and quiz'
         iconIdentifier: 'content-widget-list'
+        height: 'medium'
+        width: 'medium'
+
+  dashboard.widget.fixpunktLastDays:
+    class: 'TYPO3\CMS\Dashboard\Widgets\BarChartWidget'
+    arguments:
+      $view: '@dashboard.views.widget'
+      $dataProvider: '@Fixpunkt\FpMasterquiz\Widgets\Provider\ParticipantsDataProvider'
+      $options:
+        title: 'fp_masterquiz: votes last days'
+        subtitle: 'Wird nicht angezeigt.'
+        template: 'Widget/ChartWidget'
+    tags:
+      - name: dashboard.widget
+        identifier: 'fixpunktLastDays'
+        groupNames: 'general'
+        title: 'fp_masterquiz: votes last 31 days'
+        description: 'Shows a bar chart with number of votes for each day'
+        iconIdentifier: 'content-widget-chart-bar'
         height: 'medium'
         width: 'medium'

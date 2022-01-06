@@ -134,4 +134,4 @@ FAQ
 
 - Is there a widget for the TYPO3 dashboard?
 
-  Yes, of course. It was added in version 3.2.3.
+  Yes, of course, there are 2. They were added in version 3.2.4.
