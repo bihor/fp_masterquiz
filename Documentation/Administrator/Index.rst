@@ -111,6 +111,10 @@ FAQ
 
   No.
 
+- Are there any dependencies?
+
+  Yes, you will need jQuery.
+
 - How can I change the translations text?
 
   Here an TypoScript example:

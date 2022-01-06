@@ -1162,8 +1162,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         } else {
             $participantArray = [];
         }
-        $quizPaginator = new ArrayPaginator($questionsArray, $page, $this->settings['pagebrowser']['itemsPerPage']);
-        $participantPaginator = new ArrayPaginator($participantArray, $page, $this->settings['pagebrowser']['itemsPerPage']);
+        $quizPaginator = new ArrayPaginator($questionsArray, $page, intval($this->settings['pagebrowser']['itemsPerPage']));
+        $participantPaginator = new ArrayPaginator($participantArray, $page, intval($this->settings['pagebrowser']['itemsPerPage']));
 
         $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
