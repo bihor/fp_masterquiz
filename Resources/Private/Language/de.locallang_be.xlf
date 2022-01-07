@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-09-28T09:54:59Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-01-07T10:16:49Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -262,6 +262,22 @@
 			<trans-unit id="settings.email.sendToUser" resname="settings.email.sendToUser">
 				<source>Send an email to the user at the final page?</source>
 				<target>Sende eine Email an den Teilnehmer am Schluss?</target>
+			</trans-unit>
+			<trans-unit id="dashboard.widget.fixpunktRecentParticipants.title" resname="dashboard.widget.fixpunktRecentParticipants.title">
+				<source>fp_masterquiz: the recent 7 votes</source>
+				<target>fp_masterquiz: die letzten 7 Teilnehmer</target>
+			</trans-unit>
+			<trans-unit id="dashboard.widget.fixpunktRecentParticipants.description" resname="dashboard.widget.fixpunktRecentParticipants.description">
+				<source>Shows some details from recent votes by participant like quiz and the 1. answer</source>
+				<target>Zeigt Details über die letzten Teilnehmer wie Datum und 1. Abstimmung</target>
+			</trans-unit>
+			<trans-unit id="dashboard.widget.fixpunktLastDays.title" resname="dashboard.widget.fixpunktLastDays.title">
+				<source>fp_masterquiz: votes of the last 31 days</source>
+				<target>fp_masterquiz: die letzten 31 Tage</target>
+			</trans-unit>
+			<trans-unit id="dashboard.widget.fixpunktLastDays.description" resname="dashboard.widget.fixpunktLastDays.description">
+				<source>Shows a bar chart with number of votes for each day</source>
+				<target>Zeigt ein Balkendiagramm mit der Anzahl der Abstimmungen pro Tag</target>
 			</trans-unit>
 		</body>
 	</file>

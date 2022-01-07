@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.2.4
+version 3.2.5
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -22,7 +22,7 @@ Changes in version 3.2.0:
 - Div with class card-body added to all cards.
 - Variable participant.username added.
 
-Changes in version 3.2.4:
+Changes in version 3.2.5:
 - Layout adapted for TYPO3 11.5.
 - 2 widgets for the TYPO3 dashboard added.
 - Supports now PHP 8.
