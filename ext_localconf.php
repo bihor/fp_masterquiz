@@ -6,7 +6,7 @@ call_user_func(
     {
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'Fixpunkt.FpMasterquiz',
+            'FpMasterquiz',
             'Pi1',
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'list, intro, default, show, showAjax, showByTag, closure, defaultres, result, highscore'

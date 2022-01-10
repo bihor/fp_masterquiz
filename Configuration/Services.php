@@ -12,7 +12,7 @@ use Fixpunkt\FpMasterquiz\Widgets\RecentParticipantsWidget;
 return function (ContainerConfigurator $configurator, ContainerBuilder $containerBuilder) {
     $services = $configurator->services();
 
-    if (ExtensionManagementUtility::isLoaded('dashboard')) {
+    if ((TYPO3_branch == '10.4' && ExtensionManagementUtility::isLoaded('dashboard')) || TYPO3_branch == '11.5') {
         $services->set('dashboard.widget.fixpunktRecentParticipants')
             ->class(RecentParticipantsWidget::class)
             ->arg('$view', new Reference('dashboard.views.widget'))

@@ -4,15 +4,8 @@ defined('TYPO3_MODE') || die('Access denied.');
 call_user_func(
     function()
     {
-
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-            'Fixpunkt.FpMasterquiz',
-            'Pi1',
-            'Master-Quiz'
-        );
-
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
-            'Fixpunkt.FpMasterquiz',
+            'FpMasterquiz',
             'web', // Make module a submodule of 'web'
             'mod1', // Submodule key
             '', // Position
@@ -48,6 +41,5 @@ call_user_func(
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_fpmasterquiz_domain_model_tag', 'EXT:fp_masterquiz/Resources/Private/Language/locallang_csh_tx_fpmasterquiz_domain_model_tag.xlf');
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_fpmasterquiz_domain_model_tag');
-
     }
 );

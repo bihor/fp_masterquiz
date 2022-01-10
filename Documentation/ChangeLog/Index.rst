@@ -119,5 +119,5 @@ ChangeLog
 
 3.3.0:
   Layout adapted for TYPO3 11.5.
-  2 widgets for the TYPO3 dashboard added.
+  2 widgets for the TYPO3 dashboard added (the extension dashboard is required in TYPO3 11).
   Supports now PHP 8; thanks to Gerald Loss.
