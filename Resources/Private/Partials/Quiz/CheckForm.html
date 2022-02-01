@@ -3,6 +3,7 @@ function checkQuizForm() {
 	var tempceuid = '{uidOfCE}';
 	$('#quiz-form'+tempceuid+' .quiz-question-buttons').each(function() {
 		var noneSelected = true;
+		// radio-buttons
 		var selectedCounter = 0;
 		$(this).find('.quiz-radio').each(function() {
 			selectedCounter++;
@@ -12,7 +13,9 @@ function checkQuizForm() {
 		});
 		if (selectedCounter>0 && noneSelected) {
 			allSelected = false;
+			$(this).closest('.card').attr("style", "border-color:#ff0000");
 		}
+		// Checkboxen
 		selectedCounter = 0;
 		$(this).find('.quiz-checkbox').each(function() {
 			selectedCounter++;
@@ -22,7 +25,9 @@ function checkQuizForm() {
 		});
 		if (selectedCounter>0 && noneSelected) {
 			allSelected = false;
+			$(this).closest('.card').attr("style", "border-color:#ff0000");
 		}
+		// Select-boxen
 		selectedCounter = 0;
 		$(this).find('.quiz-select').each(function() {
 			selectedCounter++;
@@ -32,7 +37,9 @@ function checkQuizForm() {
 		});
 		if (selectedCounter>0 && noneSelected) {
 			allSelected = false;
+			$(this).closest('.card').attr("style", "border-color:#ff0000");
 		}
+		// input-fields
 		selectedCounter = 0;
 		$(this).find('.quiz-input').each(function() {
 			selectedCounter++;
@@ -42,6 +49,7 @@ function checkQuizForm() {
 		});
 		if (selectedCounter>0 && noneSelected) {
 			allSelected = false;
+			$(this).closest('.card').attr("style", "border-color:#ff0000");
 		}
 	});
 	return allSelected;

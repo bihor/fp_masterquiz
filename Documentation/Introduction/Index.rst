@@ -23,7 +23,9 @@ Automatic deletion of quiz takers via task possible. Supporting of Ajax.
 
 Question types/modes: radio-box, checkbox, select-box, yes/no, text-field, textarea, star-rating.
 
-Avaiable languages: english and german/deutsch.
+jQuery is required. Optimized for Bootstrap 4.
+
+Available languages: english and german/deutsch.
 
 It is the official successor extension of myquizpoll. It is not backward compatible, but there is a simple import-task.
 

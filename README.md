@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.2.7
+version 3.2.8
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -10,9 +10,14 @@ Features: a quiz, poll or test can be played by submitting a form or by submitti
 
 7 question types/modes available: checkbox, radio-box, select-box, yes/no, text-field, textarea, star-rating.
 
+jQuery is required. Optimized for Bootstrap 4.
+
 This extension is not backward compatible to myquizpoll, but there is a simple import-task for myquizpoll-questions in older versions.
 
+Available languages: english and german/deutsch.
+
 You find the documentation at typo3.org: https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
+
 
 Changes in version 3.2.0:
 - Every question can now be set to be optional. Setting template.optionalMark added (setting mandatoryMark from version 3.1.5 replaced).
@@ -24,6 +29,8 @@ Changes in version 3.2.0:
 
 Changes in version 3.3.0:
 - Layout adapted for TYPO3 11.5.
+- Mandatory questions are now marked when an error appears. The error message is now not a JavaScript-alert-message.
 - 2 widgets for the TYPO3 dashboard added (the extension dashboard is required in TYPO3 11).
 - Supports now PHP 8.
-- Bugfixing: moving participant data to another folder.
+- Bugfix: moving participant data to another folder.
+- Bugfix: check of checkboxes fixed.

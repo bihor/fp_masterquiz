@@ -57,7 +57,6 @@
         var quizfinal = 0;
         var tagTimePeriod = 0;
         var quizIntervalId = null;
-        var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
         var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
     </script>
 
@@ -160,6 +159,11 @@
                             <f:form.hidden name="homepage" value="{homepage}" />
                         </f:if>
 
+                        <div id="quiz-error-msg" style="display:none;">
+                            <div class="alert alert-danger" role="alert">
+                                {f:translate(key: "text.errorEmpty")}
+                            </div>
+                        </div>
                         <div>
                             <div class="pull-right quiz-subm">
                                 <f:form.button class="btn btn-primary btn-lg" id="quiz-GoOn" name="quizGoOn"
@@ -214,7 +218,10 @@
                                     if (noFormCheck || allSelected) {
                                         $('#quiz-form' + ceuid).submit();
                                     } else {
-                                        window.alert(text_errorEmpty);
+                                        $('#quiz-error-msg').removeAttr("style");
+                                        setTimeout(function() {
+                                            $('#quiz-error-msg').hide();
+                                        }, 5000);
                                     }
                                 });
                             }, false);

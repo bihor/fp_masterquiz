@@ -119,6 +119,8 @@ ChangeLog
 
 3.3.0:
   Layout adapted for TYPO3 11.5.
+  Mandatory questions are now marked when an error appears. The error message is now not a JavaScript-alert-message.
   2 widgets for the TYPO3 dashboard added (the extension dashboard is required in TYPO3 11).
   Supports now PHP 8; thanks to Gerald Loss.
-  Bugfixing: moving participant data to another folder.
+  Bugfix: moving participant data to another folder.
+  Bugfix: check of checkboxes fixed.

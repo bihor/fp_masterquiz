@@ -343,7 +343,7 @@ FAQ
 
 - Optional questions are not marked. Why not?
 
-  You need to define the mark-symbol by yourself via the TypoScript-setting: settings.template.optionalMark = *.
+  You need to define the mark-symbol by yourself via the TypoScript-setting. E.g. settings.template.optionalMark = *.
 
 - The text changes to english when I activate Ajax. Whats wrong?
 

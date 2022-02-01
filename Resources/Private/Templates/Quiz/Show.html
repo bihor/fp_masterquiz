@@ -55,7 +55,6 @@
 			var noFormCheck = (({settings.noFormCheck} == 1) ? true : false);
 			var ajaxVersion = false;
 			var quizIntervalId = null;
-			var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
 			var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
 		</script>
 
@@ -101,6 +100,11 @@
 					<f:form.hidden name="homepage" value="{homepage}" />
 				</f:if>
 
+				<div id="quiz-error-msg" style="display:none;">
+					<div class="alert alert-danger" role="alert">
+						{f:translate(key: "text.errorEmpty")}
+					</div>
+				</div>
 				<div id="quiz-button-wrap">
 					<div class="pull-right quiz-subm">
 						<f:form.submit value="{f:translate(key: 'text.goon')}" class="btn btn-primary btn-lg" name="quizGoOn" id="quiz-GoOn" />
@@ -156,7 +160,10 @@
 							if (quizend || noFormCheck || allSelected || ($('#quiz-form'+ceuid+' #quiz-form-joker').val() == '1')) {
 								service.ajaxCall($(this));
 							} else {
-								window.alert(text_errorEmpty);
+								$('#quiz-error-msg').removeAttr("style");
+								setTimeout(function() {
+									$('#quiz-error-msg').hide();
+								}, 5000);
 							}
 			            });
 			            service.ajaxCall(form);
@@ -244,6 +251,11 @@
 									<f:form.hidden name="homepage" value="{homepage}" />
 								</f:if>
 
+								<div id="quiz-error-msg" style="display:none;">
+									<div class="alert alert-danger" role="alert">
+										{f:translate(key: "text.errorEmpty")}
+									</div>
+								</div>
 								<div>
 									<div class="pull-right quiz-subm">
 										<f:form.button type="button" name="quizGoOn" id="quiz-GoOn" class="btn btn-primary btn-lg">
@@ -274,7 +286,10 @@
                                             if (noFormCheck || allSelected) {
                                                 $('#quiz-form'+ceuid).submit();
                                             } else {
-                                                window.alert(text_errorEmpty);
+                                                $('#quiz-error-msg').removeAttr("style");
+												setTimeout(function() {
+													$('#quiz-error-msg').hide();
+												}, 5000);
                                             }
                                         });
 									}, false);
