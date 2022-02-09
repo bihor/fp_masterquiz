@@ -679,10 +679,18 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         if ($this->settings['debug']) {
                             $debug .= "\n own:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
                         }
-                        $ownResults[$oneAnswer->getUid()]++;
+                        if (isset($ownResults[$oneAnswer->getUid()])) {
+                            $ownResults[$oneAnswer->getUid()]++;
+                        } else {
+                            $ownResults[$oneAnswer->getUid()] = 1;
+                        }
                     }
                     foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-                        $oneAnswer->setOwnAnswer (intval($ownResults[$oneAnswer->getUid()]));
+                        $own = 0;
+                        if (isset($ownResults[$oneAnswer->getUid()])) {
+                            $own = intval($ownResults[$oneAnswer->getUid()]);
+                        }
+                        $oneAnswer->setOwnAnswer ($own);
                     }
     		    }
     		}
@@ -941,7 +949,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     $debug .= "\n all: " . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
                 }
                 if (($isEnterQuestion && ($aSelectedQuestion->getEntered() == $oneAnswer->getTitle())) || !$isEnterQuestion) {
-                    $allResults[$oneAnswer->getUid()]++;
+                    if (isset($allResults[$oneAnswer->getUid()])) {
+                        $allResults[$oneAnswer->getUid()]++;
+                    } else {
+                        $allResults[$oneAnswer->getUid()] = 1;
+                    }
                 } else if ($be) {
                     // Text-Antworten anderer interessieren uns nur im Backend
                     if (!is_array($allResults['text'])) {
@@ -950,13 +962,17 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     if (!is_array($allResults['text'][$aSelectedQuestion->getEntered()])) {
                         $allResults['text'][$aSelectedQuestion->getEntered()] = [];
                     }
-                    $allResults['text'][$aSelectedQuestion->getEntered()]['sum']++;
+                    if (isset($allResults['text'][$aSelectedQuestion->getEntered()]['sum'])) {
+                        $allResults['text'][$aSelectedQuestion->getEntered()]['sum']++;
+                    } else {
+                        $allResults['text'][$aSelectedQuestion->getEntered()]['sum'] = 1;
+                    }
                 }
             }
         }
         // gesammeltes speichern bei: alle möglichen Antworten einer Frage und Prozentwerte setzen
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-            $thisVotes = intval($allResults[$oneAnswer->getUid()]);
+            $thisVotes = isset($allResults[$oneAnswer->getUid()]) ? intval($allResults[$oneAnswer->getUid()]) : 0;
             $votesTotal += $thisVotes;
             if ($be && $isEnterQuestion && is_array($allResults) && is_array($allResults['text'])) {
                 // bei Text-Antworten alle Textantworten berücksichtigen
@@ -969,7 +985,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $oneAnswer->setAllAnswers($thisVotes);
         }
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-            $thisVotes = intval($allResults[$oneAnswer->getUid()]);
+            $thisVotes = isset($allResults[$oneAnswer->getUid()]) ? intval($allResults[$oneAnswer->getUid()]) : 0;
             $percentage = 0;
             if ($votes) {
                 $percentage = 100 * ($thisVotes / $votes);
