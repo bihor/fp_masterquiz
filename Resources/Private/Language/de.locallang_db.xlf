@@ -97,7 +97,7 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.evaluate" resname="tx_fpmasterquiz_domain_model_evaluation.evaluate">
 				<source>Evaluate points (unchecked) or percentage (checked)?</source>
-				<target>Werte die Punkte (nicht angekreuzt) oder die Prozente (angekreuzt) aus?</target>
+				<target>Werte die Punkte (nicht angekreuzt) oder die Prozente (angekreuzt) oder die Kategorien (eine Kategorie markiert) aus?</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.minimum" resname="tx_fpmasterquiz_domain_model_evaluation.minimum">
 				<source>Minimum value</source>

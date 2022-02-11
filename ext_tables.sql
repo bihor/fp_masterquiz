@@ -338,6 +338,11 @@ CREATE TABLE tx_fpmasterquiz_domain_model_answer (
 	categories int(11) unsigned DEFAULT '0' NOT NULL,
 );
 
+CREATE TABLE tx_fpmasterquiz_domain_model_evaluation
+(
+    categories int(11) unsigned DEFAULT '0' NOT NULL,
+);
+
 #
 # Table structure for table 'tx_fpmasterquiz_domain_model_selected'
 #

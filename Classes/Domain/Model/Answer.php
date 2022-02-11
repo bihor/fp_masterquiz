@@ -68,6 +68,26 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $totalPercent = 0.0;
 
     /**
+     * category
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     */
+    protected $categories = null;
+
+    /**
+     * Initializes all ObjectStorage properties
+     * Do not modify this method!
+     * It will be rewritten on each save in the extension builder
+     * You may modify the constructor of this class instead
+     *
+     * @return void
+     */
+    protected function initStorageObjects()
+    {
+        $this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    }
+
+    /**
      * Returns the title
      *
      * @return string $title
@@ -223,5 +243,15 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTotalPercent($percent)
     {
         $this->totalPercent = $percent;
+    }
+
+    /**
+     * Returns the categories
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

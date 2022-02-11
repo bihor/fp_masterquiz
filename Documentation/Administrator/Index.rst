@@ -59,6 +59,8 @@ totalPercent (total percent of all users - all checkboxes counted).
 An evaluation has this variables:
 evaluate (evaluate points (unchecked) or percentage (checked)), minimum and maximum, image, bodytext,
 ce (content element ID), page (page ID).
+Note: if a category is marked, the evaluation will seek for categories instead. The category of answers will be validated.
+The category which was used most be the participant will be taken.
 
 A tag has this variables:
 name, timeperiod (in seconds).

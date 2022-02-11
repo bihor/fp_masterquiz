@@ -601,7 +601,42 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->completed;
     }
-    
+
+    /**
+     * Returns the most selected category
+     *
+     * @return array
+     */
+    public function getCategoryMost()
+    {
+        $mostValue = 0;
+        $mostUid = 0;
+        $mostArray = [];
+        $mostEntry = [];
+        foreach ($this->selections as $selection) {
+            foreach ($selection->getAnswers() as $answer) {
+                $cats = $answer->getCategories();
+                foreach ($cats as $cat) {
+                    $uid = $cat->getUid();
+                    if (isset($mostArray[$uid])) {
+                        $mostArray[$uid]++;
+                    } else {
+                        $mostArray[$uid] = 1;
+                    }
+                }
+            }
+        }
+        foreach ($mostArray as $key => $value) {
+            if ($value > $mostValue) {
+                $mostUid = $key;
+                $mostValue = $value;
+            }
+        }
+        $mostEntry['uid'] = $mostUid;
+        $mostEntry['count'] = $mostValue;
+        return $mostEntry;
+    }
+
     /**
      * Adds a Selected
      *

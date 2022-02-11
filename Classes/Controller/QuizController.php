@@ -630,15 +630,35 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		// finale Auswertung ...
     		$final = 1;
             $showAnswersNext = 0;
+            $finalCategoryArray = [];
     		foreach ($quiz->getEvaluations() as $evaluation) {
-    			if (!$evaluation->isEvaluate()) {
-    				// Punkte auswerten
-    				$final_points = $this->participant->getPoints();
-    			} else {
-    				// Prozente auswerten
-    				$final_points = $this->participant->getPercent2();
-    			}
-    			if (($final_points >= $evaluation->getMinimum()) && ($final_points <= $evaluation->getMaximum())) {
+                $categories = $evaluation->getCategories();
+                $categoryUid = 0;
+                $finalCategory = 0;
+                $finalPoints = 0;
+                if ($categories) {
+                    foreach ($categories as $category) {
+                        $categoryUid = $category->getUid();
+                        break;
+                    }
+                    if ($categoryUid) {
+                        if (!isset($finalCategoryArray['uid'])) {
+                            // hole die am meisten angeklickte Kategorie nur einmal
+                            $finalCategoryArray = $this->participant->getCategoryMost();
+                        }
+                        $finalCategory = $finalCategoryArray['uid'];
+                    }
+                } else {
+                    if (!$evaluation->isEvaluate()) {
+                        // Punkte auswerten
+                        $finalPoints = $this->participant->getPoints();
+                    } else {
+                        // Prozente auswerten
+                        $finalPoints = $this->participant->getPercent2();
+                    }
+                }
+    			if (($categoryUid && $finalCategory==$categoryUid) ||
+                    (!$categoryUid && ($finalPoints >= $evaluation->getMinimum()) && ($finalPoints <= $evaluation->getMaximum()))) {
     				// Punkte-Match
     				if ($evaluation->getPage() > 0) {
     					// Weiterleitung zu diese Seite
