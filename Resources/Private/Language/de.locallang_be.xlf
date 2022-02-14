@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-01-07T10:16:49Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-02-14T11:19:34Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -80,12 +80,12 @@
 				<target>Anzahl der Fragen pro Seite:</target>
 			</trans-unit>
 			<trans-unit id="settings.showAnswerPage" resname="settings.showAnswerPage">
-				<source>Show a solution page after every submit?</source>
-				<target>Zeige eine Auswertung nach jedem absenden an?</target>
+				<source>Show a solution page with answered questions after every submit?</source>
+				<target>Zeige eine Auswertung der beantworteten Fragen nach jedem absenden an?</target>
 			</trans-unit>
 			<trans-unit id="settings.showAnswersAtFinalPage" resname="settings.showAnswersAtFinalPage">
-				<source>Show the solutions at the final page?</source>
-				<target>Zeige die Auswertung auf der Schlußseite an?</target>
+				<source>Show the answered questions (solutions) at the final page?</source>
+				<target>Zeige die beantworteten Fragen (Auswertung) auf der Schlußseite an?</target>
 			</trans-unit>
 			<trans-unit id="settings.showOwnAnswers" resname="settings.showOwnAnswers">
 				<source>Show the own answers?</source>
@@ -106,6 +106,10 @@
 			<trans-unit id="settings.showPoints" resname="settings.showPoints">
 				<source>Show the possible/reached points?</source>
 				<target>Zeige die möglichen/erreichten Punkte an?</target>
+			</trans-unit>
+			<trans-unit id="settings.showDetailedCategoryEval" resname="settings.showDetailedCategoryEval">
+				<source>Show detailed category evaluation if categories are used?</source>
+				<target>Zeige eine detaillierte Kategorieauswertung an, wenn Kategorien benutzt werden?</target>
 			</trans-unit>
 			<trans-unit id="settings.noFormCheck" resname="settings.noFormCheck">
 				<source>Disable form check (set all questions as non mandatory)?</source>
@@ -268,7 +272,7 @@
 				<target>fp_masterquiz: die letzten 7 Teilnehmer</target>
 			</trans-unit>
 			<trans-unit id="dashboard.widget.fixpunktRecentParticipants.description" resname="dashboard.widget.fixpunktRecentParticipants.description">
-				<source>Shows some details from recent votes by participant like quiz and the 1. answer</source>
+				<source>Shows some details from recent votes by participant like date and the 1. answer</source>
 				<target>Zeigt Details über die letzten Teilnehmer wie Datum und 1. Abstimmung</target>
 			</trans-unit>
 			<trans-unit id="dashboard.widget.fixpunktLastDays.title" resname="dashboard.widget.fixpunktLastDays.title">

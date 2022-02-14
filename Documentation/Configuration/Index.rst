@@ -46,11 +46,12 @@ showAnswerPage               boolean     Show an answer page after every submit?
 showOwnAnswers               integer     Show the answers of the quiz taker? 0,1 or 2.   2
 showCorrectAnswers           integer     Show the correct answers? 0, 1 or 2.            1
 showEveryAnswer              integer     Show every answer? 0, 1 or 2 (see below).       0
-showAnswersAtFinalPage       boolean     Show solutions at the final page?               1
+showAnswersAtFinalPage       boolean     Show answers with solutions at the final page?  1
 showAllAnswers               boolean     Show finally all answers (no. of choices)?      1
 showPoints                   boolean     Show the possible/reached points if maximum>0?  1
 showPageNo                   boolean     Show the page number / number of pages?         1
 showQuestionNo               boolean     Show the question no. / no. of questions?       0
+showDetailedCategoryEval     boolean     Show detailed category evaluation if available? 0
 checkAllStars                boolean     Check all stars on star rating by default?      0
 highscoreLimit               integer     Number of entries in the highscore              10
 noFormCheck                  boolean     Don´t check for answered questions at all?      0

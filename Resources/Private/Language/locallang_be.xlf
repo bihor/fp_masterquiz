@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-01-07T10:16:49Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-02-14T11:19:34Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -61,10 +61,10 @@
 				<source>Number of questions per page:</source>
 			</trans-unit>
 			<trans-unit id="settings.showAnswerPage" resname="settings.showAnswerPage">
-				<source>Show a solution page after every submit?</source>
+				<source>Show a solution page with answered questions after every submit?</source>
 			</trans-unit>
 			<trans-unit id="settings.showAnswersAtFinalPage" resname="settings.showAnswersAtFinalPage">
-				<source>Show the solutions at the final page?</source>
+				<source>Show the answered questions (solutions) at the final page?</source>
 			</trans-unit>
 			<trans-unit id="settings.showOwnAnswers" resname="settings.showOwnAnswers">
 				<source>Show the own answers?</source>
@@ -80,6 +80,9 @@
 			</trans-unit>
 			<trans-unit id="settings.showPoints" resname="settings.showPoints">
 				<source>Show the possible/reached points?</source>
+			</trans-unit>
+			<trans-unit id="settings.showDetailedCategoryEval" resname="settings.showDetailedCategoryEval">
+				<source>Show detailed category evaluation if categories are used?</source>
 			</trans-unit>
 			<trans-unit id="settings.noFormCheck" resname="settings.noFormCheck">
 				<source>Disable form check (set all questions as non mandatory)?</source>

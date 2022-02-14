@@ -118,8 +118,9 @@ ChangeLog
   Variable participant.username added.
 
 3.3.0:
-  Layout adapted for TYPO3 11.5.
-  Evaluation of the most used category is now possible too.
+  Backend-Layout adapted for TYPO3 11.5.
+  Evaluation of the most used category is now possible too. Setting showDetailedCategoryEvaluation added.
+  TYPO3 categories are now available at a quiz, question, answer, selected and evaluation.
   Mandatory questions are now marked when an error appears. The error message is now not a JavaScript-alert-message.
   2 widgets for the TYPO3 dashboard added (the extension dashboard is required in TYPO3 11).
   Supports now PHP 8; thanks to Gerald Loss.

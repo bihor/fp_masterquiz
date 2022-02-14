@@ -6,6 +6,15 @@
 				<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
         	<br/>
 		</f:if></f:if>
+		<f:if condition="{settings.showDetailedCategoryEval} && {finalCategories.uid}">
+			<p><f:translate key="text.detailEvaluation" /></p>
+			<table>
+				<tr><th><f:translate key="text.categoryTitle" /></th><th><f:translate key="text.categoryCount" /></th></tr>
+				<f:for each="{finalCategories.all}" as="oneCat">
+					<tr><td>{oneCat.title}</td><td>{oneCat.count}x</td></tr>
+				</f:for>
+			</table>
+		</f:if>
 		<f:if condition="{finalImageuid}">
 			<f:image src="{finalImageuid}" treatIdAsReference="1" class="img-fluid" />
 		</f:if>

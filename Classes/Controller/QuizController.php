@@ -315,12 +315,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$reload = false;
     	$doPersist = false;
     	$partBySes = null;
-    	$maximum1 = 0;          // maximum points
-    	$finalBodytext = '';	// bodytext and image for the final page
-    	$finalImageuid = 0;     // image for the final page
-    	$finalContent = '';		// special content for the final page
-    	$emailAnswers = [];		// special admin email to answer relations
-    	$specialRecievers = [];	// special admin email recievers
+    	$maximum1 = 0;              // maximum points
+    	$finalBodytext = '';	    // bodytext and image for the final page
+    	$finalImageuid = 0;         // image for the final page
+    	$finalContent = '';		    // special content for the final page
+        $finalCategoryArray = [];   // Auswertung der angeklickten Kategorien
+    	$emailAnswers = [];		    // special admin email to answer relations
+    	$specialRecievers = [];	    // special admin email recievers
     	$debug = $userData['debug'];	    // debug output
         $session = $userData['session'];    // session key
         $newUser = $userData['newUser'];	// is a new user?
@@ -630,7 +631,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		// finale Auswertung ...
     		$final = 1;
             $showAnswersNext = 0;
-            $finalCategoryArray = [];
     		foreach ($quiz->getEvaluations() as $evaluation) {
                 $categories = $evaluation->getCategories();
                 $categoryUid = 0;
@@ -643,7 +643,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     }
                     if ($categoryUid) {
                         if (!isset($finalCategoryArray['uid'])) {
-                            // hole die am meisten angeklickte Kategorie nur einmal
+                            // hole die am meisten angeklickte Kategorie + andere Daten nur einmal
                             $finalCategoryArray = $this->participant->getCategoryMost();
                         }
                         $finalCategory = $finalCategoryArray['uid'];
@@ -791,6 +791,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    			'finalContent' => $finalContent,
     		'finalBodytext' => $finalBodytext,
     		'finalImageuid' => $finalImageuid,
+            'finalCategoryArray' => $finalCategoryArray,
    			'showAnswers' => $showAnswers,
     	    'showAnswersNext' => $showAnswersNext,
     	    'useJoker' => $useJoker,
@@ -1220,6 +1221,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('finalContent', $data['finalContent']);
         $this->view->assign('finalBodytext', $data['finalBodytext']);
         $this->view->assign('finalImageuid', $data['finalImageuid']);
+        $this->view->assign('finalCategories', $data['finalCategoryArray']);
         $this->view->assign('session', $data['session']);
         $this->view->assign('showAnswers', $data['showAnswers']);
         $this->view->assign('showAnswersNext', $data['showAnswersNext']);
@@ -1327,6 +1329,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('finalContent', $data['finalContent']);
         $this->view->assign('finalBodytext', $data['finalBodytext']);
         $this->view->assign('finalImageuid', $data['finalImageuid']);
+        $this->view->assign('finalCategories', $data['finalCategoryArray']);
         $this->view->assign('session', $data['session']);
         $this->view->assign('showAnswers', $data['showAnswers']);
         $this->view->assign('showAnswersNext', $data['showAnswersNext']);
@@ -1445,6 +1448,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
         $this->view->assign('final', $data['final']);
         $this->view->assign('finalContent', $data['finalContent']);
+        $this->view->assign('finalCategories', $data['finalCategoryArray']);
         $this->view->assign('session', $data['session']);
         $this->view->assign('showAnswers', $data['showAnswers']);
         $this->view->assign('showAnswersNext', $data['showAnswersNext']);

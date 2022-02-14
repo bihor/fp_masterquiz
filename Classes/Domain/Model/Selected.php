@@ -51,7 +51,14 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $sorting = 0;
-    
+
+    /**
+     * category
+     *
+     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     */
+    protected $categories = null;
+
     /**
      * __construct
      */
@@ -72,6 +79,7 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected function initStorageObjects()
     {
         $this->answers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
     
     /**
@@ -220,5 +228,15 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function getMaximumPoints()
     {
         return $this->question->getMaximum1();
+    }
+
+    /**
+     * Returns the categories
+     *
+     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

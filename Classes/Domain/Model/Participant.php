@@ -613,6 +613,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         $mostUid = 0;
         $mostArray = [];
         $mostEntry = [];
+        $generalArray = [];
         foreach ($this->selections as $selection) {
             foreach ($selection->getAnswers() as $answer) {
                 $cats = $answer->getCategories();
@@ -622,11 +623,14 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                         $mostArray[$uid]++;
                     } else {
                         $mostArray[$uid] = 1;
+                        $generalArray[$uid] = [];
+                        $generalArray[$uid]['title'] = $cat->getTitle();
                     }
                 }
             }
         }
         foreach ($mostArray as $key => $value) {
+            $generalArray[$key]['count'] = $value;
             if ($value > $mostValue) {
                 $mostUid = $key;
                 $mostValue = $value;
@@ -634,6 +638,8 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         }
         $mostEntry['uid'] = $mostUid;
         $mostEntry['count'] = $mostValue;
+        $mostEntry['title'] = $generalArray[$mostUid]['title'];
+        $mostEntry['all'] = $generalArray;
         return $mostEntry;
     }
 

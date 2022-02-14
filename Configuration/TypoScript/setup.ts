@@ -39,6 +39,7 @@ plugin.tx_fpmasterquiz {
 		showPoints = 1
 		showPageNo = 1
 		showQuestionNo = 0
+		showDetailedCategoryEval = 0
 		highscoreLimit = 10
 		checkAllStars = 0
 		noFormCheck = 0

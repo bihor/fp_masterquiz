@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-12-09T13:24:54Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2022-02-14T11:12:10Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -296,6 +296,15 @@
 			</trans-unit>
 			<trans-unit id="text.optional" resname="text.optional">
 				<source>: optional</source>
+			</trans-unit>
+			<trans-unit id="text.detailEvaluation" resname="text.detailEvaluation">
+				<source>The detailed evaluation of your answers leads to the result given below.</source>
+			</trans-unit>
+			<trans-unit id="text.categoryTitle" resname="text.categoryTitle">
+				<source>Category</source>
+			</trans-unit>
+			<trans-unit id="text.categoryCount" resname="text.categoryCount">
+				<source>Clicked by you</source>
 			</trans-unit>
 		</body>
 	</file>
