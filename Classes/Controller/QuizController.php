@@ -126,12 +126,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 if (strpos($fieldName, '.') !== false) {
                     // Multilevel
                     $keyAsArray = explode('.', $fieldName);
-                    if (!($originalSettings[$keyAsArray[0]][$keyAsArray[1]]) && isset($tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]])) {
+                    if ((!isset($originalSettings[$keyAsArray[0]][$keyAsArray[1]]) || !($originalSettings[$keyAsArray[0]][$keyAsArray[1]]))
+                        && isset($tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]])) {
                         $originalSettings[$keyAsArray[0]][$keyAsArray[1]] = $tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]];
                     }
                 } else {
                     // Simple
-                    if (!($originalSettings[$fieldName]) && isset($tsSettings[$fieldName])) {
+                    if ((!isset($originalSettings[$fieldName]) || !($originalSettings[$fieldName]))
+                        && isset($tsSettings[$fieldName])) {
                         $originalSettings[$fieldName] = $tsSettings[$fieldName];
                     }
                 }
