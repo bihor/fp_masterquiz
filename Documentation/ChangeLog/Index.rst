@@ -117,7 +117,7 @@ ChangeLog
   Div with class card-body added to all cards.
   Variable participant.username added.
 
-3.3.0:
+3.3.1:
   Backend-Layout adapted for TYPO3 11.5.
   Evaluation of the most used category is now possible too. Setting showDetailedCategoryEvaluation added.
   TYPO3 categories are now available at a quiz, question, answer, selected and evaluation.
@@ -126,3 +126,6 @@ ChangeLog
   Supports now PHP 8; thanks to Gerald Loss.
   Bugfix: moving participant data to another folder.
   Bugfix: check of checkboxes fixed.
+
+3.3.2:
+  The answer of textarea-fields is now checked too (it is no longer optional, but can be set to optional).

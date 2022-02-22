@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.3.1
+version 3.3.2
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -21,7 +21,7 @@ Available languages: english and german/deutsch.
 You find the documentation at typo3.org: https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
 
 
-Changes in version 3.3:
+Changes in version 3.3.1:
 - Backend-Layout adapted for TYPO3 11.5.
 - Evaluation of the most used category is now possible too. Setting showDetailedCategoryEvaluation added.
 - TYPO3 categories are now available at a quiz, question, answer, selected and evaluation.
@@ -30,3 +30,6 @@ Changes in version 3.3:
 - Supports now PHP 8.
 - Bugfix: moving participant data to another folder.
 - Bugfix: check of checkboxes fixed.
+
+Changes in version 3.3.2:
+- The answer of textarea-fields is now checked too (it is no longer optional, but can be set to optional).

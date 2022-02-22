@@ -12,7 +12,7 @@
 	</f:if>
 	<f:comment> {question -> f:debug(title: 'Members of question')} </f:comment>
 	{settings.template.wrapQuestionTitle1 -> f:format.raw()}
-		{question.title}<f:if condition="{settings.template.optionalMark}"><f:if condition="{question.optional} || ({question.qmode} == 4) || ({question.qmode} == 5) || ({question.qmode} == 7)"><f:then>{settings.template.optionalMark -> f:format.raw()}</f:then><f:else></f:else></f:if></f:if>
+		{question.title}<f:if condition="{settings.template.optionalMark}"><f:if condition="{question.optional} || ({question.qmode} == 4) || ({question.qmode} == 7)"><f:then>{settings.template.optionalMark -> f:format.raw()}</f:then><f:else></f:else></f:if></f:if>
 	{settings.template.wrapQuestionTitle2 -> f:format.raw()}
 	{settings.template.wrapQuestionDesc1 -> f:format.raw()}
 		<f:format.html>{question.bodytext}</f:format.html>
@@ -75,7 +75,7 @@
 							<f:case value="5">
 								<f:comment>When 'Enter an answer' in a textarea</f:comment> 
 								<br/>
-								<div class="quiz-textarea">
+								<div class="quiz-textarea{f:if(condition: '{question.optional}', then: ' quiz-answer-optional')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
 										{f:translate(key: "text.answer.textarea")}
 										<f:form.textarea name="answer_text_{question.uid}" value="{x->f:for(each:'{question.textAnswers}', as: 'x')}" class="quiz-textbox" />

@@ -40,4 +40,13 @@ if (quizfinal == 0) {
 			$(this).closest( ".card" ).removeAttr("style");
 		}
 	});
+	$( "#quiz-form"+ceuid+" .quiz-textbox" ).change(function() {
+		// add selected class to the quiz-textarea if there is a value
+		if ($(this).val() == '') {
+			$(this).closest( ".quiz-textarea" ).removeClass( 'quiz-answer-selected' );
+		} else {
+			$(this).closest( ".quiz-textarea" ).addClass( 'quiz-answer-selected' );
+			$(this).closest( ".card" ).removeAttr("style");
+		}
+	});
 }
