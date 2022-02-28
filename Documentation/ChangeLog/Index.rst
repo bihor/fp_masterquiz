@@ -127,5 +127,6 @@ ChangeLog
   Bugfix: moving participant data to another folder.
   Bugfix: check of checkboxes fixed.
 
-3.3.2:
+3.3.3:
   The answer of textarea-fields is now checked too (it is no longer optional, but can be set to optional).
+  Dashboard no longer required in TYPO3 11.

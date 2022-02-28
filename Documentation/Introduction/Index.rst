@@ -23,7 +23,7 @@ Automatic deletion of quiz takers via task possible. Supporting of Ajax.
 
 Question types/modes: radio-box, checkbox, select-box, yes/no, text-field, textarea, star-rating.
 
-jQuery is required. Optimized for Bootstrap 4.
+jQuery is required. Optimized for Bootstrap 4. 2 widgets for the dashboard available.
 
 Available languages: english and german/deutsch.
 
