@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-02-14T11:19:34Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-03-01T14:25:02Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -183,12 +183,20 @@
 				<source>Deletes all old participants of a folder.</source>
 				<target>Importiert myquizpoll-Einträge eines ausgewählten Ordners.</target>
 			</trans-unit>
+			<trans-unit id="tasks.exportTitle" resname="tasks.exportTitle">
+				<source>Export CSV-file with participants</source>
+				<target>Exportiere CSV-Datei mit Teilnehmern</target>
+			</trans-unit>
+			<trans-unit id="tasks.exportDescription" resname="tasks.exportDescription">
+				<source>Exports participants (with all data) of a folder.</source>
+				<target>Exportiere die Teilnehmer eines Ordners</target>
+			</trans-unit>
 			<trans-unit id="tasks.validate.page" resname="tasks.validate.page">
-				<source>Page with elements (pages UID):</source>
+				<source>Page with quiz-elements (pages UID):</source>
 				<target>Seite mit den Einträgen (Seiten-UID):</target>
 			</trans-unit>
 			<trans-unit id="tasks.validate.invalidPage" resname="tasks.validate.invalidPage">
-				<source>Invalid pages uid or the page is not visible!</source>
+				<source>Invalid pages uid, please enter a valid pages uid!</source>
 				<target>Diese Seite gibt es nicht oder sie ist nicht freigegeben!</target>
 			</trans-unit>
 			<trans-unit id="tasks.validate.days" resname="tasks.validate.days">
@@ -282,6 +290,30 @@
 			<trans-unit id="dashboard.widget.fixpunktLastDays.description" resname="dashboard.widget.fixpunktLastDays.description">
 				<source>Shows a bar chart with number of votes for each day</source>
 				<target>Zeigt ein Balkendiagramm mit der Anzahl der Abstimmungen pro Tag</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.csvfile" resname="tasks.validate.csvfile">
+				<source>Path and name of the csv file (must begin with &quot;fileadmin/&quot;):</source>
+				<target>Pfad und Name der CSV-Datei (muss mit &quot;fileadmin/&quot; beginnen):</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.separator" resname="tasks.validate.separator">
+				<source>Separator:</source>
+				<target>Begrenzungszeichen:</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.delimiter" resname="tasks.validate.delimiter">
+				<source>Delimiter:</source>
+				<target>Trennzeichen:</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.ansdelimiter" resname="tasks.validate.ansdelimiter">
+				<source>Answers delimiter:</source>
+				<target>Trennzeichen bei Antworten:</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.convert" resname="tasks.validate.convert">
+				<source>Convert text from UTF-8 to ISO?</source>
+				<target>Von UTF-8 nach ISO konvertieren?</target>
+			</trans-unit>
+			<trans-unit id="tasks.validate.invalidCsvfile" resname="tasks.validate.invalidCsvfile">
+				<source>Invalid csv file, please enter a valid path to the csv file in the fileadmin folder!</source>
+				<target>Der Name der CSV-Datei wird nicht akzeptiert!</target>
 			</trans-unit>
 		</body>
 	</file>

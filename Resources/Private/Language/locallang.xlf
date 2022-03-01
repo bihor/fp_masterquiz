@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2022-02-14T11:12:10Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2022-03-01T10:27:35Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -92,6 +92,12 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.name" resname="tx_fpmasterquiz_domain_model_participant.name">
 				<source>Name</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.sys_language_uid" resname="tx_fpmasterquiz_domain_model_participant.sys_language_uid">
+				<source>Language</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_participant.crdate" resname="tx_fpmasterquiz_domain_model_participant.crdate">
+				<source>Date</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.email" resname="tx_fpmasterquiz_domain_model_participant.email">
 				<source>E-Mail</source>

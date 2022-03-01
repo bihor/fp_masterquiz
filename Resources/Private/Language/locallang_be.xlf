@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-02-14T11:19:34Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-03-01T14:25:02Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -138,11 +138,17 @@
 			<trans-unit id="tasks.description" resname="tasks.description">
 				<source>Deletes all old participants of a folder.</source>
 			</trans-unit>
+			<trans-unit id="tasks.exportTitle" resname="tasks.exportTitle">
+				<source>Export CSV-file with participants</source>
+			</trans-unit>
+			<trans-unit id="tasks.exportDescription" resname="tasks.exportDescription">
+				<source>Exports participants (with all data) of a folder.</source>
+			</trans-unit>
 			<trans-unit id="tasks.validate.page" resname="tasks.validate.page">
-				<source>Page with elements (pages UID):</source>
+				<source>Page with quiz-elements (pages UID):</source>
 			</trans-unit>
 			<trans-unit id="tasks.validate.invalidPage" resname="tasks.validate.invalidPage">
-				<source>Invalid pages uid or the page is not visible!</source>
+				<source>Invalid pages uid, please enter a valid pages uid!</source>
 			</trans-unit>
 			<trans-unit id="tasks.validate.days" resname="tasks.validate.days">
 				<source>Delete entries older than ... days:</source>
@@ -212,6 +218,24 @@
 			</trans-unit>
 			<trans-unit id="dashboard.widget.fixpunktLastDays.description" resname="dashboard.widget.fixpunktLastDays.description">
 				<source>Shows a bar chart with number of votes for each day</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.csvfile" resname="tasks.validate.csvfile">
+				<source>Path and name of the csv file (must begin with &quot;fileadmin/&quot;):</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.separator" resname="tasks.validate.separator">
+				<source>Separator:</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.delimiter" resname="tasks.validate.delimiter">
+				<source>Delimiter:</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.ansdelimiter" resname="tasks.validate.ansdelimiter">
+				<source>Answers delimiter:</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.convert" resname="tasks.validate.convert">
+				<source>Convert text from UTF-8 to ISO?</source>
+			</trans-unit>
+			<trans-unit id="tasks.validate.invalidCsvfile" resname="tasks.validate.invalidCsvfile">
+				<source>Invalid csv file, please enter a valid path to the csv file in the fileadmin folder!</source>
 			</trans-unit>
 		</body>
 	</file>

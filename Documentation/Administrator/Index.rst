@@ -117,6 +117,14 @@ Importing myquizpoll entries
    If you are using TYPO3 9 and you want to import myquizpoll-questions, then you will need the extension typo3db_legacy too!
 
 
+.. _admin-export:
+
+Exporting participant entries
+-----------------------------
+
+* There is a scheduler task which whom you can export participants from a single folder (pid). The csv-file will be written to fileadmin.
+
+
 .. _admin-faq:
 
 FAQ

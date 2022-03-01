@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.3.3
+version 3.3.4
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -14,7 +14,9 @@ This extension is not backward compatible to myquizpoll, but there is a simple i
 
 jQuery is required. Optimized for Bootstrap 4.
 
-The extension dashboard is required in TYPO3 11.
+Dashboard widget available.
+
+CSV-export available via scheduler task.
 
 Available languages: english and german/deutsch.
 
@@ -31,6 +33,7 @@ Changes in version 3.3.1:
 - Bugfix: moving participant data to another folder.
 - Bugfix: check of checkboxes fixed.
 
-Changes in version 3.3.3:
+Changes in version 3.4.0:
 - The answer of textarea-fields is now checked too (it is no longer optional, but can be set to optional).
+- CSV-export added.
 - Dashboard no longer required in TYPO3 11.
