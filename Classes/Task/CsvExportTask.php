@@ -252,7 +252,7 @@ class CsvExportTask extends AbstractTask
                 $queryBuilder->expr()->eq('tx_fpmasterquiz_domain_model_selected.pid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
             )
             ->orderBy('part.uid', 'DESC')
-            ->addOrderBy('suid', 'DESC')
+            ->addOrderBy('suid', 'ASC')
             ->execute();
         while ($row = $statement->fetch()) {
 
