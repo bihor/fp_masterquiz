@@ -32,11 +32,10 @@
 
     {settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
     <f:if condition="{quiz.media.0}">
-        <f:media alt="{quiz.media.0.originalResource.name}" class="img-fluid"
-                 file="{quiz.media.0}" title="{quiz.media.0.originalResource.title}"/>
+        <f:media alt="{quiz.media.0.originalResource.name}" class="img-fluid"  file="{quiz.media.0}" title="{quiz.media.0.originalResource.title}"/>
     </f:if>
-    <f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 ->
-        f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}
+    <f:if condition="{quiz.about}">
+        {settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}
     </f:if>
 
     <f:if condition="{quiz.timeperiod} && ({final} == 0)">

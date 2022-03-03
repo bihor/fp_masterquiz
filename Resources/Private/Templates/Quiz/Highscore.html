@@ -5,15 +5,19 @@
 		<f:flashMessages />
 		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
 		<f:if condition="{quiz.media.0}">
-			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" />
+			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" class="img-fluid" />
 		</f:if>
 		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
-		<table>
+
+		<table class="table">
+			<thead class="thead-dark">
 			<tr>
 				<th>{f:translate(key: "text.position")}</th>
 				<th>{f:translate(key: "text.participant")}</th>
 				<th>{f:translate(key: "text.points")}</th>
 			</tr>
+			</thead>
+			<tbody>
 			<f:for each="{participants}" as="participant" iteration="pageiterator">
 				<tr>
 					<td>{pageiterator.cycle}</td>
@@ -21,6 +25,7 @@
 					<td>{participant.points}</td>
 				</tr>
 			</f:for>
+			</tbody>
 		</table>
 		<f:if condition="{settings.debug}">
 			<pre>{debug}</pre>

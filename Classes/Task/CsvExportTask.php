@@ -276,6 +276,8 @@ class CsvExportTask extends AbstractTask
                     $text = iconv('utf-8', 'iso-8859-1', $text);
                 if ($field == 'crdate')
                     $text = date("d.m.Y H:i", $text);
+                elseif ($separator)
+                    $text = str_replace($separator, '', $text);
                 $content .= $separator . $text . $separator;
                 $j++;
             }

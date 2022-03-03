@@ -139,5 +139,6 @@ ChangeLog
 
 3.4.0:
   The answer of textarea-fields is now checked too (it is no longer optional, but can be set to optional).
-  CSV-export added.
+  CSV-export added as scheduler task.
   Dashboard no longer required in TYPO3 11.
+  Layout optimizations.

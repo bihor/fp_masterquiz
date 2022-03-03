@@ -35,11 +35,11 @@
 							<f:case value="3">
 								<f:comment>When 'Enter an answer' in a text field</f:comment> 
 								<f:comment> {answer -> f:debug(title: 'Members of answer')} / no HTML for entered Text allowed:	</f:comment>
-								{selection.entered -> f:format.nl2br()}
+								<ul><li>{selection.entered -> f:format.nl2br()}</li></ul>
 							</f:case>									
 							<f:case value="5">
 								<f:comment>When 'Enter an answer' in a textarea</f:comment>
-								{selection.entered -> f:format.nl2br()}								
+								<ul><li>{selection.entered -> f:format.nl2br()}</li></ul>
 							</f:case>
 							<f:case value="7">
 								<f:comment>Star rating</f:comment>
