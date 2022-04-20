@@ -605,7 +605,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		}
     		$this->participant->setPage($lastPage);
     		$this->participantRepository->update($this->participant);
-    		$doPersist = true;
+    		//$doPersist = true;
+            // better persist data before evaluation!
+            $persistenceManager->persistAll();
     	}
     	if (!$pages) {
             $pages = intval(ceil($questions / $questionsPerPage));

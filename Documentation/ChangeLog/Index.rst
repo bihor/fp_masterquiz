@@ -142,3 +142,6 @@ ChangeLog
   CSV-export added as scheduler task.
   Dashboard no longer required in TYPO3 11.
   Layout optimizations.
+
+3.4.1:
+  Bugfix: persist data before evaluation.
