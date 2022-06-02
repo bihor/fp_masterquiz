@@ -640,7 +640,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $categoryUid = 0;
                 $finalCategory = 0;
                 $finalPoints = 0;
-                if ($categories) {
+                if ($categories->count()) {
                     foreach ($categories as $category) {
                         $categoryUid = $category->getUid();
                         break;
