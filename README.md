@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.4.1
+version 3.4.2
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -29,5 +29,6 @@ Changes in version 3.4.0:
 - Dashboard no longer required in TYPO3 11.
 - Layout optimizations.
 
-Changes in version 3.4.1:
-- Bugfixing: persist before evaluation.
+Changes in version 3.4.2:
+- Bugfix: persist before evaluation.
+- Bugfix: category evaluation.

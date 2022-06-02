@@ -143,5 +143,6 @@ ChangeLog
   Dashboard no longer required in TYPO3 11.
   Layout optimizations.
 
-3.4.1:
+3.4.2:
   Bugfix: persist data before evaluation.
+  Bugfix: category evaluation.
