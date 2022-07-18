@@ -35,9 +35,6 @@ Master-Quiz
 	:Author:
 		Kurt Gusbeth
 
-	:Email:
-		info@quizpalme.de
-
 	:License:
 		This document is published under the Open Content License
 		available from https://www.opencontent.org/opl.shtml

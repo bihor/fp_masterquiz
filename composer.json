@@ -24,9 +24,6 @@
 		"typo3-ter/fp-masterquiz" : "self.version"
 	},
 	"homepage" : "https://github.com/bihor/fp_masterquiz",
-	"support" : {
-		"email" : "info@quizpalme.de"
-	},
 	"license" : "GPL-3.0-or-later",
 	"keywords" : [
 		"quiz poll myquizpoll"
