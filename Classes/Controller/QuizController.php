@@ -459,7 +459,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     				if (($vorhanden > 0) && !$this->settings['allowEdit']) {
     					$debug .= ' reload! ';
     				} else {
-	    				$debug .= ' OK ';
+                        $qmode = $question->getQmode();
+                        $isOptional = ($this->settings['noFormCheck'] || $question->isOptional() || $qmode==4 || $qmode==7) ? true : false;
+                        if ($this->settings['debug']) {
+                            $debug .= ' OK ' . (($isOptional) ? 'optional: ' : 'mandatory: ');
+                        }
 	    				// selected/answered question
                         if ($vorhanden) {
                             // alten Eintrag erst löschen
@@ -485,7 +489,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $sorting = $question->getSorting();
                         }
                         $selected->setSorting($sorting);
-	    				$qmode = $question->getQmode();
+                        $selectedWithAnswer = false;
 	    				$newPoints = 0;
 	    				switch ($qmode) {
 	    					case 0:
@@ -522,6 +526,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    									}
 	    								}
 		    							$selected->addAnswer($selectedAnswer);
+                                        $selectedWithAnswer = true;
 		    							if ($emailAnswers[$quid][$auid]) {
 		    								$specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
 		    							}
@@ -574,6 +579,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    								}
 	    							}
 	    							$selected->addAnswer($selectedAnswer);
+                                    $selectedWithAnswer = true;
 	    							if (isset($emailAnswers[$quid][$selectedAnswerUid])) {
 	    								$specialRecievers[$emailAnswers[$quid][$selectedAnswerUid]['email']] = $emailAnswers[$quid][$selectedAnswerUid];
 	    							}
@@ -586,6 +592,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             case 5:
                                 // When enter an answer in a textbox: try to evaluate the answer of the textbox
 	    					    $tmpMaximum1 = $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug);
+                                if ($selected->getEntered()) {
+                                    $selectedWithAnswer = true;
+                                }
                                 if (!$vorhanden) {
                                     $maximum1 += $tmpMaximum1;
                                 }
@@ -593,6 +602,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             default:
                                 // hier passiert nichts
 	    				}
+                        if (!$isOptional && !$selectedWithAnswer) {
+                            if ($this->settings['debug']) {
+                                $debug .= "\n!!! Mandatory question not answered !!!";
+                            }
+                        }
 	    				// assign the selected dataset to the participant
 	    				$this->participant->addSelection($selected);
     				}

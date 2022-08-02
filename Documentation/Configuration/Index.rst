@@ -229,7 +229,7 @@ noFormCheck
 
 Normally every question needs to be answered before the page can be send. You can disable this check generally.
 Since version 3.2.0 you can define at each question if it should be optional or not.
-Note: only question of type radio, checkbox, select-box and input-field are checked. All answers to other type of
+Note: only question of type radio, checkbox, select-box, input-field and textarea are checked. All answers to other type of
 questions are optional (they will not be checked).
 
 
