@@ -315,6 +315,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     {
     	$saveIt = false;
     	$reload = false;
+        $mandatoryNotAnswered = false;
     	$doPersist = false;
     	$partBySes = null;
     	$maximum1 = 0;              // maximum points
@@ -368,7 +369,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	if ($showAnswers || (!$showAnswerPage && $page > 1)) {
     		// Antworten sollen ausgewertet und gespeichert werden
     		if (($reachedPage < $page) || $this->settings['allowEdit']) {
-    			// nur nicht beantwortete Seiten speichern
+    			// nur nicht beantwortete Seiten speichern, es sei denn allowEdit=1
     			$saveIt = true;
     		}
     		if (!$this->participant->getUid()) {
@@ -457,7 +458,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     					$vorhanden = $this->selectedRepository->countByParticipantAndQuestion($this->participant->getUid(), $quid);
     				}
     				if (($vorhanden > 0) && !$this->settings['allowEdit']) {
-    					$debug .= ' reload! ';
+    					$debug .= ' reload!? ';
     				} else {
                         $qmode = $question->getQmode();
                         $isOptional = ($this->settings['noFormCheck'] || $question->isOptional() || $qmode==4 || $qmode==7) ? true : false;
@@ -606,43 +607,59 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             if ($this->settings['debug']) {
                                 $debug .= "\n!!! Mandatory question not answered !!!";
                             }
+                            $mandatoryNotAnswered = true;
+                        } else {
+                            // assign the selected dataset to the participant
+                            $this->participant->addSelection($selected);
                         }
-	    				// assign the selected dataset to the participant
-	    				$this->participant->addSelection($selected);
     				}
     			}
     			$i++;
     		}
-    		// Update the participant result
-    		if ($maximum1 > 0) {
-    			$this->participant->addMaximum1($maximum1);
-    		}
-    		$this->participant->setPage($lastPage);
-    		$this->participantRepository->update($this->participant);
-    		//$doPersist = true;
-            // better persist data before evaluation!
-            $persistenceManager->persistAll();
+            if (!$mandatoryNotAnswered) {
+                // Update the participant result
+                if ($maximum1 > 0) {
+                    $this->participant->addMaximum1($maximum1);
+                }
+                $this->participant->setPage($lastPage);
+                $this->participantRepository->update($this->participant);
+                //$doPersist = true;
+                // better persist data before evaluation!
+                $persistenceManager->persistAll();
+            }
     	}
     	if (!$pages) {
             $pages = intval(ceil($questions / $questionsPerPage));
         }
-    	if ($this->settings['debug']) {
-    		$debug .= "\nlast page: ".$lastPage.'; page: '.$page.'; reached page before: '.$reachedPage.'; next page: '.$nextPage.'; showAnswers: '.$showAnswers;
-    		$debug .= "\nqs/qpp=pages#" . $questions . '/' . $questionsPerPage . '=' . $pages;
-            $debug .= "\ntime period=" . $quiz->getTimeperiod() . '; time passed: ' . $this->participant->getTimePassed();
-    	}
 
-        // toggle mode for show answers after submit questions
-        if ($showAnswerPage) {
-            $showAnswersNext = $showAnswers == 1 ? 0 : 1;
+        if (!$mandatoryNotAnswered) {
+            // toggle mode for show answers after submit questions
+            if ($showAnswerPage) {
+                $showAnswersNext = $showAnswers == 1 ? 0 : 1;
+            } else {
+                $showAnswersNext = 0;
+            }
         } else {
-            $showAnswersNext = 0;
+            $showAnswers = 0;
+            $nextPage = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
+            if ($showAnswerPage) {
+                $showAnswersNext = 1;
+            } else {
+                $showAnswersNext = 0;
+                $nextPage++;
+            }
         }
 
         if (!$showAnswers && $quiz->getTimeperiod() && ($this->participant->getTimePassed() >= $quiz->getTimeperiod())) {
             // Die Zeit für ein Quiz ist abgelaufen: auf zur finalen Seite
             $page = $pages + 1;
             $nextPage = $page;
+        }
+
+        if ($this->settings['debug']) {
+            $debug .= "\nlast page: ".$lastPage.'; page: '.$page.'; reached page before: '.$reachedPage.'; next page: '.$nextPage.'; showAnswers: '.$showAnswers.'; showAnswersNext: '.$showAnswersNext;
+            $debug .= "\nqs/qpp=pages#" . $questions . '/' . $questionsPerPage . '=' . $pages;
+            $debug .= "\ntime period=" . $quiz->getTimeperiod() . '; time passed: ' . $this->participant->getTimePassed();
         }
 
     	if ($page > $pages) {
@@ -809,10 +826,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    			'finalContent' => $finalContent,
     		'finalBodytext' => $finalBodytext,
     		'finalImageuid' => $finalImageuid,
-            'finalCategoryArray' => $finalCategoryArray,
+            'finalCategories' => $finalCategoryArray,
    			'showAnswers' => $showAnswers,
     	    'showAnswersNext' => $showAnswersNext,
     	    'useJoker' => $useJoker,
+            'mandatoryNotAnswered' => $mandatoryNotAnswered,
     		'session' => $session,
    			'debug' => $debug
     	];
@@ -1220,29 +1238,19 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $quizPaginator = new ArrayPaginator($questionsArray, $page, intval($this->settings['pagebrowser']['itemsPerPage']));
         $participantPaginator = new ArrayPaginator($participantArray, $page, intval($this->settings['pagebrowser']['itemsPerPage']));
 
-        $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
         $this->view->assign('quizPaginator', $quizPaginator);
         $this->view->assign('participant', $this->participant);
         $this->view->assign('participantPaginator', $participantPaginator);
-        $this->view->assign('page', $page);
         if ($pages > 0) {
         	$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
         	$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
-        }        
-        $this->view->assign('nextPage', $data['nextPage']);
-        $this->view->assign('pages', $pages);
+        }
+        foreach ($data as $key => $value) {
+            $this->view->assign($key, $value);
+        }
         $this->view->assign('pagesInclFinalPage', ($pages+1));
-        $this->view->assign('questions', $data['questions']);
         $this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
-        $this->view->assign('final', $data['final']);
-        $this->view->assign('finalContent', $data['finalContent']);
-        $this->view->assign('finalBodytext', $data['finalBodytext']);
-        $this->view->assign('finalImageuid', $data['finalImageuid']);
-        $this->view->assign('finalCategories', $data['finalCategoryArray']);
-        $this->view->assign('session', $data['session']);
-        $this->view->assign('showAnswers', $data['showAnswers']);
-        $this->view->assign('showAnswersNext', $data['showAnswersNext']);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
@@ -1325,7 +1333,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
         }
 
-        $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
         $this->view->assign('tag', $tag);
         $this->view->assign('tags', $tagArray['pagetags']);
@@ -1333,24 +1340,15 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('tagSelections', $tagSelections);
         $this->view->assign('randomPages', implode(',', $tagArray['randomNumbers']));
         $this->view->assign('participant', $this->participant);
-        $this->view->assign('page', $page);
         if ($pages > 0) {
             $this->view->assign('pagePercent', intval(round(100*($page/$pages))));
             $this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
         }
-        $this->view->assign('nextPage', $data['nextPage']);
-        $this->view->assign('pages', $pages);
+        foreach ($data as $key => $value) {
+            $this->view->assign($key, $value);
+        }
         $this->view->assign('pagesInclFinalPage', ($pages+1));
-        $this->view->assign('questions', $data['questions']);
         $this->view->assign('pageBasis', 0);
-        $this->view->assign('final', $data['final']);
-        $this->view->assign('finalContent', $data['finalContent']);
-        $this->view->assign('finalBodytext', $data['finalBodytext']);
-        $this->view->assign('finalImageuid', $data['finalImageuid']);
-        $this->view->assign('finalCategories', $data['finalCategoryArray']);
-        $this->view->assign('session', $data['session']);
-        $this->view->assign('showAnswers', $data['showAnswers']);
-        $this->view->assign('showAnswersNext', $data['showAnswersNext']);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
@@ -1466,7 +1464,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
         $this->view->assign('final', $data['final']);
         $this->view->assign('finalContent', $data['finalContent']);
-        $this->view->assign('finalCategories', $data['finalCategoryArray']);
+        $this->view->assign('finalCategories', $data['finalCategories']);
         $this->view->assign('session', $data['session']);
         $this->view->assign('showAnswers', $data['showAnswers']);
         $this->view->assign('showAnswersNext', $data['showAnswersNext']);
