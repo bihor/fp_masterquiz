@@ -511,6 +511,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
 	    							}
 	    							if ($selectedAnswerUid > 0) {
+                                        $answer->setOwnAnswer(1);       // für PHP-check
 	    								$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
 	    								$newPoints = $selectedAnswer->getPoints();
 		    							// halbierte Punkte setzen? Ändert aber die echte Antwort!
@@ -554,8 +555,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
 	    						}
 	    						if ($selectedAnswerUid) { // Alternative: && $qmode != 4) {
-	    							$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-	    							if ($qmode == 7) {
+                                    $selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
+                                    $selectedAnswer->setOwnAnswer(1);       // für PHP-check
+                                    if ($qmode == 7) {
 	    								$cycle = count($question->getAnswers());
 	    								foreach ($question->getAnswers() as $answer) {
 	    									if ($answer->getUid() == $selectedAnswerUid) {
@@ -595,6 +597,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    					    $tmpMaximum1 = $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug);
                                 if ($selected->getEntered()) {
                                     $selectedWithAnswer = true;
+                                    // für PHP-check:
+                                    $ownAnswer = [];
+                                    $ownAnswer[] = $selected->getEntered();
+                                    $question->setTextAnswers($ownAnswer);
                                 }
                                 if (!$vorhanden) {
                                     $maximum1 += $tmpMaximum1;
@@ -640,6 +646,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $showAnswersNext = 0;
             }
         } else {
+            // benötigte Felder wurden nicht ausgefüllt
             $showAnswers = 0;
             $nextPage = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
             if ($showAnswerPage) {
