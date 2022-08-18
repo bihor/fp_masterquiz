@@ -147,3 +147,6 @@ ChangeLog
   Bugfix: persist data before evaluation.
   Bugfix: category evaluation.
   Bugfix: wrong Namespace in TemplateLayout corrected.
+
+3.5.0:
+  Mandatory check with PHP too.
