@@ -43,6 +43,7 @@ plugin.tx_fpmasterquiz {
 		highscoreLimit = 10
 		checkAllStars = 0
 		noFormCheck = 0
+		phpFormCheck = 0
 		allowEdit = 0
 		allowHtml = 0
 		random = 0

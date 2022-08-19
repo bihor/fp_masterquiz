@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-03-01T14:25:02Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-08-19T12:56:31Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -114,6 +114,10 @@
 			<trans-unit id="settings.noFormCheck" resname="settings.noFormCheck">
 				<source>Disable form check (set all questions as non mandatory)?</source>
 				<target>Fragen-Check ausschalten (Abfrage, ob alle Fragen beantwortet wurden)?</target>
+			</trans-unit>
+			<trans-unit id="settings.phpFormCheck" resname="settings.phpFormCheck">
+				<source>Enable a form check (of mandatory questions) via PHP?</source>
+				<target>Fragen-Check auch via PHP einschalten?</target>
 			</trans-unit>
 			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
 				<source>Allow edit answered questions (works only for show by tag)?</source>

@@ -330,6 +330,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $newUser = $userData['newUser'];	// is a new user?
         $fe_user_uid = $userData['fe_user_uid'];	// FE user uid
     	$quizPid = $quiz->getPid();
+        $phpFormCheck = $this->settings['phpFormCheck'];
     	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
     	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
     	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
@@ -595,7 +596,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             case 5:
                                 // When enter an answer in a textbox: try to evaluate the answer of the textbox
 	    					    $tmpMaximum1 = $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug);
-                                if ($selected->getEntered()) {
+                                if ($phpFormCheck && $selected->getEntered()) {
                                     $selectedWithAnswer = true;
                                     // für PHP-check:
                                     $ownAnswer = [];
@@ -609,7 +610,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             default:
                                 // hier passiert nichts
 	    				}
-                        if (!$isOptional && !$selectedWithAnswer) {
+                        if ($phpFormCheck && !$isOptional && !$selectedWithAnswer) {
                             if ($this->settings['debug']) {
                                 $debug .= "\n!!! Mandatory question not answered !!!";
                             }

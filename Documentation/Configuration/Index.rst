@@ -55,6 +55,7 @@ showDetailedCategoryEval     boolean     Show detailed category evaluation if av
 checkAllStars                boolean     Check all stars on star rating by default?      0
 highscoreLimit               integer     Number of entries in the highscore              10
 noFormCheck                  boolean     Don´t check for answered questions at all?      0
+phpFormCheck                 boolean     Enable check for answered questions with PHP?   0
 allowEdit                    boolean     Show links to pages and allow to edit answers?  0
 allowHtml                    boolean     Allow HTML at question-answers from the BE?     0
 random                       boolean     Enable a random mode? Works only with tags.     0

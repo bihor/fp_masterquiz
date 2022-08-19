@@ -149,4 +149,4 @@ ChangeLog
   Bugfix: wrong Namespace in TemplateLayout corrected.
 
 3.5.0:
-  Mandatory check with PHP too.
+  Mandatory check with PHP too, if setting phpFormCheck=1.
