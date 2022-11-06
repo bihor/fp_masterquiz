@@ -796,6 +796,22 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         }
                     }
     		    }
+    		} elseif ($this->settings['showOwnAnswers']) {
+                // alle Fragen durchgehen, die der User beantwortet hat:
+    		    foreach ($this->participant->getSortedSelections() as $selection) {
+                    $oneQuestion = $selection->getQuestion();
+                    if ($oneQuestion->getQmode() == 8) {
+                        $oneQuestionCategories = $oneQuestion->getCategoriesArray();
+                        $ownCategoryAnswers = unserialize($selection->getEntered());
+                        foreach ($oneQuestion->getAnswers() as $oneAnswer) {
+                            foreach ($ownCategoryAnswers as $key => $ownCategoryAnswer) {
+                                if ($key == $oneAnswer->getUid()) {
+                                    $oneAnswer->setOwnCategoryAnswer([$ownCategoryAnswer, $oneQuestionCategories[$ownCategoryAnswer]]);
+                                }
+                            }
+                        }
+                    }
+    		    }
     		}
     		if (!$completed && ($this->settings['email']['sendToAdmin'] || $this->settings['email']['sendToUser'])) {
     			// GGf. Emails versenden

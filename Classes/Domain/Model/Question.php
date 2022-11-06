@@ -527,6 +527,6 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                 $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('tx_fpmasterquiz_domain_model_question'))
             )
             ->orderBy('sys_category.sorting')
-            ->executeQuery();
+            ->execute();
     }
 }
