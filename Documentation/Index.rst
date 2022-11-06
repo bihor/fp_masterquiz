@@ -23,8 +23,7 @@ Master-Quiz
 		en,de
 
 	:Description:
-		A modern extension that offers Quiz, Polls and Tests. 7 question-modes supported.
-		It is the official successor extension of myquizpoll, but it is not backward compatible! Many features.
+		A modern extension that offers Quiz, Polls and Tests. 8 question-modes supported. Many features.
 
 	:Keywords:
 		quiz,test,poll,myquizpoll,myquizandpoll

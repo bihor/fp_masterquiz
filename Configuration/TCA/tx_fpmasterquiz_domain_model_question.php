@@ -141,7 +141,8 @@ return [
 					['LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.4', 4],
 					['LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.5', 5],
 					['LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.6', 6],
-					['LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.7', 7]
+					['LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.7', 7],
+                    ['LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.8', 8]
                 ],
                 'size' => 1,
                 'maxitems' => 1,

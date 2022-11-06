@@ -19,10 +19,21 @@
 	{settings.template.wrapQuestionDesc2 -> f:format.raw()}
 	<div class="row">
 		<div class="{f:if(condition: '{question.image.uid}', then: settings.template.colText, else: settings.template.col12)}">
-			<div class="text-buttons">
+			<table class="text-buttons">
 				<div class="quiz-question-buttons">
 					<f:if condition="{question.qmode} == 7">
 						<div class="star-cb-group">
+					</f:if>
+					<f:if condition="{question.qmode} == 8">
+						<table class="quiz-table-matrix">
+							<thead>
+							<tr><th></th>
+							<f:for each="{question.sortedCategoriesArray}" as="qcategory">
+								<th>{qcategory.title}</th>
+							</f:for>
+							</tr>
+							</thead>
+							<tbody>
 					</f:if>
 					<f:for each="{question.answers}" as="answer" iteration="nr">
 						<f:switch expression="{question.qmode}">
@@ -105,6 +116,18 @@
 								</f:else></f:if>
 								<label for="star_{question.uid}_{answer.uid}">{answer.title -> f:format.nl2br()}</label>
 							</f:case>
+							<f:case value="8">
+								<tr>
+									<td><div class="radio quiz-radio8{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
+										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if> &nbsp;
+									</div></td>
+									<f:for each="{question.sortedCategoriesArray}" as="qcategory">
+									<td><label>
+										<f:form.radio name="answer_{question.uid}_{answer.uid}" value="{qcategory.uid}" class="quiz-radiobox" checked="{answer.ownAnswer}" />
+									</label></td>
+									</f:for>
+								</tr>
+							</f:case>
 							<f:defaultCase>NOT yet supported</f:defaultCase>
 						</f:switch>
 					</f:for>
@@ -113,6 +136,9 @@
 					</f:if>
 					<f:if condition="{question.qmode} == 7">
 						</div>
+					</f:if>
+					<f:if condition="{question.qmode} == 8">
+						</tbody></table>
 					</f:if>
 				</div>
 			</div>

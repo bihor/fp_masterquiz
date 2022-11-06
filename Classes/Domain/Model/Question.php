@@ -490,4 +490,43 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->categories;
     }
+
+    /**
+     * Returns the categories as array
+     *
+     * @return array
+     */
+    public function getCategoriesArray()
+    {
+        $catArray = [];
+        foreach ($this->categories as $category) {
+            $catArray[$category->getUid()] = $category->getTitle();
+        }
+        return $catArray;
+    }
+
+    /**
+     * Returns the categories as array in sorting order
+     *
+     * @return array
+     */
+    public function getSortedCategoriesArray() {
+        $table = 'sys_category';
+        $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($table);
+        return $queryBuilder
+            ->select('uid','title')
+            ->from($table)
+            ->join(
+                $table,
+                'sys_category_record_mm',
+                'mm',
+                $queryBuilder->expr()->eq('mm.uid_local', $queryBuilder->quoteIdentifier('sys_category.uid'))
+            )
+            ->where(
+                $queryBuilder->expr()->eq('mm.uid_foreign', $queryBuilder->createNamedParameter($this->uid, \PDO::PARAM_INT)),
+                $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('tx_fpmasterquiz_domain_model_question'))
+            )
+            ->orderBy('sys_category.sorting')
+            ->executeQuery();
+    }
 }

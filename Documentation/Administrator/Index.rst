@@ -12,7 +12,7 @@ Administrator Manual
 ====================
 
 Note: only the templates Quiz/List.html, Quiz/Show.html and Quiz/ShowAjax.html are in use!
-Don´t remove classes or IDs that begin with quiz, because they are used to vaildate the form!
+Don´t remove classes or IDs that begin with quiz, because some of them are used to validate the form!
 
 
 .. _admin-installation:
@@ -45,7 +45,7 @@ maximum2 (maximum points for a quiz).
 
 A question has this variables:
 title, qmode (question-mode), image, bodytext, explanation, sorting, tag, answers, selectOptions, numberOfAnswers,
-arrayOfAnswers, categories.
+arrayOfAnswers, categories, categoriesArray, sortedCategoriesArray.
 And furthermore:
 maximum1 (maximum points for a question),
 allAnswers (no. of all answers/votes - checkboxes counted once),
@@ -53,7 +53,8 @@ totalAnswers (no. of all answers/votes - all checkboxes counted),
 textAnswers (array with entered text answers, only in the BE available).
 
 An answer has this variables:
-title, titleJS, points, jokerAnswer, onwAnswer (yes/no), allAnswers (total answers of all users),
+title, titleJS, points, jokerAnswer, onwAnswer (yes/no), ownCategoryAnswer (has 2 keys: 0 the uid and 1 the title),
+allAnswers (total answers of all users),
 allPercent (total percent of all users - checkbox counted ounce),
 totalPercent (total percent of all users - all checkboxes counted) and
 categories.

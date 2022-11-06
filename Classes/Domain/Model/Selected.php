@@ -178,7 +178,7 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Adds a Answer
+     * Adds an Answer
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answer
      * @return void
@@ -189,7 +189,7 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Removes a Answer
+     * Removes an Answer
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answerToRemove The Answer to be removed
      * @return void

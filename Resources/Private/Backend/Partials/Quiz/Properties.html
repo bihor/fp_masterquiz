@@ -28,6 +28,11 @@
 	<tr>
 		<td>
 			{question.title}<f:if condition="{question.optional}">*</f:if>
+			<f:if condition="{question.qmode} == 8">
+				<f:for each="{question.sortedCategoriesArray}" as="category">
+					<br/>- {category.title}
+				</f:for>
+			</f:if>
 		</td>
 		<td>
 			<f:format.html>{question.bodytext}</f:format.html>
@@ -57,6 +62,9 @@
 				</f:case>
 				<f:case value="7">
 					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.7" />
+				</f:case>
+				<f:case value="8">
+					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.8" />
 				</f:case>
 				<f:defaultCase>NOT yet supported</f:defaultCase>
 			</f:switch>

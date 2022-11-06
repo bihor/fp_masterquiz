@@ -53,6 +53,9 @@
 				<f:case value="7">
 					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.7" />
 				</f:case>
+				<f:case value="8">
+					<f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.qmode.8" />
+				</f:case>
 				<f:defaultCase>NOT yet supported</f:defaultCase>
 			</f:switch>
 		</td>
@@ -65,7 +68,12 @@
 			<f:defaultCase>
 				<div class="table-responsive"><table class="table">
 				<f:for each="{selection.answers}" as="answer">
-					<tr><td>{answer.title}</td><td><div class="pull-right">({answer.points})</div></td></tr>
+					<tr><td>
+						{answer.title}
+						<f:if condition="{selection.question.qmode} == 8 && {answer.ownCategoryAnswer}">
+							: {answer.ownCategoryAnswer.1}
+						</f:if>
+					</td><td><div class="pull-right">({answer.points})</div></td></tr>
 				</f:for>
 				</table></div>
 			</f:defaultCase>

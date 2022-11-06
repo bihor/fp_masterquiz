@@ -21,7 +21,8 @@ A modern extension that offers Quiz, Polls and Tests. You can configure, which r
 The results can be displayed as a chart too. An evaluation is possible too.
 Automatic deletion of quiz takers via task possible. Supporting of Ajax.
 
-Question types/modes: radio-box, checkbox, select-box, yes/no, text-field, textarea, star-rating.
+Question types/modes: radio-box, checkbox, select-box, yes/no, text-field, textarea, star-rating, matrix
+(only for polls and no detail evaluation available).
 
 jQuery is required. Optimized for Bootstrap 4. 2 widgets for the dashboard available.
 
@@ -65,7 +66,7 @@ Here you find 4 examples and 2 more screenshots are in the user manual.
 Thanks to the
 -------------
 
-`fixpunkt werbeagentur gmbh, Bonn <https://www.fixpunkt.com/webentwicklung/typo3/>`_
+`fixpunkt für digitales GmbH, Bonn <https://www.fixpunkt.com/webentwicklung/typo3/>`_
 for giving me the possibility to realize (partly)
 `this extension <https://www.fixpunkt.com/webentwicklung/typo3/typo3-extensions/>`_
 and share it with the TYPO3 community.

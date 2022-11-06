@@ -45,7 +45,14 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $ownAnswer = 0;
-    
+
+    /**
+     * own category answer (for question mode 8): uid and title
+     *
+     * @var array
+     */
+    protected $ownCategoryAnswer = [];
+
     /**
      * total answers of all users
      *
@@ -181,7 +188,28 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->ownAnswer = $nr;
     }
-    
+
+    /**
+     * Returns the own Category Answer
+     *
+     * @return array $ownCategoryAnswer
+     */
+    public function getOwnCategoryAnswer()
+    {
+        return $this->ownCategoryAnswer;
+    }
+
+    /**
+     * Sets the own category answer
+     *
+     * @param array $array uid and title of a category
+     * @return void
+     */
+    public function setOwnCategoryAnswer($array)
+    {
+        $this->ownCategoryAnswer = $array;
+    }
+
     /**
      * Returns no. of all answers
      *
@@ -243,6 +271,16 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTotalPercent($percent)
     {
         $this->totalPercent = $percent;
+    }
+
+    /**
+     * Adds a Category
+     *
+     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
+     * @return void
+     */
+    public function addCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category) {
+        $this->categories->attach($category);
     }
 
     /**

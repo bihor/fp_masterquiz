@@ -12,13 +12,13 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Master-Quiz',
-    'description' => 'A modern extension that offers quiz, polls and tests. Ajax support. The result can be displayed as a chart too. Supports 7 question modes.',
+    'description' => 'A modern extension that offers quiz, polls and tests. Ajax support. The result can be displayed as a chart too. Supports 8 question modes.',
     'category' => 'plugin',
     'author' => 'Kurt Gusbeth',
     'state' => 'stable',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '3.4.9',
+    'version' => '3.5.0',
     'constraints' => [
         'depends' => [
             'typo3' => '10.4.6-11.5.99',

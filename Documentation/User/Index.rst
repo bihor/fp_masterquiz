@@ -89,7 +89,9 @@ Question modes
 
 You can choose between the following question modes:
 Multiple answers possible (check-box), Choose one answer (radio-button), Select one answer (select-options),
-Enter an answer (text-field), Yes/no-boxes (2 radio-buttons), Enter a comment (textarea), Show a comment, Star rating.
+Enter an answer (text-field), Yes/no-boxes (2 radio-buttons), Enter a comment (textarea), Show a comment, Star rating
+and a matrix of categories of one question for every answer (suitable only for polls; no detail evaluation implemented
+yet).
 
 Time period
 -----------

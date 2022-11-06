@@ -60,6 +60,9 @@
 									<f:then>{answer.title -> f:format.raw()}</f:then>
 									<f:else>{answer.title -> f:format.nl2br()}</f:else>
 								</f:if>
+								<f:if condition="{selection.question.qmode} == 8 && {answer.ownCategoryAnswer}">
+									: {answer.ownCategoryAnswer.1}
+								</f:if>
 								<f:if condition="{settings.showPoints} && {enablePoints}">
                                     ({answer.points} {f:translate(key: "text.points", default: 'P')})
                                 </f:if>

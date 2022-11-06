@@ -49,7 +49,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository
      */
     protected $selectedRepository = null;
-    
+
     /**
      * participant
      *
@@ -439,14 +439,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    				//var_dump($emailAnswers);
     		}
     		$i = 0;
-    		// cycle through all questions after a submit
+    		// cycle through all questions after a form-submit
     		foreach ($quiz->getQuestions() as $question) {
     			$quid = $question->getUid();
     			$debug .= "\n#" . $quid . '#: ';
     			if ($this->request->hasArgument('quest_' . $quid) && $this->request->getArgument('quest_' . $quid)) {
     				$isActive = true;
     			} else if (isset($_POST['quest_' . $quid]) || isset($_GET['quest_' . $quid])) {
-    				// Ajax-call is without extensionname :-(
+    				// Ajax-call is without extension-name :-(
     				$isActive = true;
     			} else {
     				$isActive = false;
@@ -492,13 +492,16 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         }
                         $selected->setSorting($sorting);
                         $selectedWithAnswer = false;
+                        $qmode8Answers = [];
 	    				$newPoints = 0;
 	    				switch ($qmode) {
 	    					case 0:
 	    					case 4:
-	    					    // Checkbox und ja/nein
+                            case 8:
+	    					    // Checkbox, ja/nein und Kategorie-Matrix
 	    						foreach ($question->getAnswers() as $answer) {
 	    							$auid = $answer->getUid();
+                                    $selectedCategoryUid = 0;
 	    							if ($this->request->hasArgument('answer_' . $quid . '_' . $auid) && $this->request->getArgument('answer_' . $quid . '_' . $auid)) {
 	    								$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid . '_' . $auid));
 	    							} else if ($_POST['answer_' . $quid . '_' . $auid]) {
@@ -508,13 +511,33 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							} else {
 	    								$selectedAnswerUid = -1;
 	    							}
+                                    if ($selectedAnswerUid > 0) {
+                                        if ($qmode == 8) {
+                                            // im Matrix-Modus wird eine Kategorie-UID übermittelt!
+                                            $selectedCategoryUid = $selectedAnswerUid;
+                                            $selectedAnswerUid = $auid;
+                                            $qmode8Answers[$auid] = $selectedCategoryUid;
+                                            // für propertiesSent wird die eigene Antwort benötigt
+                                            foreach ($question->getCategories() as $oneCategory) {
+                                                if ($oneCategory->getUid() == $selectedCategoryUid) {
+                                                    $answer->setOwnCategoryAnswer([$selectedCategoryUid,$oneCategory->getTitle()]);
+                                                    break;
+                                                }
+                                            }
+                                        } elseif ($selectedAnswerUid != $auid) {
+                                            // dies sollte nie der Fall sein, deshalb erlauben wir das nicht
+                                            $selectedAnswerUid = -1;
+                                        }
+                                    }
 	    							if ($this->settings['debug']) {
 	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
 	    							}
 	    							if ($selectedAnswerUid > 0) {
-                                        $answer->setOwnAnswer(1);       // für PHP-check
-	    								$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-	    								$newPoints = $selectedAnswer->getPoints();
+                                        // für PHP-check; im FE müssen Eingaben im Fehlerfall übernommen werden
+                                        $answer->setOwnAnswer(1);
+                                        // wir brauchen theoretisch kein select mehr, denn die aktuelle Antwort ist die ausgewählte!
+	    								//$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
+	    								$newPoints = $answer->getPoints();
 		    							// halbierte Punkte setzen? Ändert aber die echte Antwort!
 	    								// so nicht: $selectedAnswer->setPoints($newPoints);
 	    								if ($newPoints != 0) {
@@ -528,7 +551,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    										$debug .= $newPoints . 'P ';
 	    									}
 	    								}
-		    							$selected->addAnswer($selectedAnswer);
+		    							$selected->addAnswer($answer);
                                         $selectedWithAnswer = true;
 		    							if ($emailAnswers[$quid][$auid]) {
 		    								$specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
@@ -555,7 +578,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						if ($this->settings['debug']) {
 	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
 	    						}
-	    						if ($selectedAnswerUid) { // Alternative: && $qmode != 4) {
+	    						if ($selectedAnswerUid) {
                                     $selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
                                     $selectedAnswer->setOwnAnswer(1);       // für PHP-check
                                     if ($qmode == 7) {
@@ -598,7 +621,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    					    $tmpMaximum1 = $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug);
                                 if ($phpFormCheck && $selected->getEntered()) {
                                     $selectedWithAnswer = true;
-                                    // für PHP-check:
+                                    // für PHP-check: im FE werden die Eingaben im Fehlerfall benötigt
                                     $ownAnswer = [];
                                     $ownAnswer[] = $selected->getEntered();
                                     $question->setTextAnswers($ownAnswer);
@@ -616,6 +639,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             }
                             $mandatoryNotAnswered = true;
                         } else {
+                            if ($qmode == 8) {
+                                // Die Kategorieauswahl wird als Text gespeichert :-(
+                                $selected->setEntered(serialize($qmode8Answers));
+                            }
                             // assign the selected dataset to the participant
                             $this->participant->addSelection($selected);
                         }
@@ -735,6 +762,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		    // alle Fragen durchgehen, die der User beantwortet hat:
     		    foreach ($this->participant->getSortedSelections() as $selection) {
     		        $oneQuestion = $selection->getQuestion();
+                    if ($oneQuestion->getQmode() == 8) {
+                        $oneQuestionCategories = $oneQuestion->getCategoriesArray();
+                    } else {
+                        $oneQuestionCategories = [];
+                    }
                     $debug .= $this->setAllUserAnswersForOneQuestion($oneQuestion, 0,false);
                     // eigene Ergebnisse durchgehen
                     $ownResults = [];
@@ -754,6 +786,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                             $own = intval($ownResults[$oneAnswer->getUid()]);
                         }
                         $oneAnswer->setOwnAnswer ($own);
+                        if ($oneQuestion->getQmode() == 8) {
+                            $ownCategoryAnswers = unserialize($selection->getEntered());
+                            foreach ($ownCategoryAnswers as $key => $ownCategoryAnswer) {
+                                if ($key == $oneAnswer->getUid()) {
+                                    $oneAnswer->setOwnCategoryAnswer([$ownCategoryAnswer, $oneQuestionCategories[$ownCategoryAnswer]]);
+                                }
+                            }
+                        }
                     }
     		    }
     		}
@@ -995,6 +1035,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $votesTotal = 0;
         $debug = '';
         $allResults = [];
+        //$allCategoryResults = [];
         $questionID = $oneQuestion->getUid();
         $isEnterQuestion = (($oneQuestion->getQmode() == 3) || ($oneQuestion->getQmode() == 5));
         if ($this->settings['debug']) {
@@ -1019,6 +1060,22 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     } else {
                         $allResults[$oneAnswer->getUid()] = 1;
                     }
+                    /* TODO:
+                    if ($oneQuestion->getQmode() == 8) {
+                        // ausgewählte Kategorien einer Antwort
+                        $catAnswers = unserialize($aSelectedQuestion->getEntered());
+                        foreach ($catAnswers as $key => $value) {
+                            if (!is_array($allCategoryResults[$key])) {
+                                $allCategoryResults[$key] = [];
+                            }
+                            if (isset($allCategoryResults[$key][$value])) {
+                                $allCategoryResults[$key][$value]++;
+                            } else {
+                                $allCategoryResults[$key][$value] = 1;
+                            }
+                        }
+                    }
+                    */
                 } else if ($be) {
                     // Text-Antworten anderer interessieren uns nur im Backend
                     if (!is_array($allResults['text'])) {
@@ -1035,7 +1092,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 }
             }
         }
-        // gesammeltes speichern bei: alle möglichen Antworten einer Frage und Prozentwerte setzen
+        // gesammeltes speichern bei: alle möglichen Antworten einer Frage...
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
             $thisVotes = isset($allResults[$oneAnswer->getUid()]) ? intval($allResults[$oneAnswer->getUid()]) : 0;
             $votesTotal += $thisVotes;
@@ -1049,6 +1106,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
             $oneAnswer->setAllAnswers($thisVotes);
         }
+        // ... und Prozentwerte speichern
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
             $thisVotes = isset($allResults[$oneAnswer->getUid()]) ? intval($allResults[$oneAnswer->getUid()]) : 0;
             $percentage = 0;

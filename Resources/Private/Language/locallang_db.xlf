@@ -189,6 +189,9 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.7" resname="tx_fpmasterquiz_domain_model_question.qmode.7">
 				<source>Star rating</source>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.8" resname="tx_fpmasterquiz_domain_model_question.qmode.8">
+				<source>Matrix with categories of a question</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

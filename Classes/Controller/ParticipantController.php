@@ -77,6 +77,22 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function detailAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant)
     {
+        foreach ($participant->getSelections() as $selection) {
+            if ($selection->getQuestion()->getQmode() == 8) {
+                $categoriesArray = [];
+                foreach ($selection->getQuestion()->getCategories() as $category) {
+                    $categoriesArray[$category->getUid()] = $category->getTitle();
+                }
+                $ownCategoryAnswers = unserialize($selection->getEntered());
+                foreach ($selection->getAnswers() as $answer) {
+                    foreach ($ownCategoryAnswers as $key => $ownCategoryAnswer) {
+                        if ($key == $answer->getUid()) {
+                            $answer->setOwnCategoryAnswer([$ownCategoryAnswer, $categoriesArray[$ownCategoryAnswer]]);
+                        }
+                    }
+                }
+            }
+        }
         $this->view->assign('participant', $participant);
     }
     

@@ -251,6 +251,10 @@
 				<source>Star rating</source>
 				<target>Bewertung mit Sternen</target>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.8" resname="tx_fpmasterquiz_domain_model_question.qmode.8">
+				<source>Question-Matrix with categories</source>
+				<target>Matrix mit Kategorien einer Frage</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

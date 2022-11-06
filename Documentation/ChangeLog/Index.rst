@@ -150,3 +150,4 @@ ChangeLog
 
 3.5.0:
   Mandatory check with PHP too, if setting phpFormCheck=1.
+  New question mode: matrix with categories of a question.
