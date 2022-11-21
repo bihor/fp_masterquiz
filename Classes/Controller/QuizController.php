@@ -63,6 +63,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $configurationManager;
 
     /**
+     * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
+     */
+    protected $persistenceManager;
+
+    /**
      * Injects the quiz-Repository
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository $quizRepository
@@ -139,6 +144,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 }
             }
             $this->settings = $originalSettings;
+    }
+
+    /**
+     * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
+     */
+    public function injectPersistenceManager(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager)
+    {
+        $this->persistenceManager = $persistenceManager;
     }
 
     /**
@@ -336,7 +349,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
         $startTime = $this->request->hasArgument('startTime') ? intval($this->request->getArgument('startTime')) : 0;
         $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
-        $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
     	$reachedPage = $this->participant->getPage();
         if (!$questionsPerPage) {
             $questionsPerPage = 1;
@@ -421,7 +433,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$this->participant->setQuiz($quiz);
 	    			$this->participant->setMaximum2($quiz->getMaximum2());
 	    			$this->participantRepository->add($this->participant);
-	    			$persistenceManager->persistAll();
+	    			$this->persistenceManager->persistAll();
 	    			$newUser = true;
 	    			if ($this->settings['debug']) {
 	    				$debug .= "\nNew participant created: " . $this->participant->getUid();
@@ -659,7 +671,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $this->participantRepository->update($this->participant);
                 //$doPersist = true;
                 // better persist data before evaluation!
-                $persistenceManager->persistAll();
+                $this->persistenceManager->persistAll();
             }
     	}
     	if (!$pages) {
@@ -878,7 +890,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$final = 0;
     	}
     	if ($doPersist) {
-    		$persistenceManager->persistAll();
+    		$this->persistenceManager->persistAll();
         }
     	return [
    			'page' => $page,
@@ -920,8 +932,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $this->participant->setHomepage($this->request->getArgument('homepage'));
             }
             $this->participantRepository->update($this->participant);
-            $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-            $persistenceManager->persistAll();
+            $this->persistenceManager->persistAll();
             return true;
         } else {
             return false;
@@ -1643,8 +1654,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		$question2 = $questionRepository->findbyUid($lost);
     		$quiz->addQuestion($question2);
     		$this->quizRepository->update($quiz);
-    		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-    		$persistenceManager->persistAll();
+    		$this->persistenceManager->persistAll();
     		$updated = true;
     		$this->addFlashMessage(
     			LocalizationUtility::translate('text.questionAdded', 'fp_masterquiz'),
