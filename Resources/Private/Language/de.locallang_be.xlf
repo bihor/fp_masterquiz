@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-08-19T12:56:31Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2021-06-08T12:40:25Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -16,28 +16,24 @@
 				<target>Liste aller Quizze aus dem Ordner</target>
 			</trans-unit>
 			<trans-unit id="template.show" resname="template.show">
-				<source>Show a selected quiz and use a pagebrowser (you need to select the storage folder too)</source>
-				<target>Ein bestimmtes Quiz anzeigen und den Pagebrowser nutzen (Datensatzsammlung muss dennoch gewählt werden)</target>
+				<source>Show a selected quiz and use a pagebrowser (save the plugin! | you need to select the storage folder too)</source>
+				<target>Ein bestimmtes Quiz anzeigen und den Pagebrowser nutzen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
 			<trans-unit id="template.showByTag" resname="template.showByTag">
-				<source>Show a selected quiz and order questions by tag (you need to select the storage folder too)</source>
-				<target>Ein bestimmtes Quiz anzeigen und Fragen nach Tag sortieren (Datensatzsammlung muss dennoch gewählt werden)</target>
+				<source>Show a selected quiz and order questions by tag (save the plugin! | you need to select the storage folder too)</source>
+				<target>Ein bestimmtes Quiz anzeigen und Fragen nach Tag sortieren (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
 			<trans-unit id="template.intro" resname="template.intro">
-				<source>Show an intro page and then a quiz (you need to select the storage folder too)</source>
-				<target>Eine Into-Seite und dann ein Quiz anzeigen (Datensatzsammlung muss dennoch gewählt werden)</target>
+				<source>Show an intro page and then a quiz (save the plugin! | you need to select the storage folder too)</source>
+				<target>Eine Into-Seite und dann ein Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
 			<trans-unit id="template.result" resname="template.result">
-				<source>Show a result of a quiz (you need to select the storage folder too)</source>
-				<target>Ergebnis eines Quiz anzeigen (Datensatzsammlung muss dennoch gewählt werden)</target>
+				<source>Show a result of a quiz (save the plugin! | you need to select the storage folder too)</source>
+				<target>Ergebnis eines Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
 			<trans-unit id="template.highscore" resname="template.highscore">
-				<source>Show a highscore of a quiz (you need to select the storage folder too)</source>
-				<target>Highscore eines Quiz anzeigen (Datensatzsammlung muss dennoch gewählt werden)</target>
-			</trans-unit>
-			<trans-unit id="template.closure" resname="template.closure">
-				<source>Show a closure page after a quiz (you need to select the storage folder too)</source>
-				<target>Eine Abschlussseite zeigen (Datensatzsammlung muss dennoch gewählt werden)</target>
+				<source>Show a highscore of a quiz (save the plugin! | you need to select the storage folder too)</source>
+				<target>Highscore eines Quiz anzeigen (speichern! | Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
 			<trans-unit id="templateLayout" resname="templateLayout">
 				<source>Template layout (see manual):</source>
@@ -54,10 +50,6 @@
 			<trans-unit id="settings.showPageUid" resname="settings.showPageUid">
 				<source>Single page of a quiz/poll (detailPid):</source>
 				<target>Singleseite für ein Quiz/Umfrage (detailPid):</target>
-			</trans-unit>
-			<trans-unit id="settings.closurePageUid" resname="settings.closurePageUid">
-				<source>Page for a closure after a quiz (when askForData=3):</source>
-				<target>Abschlussseite zu der umgeleitet werden soll, wenn askForData=3</target>
 			</trans-unit>
 			<trans-unit id="settings.resultPageUid" resname="settings.resultPageUid">
 				<source>Page where to show a result of a quiz/poll:</source>
@@ -80,12 +72,12 @@
 				<target>Anzahl der Fragen pro Seite:</target>
 			</trans-unit>
 			<trans-unit id="settings.showAnswerPage" resname="settings.showAnswerPage">
-				<source>Show a solution page with answered questions after every submit?</source>
-				<target>Zeige eine Auswertung der beantworteten Fragen nach jedem absenden an?</target>
+				<source>Show a solution page after every submit?</source>
+				<target>Zeige eine Auswertung nach jedem absenden an?</target>
 			</trans-unit>
 			<trans-unit id="settings.showAnswersAtFinalPage" resname="settings.showAnswersAtFinalPage">
-				<source>Show the answered questions (solutions) at the final page?</source>
-				<target>Zeige die beantworteten Fragen (Auswertung) auf der Schlußseite an?</target>
+				<source>Show the solutions at the final page?</source>
+				<target>Zeige die Auswertung auf der Schlußseite an?</target>
 			</trans-unit>
 			<trans-unit id="settings.showOwnAnswers" resname="settings.showOwnAnswers">
 				<source>Show the own answers?</source>
@@ -106,26 +98,6 @@
 			<trans-unit id="settings.showPoints" resname="settings.showPoints">
 				<source>Show the possible/reached points?</source>
 				<target>Zeige die möglichen/erreichten Punkte an?</target>
-			</trans-unit>
-			<trans-unit id="settings.showDetailedCategoryEval" resname="settings.showDetailedCategoryEval">
-				<source>Show detailed category evaluation if categories are used?</source>
-				<target>Zeige eine detaillierte Kategorieauswertung an, wenn Kategorien benutzt werden?</target>
-			</trans-unit>
-			<trans-unit id="settings.noFormCheck" resname="settings.noFormCheck">
-				<source>Disable form check (set all questions as non mandatory)?</source>
-				<target>Fragen-Check ausschalten (Abfrage, ob alle Fragen beantwortet wurden)?</target>
-			</trans-unit>
-			<trans-unit id="settings.phpFormCheck" resname="settings.phpFormCheck">
-				<source>Enable a form check (of mandatory questions) via PHP?</source>
-				<target>Fragen-Check auch via PHP einschalten?</target>
-			</trans-unit>
-			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
-				<source>Allow edit answered questions (works only for show by tag)?</source>
-				<target>Erlaube es, Antworten zu editieren (funktioniert nur bei &quot;Fragen nach Tag sortieren&quot;)?</target>
-			</trans-unit>
-			<trans-unit id="settings.random" resname="settings.random">
-				<source>Enable a random mode for tags (works only for show by tag)?</source>
-				<target>Zufallsmodus für Tags aktivieren (funktioniert nur bei &quot;Fragen nach Tag sortieren&quot;)?</target>
 			</trans-unit>
 			<trans-unit id="settings.ajax" resname="settings.ajax">
 				<source>Enable AJAX-version? Important: all FlexForm-settings will be ignored then.</source>
@@ -150,10 +122,6 @@
 			<trans-unit id="settings.yesIntroPage" resname="settings.yesIntroPage">
 				<source>yes, but only at the intro page</source>
 				<target>ja, aber nur auf der Intro-Seite</target>
-			</trans-unit>
-			<trans-unit id="settings.yesFinalPage" resname="settings.yesFinalPage">
-				<source>yes, but only at the final page (save the plugin! | you need a closure page too!)</source>
-				<target>ja, aber nur auf der Schluss-Seite (speichern! | man braucht auch eine Abschlussseite)</target>
 			</trans-unit>
 			<trans-unit id="enables" resname="enables">
 				<source>Enable/disable</source>
@@ -187,20 +155,12 @@
 				<source>Deletes all old participants of a folder.</source>
 				<target>Importiert myquizpoll-Einträge eines ausgewählten Ordners.</target>
 			</trans-unit>
-			<trans-unit id="tasks.exportTitle" resname="tasks.exportTitle">
-				<source>Export CSV-file with participants</source>
-				<target>Exportiere CSV-Datei mit Teilnehmern</target>
-			</trans-unit>
-			<trans-unit id="tasks.exportDescription" resname="tasks.exportDescription">
-				<source>Exports participants (with all data) of a folder.</source>
-				<target>Exportiere die Teilnehmer eines Ordners</target>
-			</trans-unit>
 			<trans-unit id="tasks.validate.page" resname="tasks.validate.page">
-				<source>Page with quiz-elements (pages UID):</source>
+				<source>Page with elements (pages UID):</source>
 				<target>Seite mit den Einträgen (Seiten-UID):</target>
 			</trans-unit>
 			<trans-unit id="tasks.validate.invalidPage" resname="tasks.validate.invalidPage">
-				<source>Invalid pages uid, please enter a valid pages uid!</source>
+				<source>Invalid pages uid or the page is not visible!</source>
 				<target>Diese Seite gibt es nicht oder sie ist nicht freigegeben!</target>
 			</trans-unit>
 			<trans-unit id="tasks.validate.days" resname="tasks.validate.days">
@@ -247,26 +207,6 @@
 				<source>Ask for user data at the first page of a quiz?</source>
 				<target>Frage nach Teilnehmer-Daten auf der 1. Seite?</target>
 			</trans-unit>
-			<trans-unit id="settings.user.checkFEuser" resname="settings.user.checkFEuser">
-				<source>Check if a FE-user has already participated?</source>
-				<target>Abfragen, ob ein FE-user schon teilgenommen hat?</target>
-			</trans-unit>
-			<trans-unit id="settings.user.useQuizPid" resname="settings.user.useQuizPid">
-				<source>Use automatically the pid from the quiz?</source>
-				<target>Benutze die PID des Quiz für den Teilnehmer?</target>
-			</trans-unit>
-			<trans-unit id="settings.user.ipSave" resname="settings.user.ipSave">
-				<source>Save the IP-address of a user?</source>
-				<target>IP-Adresse des Teilnehmers speichern?</target>
-			</trans-unit>
-			<trans-unit id="settings.user.ipAnonymous" resname="settings.user.ipAnonymous">
-				<source>Anonymize the IP-address?</source>
-				<target>Die IP-Adresse anonymisieren?</target>
-			</trans-unit>
-			<trans-unit id="settings.user.useCookie" resname="settings.user.useCookie">
-				<source>Save the session in a cookie for X days? -1: sets a session cookie; 0: no cookie; &gt;0 X=days.</source>
-				<target>Speichere die Session in einem Cookie für X Tage? -1: setzt ein Session-Cookie; 0: kein Cookie; &gt;0 X=Tage.</target>
-			</trans-unit>
 			<trans-unit id="emailSettings" resname="emailSettings">
 				<source>Email settings</source>
 				<target>Email-Einstellungen</target>
@@ -278,46 +218,6 @@
 			<trans-unit id="settings.email.sendToUser" resname="settings.email.sendToUser">
 				<source>Send an email to the user at the final page?</source>
 				<target>Sende eine Email an den Teilnehmer am Schluss?</target>
-			</trans-unit>
-			<trans-unit id="dashboard.widget.fixpunktRecentParticipants.title" resname="dashboard.widget.fixpunktRecentParticipants.title">
-				<source>fp_masterquiz: the recent 7 votes</source>
-				<target>fp_masterquiz: die letzten 7 Teilnehmer</target>
-			</trans-unit>
-			<trans-unit id="dashboard.widget.fixpunktRecentParticipants.description" resname="dashboard.widget.fixpunktRecentParticipants.description">
-				<source>Shows some details from recent votes by participant like date and the 1. answer</source>
-				<target>Zeigt Details über die letzten Teilnehmer wie Datum und 1. Abstimmung</target>
-			</trans-unit>
-			<trans-unit id="dashboard.widget.fixpunktLastDays.title" resname="dashboard.widget.fixpunktLastDays.title">
-				<source>fp_masterquiz: votes of the last 31 days</source>
-				<target>fp_masterquiz: die letzten 31 Tage</target>
-			</trans-unit>
-			<trans-unit id="dashboard.widget.fixpunktLastDays.description" resname="dashboard.widget.fixpunktLastDays.description">
-				<source>Shows a bar chart with number of votes for each day</source>
-				<target>Zeigt ein Balkendiagramm mit der Anzahl der Abstimmungen pro Tag</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.csvfile" resname="tasks.validate.csvfile">
-				<source>Path and name of the csv file (must begin with &quot;fileadmin/&quot;):</source>
-				<target>Pfad und Name der CSV-Datei (muss mit &quot;fileadmin/&quot; beginnen):</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.separator" resname="tasks.validate.separator">
-				<source>Separator:</source>
-				<target>Begrenzungszeichen:</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.delimiter" resname="tasks.validate.delimiter">
-				<source>Delimiter:</source>
-				<target>Trennzeichen:</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.ansdelimiter" resname="tasks.validate.ansdelimiter">
-				<source>Answers delimiter:</source>
-				<target>Trennzeichen bei Antworten:</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.convert" resname="tasks.validate.convert">
-				<source>Convert text from UTF-8 to ISO?</source>
-				<target>Von UTF-8 nach ISO konvertieren?</target>
-			</trans-unit>
-			<trans-unit id="tasks.validate.invalidCsvfile" resname="tasks.validate.invalidCsvfile">
-				<source>Invalid csv file, please enter a valid path to the csv file in the fileadmin folder!</source>
-				<target>Der Name der CSV-Datei wird nicht akzeptiert!</target>
 			</trans-unit>
 		</body>
 	</file>

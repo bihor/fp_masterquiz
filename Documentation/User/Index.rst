@@ -39,23 +39,17 @@ After you have created a quiz with some questions you can add the plugin at a pa
 
 This screenshots shows you a quiz in the list view and some FlexForm-settings of the plugin.
 
-.. figure:: ../Images/UserManual/BackendView1.jpg
-   :width: 486px
+.. figure:: ../Images/UserManual/BackendView.png
+   :width: 530px
    :alt: Backend view of a quiz
 
-   Backend view of a quiz/poll.
+   Backend view of a quiz.
 
-.. figure:: ../Images/UserManual/BackendPlugin1.jpg
-   :width: 348px
+.. figure:: ../Images/UserManual/BackendPlugin.png
+   :width: 530px
    :alt: Backend view of the plugin
 
-   Backend view of the plugin (part 1). Many Flexform settings!
-
-.. figure:: ../Images/UserManual/BackendPlugin2.jpg
-   :width: 322px
-   :alt: Backend view of the plugin
-
-   Backend view of the plugin (part 2).
+   Backend view of the plugin (early beta version).
 
 .. figure:: ../Images/UserManual/BackendQuiz2.jpg
    :width: 800px
@@ -68,20 +62,18 @@ Actions
 
 You can select in the plugin-configuration via FlexForms between this actions:
 
-- list: list of all quiz/poll/test of one folder with links to the single view
+- List of all quiz/poll/test of one folder with links to the single view
 
-- show: show a selected quiz/poll/test and use a pagebrowser
+- Show a selected quiz/poll/test and use a pagebrowser
 
-- showByTag: show a selected quiz/poll/test and order the questions by tag: on each page will be shown questions of one tag
-  (Ajax-version is not working yet)
+- Show a selected quiz/poll/test and order the questions by tag: on each page will be shown questions of one tag
+  (Ajax-version is not working yet).
 
-- intro: show an intro page and then a quiz
+- Show an intro page and then a quiz.
 
-- closure: show a closure page after finishing a quiz; this page is only shown when user.askForData=3
+- Show a result of a quiz/poll/test
 
-- result: show a result of a quiz/poll/test
-
-- highscore: show a highscore of a quiz
+- Show a highscore of a quiz
 
 
 Question modes
@@ -89,9 +81,7 @@ Question modes
 
 You can choose between the following question modes:
 Multiple answers possible (check-box), Choose one answer (radio-button), Select one answer (select-options),
-Enter an answer (text-field), Yes/no-boxes (2 radio-buttons), Enter a comment (textarea), Show a comment, Star rating
-and a matrix of categories of one question for every answer (suitable only for polls; no detail evaluation implemented
-yet).
+Enter an answer (text-field), Yes/no-boxes (2 radio-buttons), Enter a comment (textarea), Show a comment, Star rating.
 
 Time period
 -----------
@@ -115,17 +105,11 @@ a input-field or textarea in the frontend.
 Star-Rating
 -----------
 
-A special case is the star rating feature. For that feature a CSS-file is included by default. If you do not need this
-feature, you can remove the CSS-file like this for versions until 3.1.2::
+A special case is the star rating feature. For that feature a CSS-file is included by default. If you do not need this feature, you can remove the CSS-file like this::
 
   page.includeCSS.fpMasterQuizRatingStar >
 
-Since version 3.1.3 you can remove the css file via TypoScript (or in the template itself)::
-
- plugin.tx_fpmasterquiz.settings.includeRatingCSS = 0
-
-Otherwise you should know this: the star rating may not work correct with old browsers. It is a CSS only solution.
-It looks like this:
+Otherwise you should know this: the star rating may not work correct with old browsers. It is a CSS only solution. It looks like this:
 
 .. figure:: ../Images/UserManual/StarRating.png
    :width: 164px
@@ -137,7 +121,7 @@ You can use it this way: because it uses radio-boxes in the background, you must
 Select the question mode "star rating" and than add as many answers as you like to have stars. If you want 5 stars, add 5 answers.
 The first answer is the highest rating (e.g. 5 stars) and and last answer is the lowest answer (1 star). 
 That is the opposite logic of the star rating in the extension myquizpoll.
-Do not set the points. In the user-answer, the points shows how many stars were selected.
+Do not set the points. In the user-answer, the points shows how many stars were seleced.
 With the setting checkAllStars you can define if one or all stars should be checked by default.
 
 .. important::
@@ -149,17 +133,15 @@ With the setting checkAllStars you can define if one or all stars should be chec
 FAQ
 ---
 
+- I need some features from myquizpoll. What can I do?
+
+  You can tell me, which feature you need.
+
 - What about user data like name and email? Where can we ask for them?
 
   There is a special intro-page possible, where you can ask for the user-name, email and homepage.
-  Or you can ask for the user data at the first page of a quiz. And: you can ask for user data at the final page.
-  Then you would need a closure page too.
+  Or you can ask for the user data at the first page of a quiz. Todo: ask for user data at the final page.
   If the user is logged in, this data will be taken from fe_users.
-
-- What is the difference between the final page and the closure page?
-
-  The final page is the page you get when the quiz was completed. When "user.askForData = 3" then that form will
-  redirect from the final page to the closure page. Only in that case you will need a closure page.
 
 - There are some errors or I get a blank page. What can I do?
 

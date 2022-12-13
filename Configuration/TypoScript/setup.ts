@@ -24,10 +24,9 @@ plugin.tx_fpmasterquiz {
 	settings {
 		startPageUid =
 		showPageUid =
-		closurePageUid =
 		resultPageUid =
 		highscorePageUid =
-		defaultQuizUid = 1
+		defaultQuizUid =
 		introContentUid =
 		introNextAction = show
 		showAnswerPage = 1
@@ -39,24 +38,17 @@ plugin.tx_fpmasterquiz {
 		showPoints = 1
 		showPageNo = 1
 		showQuestionNo = 0
-		showDetailedCategoryEval = 0
-		highscoreLimit = 10
 		checkAllStars = 0
-		noFormCheck = 0
-		phpFormCheck = 0
-		allowEdit = 0
 		allowHtml = 0
-		random = 0
 		joker = 0
 		ajax = 0
-		ajaxType = GET
+		ajaxType = POST
 		setMetatags = 0
-		includeRatingCSS = 1
+		highscoreLimit = 10
 		user {
 			ipSave = 1
 			ipAnonymous = 1
 			useCookie = 0
-			useQuizPid = 0
 			checkFEuser = 0
 			askForData = 0
 			defaultName = default {TIME}
@@ -85,7 +77,6 @@ plugin.tx_fpmasterquiz {
 		template {
 			colText = col-md-8
 			colImage = col-md-4
-			col12 = col-12
 			wrapQuizTitle1 = <h2>
 			wrapQuizTitle2 = </h2>
 			wrapQuizDesc1 = <h3>
@@ -98,14 +89,13 @@ plugin.tx_fpmasterquiz {
 			wrapQuestionDesc2 = </div>
 			wrapDone1 = <h4>
 			wrapDone2 = </h4>
-			optionalMark =
 		}
 		chart {
 			type = pie
 			width = 492
 		}
 		templateLayout =
-		overrideFlexformSettingsIfEmpty = startPageUid,showPageUid,closurePageUid,resultPageUid,highscorePageUid,defaultQuizUid,introContentUid,templateLayout,pagebrowser.itemsPerPage,user.useCookie
+		overrideFlexformSettingsIfEmpty = startPageUid,showPageUid,resultPageUid,highscorePageUid,defaultQuizUid,introContentUid,templateLayout,pagebrowser.itemsPerPage
 		debug = 0
 		typeNum = {$plugin.tx_fpmasterquiz.settings.typeNum}
 	}
@@ -127,7 +117,7 @@ module.tx_fpmasterquiz_web_fpmasterquizmod1 {
     settings {
 		pagebrowser {
            itemsPerPage         = 25
-           insertAbove          = 1
+           insertAbove          = 0
            insertBelow          = 1
            maximumNumberOfLinks = 70
 		}
@@ -135,16 +125,7 @@ module.tx_fpmasterquiz_web_fpmasterquizmod1 {
     }
 }
 
-module.tx_dashboard {
-	view {
-		layoutRootPaths {
-			42 = EXT:fp_masterquiz/Resources/Private/Backend/Layouts/
-		}
-		templateRootPaths {
-			42 = EXT:fp_masterquiz/Resources/Private/Backend/Templates/
-		}
-	}
-}
+## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
 # PAGE object for Ajax call (you need to add your language settings here too!):
 ajaxfpmasterquiz_page = PAGE
@@ -160,3 +141,6 @@ ajaxfpmasterquiz_page {
     }
     10 < tt_content.list.20.fpmasterquiz_pi1
 }
+
+# CSS for Star Rating. You can delete it, if you dont need it
+page.includeCSS.fpMasterQuizRatingStar = EXT:fp_masterquiz/Resources/Public/Css/RatingStar.css

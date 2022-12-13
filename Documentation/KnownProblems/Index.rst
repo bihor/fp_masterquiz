@@ -17,9 +17,9 @@ The bug tracker is here:
 jQuery needed to be loaded in the head.
 
 There might be some problems, if you enable Ajax!
-Sessions and Cookies are currently not supported if you enable Ajax.
+User-data and cookies are currently not supported if you enable Ajax.
 
-Note for versions < 3: it might be necessary to change the Quiz/Show.html template, if you will see the startpage
+Note: it might be necessary to change the Quiz/Show.html template, if you will see the startpage
 instead of a question as a ajax result page. You could try to change the type from POST to GET in the $.ajax call.
 But you can change this via TypoScript too:
 
@@ -41,6 +41,3 @@ Please note furthermore:
   This is set by default. Or if you disable the cHash-check globally: 
   $GLOBALS['TYPO3_CONF_VARS']['FE']['pageNotFoundOnCHashError'] = false
   in the install tool.
-
-- the AJAX-version ignores FlexForm-settings during the AJAX-call but not during the initialization.
-  Therefore you should not set any FlexForms if you use AJAX or they should be equal.

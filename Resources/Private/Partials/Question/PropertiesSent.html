@@ -1,6 +1,6 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:variable name="enablePoints">{selection.maximumPoints}</f:variable> 
-<div class="card"><div class="card-body">
+<div class="card">
 	<f:if condition="({settings.showPageNo} == 1) && ({settings.ajax} == 1) && ({pages} != 1) && ({final} == 0)">
 	  <p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
 	</f:if>
@@ -13,7 +13,7 @@
 	{settings.template.wrapQuestionTitle1 -> f:format.raw()}{selection.question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
 	{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{selection.question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
 	<div class="row">
-		<div class="{f:if(condition: '{selection.question.image.uid}', then: settings.template.colText, else: settings.template.col12)}">
+		<div class="{settings.template.colText}">
 			<div class="text-buttons">
 				<f:if condition="{selection.question.qmode} != 6">
 					<f:if condition="(({settings.showOwnAnswers} == 2) && ({final} == 0)) || ({settings.showOwnAnswers} == 1) || {isEmail}">
@@ -35,11 +35,11 @@
 							<f:case value="3">
 								<f:comment>When 'Enter an answer' in a text field</f:comment> 
 								<f:comment> {answer -> f:debug(title: 'Members of answer')} / no HTML for entered Text allowed:	</f:comment>
-								<ul><li>{selection.entered -> f:format.nl2br()}</li></ul>
+								{selection.entered -> f:format.nl2br()}
 							</f:case>									
 							<f:case value="5">
 								<f:comment>When 'Enter an answer' in a textarea</f:comment>
-								<ul><li>{selection.entered -> f:format.nl2br()}</li></ul>
+								{selection.entered -> f:format.nl2br()}								
 							</f:case>
 							<f:case value="7">
 								<f:comment>Star rating</f:comment>
@@ -59,9 +59,6 @@
 								<f:if condition="{settings.allowHtml} == 1">
 									<f:then>{answer.title -> f:format.raw()}</f:then>
 									<f:else>{answer.title -> f:format.nl2br()}</f:else>
-								</f:if>
-								<f:if condition="{selection.question.qmode} == 8 && {answer.ownCategoryAnswer}">
-									: {answer.ownCategoryAnswer.1}
 								</f:if>
 								<f:if condition="{settings.showPoints} && {enablePoints}">
                                     ({answer.points} {f:translate(key: "text.points", default: 'P')})
@@ -135,17 +132,17 @@
 				</f:if>
 			</div>
 		</div>
-		<f:if condition="{selection.question.image.uid}">
-			<div class="{settings.template.colImage}">
+		<div class="{settings.template.colImage}">
+			<f:if condition="{selection.question.image.uid}">
 				<f:image src="{selection.question.image.uid}" treatIdAsReference="1" class="img-fluid" />
-			</div>
-		</f:if>
+			</f:if>
+		</div>
 	</div>
 	<f:if condition="{selection.question.explanation}">
 		<br />
 		<p>{f:translate(key: "text.explanation", default: 'Explanation: ')}</p>
 		<f:format.html>{selection.question.explanation}</f:format.html>
 	</f:if>
-</div></div>
+</div>
 <br />
 </html>

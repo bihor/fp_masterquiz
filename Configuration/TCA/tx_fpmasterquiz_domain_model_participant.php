@@ -17,8 +17,11 @@ return [
         'searchFields' => 'name,email,homepage,user,ip,session,points,maximum1,maximum2,quiz,selections',
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_participant.gif'
     ],
+    'interface' => [
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, sessionstart, points, maximum1, maximum2, page, completed, quiz, selections',
+    ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, sessionstart, randompages, points, maximum1, maximum2, page, completed, quiz, selections'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, email, homepage, user, ip, session, sessionstart, points, maximum1, maximum2, page, completed, quiz, selections'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -127,8 +130,7 @@ return [
 				'allowed' => 'fe_users',	
 				'size' => 1,	
 				'minitems' => 0,
-				'maxitems' => 1,
-                'default' => 0
+				'maxitems' => 1
 			],
         ],
         'ip' => [
@@ -156,15 +158,6 @@ return [
                 'type' => 'input',
                 'size' => 4,
                 'eval' => 'int'
-            ]
-        ],
-        'randompages' => [
-            'exclude' => true,
-            'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_participant.randompages',
-            'config' => [
-                'type' => 'input',
-                'size' => 30,
-                'eval' => 'trim'
             ]
         ],
         'points' => [
@@ -213,8 +206,9 @@ return [
                         '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
                     ]
                 ],
-                'default' => 0
+                'default' => 0,
             ]
+            
         ],
         'quiz' => [
             'exclude' => true,
@@ -225,7 +219,6 @@ return [
                 'foreign_table' => 'tx_fpmasterquiz_domain_model_quiz',
                 'minitems' => 0,
                 'maxitems' => 1,
-                'default' => 0
             ],
         ],
         'selections' => [
@@ -244,6 +237,8 @@ return [
                     'showAllLocalizationLink' => 1
                 ],
             ],
+
         ],
+    
     ],
 ];

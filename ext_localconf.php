@@ -6,13 +6,14 @@ call_user_func(
     {
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'FpMasterquiz',
+            'Fixpunkt.FpMasterquiz',
             'Pi1',
             [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'list, intro, default, show, showAjax, showByTag, closure, defaultres, result, highscore'
+                'Quiz' => 'list, intro, default, show, showAjax, showByTag, random, defaultres, result, highscore'
             ],
+            // non-cacheable actions
             [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'default, show, showAjax, showByTag, closure, defaultres, result, highscore'
+                'Quiz' => 'default, show, showAjax, showByTag, random, defaultres, result, highscore'
             ]
         );
 
@@ -37,10 +38,11 @@ call_user_func(
         );
         
 		$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+		
 		$iconRegistry->registerIcon(
 			'fp_masterquiz-plugin-pi1',
 		    \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-			['source' => 'EXT:fp_masterquiz/Resources/Public/Icons/user_plugin_pi1.gif']
+			['source' => 'EXT:fp_masterquiz/ext_icon.gif']
 		);
 		$iconRegistry->registerIcon(
 		    'ext-fpmasterquiz-folder-icon',
@@ -52,11 +54,11 @@ call_user_func(
 );
 ## EXTENSION BUILDER DEFAULTS END TOKEN - Everything BEFORE this line is overwritten with the defaults of the extension builder
 
-if (TYPO3_MODE === 'BE') {
-    // Page module hook
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['fpmasterquiz_pi1']['fp_masterquiz'] =
-        \Fixpunkt\FpMasterquiz\Hooks\PageLayoutView::class . '->getExtensionSummary';
+// Page module hook
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['list_type_Info']['fpmasterquiz_pi1']['fp_masterquiz'] =
+\Fixpunkt\FpMasterquiz\Hooks\PageLayoutView::class . '->getExtensionSummary';
 
+if (TYPO3_MODE === 'BE') {
 	// Add deletion task (sheduler)
 	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Fixpunkt\\FpMasterquiz\\Task\\DeleteParticipantTask'] = array(
 			'extension' => 'fp_masterquiz',
@@ -64,11 +66,12 @@ if (TYPO3_MODE === 'BE') {
 			'description' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.description',
 			'additionalFields' => 'Fixpunkt\\FpMasterquiz\\Task\\DeleteParticipantAdditionalFieldProvider'
 	);
-	// CSV-export task
-    $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Fixpunkt\\FpMasterquiz\\Task\\CsvExportTask'] = array(
-        'extension' => 'fp_masterquiz',
-        'title' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.exportTitle',
-        'description' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.exportDescription',
-        'additionalFields' => 'Fixpunkt\\FpMasterquiz\\Task\\CsvExportAdditionalFieldProvider'
-    );
+	// Add myquizpoll-import task (sheduler)
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['Fixpunkt\\FpMasterquiz\\Task\\ImportQuizTask'] = array(
+			'extension' => 'fp_masterquiz',
+			'title' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.titleImport',
+			'description' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.descriptionImport',
+			'additionalFields' => 'Fixpunkt\\FpMasterquiz\\Task\\ImportQuizAdditionalFieldProvider'
+	);
+	// CSV-import task ist noch nicht fertig, kommt aber später hierhin
 }

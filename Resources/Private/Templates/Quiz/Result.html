@@ -3,12 +3,6 @@
  
 	<f:section name="content">
 		<f:flashMessages />
-		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
-		<f:if condition="{quiz.media.0}">
-			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" class="img-fluid" />
-		</f:if>
-		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
-
 		<f:if condition="{settings.templateLayout} == 1">
 			<!-- charts-layout -->
 			<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -18,45 +12,34 @@
 			</script>
 		</f:if>
 		<f:for each="{quiz.questions}" as="question" iteration="pageiterator">
-			<div class="card"><div class="card-body">
+			<div class="card">
 				{settings.template.wrapQuestionTitle1 -> f:format.raw()}{question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
+				{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
 				<div class="row">
-					<div class="{f:if(condition: '{question.image.uid}', then: settings.template.colText, else: settings.template.col12)}">
-						{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
-					</div>
-					<f:if condition="{question.image.uid}">
-						<div class="{settings.template.colImage}">
-							<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-fluid" />
+					<div class="{settings.template.colText}">
+						<div class="text-buttons">
+							<f:if condition="{settings.templateLayout} == 1">
+							<f:then>
+								<f:render partial="Question/Chart" arguments="{settings:settings, question:question}" />
+							</f:then>
+							<f:else>
+								<f:render partial="Question/Result" arguments="{settings:settings, question:question}" />
+							</f:else>
+							</f:if>
 						</div>
-					</f:if>
+						<f:if condition="{question.explanation}">
+							<br />
+							<p>{f:translate(key: "text.explanation", default: 'Explanation: ')}</p>
+							<f:format.html>{question.explanation}</f:format.html>
+						</f:if>
+					</div>
+					<div class="{settings.template.colImage}">
+						<f:if condition="{question.image.uid}">
+							<f:image src="{question.image.uid}" treatIdAsReference="1" class="img-fluid" />
+						</f:if>
+					</div>
 				</div>
-				<div class="text-buttons">
-					<f:if condition="{settings.templateLayout} == 1"><f:then>
-						<f:if condition="({question.qmode} == 3) || ({question.qmode} == 5)"><f:then>
-							<f:if condition="{question.qmode} == 3"><f:then>
-								<f:for each="{question.answers}" as="answer3">
-									{answer3.title}: {answer3.allAnswers} {f:translate(key: "text.choices")}<br/>
-									<div class="progress">
-										<div class="progress-bar" style="width:{answer3.allPercent}%">{answer3.allPercent} %</div>
-									</div>
-								</f:for>
-							</f:then><f:else>
-								--
-							</f:else></f:if>
-						</f:then><f:else>
-							<f:render partial="Question/Chart" arguments="{settings:settings, question:question}" />
-						</f:else></f:if>
-					</f:then><f:else>
-						<f:render partial="Question/Result" arguments="{settings:settings, question:question}" />
-					</f:else></f:if>
-				</div>
-				<f:if condition="{question.explanation}">
-					<br />
-					<p>{f:translate(key: "text.explanation", default: 'Explanation: ')}</p>
-					<f:format.html>{question.explanation}</f:format.html>
-				</f:if>
-			</div></div>
-			<br/>
+			</div>
 		</f:for>
 			
 		<f:if condition="{settings.debug}">

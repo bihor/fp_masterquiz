@@ -20,6 +20,9 @@ return [
         'searchFields' => 'name,about,questions,evaluations',
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_quiz.gif'
     ],
+    'interface' => [
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, path_segment, about, timeperiod, media, questions, evaluations',
+    ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, path_segment, about, timeperiod, media, questions, evaluations, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
@@ -235,6 +238,8 @@ return [
                     'showAllLocalizationLink' => 1
                 ],
             ],
+
         ],
+    
     ],
 ];

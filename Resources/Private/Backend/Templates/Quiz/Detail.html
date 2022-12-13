@@ -1,7 +1,8 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
   <f:layout name="Default" />
-  <f:section name="Content">
+  <f:section name="content">
     <h1>{quiz.name}</h1>
+    <f:flashMessages />
     <f:if condition="{updated}"><f:then></f:then><f:else>
     <f:render partial="Quiz/Properties" arguments="{quiz:quiz}" />
 	</f:else></f:if>
@@ -11,15 +12,10 @@
 		<f:form action="detail">
 		<f:form.hidden name="quiz" value="{quiz.uid}" />
 	   	<f:form.select name="lost" options="{lostArray}" />
-			<br>
 	   	<f:form.button type="submit" name="quizGoOn" class="btn btn-primary"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:addthis" default="add" /></f:form.button>
 	   	</f:form>
 	</f:if>
-
-	<p><f:link.action controller="Question" action="move" arguments="{quiz : quiz}" class="btn btn-primary"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:moveQuestion" /></f:link.action></p>
-
+	
     <p><f:link.action action="index" class="btn btn-default"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:back" default="Back to list" /></f:link.action></p>
-
-    <br><p>*: <f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.optional" /></p>
   </f:section>
 </html>

@@ -77,13 +77,6 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $sessionstart = 0;
 
     /**
-     * List of random pages for this user
-     *
-     * @var string
-     */
-    protected $randompages = '';
-
-    /**
      * Reached points for this quiz
      *
      * @var int
@@ -132,7 +125,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
      */
     protected $selections = null;
-
+    
     /**
      * __construct
      */
@@ -293,32 +286,6 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Returns the username
-     *
-     * @return string $username
-     */
-    public function getUsername()
-    {
-        if (!$this->user) {
-            return '';
-        } else {
-            $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('fe_users');
-            $statement = $queryBuilder
-                ->select('username')
-                ->from('fe_users')
-                ->where(
-                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($this->user, \PDO::PARAM_INT))
-                )
-                ->setMaxResults(1)
-                ->execute();
-            while ($row = $statement->fetch()) {
-                return $row['username'];
-            }
-            return '';
-        }
-    }
-
-    /**
      * Sets the user
      *
      * @param int $user
@@ -369,27 +336,6 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setSessionstart($sessionstart)
     {
         $this->sessionstart = $sessionstart;
-    }
-
-    /**
-     * Returns the randompages
-     *
-     * @return array $randompages
-     */
-    public function getRandompages()
-    {
-        return explode(',', $this->randompages);
-    }
-
-    /**
-     * Sets the randompages
-     *
-     * @param array $randompages
-     * @return void
-     */
-    public function setRandompages($randompages)
-    {
-        $this->randompages = implode(',', $randompages);
     }
 
     /**
@@ -467,17 +413,6 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the minus points
-     *
-     * @param int $points
-     * @return void
-     */
-    public function subtractPoints($points)
-    {
-        $this->points -= $points;
-    }
-
-    /**
      * Returns the maximum1
      *
      * @return int maximum1
@@ -498,7 +433,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the maximum1 (maximum bisher)
+     * Sets the maximum1
      *
      * @param int $maximum1
      * @return void
@@ -540,7 +475,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * Sets the maximum2 (maximum gesamt)
+     * Sets the maximum2
      *
      * @param int $maximum2
      * @return void
@@ -601,48 +536,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->completed;
     }
-
-    /**
-     * Returns the most selected category
-     *
-     * @return array
-     */
-    public function getCategoryMost()
-    {
-        $mostValue = 0;
-        $mostUid = 0;
-        $mostArray = [];
-        $mostEntry = [];
-        $generalArray = [];
-        foreach ($this->selections as $selection) {
-            foreach ($selection->getAnswers() as $answer) {
-                $cats = $answer->getCategories();
-                foreach ($cats as $cat) {
-                    $uid = $cat->getUid();
-                    if (isset($mostArray[$uid])) {
-                        $mostArray[$uid]++;
-                    } else {
-                        $mostArray[$uid] = 1;
-                        $generalArray[$uid] = [];
-                        $generalArray[$uid]['title'] = $cat->getTitle();
-                    }
-                }
-            }
-        }
-        foreach ($mostArray as $key => $value) {
-            $generalArray[$key]['count'] = $value;
-            if ($value > $mostValue) {
-                $mostUid = $key;
-                $mostValue = $value;
-            }
-        }
-        $mostEntry['uid'] = $mostUid;
-        $mostEntry['count'] = $mostValue;
-        $mostEntry['title'] = $generalArray[$mostUid]['title'];
-        $mostEntry['all'] = $generalArray;
-        return $mostEntry;
-    }
-
+    
     /**
      * Adds a Selected
      *

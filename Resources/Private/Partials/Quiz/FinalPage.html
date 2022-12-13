@@ -6,15 +6,6 @@
 				<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
         	<br/>
 		</f:if></f:if>
-		<f:if condition="{settings.showDetailedCategoryEval} && {finalCategories.uid}">
-			<p><f:translate key="text.detailEvaluation" /></p>
-			<table>
-				<tr><th><f:translate key="text.categoryTitle" /></th><th><f:translate key="text.categoryCount" /></th></tr>
-				<f:for each="{finalCategories.all}" as="oneCat">
-					<tr><td>{oneCat.title}</td><td>{oneCat.count}x</td></tr>
-				</f:for>
-			</table>
-		</f:if>
 		<f:if condition="{finalImageuid}">
 			<f:image src="{finalImageuid}" treatIdAsReference="1" class="img-fluid" />
 		</f:if>
@@ -28,15 +19,6 @@
 			<f:for each="{participant.sortedSelections}" as="selection" iteration="pageiterator">
 				<f:render partial="Question/PropertiesSent" arguments="{_all}" />
 			</f:for>
-		</f:if>
-		<f:if condition="({settings.user.askForData} == 3) && ({settings.closurePageUid})">
-			<f:render partial="Participant/Form" arguments="{_all}" />
-			<p><button class="btn btn-primary btn-lg" onclick="$('#quiz-form-page').val('999');this.form.submit();">
-				<f:translate key="text.saveData" />
-			</button></p>
-			<script>
-				setTimeout(function(){ $('#quiz-userData').show(); }, 1000);
-			</script>
 		</f:if>
 		<p>
 		<f:if condition="{settings.startPageUid}">

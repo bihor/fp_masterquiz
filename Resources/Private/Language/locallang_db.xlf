@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2021-10-18T09:26:11Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2021-05-17T15:10:15Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fp_masterquiz_pi1.name" resname="tx_fp_masterquiz_pi1.name">
@@ -54,9 +54,6 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.tag" resname="tx_fpmasterquiz_domain_model_question.tag">
 				<source>Tag</source>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question.optional" resname="tx_fpmasterquiz_domain_model_question.optional">
-				<source>The answer is optional</source>
-			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.answers" resname="tx_fpmasterquiz_domain_model_question.answers">
 				<source>Answers of this question</source>
 			</trans-unit>
@@ -73,7 +70,7 @@
 				<source>Evaluation</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.evaluate" resname="tx_fpmasterquiz_domain_model_evaluation.evaluate">
-				<source>Evaluate points (unchecked) or percentage (checked) or categories (a category is checked)?</source>
+				<source>Evaluate points (unchecked) or percentage (checked)?</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.minimum" resname="tx_fpmasterquiz_domain_model_evaluation.minimum">
 				<source>Minimum value</source>
@@ -116,9 +113,6 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.sessionstart" resname="tx_fpmasterquiz_domain_model_participant.sessionstart">
 				<source>Time in seconds for the first page</source>
-			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.randompages" resname="tx_fpmasterquiz_domain_model_participant.randompages">
-				<source>Random page order</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.points" resname="tx_fpmasterquiz_domain_model_participant.points">
 				<source>Reached points for this quiz</source>
@@ -188,9 +182,6 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.7" resname="tx_fpmasterquiz_domain_model_question.qmode.7">
 				<source>Star rating</source>
-			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.8" resname="tx_fpmasterquiz_domain_model_question.qmode.8">
-				<source>Matrix with categories of a question</source>
 			</trans-unit>
 		</body>
 	</file>

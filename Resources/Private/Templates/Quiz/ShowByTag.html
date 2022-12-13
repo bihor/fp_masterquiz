@@ -18,9 +18,6 @@
             </ul>
         </f:if>
     </f:form.validationResults>
-    <f:if condition="{settings.includeRatingCSS}">
-        <f:asset.css identifier="fpMasterQuizRatingStar" href="EXT:fp_masterquiz/Resources/Public/Css/RatingStar.css" />
-    </f:if>
     <f:if condition="{settings.templateLayout} == 1">
         <!-- charts-layout -->
         <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -32,10 +29,11 @@
 
     {settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
     <f:if condition="{quiz.media.0}">
-        <f:media alt="{quiz.media.0.originalResource.name}" class="img-fluid"  file="{quiz.media.0}" title="{quiz.media.0.originalResource.title}"/>
+        <f:media alt="{quiz.media.0.originalResource.name}" class="img-fluid"
+                 file="{quiz.media.0}" title="{quiz.media.0.originalResource.title}"/>
     </f:if>
-    <f:if condition="{quiz.about}">
-        {settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}
+    <f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 ->
+        f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}
     </f:if>
 
     <f:if condition="{quiz.timeperiod} && ({final} == 0)">
@@ -52,21 +50,20 @@
 
     <script>
         var ceuid = '{uidOfCE}';
-        var noFormCheck = (({settings.noFormCheck} == 1) ? true : false);
         var quizfinal = 0;
         var tagTimePeriod = 0;
         var quizIntervalId = null;
+        var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
         var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
     </script>
 
     <f:form id="quiz-form{uidOfCE}" method="POST">
         <f:form.hidden name="quiz" value="{quiz.uid}"/>
         <f:form.hidden name="participant" value="{participant.uid}"/>
-        <f:form.hidden name="currentPage" value="{nextPage}" id="quiz-form-page"/>
+        <f:form.hidden name="currentPage" value="{nextPage}"/>
         <f:form.hidden name="showAnswers" value="{showAnswersNext}"/>
         <f:form.hidden name="session" value="{session}"/>
         <f:form.hidden name="startTime" value="{startTime}" />
-        <f:form.hidden name="randomPages" value="{randomPages}" />
 
         <f:if condition="{final} == 0">
             <f:then>
@@ -80,16 +77,6 @@
                             </div>
                         </div>
                     </p>
-                </f:if>
-
-                <f:if condition="{settings.allowEdit}">
-                    <f:for each="{tags}" key="oneKey" as="oneTag">
-                        <button name="seite{oneKey}" class="btn btn-light {f:if(condition: '{page} == {oneKey}', then: 'active')}"
-                                onclick="$('#quiz-form-page').val({oneKey});$('quiz-form{uidOfCE}').submit();">
-                            {oneTag}
-                        </button>
-                    </f:for>
-                    <br /><br />
                 </f:if>
 
                 <f:if condition="{showAnswers}">
@@ -158,11 +145,6 @@
                             <f:form.hidden name="homepage" value="{homepage}" />
                         </f:if>
 
-                        <div id="quiz-error-msg" style="display:none;">
-                            <div class="alert alert-danger" role="alert">
-                                {f:translate(key: "text.errorEmpty")}
-                            </div>
-                        </div>
                         <div>
                             <div class="pull-right quiz-subm">
                                 <f:form.button class="btn btn-primary btn-lg" id="quiz-GoOn" name="quizGoOn"
@@ -214,13 +196,10 @@
                                 $("#quiz-GoOn").click(function () {
                                     // check if there are selected answers to all questions. if not, show an warning
                                     var allSelected = checkQuizForm();
-                                    if (noFormCheck || allSelected) {
+                                    if (allSelected) {
                                         $('#quiz-form' + ceuid).submit();
                                     } else {
-                                        $('#quiz-error-msg').removeAttr("style");
-                                        setTimeout(function() {
-                                            $('#quiz-error-msg').hide();
-                                        }, 5000);
+                                        window.alert(text_errorEmpty);
                                     }
                                 });
                             }, false);
@@ -276,12 +255,6 @@
                                    pageUid="{settings.highscorePageUid}">{f:translate(key: "text.showHighscorePage")}
                     </f:link.action>
                 </f:if>
-
-                <f:if condition="{showAnswers}"><f:then></f:then><f:else>
-                    <f:if condition="{settings.template.optionalMark}">
-                        <br><p>{settings.template.optionalMark -> f:format.raw()}{f:translate(key: "text.optional")}</p>
-                    </f:if>
-                </f:else></f:if>
             </f:then>
             <f:else>
 

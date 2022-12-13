@@ -31,108 +31,98 @@ Properties
 
 .. container:: ts-properties
 
-============================ =========== =============================================== ===========================
-Property                     Data type   Description                                     Default
-============================ =========== =============================================== ===========================
-startPageUid                 integer     UID of the page where to restart (listPid).     -
-showPageUid                  integer     UID of the single-page of a quiz (detailPid).   -
-closurePageUid               integer     UID of a closure-page of a quiz.                -
-resultPageUid                integer     UID of the page where to show quiz results.     -
-highscorePageUid             integer     UID of the page where to show a highscore.      -
-defaultQuizUid               integer     UID of the quiz to show.                        1
-introContentUid              integer     Content element for the intro page.             -
-introNextAction              string      Action after the intro page: show or showByTag. show
-showAnswerPage               boolean     Show an answer page after every submit?         1
-showOwnAnswers               integer     Show the answers of the quiz taker? 0,1 or 2.   2
-showCorrectAnswers           integer     Show the correct answers? 0, 1 or 2.            1
-showEveryAnswer              integer     Show every answer? 0, 1 or 2 (see below).       0
-showAnswersAtFinalPage       boolean     Show answers with solutions at the final page?  1
-showAllAnswers               boolean     Show finally all answers (no. of choices)?      1
-showPoints                   boolean     Show the possible/reached points if maximum>0?  1
-showPageNo                   boolean     Show the page number / number of pages?         1
-showQuestionNo               boolean     Show the question no. / no. of questions?       0
-showDetailedCategoryEval     boolean     Show detailed category evaluation if available? 0
-checkAllStars                boolean     Check all stars on star rating by default?      0
-highscoreLimit               integer     Number of entries in the highscore              10
-noFormCheck                  boolean     Don´t check for answered questions at all?      0
-phpFormCheck                 boolean     Enable check for answered questions with PHP?   0
-allowEdit                    boolean     Show links to pages and allow to edit answers?  0
-allowHtml                    boolean     Allow HTML at question-answers from the BE?     0
-random                       boolean     Enable a random mode? Works only with tags.     0
-joker                        boolean     Enable a joker-button? Works only with AJAX.    0
-ajax                         boolean     Enable the AJAX-version* of the quiz?           0
-ajaxType                     string      POST or GET                                     GET
-setMetatags                  boolean     Set some metatags and change the title?         0
-includeRatingCSS             boolean     Include the RatingStar.css via f:asset?         1
-user.ipSave                  boolean     Save the IP-address of a user?                  1
-user.ipAnonymous             boolean     Anonymize the IP-address?                       1
-user.useCookie               integer     Save the session in a cookie too? See below.    0
-user.useQuizPid              boolean     Use automatically the pid from the quiz?        0
-user.checkFEuser             boolean     Check if a FEuser has already participated?     0
-user.askForData              integer     Ask for user data? 0, 1, 2 or 3 (see below).    0
-user.defaultName             string      Default user name ({TIME} will be replaced).    default {TIME}
-user.defaultEmail            string      Default user email.                             -
-user.defaultHomepage         string      Default user homepage.                          -
-email.fromEmail              string      Your email-address.                             -
-email.fromName               string      Your name.                                      -
-email.adminEmail             string      Admin email-address.                            -
-email.adminName              string      Admin name.                                     -
-email.adminSubject           string      Subject of the admin-email.                     New poll/quiz-result
-email.userSubject            string      Subject of the email to the user.               Your poll/quiz-result
-email.sendToAdmin            boolean     Send an email to the admin at the final page?   0
-email.sendToUser             boolean     Send an email to the user at the final page?    0
-email.specific               string      Send email to specific admins (see below)?      -
-email.likeFinalPage          boolean     Handle the email like a final page?             0
-pagebrowser.itemsPerPage     integer     Number of questions on a page.                  1
-pagebrowser.insertAbove      boolean     You don´t need this.                            0
-pagebrowser.insertBelow      boolean     You don´t need this.                            0
-pagebrowser.maximumNum...    integer     You don´t need this.                            50
-template.colText             string      Class for a question with answers.              col-md-8
-template.colImage            string      Class for the image of a question.              col-md-4
-template.col12               string      Class for the text of a question; if no image.  col-12
-template.wrapQuizTitle1      string      Wrap for the quiz title.                        <h2>
-template.wrapQuizTitle2      string      Wrap for the quiz title.                        </h2>
-template.wrapQuizDesc1       string      Wrap for the quiz description.                  <h3>
-template.wrapQuizDesc2       string      Wrap for the quiz description.                  </h3>
-template.wrapTagName1        string      Wrap for the tag name.                          <h4>
-template.wrapTagName2        string      Wrap for the tag name.                          </h4>
-template.wrapQuestionTitle1  string      Wrap for the question title.                    <div class="mx-auto"><h4>
-template.wrapQuestionTitle2  string      Wrap for the question title.                    </h4></div>
-template.wrapQuestionDesc1   string      Wrap for the question description.              <div class="mx-auto">
-template.wrapQuestionDesc2   string      Wrap for the question description.              </div>
-template.wrapDone1           string      Wrap for the done-msg at the final page.        <h4>
-template.wrapDone2           string      Wrap for the done-msg at the final page.        </h4>
-template.optionalMark        string      You can define a string for optional questions. -
-chart.type                   string      You can choose between: pie, donut or bar.      pie
-chart.width                  integer     Width of the chart.                             492
-templateLayout               integer     See in chapter PageTSconfig**.                  -
-overrideFlexformSettings...  string      Fields that should be overwritten if empty.     startPageUid,...
-debug                        boolean     Show debug data at the page.                    0
-typeNum                      integer     Type of the AJAX-call. Don´t change it.         190675
-============================ =========== =============================================== ===========================
+	============================ =========== =============================================== ===========================
+	Property                     Data type   Description                                     Default
+	============================ =========== =============================================== ===========================
+	startPageUid                 integer     UID of the page where to restart (listPid).     -
+	showPageUid                  integer     UID of the single-page of a quiz (detailPid).   -
+	resultPageUid                integer     UID of the page where to show quiz results.     -
+	highscorePageUid             integer     UID of the page where to show a highscore.      -
+	defaultQuizUid               integer     UID of the quiz to show.                        -
+    introContentUid              integer     Content element for the intro page.             -
+    introNextAction              string      Action after the intro page: show or showByTag. show
+	showAnswerPage               boolean     Show an answer page after every submit?         1
+	showOwnAnswers               integer     Show the answers of the quiz taker? 0,1 or 2.   2
+	showCorrectAnswers           integer     Show the correct answers? 0, 1 or 2.            1
+	showEveryAnswer              integer     Show every answer? 0, 1 or 2 (see below).       0
+	showAnswersAtFinalPage       boolean     Show solutions at the final page?               1
+	showAllAnswers               boolean     Show finally all answers (no. of choices)?      1
+	showPoints                   boolean     Show the possible/reached points if maximum>0?  1
+	showPageNo                   boolean     Show the page number / number of pages?         1
+	showQuestionNo               boolean     Show the question no. / no. of questions?       0
+	checkAllStars                boolean     Check all stars on star rating by default?      0
+	highscoreLimit               integer     Number of entries in the highscore              10
+	allowHtml                    boolean     Allow HTML at question-answers from the BE?     0
+	joker                        boolean     Enable a joker-button? Works only with AJAX.    0
+	ajax                         boolean     Enable the AJAX-version* of the quiz?           0
+	ajaxType                     string      POST or GET                                     POST
+	setMetatags                  boolean     Set some metatags and change the title?         0
+	user.ipSave                  boolean     Save the IP-address of a user?                  1
+	user.ipAnonymous             boolean     Anonymize the IP-address?                       1
+	user.useCookie               integer     Save the session in a cookie too? See below.    0
+	user.checkFEuser             boolean     Check if a FEuser has already participated?     0
+	user.askForData              integer     Ask for user data? 1: at the 1.; 2: intro page. 0
+	user.defaultName             string      Default user name ({TIME} will be replaced).    default {TIME}
+	user.defaultEmail            string      Default user email.                             -
+	user.defaultHomepage         string      Default user homepage.                          -
+	email.fromEmail              string      Your email-address.                             -
+	email.fromName               string      Your name.                                      -
+	email.adminEmail             string      Admin email-address.                            -
+	email.adminName              string      Admin name.                                     -
+	email.adminSubject           string      Subject of the admin-email.                     New poll/quiz-result
+	email.userSubject            string      Subject of the email to the user.               Your poll/quiz-result
+	email.sendToAdmin            boolean     Send an email to the admin at the final page?   0
+	email.sendToUser             boolean     Send an email to the user at the final page?    0
+	email.specific               string      Send email to specific admins (see below)?      -
+	email.likeFinalPage          boolean     Handle the email like a final page?             0
+	pagebrowser.itemsPerPage     integer     Number of questions on a page.                  1
+	pagebrowser.insertAbove      boolean     You don´t need this.                            0
+	pagebrowser.insertBelow      boolean     You don´t need this.                            0
+	pagebrowser.maximumNum...    integer     You don´t need this.                            50
+	template.colText             string      Class for a question with answers.              col-md-8
+	template.colImage            string      Class for the image of a question.              col-md-4
+	template.wrapQuizTitle1      string      Wrap for the quiz title.                        <h2>
+	template.wrapQuizTitle2      string      Wrap for the quiz title.                        </h2>
+	template.wrapQuizDesc1       string      Wrap for the quiz description.                  <h3>
+	template.wrapQuizDesc2       string      Wrap for the quiz description.                  </h3>
+	template.wrapTagName1        string      Wrap for the tag name.                          <h4>
+	template.wrapTagName2        string      Wrap for the tag name.                          </h4>
+	template.wrapQuestionTitle1  string      Wrap for the question title.                    <div class="mx-auto"><h4>
+	template.wrapQuestionTitle2  string      Wrap for the question title.                    </h4></div>
+	template.wrapQuestionDesc1   string      Wrap for the question description.              <div class="mx-auto">
+	template.wrapQuestionDesc2   string      Wrap for the question description.              </div>
+	template.wrapDone1           string      Wrap for the done-msg at the final page.        <h4>
+	template.wrapDone2           string      Wrap for the done-msg at the final page.        </h4>
+	chart.type                   string      You can choose between: pie, donut or bar.      pie
+	chart.width                  integer     Width of the chart.                             492
+	templateLayout               integer     See in chapter PageTSconfig**.                  -
+	overrideFlexformSettings...  string      Fields that should be overwritten if empty.     startPageUid,...
+	debug                        boolean     Show debug data at the page.                    0
+	typeNum                      integer     Type of the AJAX-call. Don´t change it.         190675
+	============================ =========== =============================================== ===========================
 
 AJAX*) If you enable AJAX, you should know this:
 
-- The FlexForms will be ignored, because the AJAX-call does not know the plugin.
+  - The FlexForms will be ignored, because the AJAX-call does not know the plugin.
 
-- **Configure the quiz only by TypoScript**.
-  You need to set the persistence.storagePid too!
+  - **Configure the quiz only by TypoScript**.
+    You need to set the persistence.storagePid too!
 
-- The AJAX-solution is currently not supported in the action "show by tag".
+  - The AJAX-solution is currently not supported in the action "show by tag".
 
-- The AJAX-call calls an normal action and not an eID-script. Therefore it is necessary to set this TypoScript:
-  plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0
-  This is set by default. You can change the value to 1, if you do not use the AJAX-version.
-  If it is still not working, you can disable the cHash-check in the install tool:
-  [FE][pageNotFoundOnCHashError] = false
+  - The AJAX-call calls an normal action and not an eID-script. Therefore it is necessary to set this TypoScript: 
+    plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0 
+    This is set by default. You can change the value to 1, if you do not use the AJAX-version.
+    If it is still not working, you can disable the cHash-check in the install tool: 
+    [FE][pageNotFoundOnCHashError] = false
   
-- You have still problems? Then read the chapter "Known problems".
+  - You have still problems? Then read the chapter "Known problems".
 
 Layout**) If you use template layout 1, you should know this:
 
-- The charts settings will be ignored if you use another layout.
+  - The charts settings will be ignored if you use another layout.
 
-- The ApexCharts will be used automatically. More information: https://apexcharts.com/
+  - The ApexCharts will be used automatically. More information: https://apexcharts.com/
 
 Note: if you enable a cookie or FEuser check, then an user cannot vote again, if he had already voted/participated.
 The participant will see his result of a poll/quiz instead of the checkboxes/radio buttons.
@@ -198,42 +188,6 @@ Otherwise they are displayed at the final page too if showAnswersAtFinalPage is 
 Note: this is tested only with checkboxes and radio buttons!
 
 
-.. _allowEdit:
-
-allowEdit
-"""""""""
-
-:typoscript:`plugin.tx_fpmasterquiz.settings.allowEdit = 1`
-
-If you enable this feature, links to all pages of a quiz are shown, so user can edit their answers.
-Note: this works only for the action "show by tag" and questions of type radio, checkbox or text.
-Note: this feature disables the answer-page!
-
-
-.. _random:
-
-random
-""""""
-
-:typoscript:`plugin.tx_fpmasterquiz.settings.random = 1`
-
-If you enable this feature, the tags will be shuffled. The changed order will be saved in the DB too.
-Note: this works only for the action "show by tag", because tags and not questions are randomized.
-
-
-.. _noFormCheck:
-
-noFormCheck
-"""""""""""
-
-:typoscript:`plugin.tx_fpmasterquiz.settings.noFormCheck = 1`
-
-Normally every question needs to be answered before the page can be send. You can disable this check generally.
-Since version 3.2.0 you can define at each question if it should be optional or not.
-Note: only question of type radio, checkbox, select-box, input-field and textarea are checked. All answers to other type of
-questions are optional (they will not be checked).
-
-
 .. _joker:
 
 joker
@@ -276,21 +230,6 @@ This even means, that a user can not make a quiz or poll twice!
 Please note: sessions and cookies are not working if you enable Ajax. They are currently not supported in the Ajax-version.
 Note furthermode: if enabling the cookies, these cookies will be saved: qsessionXX. XX is the quiz-ID.
 This cookies are not bad! You don´t need a cookie bar for it, but you need to tell about it at your GDPR-site.
-
-
-.. _user.askForData:
-
-user.askForData
-""""""""""""""
-
-:typoscript:`plugin.tx_fpmasterquiz.settings.user.askForData = 3`
-
-4 options are available: 0, 1, 2 or 3. 0 means: don´t ask for user data like name oder email.
-The other values enables a form, that ask the user for this data: name, email and homepage.
-1: the form will appear at the first page of a quiz.
-2: the form will appear at the intro page.
-3: the form will appear at the final page of a quiz. Note: in this case you will need to define a closure page too!
-Setting: closurePageUid. The form from the final page will redirect to this page. Note: this does not work in the AJAX version.
 
 
 .. _email.specific:
@@ -342,10 +281,6 @@ FAQ
 - What about the evaluation of a quiz?
 
   This can be configured at every quiz.
-
-- Optional questions are not marked. Why not?
-
-  You need to define the mark-symbol by yourself via the TypoScript-setting. E.g. settings.template.optionalMark = *.
 
 - The text changes to english when I activate Ajax. Whats wrong?
 

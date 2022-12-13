@@ -24,7 +24,7 @@
 /*
  * modified 2019 by Kurt Gusbeth
 */
-namespace Fixpunkt\FpMasterquiz\Utility;
+namespace Fixpunkt\FpMasterQuiz\Utility;
 
 /**
  * TemplateLayout: Template-Layout per TSconfig

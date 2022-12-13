@@ -12,16 +12,18 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'Master-Quiz',
-    'description' => 'A modern extension that offers quiz, polls and tests. Ajax support. The result can be displayed as a chart too. Supports 8 question modes.',
+    'description' => 'A modern extension that offers quiz, polls and tests. Ajax support. The result can be displayed as a chart too. Supports 7 question modes.',
     'category' => 'plugin',
     'author' => 'Kurt Gusbeth',
+	'author_email' => 'info@quizpalme.de',
     'state' => 'stable',
+    'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '3.5.1',
+    'version' => '2.2.1',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.6-11.5.99',
+            'typo3' => '9.5.20-10.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],

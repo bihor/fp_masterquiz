@@ -21,18 +21,9 @@ class SelectedController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * selectedRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $selectedRepository = null;
-
-    /**
-     * Injects the selected-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository $selectedRepository
-     */
-    public function injectSelectedRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository $selectedRepository)
-    {
-        $this->selectedRepository = $selectedRepository;
-    }
 
     /**
      * action list

@@ -21,18 +21,9 @@ class AnswerController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControlle
      * answerRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $answerRepository = null;
-
-    /**
-     * Injects the answer-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository $answerRepository
-     */
-    public function injectAnswerRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository $answerRepository)
-    {
-        $this->answerRepository = $answerRepository;
-    }
 
     /**
      * action list

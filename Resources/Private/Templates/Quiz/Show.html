@@ -18,9 +18,6 @@
 		    </ul>
 		  </f:if>
 		</f:form.validationResults>
-		<f:if condition="{settings.includeRatingCSS}">
-			<f:asset.css identifier="fpMasterQuizRatingStar" href="EXT:fp_masterquiz/Resources/Public/Css/RatingStar.css" />
-		</f:if>
 		<f:if condition="{settings.templateLayout} == 1">
 			<!-- charts-layout -->
 			<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
@@ -35,12 +32,6 @@
 			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" class="img-fluid" />
 		</f:if>
 		<f:if condition="{quiz.about}">{settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}</f:if>
-
-		<f:if condition="{mandatoryNotAnswered}">
-			<ul class="errors">
-				<li>{f:translate(key: "error.notAnswered")}</li>
-			</ul>
-		</f:if>
 
 		<f:if condition="{quiz.timeperiod} && ({final} == 0)">
 			<script>
@@ -58,27 +49,29 @@
 			var ceuid = '{uidOfCE}';
 			var quizfinal = 0;
 			var quizend = false;
-			var noFormCheck = (({settings.noFormCheck} == 1) ? true : false);
 			var ajaxVersion = false;
 			var quizIntervalId = null;
+			var text_errorEmpty = '{f:translate(key: "text.errorEmpty")}';
 			var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
 		</script>
 
 		<f:if condition="{settings.ajax} == 1">
 		<f:then>
 			<f:comment> This part is used only, if AJAX is enabled! </f:comment>
-			<f:form id="quiz-form{uidOfCE}" method="POST" argumentsToBeExcludedFromQueryString="{0: 'cHash'}">
-				<input type="hidden" name="type" value="{settings.typeNum}" id="quiz-form-type">
+			<f:form id="quiz-form{uidOfCE}" method="POST" noCacheHash="1" argumentsToBeExcludedFromQueryString="{0: 'cHash'}">
+				<input type="hidden" name="type" value="{settings.typeNum}">
 	            <input type="hidden" name="L" value="{sysLanguageUid}">
 	            <input type="hidden" name="id" value="{uidOfPage}">
 				<f:form.hidden name="action" value="showAjax" />
 				<f:form.hidden name="quiz" value="{quiz.uid}" />
 				<f:form.hidden name="uidOfCE" value="{uidOfCE}" />
+				<f:form.hidden name="session" value="" id="quiz-form-session" />
 				<f:form.hidden name="startTime" value="{startTime}" id="quiz-form-time" />
 				<f:form.hidden name="participant" value="0" id="quiz-form-parti" />
 				<f:form.hidden name="currentPage" value="1" id="quiz-form-page" />
 				<f:form.hidden name="showAnswers" value="0" id="quiz-form-answers" />
 				<f:form.hidden name="useJoker" value="0" id="quiz-form-joker" />
+	            <!--  f:form.hidden name="session" value="{session}" / -->
 	            
 	            <script>
 					ajaxVersion = true;
@@ -91,7 +84,7 @@
 		            var text_goon = '{f:translate(key: "text.goon")}';
 		            var text_gofinal = '{f:translate(key: "text.gofinal")}';
 		        </script>
-		        <script type="text/javascript">
+		        <script language="javascript" type="text/javascript">
 		            if (ajaxTypeSetting == 'GET') {	ajaxType = 'GET'; }
 				</script>
 				
@@ -106,11 +99,6 @@
 					<f:form.hidden name="homepage" value="{homepage}" />
 				</f:if>
 
-				<div id="quiz-error-msg" style="display:none;">
-					<div class="alert alert-danger" role="alert">
-						{f:translate(key: "text.errorEmpty")}
-					</div>
-				</div>
 				<div id="quiz-button-wrap">
 					<div class="pull-right quiz-subm">
 						<f:form.submit value="{f:translate(key: 'text.goon')}" class="btn btn-primary btn-lg" name="quizGoOn" id="quiz-GoOn" />
@@ -163,13 +151,10 @@
 			            form.submit(function (ev) {
 			                ev.preventDefault();
 			                var allSelected = checkQuizForm();
-							if (quizend || noFormCheck || allSelected || ($('#quiz-form'+ceuid+' #quiz-form-joker').val() == '1')) {
+							if (quizend || allSelected || ($('#quiz-form'+ceuid+' #quiz-form-joker').val() == '1')) {
 								service.ajaxCall($(this));
 							} else {
-								$('#quiz-error-msg').removeAttr("style");
-								setTimeout(function() {
-									$('#quiz-error-msg').hide();
-								}, 5000);
+								window.alert(text_errorEmpty);
 							}
 			            });
 			            service.ajaxCall(form);
@@ -194,7 +179,7 @@
 			<f:form action="show" id="quiz-form{uidOfCE}" method="POST">
 				<f:form.hidden name="quiz" value="{quiz.uid}" />
 				<f:form.hidden name="participant" value="{participant.uid}" />
-				<f:form.hidden name="currentPage" value="{nextPage}" id="quiz-form-page" />
+				<f:form.hidden name="@widget_0[currentPage]" value="{nextPage}" />
 				<f:form.hidden name="showAnswers" value="{showAnswersNext}" />
 				<f:form.hidden name="session" value="{session}" />
 				<f:form.hidden name="startTime" value="{startTime}" />
@@ -216,10 +201,12 @@
 							<f:then>
 							
 								<!--  show answers after submit -->
-								<f:for each="{participantPaginator.paginatedItems}" as="selection" iteration="pageiterator">
-									<f:render partial="Question/PropertiesSent" arguments="{_all}" />
-								</f:for>
-
+								<f:widget.paginate objects="{participant.selections}" as="paginatedSelections" configuration="{settings.pagebrowser}">
+									<f:for each="{paginatedSelections}" as="selection" iteration="pageiterator">
+										<f:render partial="Question/PropertiesSent" arguments="{_all}" />
+									</f:for>
+								</f:widget.paginate>
+								
 								<f:if condition="{settings.showPoints} && ({participant.maximum1} > 0)">
 									<f:comment> {participant -> f:debug(title: 'Members of participant')} </f:comment> 
 									<p>{f:translate(key: "text.pointsYet")} {participant.points}/{participant.maximum1}.</p>
@@ -244,9 +231,11 @@
 							<f:else>
 						
 								<!-- show questions -->
-								<f:for each="{quizPaginator.paginatedItems}" as="question" iteration="pageiterator">
-									<f:render partial="Question/Properties" arguments="{_all}" />
-								</f:for>
+								<f:widget.paginate objects="{quiz.questions}" as="paginatedQuestions" configuration="{settings.pagebrowser}">
+									<f:for each="{paginatedQuestions}" as="question" iteration="pageiterator">
+										<f:render partial="Question/Properties" arguments="{_all}" />
+									</f:for>
+								</f:widget.paginate>
 
 								<f:if condition="({settings.user.askForData} == 1) && ({page} == 1)">
 									<f:render partial="Participant/Form" arguments="{_all}" />
@@ -256,12 +245,7 @@
 									<f:form.hidden name="email" value="{email}" />
 									<f:form.hidden name="homepage" value="{homepage}" />
 								</f:if>
-
-								<div id="quiz-error-msg" style="display:none;">
-									<div class="alert alert-danger" role="alert">
-										{f:translate(key: "text.errorEmpty")}
-									</div>
-								</div>
+								
 								<div>
 									<div class="pull-right quiz-subm">
 										<f:form.button type="button" name="quizGoOn" id="quiz-GoOn" class="btn btn-primary btn-lg">
@@ -289,13 +273,10 @@
                                         $( "#quiz-GoOn" ).click(function() {
                                             // check if there are selected answers to all questions. if not, show an warning
                                             var allSelected = checkQuizForm();
-                                            if (noFormCheck || allSelected) {
+                                            if (allSelected) {
                                                 $('#quiz-form'+ceuid).submit();
                                             } else {
-                                                $('#quiz-error-msg').removeAttr("style");
-												setTimeout(function() {
-													$('#quiz-error-msg').hide();
-												}, 5000);
+                                                window.alert(text_errorEmpty);
                                             }
                                         });
 									}, false);
@@ -312,12 +293,6 @@
 							<f:link.action controller="Quiz" action="highscore" pageUid="{settings.highscorePageUid}" arguments="{quiz:quiz}"
 										   class="btn btn-info">{f:translate(key: "text.showHighscorePage")}</f:link.action>
 						</f:if>
-
-						<f:if condition="{showAnswers}"><f:then></f:then><f:else>
-							<f:if condition="{settings.template.optionalMark}">
-								<br><p>{settings.template.optionalMark -> f:format.raw()}{f:translate(key: "text.optional")}</p>
-							</f:if>
-						</f:else></f:if>
 					</f:then>
 					<f:else>
 

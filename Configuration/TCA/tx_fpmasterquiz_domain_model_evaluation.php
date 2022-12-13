@@ -19,6 +19,9 @@ return [
         'searchFields' => 'evaluate,minimum,maximum,bodytext,ce,page',
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_evaluation.gif'
     ],
+    'interface' => [
+        'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, evaluate, minimum, maximum, image, bodytext, ce, page',
+    ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, evaluate, minimum, maximum, image, bodytext, ce, page, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
@@ -230,6 +233,7 @@ return [
             	'default' => 0
 			],
         ],
+    
         'quiz' => [
             'config' => [
                 'type' => 'passthrough',

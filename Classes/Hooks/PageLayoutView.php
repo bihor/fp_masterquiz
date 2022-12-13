@@ -137,14 +137,6 @@ class PageLayoutView
                		$content
                	];
                }
-                $closurePageUid = (int)$this->getFieldFromFlexform('settings.closurePageUid');
-                if ($closurePageUid > 0) {
-                    $content = $this->getRecordData($closurePageUid);
-                    $this->tableData[] = [
-                        $this->getLanguageService()->sL(self::LLPATH . 'settings.closurePageUid'),
-                        $content
-                    ];
-                }
                $defaultQuizUid = (int)$this->getFieldFromFlexform('settings.defaultQuizUid');
                if ($defaultQuizUid > 0) {
                    $content = $this->getRecordData($defaultQuizUid, 'tx_fpmasterquiz_domain_model_quiz');
@@ -165,8 +157,7 @@ class PageLayoutView
                    $this->getLanguageService()->sL(self::LLPATH . 'settings.ajax'),
                    (($ajax) ? $this->getLanguageService()->sL(self::LLPATH . 'settings.yes') : $this->getLanguageService()->sL(self::LLPATH . 'settings.no'))
                ];
-               if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'])
-                   && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'])) {
+               if (is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'])) {
                     $params = [
                         'action' => $actionTranslationKey
                     ];
@@ -303,8 +294,8 @@ class PageLayoutView
         $flexform = $this->flexformData;
         if (isset($flexform['data'])) {
             $flexform = $flexform['data'];
-            if (isset($flexform) && isset($flexform[$sheet]) && isset($flexform[$sheet]['lDEF']) 
-                && isset($flexform[$sheet]['lDEF'][$key]) && isset($flexform[$sheet]['lDEF'][$key]['vDEF'])
+            if (is_array($flexform) && is_array($flexform[$sheet]) && is_array($flexform[$sheet]['lDEF'])
+                && is_array($flexform[$sheet]['lDEF'][$key]) && isset($flexform[$sheet]['lDEF'][$key]['vDEF'])
             ) {
                 return $flexform[$sheet]['lDEF'][$key]['vDEF'];
             }

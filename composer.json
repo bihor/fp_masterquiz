@@ -8,7 +8,7 @@
 		}
 	],
 	"require" : {
-		"typo3/cms-core" : "~10.4.6 || ~11.5.0"
+		"typo3/cms-core" : "~9.5.20 || ~10.4.6"
 	},
 	"autoload" : {
 		"psr-4" : {
@@ -24,6 +24,9 @@
 		"typo3-ter/fp-masterquiz" : "self.version"
 	},
 	"homepage" : "https://github.com/bihor/fp_masterquiz",
+	"support" : {
+		"email" : "info@quizpalme.de"
+	},
 	"license" : "GPL-3.0-or-later",
 	"keywords" : [
 		"quiz poll myquizpoll"

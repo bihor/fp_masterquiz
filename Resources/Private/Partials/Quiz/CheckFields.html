@@ -7,46 +7,17 @@ if (quizfinal == 0) {
 			$(this).removeClass( 'quiz-answer-selected' );
 		});
 		closestRadio.addClass( 'quiz-answer-selected' );
-		$(this).closest( ".card" ).removeAttr("style");
 	});
 	$( "#quiz-form"+ceuid+" .quiz-checkboxes" ).click(function() {
-		// add/remove selected class to the selected checkbox answer
-		var closestCheckbox = $(this).closest( ".quiz-checkbox" );
-		var closestCheckboxParent = closestCheckbox.parent();
-		$(closestCheckboxParent).find('.quiz-checkboxes').each(function() {
-			if ($(this).is(':checked')) {
-				$(this).closest( ".quiz-checkbox" ).addClass( 'quiz-answer-selected' );
-				$(this).closest( ".card" ).removeAttr("style");
-			} else {
-				$(this).closest( ".quiz-checkbox" ).removeClass( 'quiz-answer-selected' );
-			}
-		});
+		// add selected class to the selected answer
+		$(this).closest( ".quiz-checkbox" ).addClass( 'quiz-answer-selected' );
 	});
 	$( "#quiz-form"+ceuid+" .quiz-select" ).change(function() {
 		// add selected class to the select if the selected val is not 0
 		if ($(this).val() == '0') {
-			$(this).removeClass( 'quiz-answer-selected' );
+			$(this).removeClass( 'quiz-answer-selected' );									
 		} else {
 			$(this).addClass( 'quiz-answer-selected' );
-			$(this).closest( ".card" ).removeAttr("style");
-		}
-	});
-	$( "#quiz-form"+ceuid+" .quiz-inputbox" ).change(function() {
-		// add selected class to the input if there is a value
-		if ($(this).val() == '') {
-			$(this).closest( ".quiz-input" ).removeClass( 'quiz-answer-selected' );
-		} else {
-			$(this).closest( ".quiz-input" ).addClass( 'quiz-answer-selected' );
-			$(this).closest( ".card" ).removeAttr("style");
-		}
-	});
-	$( "#quiz-form"+ceuid+" .quiz-textbox" ).change(function() {
-		// add selected class to the quiz-textarea if there is a value
-		if ($(this).val() == '') {
-			$(this).closest( ".quiz-textarea" ).removeClass( 'quiz-answer-selected' );
-		} else {
-			$(this).closest( ".quiz-textarea" ).addClass( 'quiz-answer-selected' );
-			$(this).closest( ".card" ).removeAttr("style");
 		}
 	});
 }

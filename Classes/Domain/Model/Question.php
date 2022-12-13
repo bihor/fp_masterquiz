@@ -62,13 +62,6 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $tag = null;
 
     /**
-     * Beantwortung optional?
-     *
-     * @var bool
-     */
-    protected $optional = false;
-
-    /**
      * Answers of this question
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Answer>
@@ -103,14 +96,7 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $sorting = 0;
-
-    /**
-     * category
-     *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
-     */
-    protected $categories = null;
-
+    
     /**
      * __construct
      */
@@ -131,7 +117,6 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected function initStorageObjects()
     {
     	$this->answers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
     }
     
     /**
@@ -258,37 +243,6 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTag(\Fixpunkt\FpMasterquiz\Domain\Model\Tag $tag)
     {
         $this->tag = $tag;
-    }
-
-    /**
-     * Returns the Optional
-     *
-     * @return bool
-     */
-    public function getOptional()
-    {
-        return $this->optional;
-    }
-
-    /**
-     * Sets the Optional
-     *
-     * @param bool $optional
-     * @return void
-     */
-    public function setOptional($optional)
-    {
-        $this->optional = $optional;
-    }
-
-    /**
-     * Returns the boolean state of Optional
-     *
-     * @return bool
-     */
-    public function isOptional()
-    {
-        return $this->optional;
     }
 
     /**
@@ -468,7 +422,7 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
     
     /**
-     * Returns an array with no. of answers for this question
+     * Returns the an array with no. of answers for this question
      *
      * @return array
      */
@@ -479,54 +433,5 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     		$array[] = count($this->answers) - $i;
     	}
     	return $array;
-    }
-
-    /**
-     * Returns the categories
-     *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
-     */
-    public function getCategories()
-    {
-        return $this->categories;
-    }
-
-    /**
-     * Returns the categories as array
-     *
-     * @return array
-     */
-    public function getCategoriesArray()
-    {
-        $catArray = [];
-        foreach ($this->categories as $category) {
-            $catArray[$category->getUid()] = $category->getTitle();
-        }
-        return $catArray;
-    }
-
-    /**
-     * Returns the categories as array in sorting order
-     *
-     * @return array
-     */
-    public function getSortedCategoriesArray() {
-        $table = 'sys_category';
-        $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($table);
-        return $queryBuilder
-            ->select('uid','title')
-            ->from($table)
-            ->join(
-                $table,
-                'sys_category_record_mm',
-                'mm',
-                $queryBuilder->expr()->eq('mm.uid_local', $queryBuilder->quoteIdentifier('sys_category.uid'))
-            )
-            ->where(
-                $queryBuilder->expr()->eq('mm.uid_foreign', $queryBuilder->createNamedParameter($this->uid, \PDO::PARAM_INT)),
-                $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('tx_fpmasterquiz_domain_model_question'))
-            )
-            ->orderBy('sys_category.sorting')
-            ->execute();
     }
 }

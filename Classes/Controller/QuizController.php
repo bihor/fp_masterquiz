@@ -4,7 +4,6 @@ namespace Fixpunkt\FpMasterquiz\Controller;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 
 /***
  *
@@ -26,6 +25,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * quizRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $quizRepository = null;
 
@@ -33,6 +33,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * answerRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $answerRepository = null;
 
@@ -40,6 +41,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * participantRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $participantRepository = null;
     
@@ -47,9 +49,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * selectedRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $selectedRepository = null;
-
+    
     /**
      * participant
      *
@@ -61,47 +64,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
      */
     protected $configurationManager;
-
-    /**
-     * Injects the quiz-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository $quizRepository
-     */
-    public function injectQuizRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository $quizRepository)
-    {
-        $this->quizRepository = $quizRepository;
-    }
-
-    /**
-     * Injects the answer-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository $answerRepository
-     */
-    public function injectAnswerRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository $answerRepository)
-    {
-        $this->answerRepository = $answerRepository;
-    }
-
-    /**
-     * Injects the selected-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository $selectedRepository
-     */
-    public function injectSelectedRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository $selectedRepository)
-    {
-        $this->selectedRepository = $selectedRepository;
-    }
-
-    /**
-     * Injects the participant-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository
-     */
-    public function injectParticipantRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository)
-    {
-        $this->participantRepository = $participantRepository;
-    }
-
+    
     /**
      * Injects the Configuration Manager and is initializing the framework settings: wird doppelt aufgerufen!
      *
@@ -126,14 +89,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 if (strpos($fieldName, '.') !== false) {
                     // Multilevel
                     $keyAsArray = explode('.', $fieldName);
-                    if ((!isset($originalSettings[$keyAsArray[0]][$keyAsArray[1]]) || !($originalSettings[$keyAsArray[0]][$keyAsArray[1]]))
-                        && isset($tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]])) {
+                    if (!($originalSettings[$keyAsArray[0]][$keyAsArray[1]]) && isset($tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]])) {
                         $originalSettings[$keyAsArray[0]][$keyAsArray[1]] = $tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]];
                     }
                 } else {
                     // Simple
-                    if ((!isset($originalSettings[$fieldName]) || !($originalSettings[$fieldName]))
-                        && isset($tsSettings[$fieldName])) {
+                    if (!($originalSettings[$fieldName]) && isset($tsSettings[$fieldName])) {
                         $originalSettings[$fieldName] = $tsSettings[$fieldName];
                     }
                 }
@@ -192,24 +153,73 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
-     * Sucht einen Teilnehmer und erzeugt ggf. einen
+     * Prüft, ob eine Session gültig ist: check the session against the request-parameter
      *
-     * @param int $quizUid
-     * @param int $quizPid
+     * @param string $c_debug
+     * @return boolean
+     */
+    public function isSessionOK(string &$c_debug)
+    {
+        if ($this->request->hasArgument('session')) {
+            $tmp_session = $this->request->getArgument('session');
+        } else {
+            $tmp_session = '';
+        }
+        if ($this->participant->getSession() != $tmp_session) {
+            $this->participant = null;
+            if ($this->settings['debug']) {
+                $c_debug .= "\nParticipant not accepted, because the session from argument is wrong: " . $tmp_session;
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * action doAll
+     *
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @param int $pages No. of pages if tags are used
      * @return array
      */
-    public function findParticipant(int $quizUid, int $quizPid)
+    public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz, $pages): array
     {
-        $session = '';          // session key
-        $debug = '';
-        $newUser = false;
-        $context = GeneralUtility::makeInstance(Context::class);
-        $fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
-        if (!$this->settings['ajax']) {
+    	/* @var \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answer */
+        $answer = null;
+        $saveIt = false;
+    	$newUser = false;
+    	$reload = false;
+    	$completed = false;
+    	$doPersist = false;
+    	$partBySes = null;
+    	$questions = 0;
+    	$maximum1 = 0;
+    	$session = '';          // session key
+    	$finalBodytext = '';	// bodytext and image for the final page
+    	$finalImageuid = 0;     // image for the final page
+    	$finalContent = '';		// special content for the final page
+    	$emailAnswers = [];		// special admin email to answer relations
+    	$specialRecievers = [];	// special admin email recievers
+    	$debug = '';			// debug output
+    	$quizUid = $quiz->getUid();
+    	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
+    	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
+    	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
+        $startTime = $this->request->hasArgument('startTime') ? intval($this->request->getArgument('startTime')) : 0;
+    	$context = GeneralUtility::makeInstance(Context::class);
+    	$fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
+   		$persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+        $isAjax = $this->settings['ajax'];
+        if ($this->settings['debug'] && $isAjax) {
+            $debug .= "\nAjax mode is enabled.";
+        }
+
+//        if (!$this->settings['ajax']) {
             if ($this->request->hasArgument('session')) {
+                // wir dürften nicht auf der Startseite sein, außer beim 1. Ajax-call
                 $session = $this->request->getArgument('session');
-            } else if (!$this->request->hasArgument('participant')) {
-                // keine Session gefunden... und jetzt Cookie checken?
+            } else if (!$this->request->hasArgument('participant') && !$isAjax) {
+                // keine Session gefunden... und jetzt Cookie checken? Hier dürften wir auf der Startseite sein
                 if (intval($this->settings['user']['useCookie']) == -1) {
                     $session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $quizUid);
                 } else if ((intval($this->settings['user']['useCookie']) > 0) && isset($_COOKIE['qsession' . $quizUid])) {
@@ -235,14 +245,46 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         }
                     }
                     if (!$session) {
-                        $session = uniqid(random_int(1000, 9999));
-                        $newUser = true;
                         $this->participant = null;
                         if ($this->settings['debug']) {
-                            $debug .= "\ncreating new session: " . $session;
+                            $debug .= "\nNo session found, will creating a new participant...";
                         }
                     }
                 }
+            }
+//        }
+
+    	if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
+    		// wir sind nicht auf Seite 1
+    		$participantUid = intval($this->request->getArgument('participant'));
+    		$this->participant = $this->participantRepository->findOneByUid($participantUid);
+    		$session = $this->participant->getSession();
+            if ($session && !$this->isSessionOK($debug)) {
+                $participantUid = 0;
+            }
+            if ($this->settings['debug'] && $participantUid) {
+                $debug .= "\nParticipant from request: " . $participantUid . ' with session: ' . $session;
+            }
+    	}
+        if (!$this->participant) {
+            $this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
+            if ($this->settings['debug']) {
+                $debug .= "\nmaking new participant.";
+            }
+            if (!$session) {
+                // ggf. wird die Session von der Startseite beibehalten
+                $session = uniqid(random_int(1000, 9999));
+                $this->participant->setSession($session);
+                $newUser = true;
+                if ($this->settings['debug']) {
+                    $debug .= "\ncreating new session: " . $session;
+                }
+            }
+        }
+        if (!$isAjax && !$newUser && !$this->participant->getUid()) {
+            // Cookie nicht schon auf der Startseite setzen, sondern erst und nur auf der Folgeseite
+            if ($this->settings['debug']) {
+                $debug .= "\nSetting a cookie with this session: " . $session;
             }
             if (intval($this->settings['user']['useCookie']) == -1) {
                 // Store the session in a cookie
@@ -253,110 +295,23 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
         }
 
-        if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
-            // wir sind nicht auf Seite 1
-            $participantUid = intval($this->request->getArgument('participant'));
-            if ($this->settings['user']['useQuizPid']) {
-                $this->participant = $this->participantRepository->findOneByUidAndPid($participantUid, $quizPid);
-            } else {
-                $this->participant = $this->participantRepository->findOneByUid($participantUid);
-            }
-            if ($this->participant) {
-                $session = $this->participant->getSession();
-                if ($this->settings['debug']) {
-                    $debug .= "\nparticipant from request: " . $participantUid;
-                }
-            }
-        }
-        if (!$this->participant) {
-            $this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
-            $this->participant->_setProperty('_languageUid', -1);
-            if ($this->settings['debug']) {
-                $debug .= "\nMaking new participant.";
-            }
-            if ($this->settings['user']['useQuizPid']) {
-                $this->participant->setPid($quizPid);
-                if ($this->settings['debug']) {
-                    $debug .= ' Set pid to ' . $quizPid;
-                }
-            }
-            if ($this->settings['random'] && $this->request->hasArgument('randomPages') && $this->request->getArgument('randomPages')) {
-                $this->participant->setRandompages(explode(',', $this->request->getArgument('randomPages')));
-                if ($this->settings['debug']) {
-                    $debug .= " Set random pages: " . $this->request->getArgument('randomPages');
-                }
-            }
-            if (!$session) {
-                $session = uniqid(random_int(1000, 9999));
-                $newUser = true;
-                if ($this->settings['debug']) {
-                    $debug .= "\ncreating new session: " . $session;
-                }
-            }
-        }
-        $result = [];
-        $result['session'] = $session;
-        $result['newUser'] = $newUser;
-        $result['fe_user_uid'] = $fe_user_uid;
-        $result['debug'] = $debug;
-        return $result;
-    }
-
-    /**
-     * action doAll
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @param array $userData Some user data in an array
-     * @param int $pages No. of pages if tags are used
-     * @param array $randomNumbers Random page numbers
-     * @return array
-     */
-    public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz, array $userData, int $pages, array $randomNumbers): array
-    {
-    	$saveIt = false;
-    	$reload = false;
-        $mandatoryNotAnswered = false;
-    	$doPersist = false;
-    	$partBySes = null;
-    	$maximum1 = 0;              // maximum points
-    	$finalBodytext = '';	    // bodytext and image for the final page
-    	$finalImageuid = 0;         // image for the final page
-    	$finalContent = '';		    // special content for the final page
-        $finalCategoryArray = [];   // Auswertung der angeklickten Kategorien
-    	$emailAnswers = [];		    // special admin email to answer relations
-    	$specialRecievers = [];	    // special admin email recievers
-    	$debug = $userData['debug'];	    // debug output
-        $session = $userData['session'];    // session key
-        $newUser = $userData['newUser'];	// is a new user?
-        $fe_user_uid = $userData['fe_user_uid'];	// FE user uid
-    	$quizPid = $quiz->getPid();
-        $phpFormCheck = $this->settings['phpFormCheck'];
-    	$questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
-    	$showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
-    	$useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
-        $startTime = $this->request->hasArgument('startTime') ? intval($this->request->getArgument('startTime')) : 0;
-        $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
-        $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+    	$page = $this->request->hasArgument('@widget_0') ? $this->request->getArgument('@widget_0') : 1;
+    	if (is_array($page)) {
+    		$page = intval($page['currentPage']);
+    	} else {
+    		$page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
+    	}
     	$reachedPage = $this->participant->getPage();
-        if (!$questionsPerPage) {
-            $questionsPerPage = 1;
-        }
-        if ($this->settings['allowEdit']) {
-            if ($this->participant->isCompleted()) {
-                $showAnswers = true;
-            } else {
-                $showAnswers = false;
-            }
-            $showAnswerPage = false;
-        } else {
-            if ($reachedPage >= $page) {
-                // beantwortete Seiten soll man nicht nochmal beantworten können
-                $showAnswers = true;
-            }
-            $showAnswerPage = intval($this->settings['showAnswerPage']);
-        }
+    	if ($reachedPage >= $page) {
+    		// beantwortete Seiten soll man nicht nochmal beantworten können
+    		$showAnswers = true;
+    	}
+    	if (!$questionsPerPage) {
+    		$questionsPerPage = 1;
+    	}
+    	$showAnswerPage = intval($this->settings['showAnswerPage']);
     	if ($showAnswerPage && !$showAnswers) {
-    		// als Nächstes erstmal die Antworten dieser Seite zeigen
+    		// als nächstes erstmal die Antworten dieser Seite zeigen
     		$nextPage = $page;
     	} else {
     		$nextPage = $page + 1;
@@ -369,8 +324,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	$questions = count($quiz->getQuestions());
     	if ($showAnswers || (!$showAnswerPage && $page > 1)) {
     		// Antworten sollen ausgewertet und gespeichert werden
-    		if (($reachedPage < $page) || $this->settings['allowEdit']) {
-    			// nur nicht beantwortete Seiten speichern, es sei denn allowEdit=1
+    		if ($reachedPage < $page) {
+    			// nur nicht beantwortete Seiten speichern
     			$saveIt = true;
     		}
     		if (!$this->participant->getUid()) {
@@ -409,14 +364,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$this->participant->setName($defaultName);
 	    			$this->participant->setEmail($defaultEmail);
 	    			$this->participant->setHomepage($defaultHomepage);
-	    			$this->participant->setUser(isset($GLOBALS['TSFE']->fe_user->user['uid']) ? intval($GLOBALS['TSFE']->fe_user->user['uid']) : 0);
+	    			$this->participant->setUser(intval($GLOBALS['TSFE']->fe_user->user['uid']));
 	    			$this->participant->setIp($this->getRealIpAddr());
 	    			$this->participant->setSession($session);
                     if ($startTime) {
                         $this->participant->setSessionstart(time() - $startTime);
-                    }
-                    if ($this->settings['random'] && count($randomNumbers)>1) {
-                        $this->participant->setRandompages($randomNumbers);
                     }
 	    			$this->participant->setQuiz($quiz);
 	    			$this->participant->setMaximum2($quiz->getMaximum2());
@@ -424,7 +376,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$persistenceManager->persistAll();
 	    			$newUser = true;
 	    			if ($this->settings['debug']) {
-	    				$debug .= "\nNew participant created: " . $this->participant->getUid();
+	    				$debug .= "\nNew participant created: " . $this->participant->getUid(). ', with session: ' . $session;
     				}
     			}
     		}
@@ -439,69 +391,47 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    				//var_dump($emailAnswers);
     		}
     		$i = 0;
-    		// cycle through all questions after a form-submit
+    		// cycle through all questions after a submit
     		foreach ($quiz->getQuestions() as $question) {
     			$quid = $question->getUid();
     			$debug .= "\n#" . $quid . '#: ';
     			if ($this->request->hasArgument('quest_' . $quid) && $this->request->getArgument('quest_' . $quid)) {
     				$isActive = true;
-    			} else if (isset($_POST['quest_' . $quid]) || isset($_GET['quest_' . $quid])) {
-    				// Ajax-call is without extension-name :-(
+    			} else if ($_POST['quest_' . $quid] || $_GET['quest_' . $quid]) {
+    				// Ajax-call is without extensionname :-(
     				$isActive = true;
     			} else {
     				$isActive = false;
     			}
-    			if ($isActive) {
+    			if ($isActive) {	
     				// Auswertung der abgesendeten Fragen
-                    $vorhanden = 0;
     				if (!$newUser) {
     					// zuerst prüfen, ob dieser Eintrag schon existiert (z.B. durch Reload)
     					$vorhanden = $this->selectedRepository->countByParticipantAndQuestion($this->participant->getUid(), $quid);
     				}
-    				if (($vorhanden > 0) && !$this->settings['allowEdit']) {
-    					$debug .= ' reload!? ';
+    				if ($vorhanden > 0) {
+    					$debug .= ' reload! ';
     				} else {
-                        $qmode = $question->getQmode();
-                        $isOptional = ($this->settings['noFormCheck'] || $question->isOptional() || $qmode==4 || $qmode==7) ? true : false;
-                        if ($this->settings['debug']) {
-                            $debug .= ' OK ' . (($isOptional) ? 'optional: ' : 'mandatory: ');
-                        }
+	    				$debug .= ' OK ';
 	    				// selected/answered question
-                        if ($vorhanden) {
-                            // alten Eintrag erst löschen
-                            //$this->selectedRepository->deleteByParticipantAndQuestion($this->participant->getUid(), $quid);
-                            $oldSelection = $this->selectedRepository->findByParticipantAndQuestion($this->participant->getUid(), $quid);
-                            if ($oldSelection) {
-                                $oldPoints = $oldSelection->getPoints();
-                                $this->participant->subtractPoints($oldPoints);
-                                $this->participant->removeSelection($oldSelection);
-                            }
-                        }
-                        $selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
-                        $selected->_setProperty('_languageUid', -1);
-                        if ($this->settings['user']['useQuizPid']) {
-                            $selected->setPid($quizPid);
-                        }
-                        $selected->setQuestion($question);
-                        if ($pages) {
-                            // bei Verwendung von Tags kann die Reihenfolge nicht mit der Reihenfolge der Fragen übereinstimmen
-                            $sorting = $page * 100 + $i;
+	    				$selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
+	    				$selected->setQuestion($question);
+	    				if ($pages) {
+	    				    // bei Verwendung von Tags kann die Reihenfolge nicht mit der Reihenfolge der Fragen übereinstimmen
+	    				    $sorting = $page*100 + $i;
                         } else {
-                            // Reihenfolge der Fragen übernehmen
-                            $sorting = $question->getSorting();
+	    				    // Reihenfolge der Fragen übernehmen
+	    				    $sorting = $question->getSorting();
                         }
-                        $selected->setSorting($sorting);
-                        $selectedWithAnswer = false;
-                        $qmode8Answers = [];
+	    				$selected->setSorting($sorting);
+	    				$qmode = $question->getQmode();
 	    				$newPoints = 0;
 	    				switch ($qmode) {
 	    					case 0:
 	    					case 4:
-                            case 8:
-	    					    // Checkbox, ja/nein und Kategorie-Matrix
+	    					    // Checkbox und ja/nein
 	    						foreach ($question->getAnswers() as $answer) {
 	    							$auid = $answer->getUid();
-                                    $selectedCategoryUid = 0;
 	    							if ($this->request->hasArgument('answer_' . $quid . '_' . $auid) && $this->request->getArgument('answer_' . $quid . '_' . $auid)) {
 	    								$selectedAnswerUid = intval($this->request->getArgument('answer_' . $quid . '_' . $auid));
 	    							} else if ($_POST['answer_' . $quid . '_' . $auid]) {
@@ -511,33 +441,12 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    							} else {
 	    								$selectedAnswerUid = -1;
 	    							}
-                                    if ($selectedAnswerUid > 0) {
-                                        if ($qmode == 8) {
-                                            // im Matrix-Modus wird eine Kategorie-UID übermittelt!
-                                            $selectedCategoryUid = $selectedAnswerUid;
-                                            $selectedAnswerUid = $auid;
-                                            $qmode8Answers[$auid] = $selectedCategoryUid;
-                                            // für propertiesSent wird die eigene Antwort benötigt
-                                            foreach ($question->getCategories() as $oneCategory) {
-                                                if ($oneCategory->getUid() == $selectedCategoryUid) {
-                                                    $answer->setOwnCategoryAnswer([$selectedCategoryUid,$oneCategory->getTitle()]);
-                                                    break;
-                                                }
-                                            }
-                                        } elseif ($selectedAnswerUid != $auid) {
-                                            // dies sollte nie der Fall sein, deshalb erlauben wir das nicht
-                                            $selectedAnswerUid = -1;
-                                        }
-                                    }
 	    							if ($this->settings['debug']) {
 	    								$debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
 	    							}
 	    							if ($selectedAnswerUid > 0) {
-                                        // für PHP-check; im FE müssen Eingaben im Fehlerfall übernommen werden
-                                        $answer->setOwnAnswer(1);
-                                        // wir brauchen theoretisch kein select mehr, denn die aktuelle Antwort ist die ausgewählte!
-	    								//$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-	    								$newPoints = $answer->getPoints();
+	    								$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
+	    								$newPoints = $selectedAnswer->getPoints();
 		    							// halbierte Punkte setzen? Ändert aber die echte Antwort!
 	    								// so nicht: $selectedAnswer->setPoints($newPoints);
 	    								if ($newPoints != 0) {
@@ -551,16 +460,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    										$debug .= $newPoints . 'P ';
 	    									}
 	    								}
-		    							$selected->addAnswer($answer);
-                                        $selectedWithAnswer = true;
+		    							$selected->addAnswer($selectedAnswer);
 		    							if ($emailAnswers[$quid][$auid]) {
 		    								$specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
 		    							}
 	    							}
+	    							// statt hier nun nach der Schleife: $maximum1 += $answer->getPoints();
 	    						}
-	    						if (!$vorhanden) {
-                                    $maximum1 += $question->getMaximum1();
-                                }
+	    						$maximum1 += $question->getMaximum1();
 	    						break;
 	    					case 1:
 	    					case 2:
@@ -578,10 +485,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    						if ($this->settings['debug']) {
 	    							$debug .= $quid . '-' . $selectedAnswerUid . ' ';
 	    						}
-	    						if ($selectedAnswerUid) {
-                                    $selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
-                                    $selectedAnswer->setOwnAnswer(1);       // für PHP-check
-                                    if ($qmode == 7) {
+	    						if ($selectedAnswerUid) { // Alternative: && $qmode != 4) {
+	    							$selectedAnswer = $this->answerRepository->findByUid($selectedAnswerUid);
+	    							if ($qmode == 7) {
 	    								$cycle = count($question->getAnswers());
 	    								foreach ($question->getAnswers() as $answer) {
 	    									if ($answer->getUid() == $selectedAnswerUid) {
@@ -606,83 +512,48 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    								}
 	    							}
 	    							$selected->addAnswer($selectedAnswer);
-                                    $selectedWithAnswer = true;
-	    							if (isset($emailAnswers[$quid][$selectedAnswerUid])) {
+	    							if ($emailAnswers[$quid][$selectedAnswerUid]) {
 	    								$specialRecievers[$emailAnswers[$quid][$selectedAnswerUid]['email']] = $emailAnswers[$quid][$selectedAnswerUid];
 	    							}
 	    						}
-                                if (!$vorhanden) {
-                                    $maximum1 += $question->getMaximum1();
-                                }
+	    						$maximum1 += $question->getMaximum1();
 	    						break;
                             case 3:
                             case 5:
                                 // When enter an answer in a textbox: try to evaluate the answer of the textbox
-	    					    $tmpMaximum1 = $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug);
-                                if ($phpFormCheck && $selected->getEntered()) {
-                                    $selectedWithAnswer = true;
-                                    // für PHP-check: im FE werden die Eingaben im Fehlerfall benötigt
-                                    $ownAnswer = [];
-                                    $ownAnswer[] = $selected->getEntered();
-                                    $question->setTextAnswers($ownAnswer);
-                                }
-                                if (!$vorhanden) {
-                                    $maximum1 += $tmpMaximum1;
-                                }
+	    					    $this->evaluateInputTextAnswerResult($quid, $question, $selected, $debug, $maximum1);
 	    					    break;
                             default:
                                 // hier passiert nichts
 	    				}
-                        if ($phpFormCheck && !$isOptional && !$selectedWithAnswer) {
-                            if ($this->settings['debug']) {
-                                $debug .= "\n!!! Mandatory question not answered !!!";
-                            }
-                            $mandatoryNotAnswered = true;
-                        } else {
-                            if ($qmode == 8) {
-                                // Die Kategorieauswahl wird als Text gespeichert :-(
-                                $selected->setEntered(serialize($qmode8Answers));
-                            }
-                            // assign the selected dataset to the participant
-                            $this->participant->addSelection($selected);
-                        }
+	    				// assign the selected dataset to the participant
+	    				$this->participant->addSelection($selected);
     				}
     			}
     			$i++;
     		}
-            if (!$mandatoryNotAnswered) {
-                // Update the participant result
-                if ($maximum1 > 0) {
-                    $this->participant->addMaximum1($maximum1);
-                }
-                $this->participant->setPage($lastPage);
-                $this->participantRepository->update($this->participant);
-                //$doPersist = true;
-                // better persist data before evaluation!
-                $persistenceManager->persistAll();
-            }
+    		// Update the participant result
+    		if ($maximum1 > 0) {
+    			$this->participant->addMaximum1($maximum1);
+    		}
+    		$this->participant->setPage($lastPage);
+    		$this->participantRepository->update($this->participant);
+    		$doPersist = true;
     	}
     	if (!$pages) {
             $pages = intval(ceil($questions / $questionsPerPage));
         }
+    	if ($this->settings['debug']) {
+    		$debug .= "\nlast page: ".$lastPage.'; page: '.$page.'; reached page before: '.$reachedPage.'; next page: '.$nextPage.'; showAnswers: '.$showAnswers;
+    		$debug .= "\nqs/qpp=pages#" . $questions . '/' . $questionsPerPage . '=' . $pages;
+            $debug .= "\ntime period=" . $quiz->getTimeperiod() . '; time passed: ' . $this->participant->getTimePassed();
+    	}
 
-        if (!$mandatoryNotAnswered) {
-            // toggle mode for show answers after submit questions
-            if ($showAnswerPage) {
-                $showAnswersNext = $showAnswers == 1 ? 0 : 1;
-            } else {
-                $showAnswersNext = 0;
-            }
+        // toggle mode for show answers after submit questions
+        if ($showAnswerPage) {
+            $showAnswersNext = $showAnswers == 1 ? 0 : 1;
         } else {
-            // benötigte Felder wurden nicht ausgefüllt
-            $showAnswers = 0;
-            $nextPage = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
-            if ($showAnswerPage) {
-                $showAnswersNext = 1;
-            } else {
-                $showAnswersNext = 0;
-                $nextPage++;
-            }
+            $showAnswersNext = 0;
         }
 
         if (!$showAnswers && $quiz->getTimeperiod() && ($this->participant->getTimePassed() >= $quiz->getTimeperiod())) {
@@ -691,44 +562,19 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $nextPage = $page;
         }
 
-        if ($this->settings['debug']) {
-            $debug .= "\nlast page: ".$lastPage.'; page: '.$page.'; reached page before: '.$reachedPage.'; next page: '.$nextPage.'; showAnswers: '.$showAnswers.'; showAnswersNext: '.$showAnswersNext;
-            $debug .= "\nqs/qpp=pages#" . $questions . '/' . $questionsPerPage . '=' . $pages;
-            $debug .= "\ntime period=" . $quiz->getTimeperiod() . '; time passed: ' . $this->participant->getTimePassed();
-        }
-
     	if ($page > $pages) {
     		// finale Auswertung ...
     		$final = 1;
             $showAnswersNext = 0;
     		foreach ($quiz->getEvaluations() as $evaluation) {
-                $categories = $evaluation->getCategories();
-                $categoryUid = 0;
-                $finalCategory = 0;
-                $finalPoints = 0;
-                if ($categories->count()) {
-                    foreach ($categories as $category) {
-                        $categoryUid = $category->getUid();
-                        break;
-                    }
-                    if ($categoryUid) {
-                        if (!isset($finalCategoryArray['uid'])) {
-                            // hole die am meisten angeklickte Kategorie + andere Daten nur einmal
-                            $finalCategoryArray = $this->participant->getCategoryMost();
-                        }
-                        $finalCategory = $finalCategoryArray['uid'];
-                    }
-                } else {
-                    if (!$evaluation->isEvaluate()) {
-                        // Punkte auswerten
-                        $finalPoints = $this->participant->getPoints();
-                    } else {
-                        // Prozente auswerten
-                        $finalPoints = $this->participant->getPercent2();
-                    }
-                }
-    			if (($categoryUid && $finalCategory==$categoryUid) ||
-                    (!$categoryUid && ($finalPoints >= $evaluation->getMinimum()) && ($finalPoints <= $evaluation->getMaximum()))) {
+    			if (!$evaluation->isEvaluate()) {
+    				// Punkte auswerten
+    				$final_points = $this->participant->getPoints();
+    			} else {
+    				// Prozente auswerten
+    				$final_points = $this->participant->getPercent2();
+    			}
+    			if (($final_points >= $evaluation->getMinimum()) && ($final_points <= $evaluation->getMaximum())) {
     				// Punkte-Match
     				if ($evaluation->getPage() > 0) {
     					// Weiterleitung zu diese Seite
@@ -740,11 +586,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     				} else if ($evaluation->getCe() > 0) {
     					// Content-Element ausgeben
     					// oder so: https://www.andrerinas.de/tutorials/typo3-viewhelper-zum-rendern-von-tt-content-anhand-der-uid.html
-    					$ttContentConfig = [
+    					$ttContentConfig = array(
     							'tables'       => 'tt_content',
     							'source'       => $evaluation->getCe(),
-    							'dontCheckPid' => 1
-                        ];
+    							'dontCheckPid' => 1);
     					$finalContent = $this->objectManager->get('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
     					$finalBodytext = $evaluation->getBodytext();
     					$finalImageuid = $evaluation->getImage();
@@ -762,11 +607,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     		    // alle Fragen durchgehen, die der User beantwortet hat:
     		    foreach ($this->participant->getSortedSelections() as $selection) {
     		        $oneQuestion = $selection->getQuestion();
-                    if ($oneQuestion->getQmode() == 8) {
-                        $oneQuestionCategories = $oneQuestion->getCategoriesArray();
-                    } else {
-                        $oneQuestionCategories = [];
-                    }
                     $debug .= $this->setAllUserAnswersForOneQuestion($oneQuestion, 0,false);
                     // eigene Ergebnisse durchgehen
                     $ownResults = [];
@@ -774,42 +614,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         if ($this->settings['debug']) {
                             $debug .= "\n own:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
                         }
-                        if (isset($ownResults[$oneAnswer->getUid()])) {
-                            $ownResults[$oneAnswer->getUid()]++;
-                        } else {
-                            $ownResults[$oneAnswer->getUid()] = 1;
-                        }
+                        $ownResults[$oneAnswer->getUid()]++;
                     }
                     foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-                        $own = 0;
-                        if (isset($ownResults[$oneAnswer->getUid()])) {
-                            $own = intval($ownResults[$oneAnswer->getUid()]);
-                        }
-                        $oneAnswer->setOwnAnswer ($own);
-                        if ($oneQuestion->getQmode() == 8) {
-                            $ownCategoryAnswers = unserialize($selection->getEntered());
-                            foreach ($ownCategoryAnswers as $key => $ownCategoryAnswer) {
-                                if ($key == $oneAnswer->getUid()) {
-                                    $oneAnswer->setOwnCategoryAnswer([$ownCategoryAnswer, $oneQuestionCategories[$ownCategoryAnswer]]);
-                                }
-                            }
-                        }
-                    }
-    		    }
-    		} elseif ($this->settings['showOwnAnswers']) {
-                // alle Fragen durchgehen, die der User beantwortet hat:
-    		    foreach ($this->participant->getSortedSelections() as $selection) {
-                    $oneQuestion = $selection->getQuestion();
-                    if ($oneQuestion->getQmode() == 8) {
-                        $oneQuestionCategories = $oneQuestion->getCategoriesArray();
-                        $ownCategoryAnswers = unserialize($selection->getEntered());
-                        foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-                            foreach ($ownCategoryAnswers as $key => $ownCategoryAnswer) {
-                                if ($key == $oneAnswer->getUid()) {
-                                    $oneAnswer->setOwnCategoryAnswer([$ownCategoryAnswer, $oneQuestionCategories[$ownCategoryAnswer]]);
-                                }
-                            }
-                        }
+                        $oneAnswer->setOwnAnswer (intval($ownResults[$oneAnswer->getUid()]));
                     }
     		    }
     		}
@@ -880,7 +688,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     	if ($doPersist) {
     		$persistenceManager->persistAll();
         }
-    	return [
+    	$data = [
    			'page' => $page,
    			'pages' => $pages,
             'lastPage' => $lastPage,
@@ -890,44 +698,15 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
    			'finalContent' => $finalContent,
     		'finalBodytext' => $finalBodytext,
     		'finalImageuid' => $finalImageuid,
-            'finalCategories' => $finalCategoryArray,
    			'showAnswers' => $showAnswers,
     	    'showAnswersNext' => $showAnswersNext,
     	    'useJoker' => $useJoker,
-            'mandatoryNotAnswered' => $mandatoryNotAnswered,
     		'session' => $session,
    			'debug' => $debug
     	];
+    	return $data;
     }
-
-    /**
-     * Update user data after the final page
-     */
-    protected function checkForClosure() : bool
-    {
-        $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
-        if (($page == 999) && ($this->settings['user']['askForData'] == 3) && $this->settings['closurePageUid'] &&
-            $this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
-            $participantUid = intval($this->request->getArgument('participant'));
-            $this->participant = $this->participantRepository->findOneByUid($participantUid);
-            if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
-                $this->participant->setName($this->request->getArgument('name'));
-            }
-            if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
-                $this->participant->setEmail($this->request->getArgument('email'));
-            }
-            if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
-                $this->participant->setHomepage($this->request->getArgument('homepage'));
-            }
-            $this->participantRepository->update($this->participant);
-            $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-            $persistenceManager->persistAll();
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    
     /**
      * Try to evaluate the answer of an Input Textbox 
      * 
@@ -935,14 +714,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question The Question dataset
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Selected $c_selected The Selected dataset
      * @param string $c_debug Debug
-     * @return int The max. possible points until the current question
+     * @param int $c_maximum1 The max. possible points until the current question
      */
     protected function evaluateInputTextAnswerResult(int $i_quid, 
                                                    \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question, 
                                                    \Fixpunkt\FpMasterquiz\Domain\Model\Selected &$c_selected,
-                                                   string &$c_debug)
+                                                   string &$c_debug,
+                                                   int &$c_maximum1)
     {
-        $maximum1 = 0;
         // retreive answer over the GET arguments
         if ($this->request->hasArgument('answer_text_' . $i_quid) && $this->request->getArgument('answer_text_' . $i_quid)) {
             $answerText = $this->request->getArgument('answer_text_' . $i_quid);
@@ -976,7 +755,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             
             if ($i_question->getQmode() == 3) {
 	            // sum the the points of the current answer to the max. possible point until the current question
-                $maximum1 += $answer->getPoints();
+	            $c_maximum1 += $answer->getPoints();
 	            
 	            // if the answer is right
 	            if (strtoupper(trim($answer->getTitle())) == strtoupper(trim($answerText))) {
@@ -989,7 +768,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	            }
 	        }
         }
-        return $maximum1;
     }
     
     /**
@@ -1051,7 +829,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $votesTotal = 0;
         $debug = '';
         $allResults = [];
-        //$allCategoryResults = [];
         $questionID = $oneQuestion->getUid();
         $isEnterQuestion = (($oneQuestion->getQmode() == 3) || ($oneQuestion->getQmode() == 5));
         if ($this->settings['debug']) {
@@ -1071,27 +848,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     $debug .= "\n all: " . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
                 }
                 if (($isEnterQuestion && ($aSelectedQuestion->getEntered() == $oneAnswer->getTitle())) || !$isEnterQuestion) {
-                    if (isset($allResults[$oneAnswer->getUid()])) {
-                        $allResults[$oneAnswer->getUid()]++;
-                    } else {
-                        $allResults[$oneAnswer->getUid()] = 1;
-                    }
-                    /* TODO:
-                    if ($oneQuestion->getQmode() == 8) {
-                        // ausgewählte Kategorien einer Antwort
-                        $catAnswers = unserialize($aSelectedQuestion->getEntered());
-                        foreach ($catAnswers as $key => $value) {
-                            if (!is_array($allCategoryResults[$key])) {
-                                $allCategoryResults[$key] = [];
-                            }
-                            if (isset($allCategoryResults[$key][$value])) {
-                                $allCategoryResults[$key][$value]++;
-                            } else {
-                                $allCategoryResults[$key][$value] = 1;
-                            }
-                        }
-                    }
-                    */
+                    $allResults[$oneAnswer->getUid()]++;
                 } else if ($be) {
                     // Text-Antworten anderer interessieren uns nur im Backend
                     if (!is_array($allResults['text'])) {
@@ -1100,17 +857,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                     if (!is_array($allResults['text'][$aSelectedQuestion->getEntered()])) {
                         $allResults['text'][$aSelectedQuestion->getEntered()] = [];
                     }
-                    if (isset($allResults['text'][$aSelectedQuestion->getEntered()]['sum'])) {
-                        $allResults['text'][$aSelectedQuestion->getEntered()]['sum']++;
-                    } else {
-                        $allResults['text'][$aSelectedQuestion->getEntered()]['sum'] = 1;
-                    }
+                    $allResults['text'][$aSelectedQuestion->getEntered()]['sum']++;
                 }
             }
         }
-        // gesammeltes speichern bei: alle möglichen Antworten einer Frage...
+        // gesammeltes speichern bei: alle möglichen Antworten einer Frage und Prozentwerte setzen
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-            $thisVotes = isset($allResults[$oneAnswer->getUid()]) ? intval($allResults[$oneAnswer->getUid()]) : 0;
+            $thisVotes = intval($allResults[$oneAnswer->getUid()]);
             $votesTotal += $thisVotes;
             if ($be && $isEnterQuestion && is_array($allResults) && is_array($allResults['text'])) {
                 // bei Text-Antworten alle Textantworten berücksichtigen
@@ -1122,9 +875,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             }
             $oneAnswer->setAllAnswers($thisVotes);
         }
-        // ... und Prozentwerte speichern
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
-            $thisVotes = isset($allResults[$oneAnswer->getUid()]) ? intval($allResults[$oneAnswer->getUid()]) : 0;
+            $thisVotes = intval($allResults[$oneAnswer->getUid()]);
             $percentage = 0;
             if ($votes) {
                 $percentage = 100 * ($thisVotes / $votes);
@@ -1134,7 +886,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             if ($votesTotal) {
                 $percentage = 100 * ($thisVotes / $votesTotal);
             }
-            if ($this->settings['debug']) {
+            if ($this->settings['debug'] && $votes) {
                 $debug .= "\n percent: 100*" . $thisVotes . '/' . $votes . ' = ' . 100 * ($thisVotes / $votes);
                 $debug .= "\n total percent: 100*" . $thisVotes . '/' . $votesTotal . ' = ' . $percentage;
             }
@@ -1182,7 +934,40 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $meta = $metaTagManager->getManagerForProperty('og:title');
         $meta->addProperty('og:title', $title);
     }
-    
+
+    /**
+     * Checks if a quiz is allowed
+     *
+     * @param integer $pid
+     * @param integer $uid
+     * @return boolean
+     */
+    public function checkQuizAccess(int $pid, int $uid): bool
+    {
+        $storagePidsArray = $this->quizRepository->getStoragePids();
+        if (is_array($storagePidsArray) && !$storagePidsArray[0] == 0) {
+            if (!in_array($pid, $storagePidsArray)) {
+                $this->addFlashMessage(
+                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($pid),
+                    LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                    false
+                );
+                return false;
+            }
+        }
+        if ($this->settings['defaultQuizUid'] && $uid!=$this->settings['defaultQuizUid']) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('error.quizNotAllowed', 'fp_masterquiz') . ' ' . intval($uid),
+                LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                false
+            );
+            return false;
+        }
+        return true;
+    }
+
     /**
      * action list
      *
@@ -1294,11 +1079,10 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        if ($this->checkForClosure()) {
-            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant], $this->settings['closurePageUid']);
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
         }
-        $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
-        $data = $this->doAll($quiz, $userData,0, []);
+        $data = $this->doAll($quiz,0);
         $page = $data['page'];
         $pages = $data['pages'];
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
@@ -1306,33 +1090,27 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if ($this->settings['setMetatags']) {
             $this->setMetatags($quiz);
         }
-
-        if ($quiz->getQuestions()) {
-            $questionsArray = $quiz->getQuestions()->toArray();
-        } else {
-            $questionsArray = [];
-        }
-        if ($this->participant && $this->participant->getSelections()) {
-            $participantArray = $this->participant->getSelections()->toArray();
-        } else {
-            $participantArray = [];
-        }
-        $quizPaginator = new ArrayPaginator($questionsArray, $page, intval($this->settings['pagebrowser']['itemsPerPage']));
-        $participantPaginator = new ArrayPaginator($participantArray, $page, intval($this->settings['pagebrowser']['itemsPerPage']));
-
+        
+        $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
-        $this->view->assign('quizPaginator', $quizPaginator);
         $this->view->assign('participant', $this->participant);
-        $this->view->assign('participantPaginator', $participantPaginator);
+        $this->view->assign('page', $page);
         if ($pages > 0) {
         	$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
         	$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
-        }
-        foreach ($data as $key => $value) {
-            $this->view->assign($key, $value);
-        }
+        }        
+        $this->view->assign('nextPage', $data['nextPage']);
+        $this->view->assign('pages', $pages);
         $this->view->assign('pagesInclFinalPage', ($pages+1));
+        $this->view->assign('questions', $data['questions']);
         $this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
+        $this->view->assign('final', $data['final']);
+        $this->view->assign('finalContent', $data['finalContent']);
+        $this->view->assign('finalBodytext', $data['finalBodytext']);
+        $this->view->assign('finalImageuid', $data['finalImageuid']);
+        $this->view->assign('session', $data['session']);
+        $this->view->assign('showAnswers', $data['showAnswers']);
+        $this->view->assign('showAnswersNext', $data['showAnswersNext']);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
@@ -1359,20 +1137,16 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        if ($this->checkForClosure()) {
-            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant], $this->settings['closurePageUid']);
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
         }
-        $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
         $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
         // Suche Fragen passend zu einer Seite (jeweils nur 1 Tag verwendet)
-        $tagArray = $quiz->getQuestionsSortByTag($page, $this->settings['random'], $this->participant->getRandompages());
+        $tagArray = $quiz->getQuestionsSortByTag($page);
         $tag = $tagArray['pagetags'][$page];
         $pages = $tagArray['pages'];
-        $data = $this->doAll($quiz, $userData, $pages, $tagArray['randomNumbers']);
+        $data = $this->doAll($quiz, $pages);
         $lastPage = $data['lastPage'];
-        if ($this->settings['allowEdit']) {
-            $lastPage = $page;
-        }
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
         if ($this->settings['setMetatags']) {
@@ -1380,57 +1154,33 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         }
         if ($lastPage < 1) {
             $tagSelections = [];
-        } else if ($data['showAnswers'] || $this->settings['allowEdit']) {
-            // Antworten vom user suchen
+        } else {
             $tagSelections = $this->participant->getSelectionsByTag($tagArray['pagetags'][$lastPage]);
         }
-        if ($this->settings['debug']) {
-            $data['debug'] .= "\nTag=$tag; page=$page; pages=$pages; random page order: " . implode(',', $tagArray['randomNumbers']);
-        }
-        if ($this->settings['allowEdit']) {
-            $answeredQuestions = [];
-            // eigene Antworten holen
-            foreach ($tagSelections as $selection) {
-                $quid = $selection->getQuestion()->getUid();
-                $answeredQuestions[$quid] = [];
-                $answeredQuestions[$quid]['text'] = [];
-                $answeredQuestions[$quid]['check'] = [];
-                $answeredQuestions[$quid]['text'][0] = $selection->getEntered();
-                foreach ($selection->getAnswers() as $answer) {
-                    $answeredQuestions[$quid]['check'][$answer->getTitle()] = 1;
-                }
-            }
-            // eigene Antworten setzen
-            foreach ($tagArray['questions'] as $question) {
-                $quid = $question->getUid();
-                if ($answeredQuestions[$quid]) {
-                    if (is_array($answeredQuestions[$quid]['text'])) {
-                        $question->setTextAnswers($answeredQuestions[$quid]['text']);
-                    }
-                    foreach ($question->getAnswers() as $answer) {
-                        $checked = ($answeredQuestions[$quid]['check'][$answer->getTitle()]) ? 1 : 0;
-                        $answer->setOwnAnswer($checked);
-                    }
-                }
-            }
-        }
 
+        $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
         $this->view->assign('tag', $tag);
-        $this->view->assign('tags', $tagArray['pagetags']);
         $this->view->assign('tagQuestions', $tagArray['questions']);
         $this->view->assign('tagSelections', $tagSelections);
-        $this->view->assign('randomPages', implode(',', $tagArray['randomNumbers']));
         $this->view->assign('participant', $this->participant);
+        $this->view->assign('page', $page);
         if ($pages > 0) {
             $this->view->assign('pagePercent', intval(round(100*($page/$pages))));
             $this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
         }
-        foreach ($data as $key => $value) {
-            $this->view->assign($key, $value);
-        }
+        $this->view->assign('nextPage', $data['nextPage']);
+        $this->view->assign('pages', $pages);
         $this->view->assign('pagesInclFinalPage', ($pages+1));
+        $this->view->assign('questions', $data['questions']);
         $this->view->assign('pageBasis', 0);
+        $this->view->assign('final', $data['final']);
+        $this->view->assign('finalContent', $data['finalContent']);
+        $this->view->assign('finalBodytext', $data['finalBodytext']);
+        $this->view->assign('finalImageuid', $data['finalImageuid']);
+        $this->view->assign('session', $data['session']);
+        $this->view->assign('showAnswers', $data['showAnswers']);
+        $this->view->assign('showAnswersNext', $data['showAnswersNext']);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
@@ -1456,108 +1206,110 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAjaxAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        if ($this->checkForClosure()) {
-            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant], $this->settings['closurePageUid']);
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
         }
     	// siehe: https://www.sebkln.de/tutorials/erstellung-einer-typo3-extension-mit-ajax-aufruf/
-        //	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
-        //		$quiz = $this->quizRepository->findOneByUid($quizUid);
-        // vorerst mal
-        $this->settings['user']['useCookie'] = 0;
-        $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
-        $data = $this->doAll($quiz, $userData,0, []);
-        $page = $data['page'];
-        $pages = $data['pages'];
-        $from = 1 + (($page-1) * intval($this->settings['pagebrowser']['itemsPerPage']));
-        $to = ($page * intval($this->settings['pagebrowser']['itemsPerPage']));
-        $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
-        $sys_language_uid = $languageAspect->getId();
+    //	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
+    //	if ($quizUid) {
+    		// vorerst mal
+    		$this->settings['user']['useCookie'] = 0;
+    //		$quiz = $this->quizRepository->findOneByUid($quizUid);
+    		$data = $this->doAll($quiz,0);
+    		$page = $data['page'];
+    		$pages = $data['pages'];
+    		$from = 1 + (($page-1) * intval($this->settings['pagebrowser']['itemsPerPage']));
+    		$to = ($page * intval($this->settings['pagebrowser']['itemsPerPage']));
+    		$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+    		$sys_language_uid = $languageAspect->getId();
 
-        if ($data['useJoker'] == 1) {
-            // Joker-Antworten hier automatisch setzen
-            if ($this->settings['debug']) {
-                $data['debug'] .= "\nJoker was used. Setting automatic joker answers: ";
-            }
-            $i=0;
-            $jokerSet = 0;
-            $jokerMax = 0;
-            foreach ($quiz->getQuestions() as $question) {
-                $i++;
-                // uns interessiert nur die aktuelle Seite
-                if ($i == $page) {
-                    // Schritt 1: richtige Antworten auf 0 setzen, falsche auf 1
-                    if ($this->settings['debug']) {
-                        $data['debug'] .= $question->getTitle() . "/";
-                    }
-                    foreach ($question->getAnswers() as $answer) {
-                        $jokerMax++;
-                        $points = $answer->getPoints();
-                        if ($points > 0) {
-                            $answer->setJokerAnswer(0);
-                            $jokerSet++;
-                        } else {
-                            $answer->setJokerAnswer(1);
-                        }
-                    }
-                    $jokerHalf = intval(ceil($jokerMax/2));   // aus 5 wird 3, aus 4 wird 2
-                    $jokerFehlend = $jokerHalf - $jokerSet;   // 3-1=2; 2-1=1 bei 1 richtigen Antwort
-                    // Schritt 2: # fehlende Joker auf 0 (richtig) setzen
-                    foreach ($question->getAnswers() as $answer) {
-                        if ($jokerFehlend && ($answer->getJokerAnswer() == 1)) {
-                            $random = random_int($jokerSet+1, $jokerMax);     // 2 bis 5 (1/4) bzw. 2 bis 4 (1/3)
-                            if ($random == $jokerMax) {       // Wahrscheinlichkeit 1/4 bzw. 1/3
-                                $jokerFehlend--;
-                                $answer->setJokerAnswer(0);
-                                if ($this->settings['debug']) {
-                                    $data['debug'] .= $answer->getTitle() . "#";
-                                }
-                            }
-                        }
-                    }
-                    // Schritt 3: falls nicht genug Antworten als pseudo-richtig ausgewählt wurden...
-                    if ($jokerFehlend) {
-                        // ...einfach die ersten Antworten auswählen
-                        foreach ($question->getAnswers() as $answer) {
-                            if ($jokerFehlend && ($answer->getJokerAnswer() == 1)) {
-                                $jokerFehlend--;
-                                $answer->setJokerAnswer(0);
-                                if ($this->settings['debug']) {
-                                    $data['debug'] .= $answer->getTitle() . "##";
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        $this->view->assign('debug', $data['debug']);
-        $this->view->assign('quiz', $quiz);
-        $this->view->assign('participant', $this->participant);
-        $this->view->assign('page', $page);
-        if ($pages > 0) {
-            $this->view->assign('pagePercent', intval(round(100*($page/$pages))));
-            $this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
-        }
-        $this->view->assign('nextPage', $data['nextPage']);
-        $this->view->assign('pages', $pages);
-        $this->view->assign('pagesInclFinalPage', ($pages+1));
-        $this->view->assign('questions', $data['questions']);
-        $this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
-        $this->view->assign('final', $data['final']);
-        $this->view->assign('finalContent', $data['finalContent']);
-        $this->view->assign('finalCategories', $data['finalCategories']);
-        $this->view->assign('session', $data['session']);
-        $this->view->assign('showAnswers', $data['showAnswers']);
-        $this->view->assign('showAnswersNext', $data['showAnswersNext']);
-        $this->view->assign('useJoker', $data['useJoker']);
-        $this->view->assign('nextJoker', (($data['useJoker'] == 1) ? 2 : 0));
-        $this->view->assign("sysLanguageUid", $sys_language_uid);
-        $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
-
-        $this->view->assign('from', $from);
-        $this->view->assign('to', $to);
-        $this->view->assign('uidOfCE', ($this->request->hasArgument('uidOfCE') ? intval($this->request->getArgument('uidOfCE')) : 0));
+    		if ($data['useJoker'] == 1) {
+    		    // Joker-Antworten hier automatisch setzen
+    			if ($this->settings['debug']) {
+    				$data['debug'] .= "\nJoker was used. Setting automatic joker answers: ";
+    			}
+    		    $i=0;
+    		    $jokerSet = 0;
+    		    $jokerMax = 0;
+    		    foreach ($quiz->getQuestions() as $question) {
+    		        $i++;
+    		        // uns interessiert nur die aktuelle Seite
+    		        if ($i == $page) {
+    		            // Schritt 1: richtige Antworten auf 0 setzen, falsche auf 1
+    		        	if ($this->settings['debug']) {
+    		        		$data['debug'] .= $question->getTitle() . "/";
+    		        	}
+    		            foreach ($question->getAnswers() as $answer) {
+    		                $jokerMax++;
+    		                $points = $answer->getPoints();
+    		                if ($points > 0) {
+    		                    $answer->setJokerAnswer(0);
+    		                    $jokerSet++;
+    		                } else {
+    		                    $answer->setJokerAnswer(1);
+    		                }
+    		            }
+    		            $jokerHalf = intval(ceil($jokerMax/2));   // aus 5 wird 3, aus 4 wird 2
+    		            $jokerFehlend = $jokerHalf - $jokerSet;   // 3-1=2; 2-1=1 bei 1 richtigen Antwort
+    		            // Schritt 2: # fehlende Joker auf 0 (richtig) setzen
+    		            foreach ($question->getAnswers() as $answer) {
+    		                if ($jokerFehlend && ($answer->getJokerAnswer() == 1)) {
+    		                    $random = random_int($jokerSet+1, $jokerMax);     // 2 bis 5 (1/4) bzw. 2 bis 4 (1/3)
+    		                    if ($random == $jokerMax) {       // Wahrscheinlichkeit 1/4 bzw. 1/3
+    		                        $jokerFehlend--;
+    		                        $answer->setJokerAnswer(0);
+    		                        if ($this->settings['debug']) {
+    		                        	$data['debug'] .= $answer->getTitle() . "#";
+    		                        }
+    		                    }
+    		                }
+    		            }
+    		            // Schritt 3: falls nicht genug Antworten als pseudo-richtig ausgewählt wurden...
+    		            if ($jokerFehlend) {
+    		                // ...einfach die ersten Antworten auswählen
+    		                foreach ($question->getAnswers() as $answer) {
+    		                    if ($jokerFehlend && ($answer->getJokerAnswer() == 1)) {
+   		                            $jokerFehlend--;
+   		                            $answer->setJokerAnswer(0);
+   		                            if ($this->settings['debug']) {
+   		                            	$data['debug'] .= $answer->getTitle() . "##";
+   		                            }
+    		                    }
+    		                }
+    		            }
+    		        }
+    		    }
+    		}
+    		
+    		$this->view->assign('debug', $data['debug']);
+    		$this->view->assign('quiz', $quiz);
+    		$this->view->assign('participant', $this->participant);
+    		$this->view->assign('page', $page);
+    		if ($pages > 0) {
+    			$this->view->assign('pagePercent', intval(round(100*($page/$pages))));
+    			$this->view->assign('pagePercentInclFinalPage', intval(round(100*($page/($pages+1)))));
+    		}
+    		$this->view->assign('nextPage', $data['nextPage']);
+    		$this->view->assign('pages', $pages);
+    		$this->view->assign('pagesInclFinalPage', ($pages+1));
+    		$this->view->assign('questions', $data['questions']);
+    		$this->view->assign('pageBasis', ($page-1) * $this->settings['pagebrowser']['itemsPerPage']);
+    		$this->view->assign('final', $data['final']);
+    		$this->view->assign('finalContent', $data['finalContent']);
+    		$this->view->assign('session', $data['session']);
+    		$this->view->assign('showAnswers', $data['showAnswers']);
+    		$this->view->assign('showAnswersNext', $data['showAnswersNext']);
+    		$this->view->assign('useJoker', $data['useJoker']);
+    		$this->view->assign('nextJoker', (($data['useJoker'] == 1) ? 2 : 0));
+    		$this->view->assign("sysLanguageUid", $sys_language_uid);
+    		$this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+			
+    		$this->view->assign('from', $from);
+    		$this->view->assign('to', $to);
+    		$this->view->assign('uidOfCE', ($this->request->hasArgument('uidOfCE') ? intval($this->request->getArgument('uidOfCE')) : 0));
+    //	} else {
+    //		$this->view->assign('error', 1);
+    //	}
     }
     
     /**
@@ -1568,6 +1320,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function resultAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
+        }
     	$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     	$sys_language_uid = $languageAspect->getId();
     	$pid = (int)$GLOBALS['TSFE']->id;
@@ -1587,6 +1342,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function highscoreAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
+        }
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
         $pid = (int)$GLOBALS['TSFE']->id;
@@ -1598,18 +1356,6 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);
         $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
-    }
-
-    /**
-     * action show
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
-     * @return void
-     */
-    public function closureAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant)
-    {
-        $this->view->assign('participant', $participant);
-        $this->view->assign('quiz', $participant->getQuiz());
     }
 
     /**
@@ -1730,22 +1476,30 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         
     	/** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
     	$message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
-        foreach ($recipient as $key => $value) {
-            $email = $key;
-            $name = $value;
-        }
-        $message->to(
-            new \Symfony\Component\Mime\Address($email, $name)
-        );
-        foreach ($sender as $key => $value) {
-            $email = $key;
-            $name = $value;
-        }
-        $message->from(
-            new \Symfony\Component\Mime\Address($email, $name)
-        );
-        $message->subject($subject);
-        $message->html($emailBodyHtml);
+    	if (TYPO3_branch == '9.5') {
+    	    $message->setTo($recipient);
+    	    $message->setFrom($sender);
+    	    $message->setSubject($subject);
+    	    $message->setBody($emailBodyHtml, 'text/html');
+    	} else {
+        	foreach ($recipient as $key => $value) {
+        	    $email = $key;
+        	    $name = $value;
+        	}
+        	$message->to(
+        	    new \Symfony\Component\Mime\Address($email, $name)
+        	);
+        	foreach ($sender as $key => $value) {
+        	    $email = $key;
+        	    $name = $value;
+        	}
+        	$message->from(
+        	    new \Symfony\Component\Mime\Address($email, $name)
+        	);
+        	$message->subject($subject);
+        	$message->html($emailBodyHtml);
+    	}
+		//return true;
     	$message->send();
     	return $message->isSent();
     }

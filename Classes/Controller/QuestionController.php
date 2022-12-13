@@ -21,18 +21,9 @@ class QuestionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      * questionRepository
      *
      * @var \Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository
+     * @TYPO3\CMS\Extbase\Annotation\Inject
      */
     protected $questionRepository = null;
-
-    /**
-     * Injects the question-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository $questionRepository
-     */
-    public function injectQuestionRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository $questionRepository)
-    {
-        $this->questionRepository = $questionRepository;
-    }
 
     /**
      * action list
@@ -55,24 +46,4 @@ class QuestionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     {
         $this->view->assign('question', $question);
     }
-
-    /**
-     * action move
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $question
-     * @return void
-     */
-    public function moveAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz, \Fixpunkt\FpMasterquiz\Domain\Model\Question $question = NULL)
-    {
-        $pid = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
-        if ($question) {
-            $this->questionRepository->moveToQuiz($question->getUid(), $quiz->getUid());
-        }
-        $questions = $this->questionRepository->findOtherThan($pid, $quiz->getUid());
-        $this->view->assign('question', $question);
-        $this->view->assign('questions', $questions);
-        $this->view->assign('quiz', $quiz);
-    }
-
 }

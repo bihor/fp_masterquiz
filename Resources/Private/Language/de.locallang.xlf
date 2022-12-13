@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2022-08-18T14:49:53Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2021-06-08T12:21:04Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -59,10 +59,6 @@
 				<source>Explanation</source>
 				<target>Erklärung</target>
 			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_question.optional" resname="tx_fpmasterquiz_domain_model_question.optional">
-				<source>The answer is optional</source>
-				<target>Die Beantwortung ist optional</target>
-			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.tag" resname="tx_fpmasterquiz_domain_model_question.tag">
 				<source>Tag</source>
 				<target>Tag</target>
@@ -88,8 +84,8 @@
 				<target>Auswertung</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.evaluate" resname="tx_fpmasterquiz_domain_model_evaluation.evaluate">
-				<source>Evaluate points (unchecked) or percentage (checked) or categories (a category is checked)?</source>
-				<target>Werte Punkte (nicht markiert) oder Prozente (markiert) oder Kategorien (eine Kategorie markiert) aus?</target>
+				<source>Evaluate points (unchecked) or percentage (checked)?</source>
+				<target>Werte Punkte (nicht markiert) oder Prozente (markiert) aus?</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.minimum" resname="tx_fpmasterquiz_domain_model_evaluation.minimum">
 				<source>Minimum value</source>
@@ -122,14 +118,6 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.name" resname="tx_fpmasterquiz_domain_model_participant.name">
 				<source>Name</source>
 				<target>Name</target>
-			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.sys_language_uid" resname="tx_fpmasterquiz_domain_model_participant.sys_language_uid">
-				<source>Language</source>
-				<target>Sprache</target>
-			</trans-unit>
-			<trans-unit id="tx_fpmasterquiz_domain_model_participant.crdate" resname="tx_fpmasterquiz_domain_model_participant.crdate">
-				<source>Date</source>
-				<target>Datum</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_participant.email" resname="tx_fpmasterquiz_domain_model_participant.email">
 				<source>E-Mail</source>
@@ -251,14 +239,6 @@
 				<source>Homepage</source>
 				<target>Homepage</target>
 			</trans-unit>
-			<trans-unit id="text.saveData" resname="text.saveData">
-				<source>Save data</source>
-				<target>Daten speichern</target>
-			</trans-unit>
-			<trans-unit id="text.dataSaved" resname="text.dataSaved">
-				<source>Your data have been saved.</source>
-				<target>Deine Angaben wurden gespeichert.</target>
-			</trans-unit>
 			<trans-unit id="text.yes" resname="text.yes">
 				<source>yes</source>
 				<target>ja</target>
@@ -355,9 +335,13 @@
 				<source>No quiz and no detail page was not found!</source>
 				<target>Es wurde kein Quiz und keine Startseite gesetzt! (Datensatzsammlung gesetzt?)</target>
 			</trans-unit>
-			<trans-unit id="error.notAnswered" resname="error.notAnswered">
-				<source>Error: mandatory questions not answered!</source>
-				<target>Fehler: bitte die markierten Fragen beantworten!</target>
+			<trans-unit id="error.quizNotAllowed" resname="error.quizNotAllowed">
+				<source>The quiz was not allowed, because another default quiz is set in the Backend:</source>
+				<target>Das Quiz ist nicht erlaubt, da ein anderes Quiz im Backend ausgewählt wurde:</target>
+			</trans-unit>>
+			<trans-unit id="error.invalidParameters" resname="error.invalidParameters">
+				<source>Error: the parameters could not be validated!</source>
+				<target>Fehler: die Parameter konnten nicht validiert werden!</target>
 			</trans-unit>
 			<trans-unit id="text.answer.input" resname="text.answer.input">
 				<source>Answer:</source>
@@ -402,22 +386,6 @@
 			<trans-unit id="text.expiredTime" resname="text.expiredTime">
 				<source>The time has expired! The form will now be sent!</source>
 				<target>Die Zeit ist abgelaufen! Das Formular wird nun abgesendet!</target>
-			</trans-unit>
-			<trans-unit id="text.optional" resname="text.optional">
-				<source>: optional</source>
-				<target>: optional</target>
-			</trans-unit>
-			<trans-unit id="text.detailEvaluation" resname="text.detailEvaluation">
-				<source>The detailed evaluation of your answers leads to the result given below.</source>
-				<target>Die detaillierte Auswertung deiner Antworten führt zu dem weiter unten angegebenen Ergebnis.</target>
-			</trans-unit>
-			<trans-unit id="text.categoryTitle" resname="text.categoryTitle">
-				<source>Category</source>
-				<target>Kategorie</target>
-			</trans-unit>
-			<trans-unit id="text.categoryCount" resname="text.categoryCount">
-				<source>Clicked by you</source>
-				<target>Von dir angeklickt</target>
 			</trans-unit>
 		</body>
 	</file>
