@@ -192,6 +192,29 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     }
 
     /**
+     * Prüft, ob eine Session gültig ist: check the session against the request-parameter
+     *
+     * @param string $c_debug
+     * @return boolean
+     */
+    public function isSessionOK(string &$c_debug): bool
+    {
+        if ($this->request->hasArgument('session')) {
+            $tmp_session = $this->request->getArgument('session');
+        } else {
+            $tmp_session = '';
+        }
+        if ($this->participant->getSession() != $tmp_session) {
+            $this->participant = null;
+            if ($this->settings['debug']) {
+                $c_debug .= "\nParticipant not accepted, because the session from argument is wrong: " . $tmp_session;
+            }
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Sucht einen Teilnehmer und erzeugt ggf. einen
      *
      * @param int $quizUid
@@ -205,11 +228,16 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $newUser = false;
         $context = GeneralUtility::makeInstance(Context::class);
         $fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
-        if (!$this->settings['ajax']) {
+        $isAjax = $this->settings['ajax'];
+        if ($this->settings['debug'] && $isAjax) {
+            $debug .= "\nAjax mode is enabled.";
+        }
+//        if (!$isAjax) {
             if ($this->request->hasArgument('session')) {
+                // wir dürften nicht auf der Startseite sein, außer beim 1. Ajax-call
                 $session = $this->request->getArgument('session');
-            } else if (!$this->request->hasArgument('participant')) {
-                // keine Session gefunden... und jetzt Cookie checken?
+            } else if (!$this->request->hasArgument('participant') && !$isAjax) {
+                // keine Session gefunden... und jetzt Cookie checken? Hier dürften wir auf der Startseite sein
                 if (intval($this->settings['user']['useCookie']) == -1) {
                     $session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $quizUid);
                 } else if ((intval($this->settings['user']['useCookie']) > 0) && isset($_COOKIE['qsession' . $quizUid])) {
@@ -235,23 +263,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                         }
                     }
                     if (!$session) {
-                        $session = uniqid(random_int(1000, 9999));
-                        $newUser = true;
                         $this->participant = null;
                         if ($this->settings['debug']) {
-                            $debug .= "\ncreating new session: " . $session;
+                            $debug .= "\nNo session found, will creating a new participant...";
                         }
                     }
                 }
             }
-            if (intval($this->settings['user']['useCookie']) == -1) {
-                // Store the session in a cookie
-                $GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quizUid, $session);
-                $GLOBALS["TSFE"]->fe_user->storeSessionData();
-            } else if (intval($this->settings['user']['useCookie']) > 0) {
-                setcookie('qsession' . $quizUid, $session, time() + (3600 * 24 * intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
-            }
-        }
+//        }
 
         if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
             // wir sind nicht auf Seite 1
@@ -262,9 +281,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 $this->participant = $this->participantRepository->findOneByUid($participantUid);
             }
             if ($this->participant) {
+                // ein abgelegter session-key hat Vorrang
                 $session = $this->participant->getSession();
-                if ($this->settings['debug']) {
-                    $debug .= "\nparticipant from request: " . $participantUid;
+                if ($session && !$this->isSessionOK($debug)) {
+                    $participantUid = 0;
+                }
+                if ($this->settings['debug'] && $participantUid) {
+                    $debug .= "\nParticipant from request: " . $participantUid . ' with session: ' . $session;
                 }
             }
         }
@@ -287,11 +310,26 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
                 }
             }
             if (!$session) {
+                // ggf. wird die Session von der Startseite beibehalten
                 $session = uniqid(random_int(1000, 9999));
+                $this->participant->setSession($session);
                 $newUser = true;
                 if ($this->settings['debug']) {
                     $debug .= "\ncreating new session: " . $session;
                 }
+            }
+        }
+        if (!$isAjax && !$newUser && !$this->participant->getUid()) {
+            // Cookie nicht schon auf der Startseite setzen, sondern erst und nur auf der Folgeseite
+            if ($this->settings['debug']) {
+                $debug .= "\nSetting a cookie with this session: " . $session;
+            }
+            if (intval($this->settings['user']['useCookie']) == -1) {
+                // Store the session in a cookie
+                $GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quizUid, $session);
+                $GLOBALS["TSFE"]->fe_user->storeSessionData();
+            } else if (intval($this->settings['user']['useCookie']) > 0) {
+                setcookie('qsession' . $quizUid, $session, time() + (3600 * 24 * intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
             }
         }
         $result = [];
@@ -341,6 +379,14 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         if (!$questionsPerPage) {
             $questionsPerPage = 1;
         }
+       /* if ($this->settings['ajax'] && $session && !$this->participant->getUid() && ($showAnswers || $page>1)) {
+            $page = 1;
+            $showAnswers = false;
+            $reload = true;
+            if ($this->settings['debug']) {
+                $debug .= "\nReload auf Ajax-Startseite detektiert.";
+            }
+        } */
         if ($this->settings['allowEdit']) {
             if ($this->participant->isCompleted()) {
                 $showAnswers = true;
@@ -411,7 +457,8 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$this->participant->setHomepage($defaultHomepage);
 	    			$this->participant->setUser(isset($GLOBALS['TSFE']->fe_user->user['uid']) ? intval($GLOBALS['TSFE']->fe_user->user['uid']) : 0);
 	    			$this->participant->setIp($this->getRealIpAddr());
-	    			$this->participant->setSession($session);
+                    // Die Session wurde bisher nur auf der Startseite gesetzt, deshalb wird sie hier nochmal gesetzt
+                    $this->participant->setSession($session);
                     if ($startTime) {
                         $this->participant->setSessionstart(time() - $startTime);
                     }
@@ -424,7 +471,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 	    			$persistenceManager->persistAll();
 	    			$newUser = true;
 	    			if ($this->settings['debug']) {
-	    				$debug .= "\nNew participant created: " . $this->participant->getUid();
+	    				$debug .= "\nNew participant created: " . $this->participant->getUid() . '; with session: ' . $session;
     				}
     			}
     		}
@@ -905,27 +952,29 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     protected function checkForClosure() : bool
     {
+        $debug = '';
         $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
         if (($page == 999) && ($this->settings['user']['askForData'] == 3) && $this->settings['closurePageUid'] &&
             $this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
             $participantUid = intval($this->request->getArgument('participant'));
             $this->participant = $this->participantRepository->findOneByUid($participantUid);
-            if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
-                $this->participant->setName($this->request->getArgument('name'));
+            if ($this->isSessionOK($debug)) {
+                if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
+                    $this->participant->setName($this->request->getArgument('name'));
+                }
+                if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
+                    $this->participant->setEmail($this->request->getArgument('email'));
+                }
+                if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
+                    $this->participant->setHomepage($this->request->getArgument('homepage'));
+                }
+                $this->participantRepository->update($this->participant);
+                $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
+                $persistenceManager->persistAll();
+                return true;
             }
-            if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
-                $this->participant->setEmail($this->request->getArgument('email'));
-            }
-            if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
-                $this->participant->setHomepage($this->request->getArgument('homepage'));
-            }
-            $this->participantRepository->update($this->participant);
-            $persistenceManager = $this->objectManager->get('TYPO3\\CMS\\Extbase\\Persistence\\Generic\\PersistenceManager');
-            $persistenceManager->persistAll();
-            return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     /**
@@ -1134,7 +1183,7 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             if ($votesTotal) {
                 $percentage = 100 * ($thisVotes / $votesTotal);
             }
-            if ($this->settings['debug']) {
+            if ($this->settings['debug'] && $votes) {
                 $debug .= "\n percent: 100*" . $thisVotes . '/' . $votes . ' = ' . 100 * ($thisVotes / $votes);
                 $debug .= "\n total percent: 100*" . $thisVotes . '/' . $votesTotal . ' = ' . $percentage;
             }
@@ -1182,7 +1231,41 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $meta = $metaTagManager->getManagerForProperty('og:title');
         $meta->addProperty('og:title', $title);
     }
-    
+
+    /**
+     * Checks if a quiz is allowed
+     *
+     * @param integer $pid
+     * @param integer $uid
+     * @return boolean
+     */
+    public function checkQuizAccess(int $pid, int $uid): bool
+    {
+        $storagePidsArray = $this->quizRepository->getStoragePids();
+        if (is_array($storagePidsArray) && !$storagePidsArray[0] == 0) {
+            if (!in_array($pid, $storagePidsArray)) {
+                $this->addFlashMessage(
+                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($pid),
+                    LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                    \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                    false
+                );
+                return false;
+            }
+        }
+        if ($this->settings['defaultQuizUid'] && $uid!=$this->settings['defaultQuizUid']) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('error.quizNotAllowed', 'fp_masterquiz') . ' ' . intval($uid),
+                LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                false
+            );
+            return false;
+        }
+        return true;
+    }
+
+
     /**
      * action list
      *
@@ -1294,10 +1377,15 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        if ($this->checkForClosure()) {
-            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant], $this->settings['closurePageUid']);
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
         }
+        if ($this->checkForClosure()) {
+            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant,'session'=>$this->participant->getSession()], $this->settings['closurePageUid']);
+        }
+        // participant wird zuerst hier definiert ...
         $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
+        /// ... und dann hier in der DB abgespeichert
         $data = $this->doAll($quiz, $userData,0, []);
         $page = $data['page'];
         $pages = $data['pages'];
@@ -1359,8 +1447,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
+        }
         if ($this->checkForClosure()) {
-            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant], $this->settings['closurePageUid']);
+            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant,'session'=>$this->participant->getSession()], $this->settings['closurePageUid']);
         }
         $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
         $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
@@ -1456,8 +1547,11 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function showAjaxAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
+        }
         if ($this->checkForClosure()) {
-            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant], $this->settings['closurePageUid']);
+            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant,'session'=>$this->participant->getSession()], $this->settings['closurePageUid']);
         }
     	// siehe: https://www.sebkln.de/tutorials/erstellung-einer-typo3-extension-mit-ajax-aufruf/
         //	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
@@ -1568,10 +1662,13 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function resultAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
+        }
     	$languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
     	$sys_language_uid = $languageAspect->getId();
     	$pid = (int)$GLOBALS['TSFE']->id;
-	    $debug = $this->setAllUserAnswers($quiz, $pid, false);
+        $debug = $this->setAllUserAnswers($quiz, $pid, false);
     	$this->view->assign('quiz', $quiz);
     	$this->view->assign('debug', $debug);
     	$this->view->assign("sysLanguageUid", $sys_language_uid);
@@ -1587,6 +1684,9 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function highscoreAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+            return;
+        }
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
         $pid = (int)$GLOBALS['TSFE']->id;
@@ -1604,12 +1704,22 @@ class QuizController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      * action show
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
+     * @param string $session
      * @return void
      */
-    public function closureAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant)
+    public function closureAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant, string $session = '')
     {
-        $this->view->assign('participant', $participant);
-        $this->view->assign('quiz', $participant->getQuiz());
+        if ($participant->getSession() == $session) {
+            $this->view->assign('participant', $participant);
+            $this->view->assign('quiz', $participant->getQuiz());
+        } else {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('error.invalidParameters', 'fp_masterquiz'),
+                LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING,
+                false
+            );
+        }
     }
 
     /**

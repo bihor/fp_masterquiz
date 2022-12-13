@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.5.1
+version 3.5.2
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -34,6 +34,10 @@ Changes in version 3.4.4:
 - Bugfix: category evaluation.
 - Bugfix: wrong Namespace in TemplateLayout corrected.
 
-Changes in version 3.5.0:
+Changes in version 3.5.1:
 - Mandatory check with PHP too, if setting phpFormCheck=1.
 - New question mode: matrix with categories of a question.
+
+Changes in version 3.5.2:
+- Security fix: checking participant against a session-key. Please read the section Administrator / Security fix in version 3.5.2.
+- Bugfix: check if a quiz/poll is allowed on a page. Therefore, the defaultQuizUid was removed in the settings!

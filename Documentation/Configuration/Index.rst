@@ -39,7 +39,7 @@ showPageUid                  integer     UID of the single-page of a quiz (detai
 closurePageUid               integer     UID of a closure-page of a quiz.                -
 resultPageUid                integer     UID of the page where to show quiz results.     -
 highscorePageUid             integer     UID of the page where to show a highscore.      -
-defaultQuizUid               integer     UID of the quiz to show.                        1
+defaultQuizUid               integer     UID of the quiz to show.                        -
 introContentUid              integer     Content element for the intro page.             -
 introNextAction              string      Action after the intro page: show or showByTag. show
 showAnswerPage               boolean     Show an answer page after every submit?         1

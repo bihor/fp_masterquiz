@@ -351,6 +351,10 @@
 				<source>The quiz with this uid was not found (Record Storage Place set?):</source>
 				<target>Das Quiz mit dieser Uid wurde nicht gefunden (Datensatzsammlung gesetzt?):</target>
 			</trans-unit>
+			<trans-unit id="error.quizNotAllowed" resname="error.quizNotAllowed">
+				<source>The quiz was not allowed, because another default quiz is set in the Backend:</source>
+				<target>Das Quiz ist nicht erlaubt, da ein anderes Quiz im Backend ausgewählt wurde:</target>
+			</trans-unit>
 			<trans-unit id="error.quizDetailNotFound" resname="error.quizDetailNotFound">
 				<source>No quiz and no detail page was not found!</source>
 				<target>Es wurde kein Quiz und keine Startseite gesetzt! (Datensatzsammlung gesetzt?)</target>
@@ -358,6 +362,10 @@
 			<trans-unit id="error.notAnswered" resname="error.notAnswered">
 				<source>Error: mandatory questions not answered!</source>
 				<target>Fehler: bitte die markierten Fragen beantworten!</target>
+			</trans-unit>
+			<trans-unit id="error.invalidParameters" resname="error.invalidParameters">
+				<source>Error: the parameters could not be validated!</source>
+				<target>Fehler: die Parameter konnten nicht validiert werden!</target>
 			</trans-unit>
 			<trans-unit id="text.answer.input" resname="text.answer.input">
 				<source>Answer:</source>

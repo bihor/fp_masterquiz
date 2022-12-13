@@ -14,10 +14,8 @@ Known Problems
 The bug tracker is here:
 `bug tracker <https://github.com/bihor/fp_masterquiz/issues>`_?
 
-jQuery needed to be loaded in the head.
-
 There might be some problems, if you enable Ajax!
-Sessions and Cookies are currently not supported if you enable Ajax.
+User-data and cookies are currently not supported if you enable Ajax.
 
 Note for versions < 3: it might be necessary to change the Quiz/Show.html template, if you will see the startpage
 instead of a question as a ajax result page. You could try to change the type from POST to GET in the $.ajax call.

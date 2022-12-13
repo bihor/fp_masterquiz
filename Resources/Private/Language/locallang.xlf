@@ -264,11 +264,17 @@
 			<trans-unit id="error.quizNotFound" resname="error.quizNotFound">
 				<source>The quiz with this uid was not found (Record Storage Place set?):</source>
 			</trans-unit>
+			<trans-unit id="error.quizNotAllowed" resname="error.quizNotAllowed">
+				<source>The quiz was not allowed, because another default quiz is set in the Backend:</source>
+			</trans-unit>
 			<trans-unit id="error.quizDetailNotFound" resname="error.quizDetailNotFound">
 				<source>No quiz and no detail page was not found!</source>
 			</trans-unit>
 			<trans-unit id="error.notAnswered" resname="error.notAnswered">
 				<source>Error: mandatory questions not answered!</source>
+			</trans-unit>
+			<trans-unit id="error.invalidParameters" resname="error.invalidParameters">
+				<source>Error: the parameters could not be validated!</source>
 			</trans-unit>
 			<trans-unit id="text.answer.input" resname="text.answer.input">
 				<source>Answer:</source>

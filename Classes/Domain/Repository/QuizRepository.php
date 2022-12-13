@@ -40,5 +40,15 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     	$query->matching($query->equals('pid', $pageId));
     	return $query->execute();
     }
-    
+
+    /**
+     * Get the PIDs
+     *
+     * @return array
+     */
+    public function getStoragePids()
+    {
+        $query = $this->createQuery();
+        return $query->getQuerySettings()->getStoragePageIds();
+    }
 }

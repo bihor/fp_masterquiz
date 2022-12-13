@@ -48,6 +48,7 @@
 			<script>
 			quizfinal = 0;
 			thisPage = {page};
+			$('#quiz-form'+ceuid+' #quiz-form-session').val('{session}');
 			$('#quiz-form'+ceuid+' #quiz-form-parti').val('{participant.uid}');
 			$('#quiz-form'+ceuid+' #quiz-form-page').val('{nextPage}');
 			$('#quiz-form'+ceuid+' #quiz-form-answers').val('{showAnswersNext}');
@@ -79,6 +80,7 @@
 					$('#quiz-form-parti').val('0');
 					$('#quiz-form-page').val('1');
 					$('#quiz-form-answers').val('0');
+					$('#quiz-form-session').val('');
 					quizfinal = 0;
 					$('#quiz-GoOn').val(text_goon);
 					$('#quiz-button-wrap').show();

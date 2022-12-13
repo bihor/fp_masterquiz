@@ -126,6 +126,32 @@ Exporting participant entries
 * There is a scheduler task which whom you can export participants from a single folder (pid). The csv-file will be written to fileadmin.
 
 
+.. _security-fix:
+
+Security fix in version 3.5.2
+-----------------------------
+
+Since version 3.5.2 a session-key is always required and this session-key will be checked against a participant.
+If you use the Ajax-version AND if you use an own HTML-template, then you must add some code to your templates!
+In the Show.html template you need to add this line to the hidden-fields of the first form::
+
+  <f:form.hidden name="session" value="" id="quiz-form-session" />
+
+In the ShowAjax.html template you need to add 2 lines.
+This one after "$('#quiz-form'+ceuid+' #quiz-form-parti').val('{participant.uid}');"::
+
+  $('#quiz-form'+ceuid+' #quiz-form-session').val('{session}');
+
+and this one after "$('#quiz-form-parti').val('0');"::
+
+  $('#quiz-form-session').val('');
+
+That will set a session-key for every participant.
+
+Another change was made in the settings. The default quiz-UID 1 was removed. If you use that default setting,
+you must set settings.defaultQuizUid again to 1.
+
+
 .. _admin-faq:
 
 FAQ

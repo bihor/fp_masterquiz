@@ -104,7 +104,7 @@ ChangeLog
   TCA-Bugfix for TYPO3 10.
   Refactoring.
 
-3.0.2:
+3.0.0/2:
   Version for TYPO3 10 and 11.
   closure action and setting closurePageUid added.
   Default-value for setting ajaxType changed from POST to GET.
@@ -127,7 +127,7 @@ ChangeLog
   Div with class card-body added to all cards.
   Variable participant.username added.
 
-3.3.1:
+3.3.0/1:
   Backend-Layout adapted for TYPO3 11.5.
   Evaluation of the most used category is now possible too. Setting showDetailedCategoryEvaluation added.
   TYPO3 categories are now available at a quiz, question, answer, selected and evaluation.
@@ -148,6 +148,10 @@ ChangeLog
   Bugfix: category evaluation.
   Bugfix: wrong Namespace in TemplateLayout corrected.
 
-3.5.0:
+3.5.0/1:
   Mandatory check with PHP too, if setting phpFormCheck=1.
   New question mode: matrix with categories of a question.
+
+3.5.2:
+  Security fix: checking participant against a session-key. Please read the section Administrator / Security fix in version 3.5.2.
+  Security fix: check if a quiz/poll is allowed on a page. Therefore, the defaultQuizUid was removed in the settings!
