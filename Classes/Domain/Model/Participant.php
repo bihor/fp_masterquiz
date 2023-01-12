@@ -1,5 +1,9 @@
 <?php
+
 namespace Fixpunkt\FpMasterquiz\Domain\Model;
+
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***
  *
@@ -8,7 +12,7 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2019 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
+ *  (c) 2023 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt für digitales GmbH
  *
  ***/
 
@@ -103,21 +107,21 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $maximum2 = 0;
-    
+
     /**
      * Reached page
      *
      * @var int
      */
     protected $page = 0;
-    
+
     /**
      * Quiz completed?
      *
      * @var bool
      */
     protected $completed = false;
-    
+
     /**
      * Participated quiz: darf in TYPO3 10 nicht lazy sein!
      *
@@ -138,10 +142,10 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function __construct()
     {
-    	//Do not remove the next line: It would break the functionality
-    	$this->initStorageObjects();
+        //Do not remove the next line: It would break the functionality
+        $this->initStorageObjects();
     }
-    
+
     /**
      * Initializes all ObjectStorage properties
      * Do not modify this method!
@@ -302,7 +306,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         if (!$this->user) {
             return '';
         } else {
-            $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('fe_users');
+            $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('fe_users');
             $statement = $queryBuilder
                 ->select('username')
                 ->from('fe_users')
@@ -549,7 +553,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->maximum2 = $maximum2;
     }
-    
+
     /**
      * Sets the page
      *
@@ -558,9 +562,9 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function setPage($page)
     {
-    	$this->page = $page;
+        $this->page = $page;
     }
-    
+
     /**
      * Get the page
      *
@@ -568,9 +572,9 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getPage()
     {
-    	return $this->page;
+        return $this->page;
     }
-    
+
     /**
      * Returns the completed
      *
@@ -706,20 +710,20 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getSortedSelections()
     {
-    	$sortedSelections = [];
-    	$i = 0;
-    	foreach ($this->selections as $selection) {
-    		$sorting = $selection->getSorting();
-    		if ($sorting == 0) {
-    			$sorting = $i;
-    		}
-    		$sortedSelections[$sorting] = $selection;
-    		$i++;
-    	}
-    	ksort($sortedSelections);
-    	return $sortedSelections;
+        $sortedSelections = [];
+        $i = 0;
+        foreach ($this->selections as $selection) {
+            $sorting = $selection->getSorting();
+            if ($sorting == 0) {
+                $sorting = $i;
+            }
+            $sortedSelections[$sorting] = $selection;
+            $i++;
+        }
+        ksort($sortedSelections);
+        return $sortedSelections;
     }
-    
+
     /**
      * Sets the selections
      *

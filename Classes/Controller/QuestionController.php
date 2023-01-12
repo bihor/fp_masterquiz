@@ -1,5 +1,9 @@
 <?php
+
 namespace Fixpunkt\FpMasterquiz\Controller;
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /***
  *
@@ -15,7 +19,7 @@ namespace Fixpunkt\FpMasterquiz\Controller;
 /**
  * QuestionController
  */
-class QuestionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class QuestionController extends ActionController
 {
     /**
      * questionRepository
@@ -35,28 +39,6 @@ class QuestionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
     }
 
     /**
-     * action list
-     *
-     * @return void
-     */
-    public function listAction()
-    {
-        $questions = $this->questionRepository->findAll();
-        $this->view->assign('questions', $questions);
-    }
-
-    /**
-     * action show
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $question
-     * @return void
-     */
-    public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Question $question)
-    {
-        $this->view->assign('question', $question);
-    }
-
-    /**
      * action move
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
@@ -65,7 +47,7 @@ class QuestionController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControl
      */
     public function moveAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz, \Fixpunkt\FpMasterquiz\Domain\Model\Question $question = NULL)
     {
-        $pid = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('id');
+        $pid = (int)GeneralUtility::_GP('id');
         if ($question) {
             $this->questionRepository->moveToQuiz($question->getUid(), $quiz->getUid());
         }

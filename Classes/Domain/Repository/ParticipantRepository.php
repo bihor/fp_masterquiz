@@ -1,5 +1,8 @@
 <?php
+
 namespace Fixpunkt\FpMasterquiz\Domain\Repository;
+
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /***
  *
@@ -17,7 +20,7 @@ namespace Fixpunkt\FpMasterquiz\Domain\Repository;
  */
 class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
-    
+
     /**
      * Fetches entries of a folder.
      *
@@ -29,7 +32,7 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->setOrderings([
-            'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+            'tstamp' => QueryInterface::ORDER_DESCENDING
         ]);
         $query->matching($query->equals('pid', $pageId));
         return $query->execute();
@@ -47,7 +50,7 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
         $query->setOrderings([
-            'tstamp' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
+            'tstamp' => QueryInterface::ORDER_DESCENDING
         ]);
         $query->matching(
             $query->logicalAnd(
@@ -63,45 +66,45 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param integer $quizId Quiz-UID
      * @param integer $limit Limit for highscore
-     * @return    array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findFromQuizLimit(int $quizId, $limit = 10)
     {
-    	$query = $this->createQuery();
-    	$query->setOrderings([
-    		'points' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING
-    	]);
-    	$query->matching(
-   			$query->equals('quiz', $quizId)
-    	)->setLimit($limit);
-    	return $query->execute();
+        $query = $this->createQuery();
+        $query->setOrderings([
+            'points' => QueryInterface::ORDER_DESCENDING
+        ]);
+        $query->matching(
+            $query->equals('quiz', $quizId)
+        )->setLimit($limit);
+        return $query->execute();
     }
-    
+
     /**
      * Fetches entries for a quiz and user.
      *
-     * @param	integer	$userId	FEuser-UID
-     * @param	integer	$quizId	Quiz-UID
-     * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @param integer $userId FEuser-UID
+     * @param integer $quizId Quiz-UID
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findOneByUserAndQuiz($userId, $quizId)
     {
-    	$query = $this->createQuery();
-    	$query->matching(
-    		$query->logicalAnd(
-    			$query->equals('user', $userId),
-    			$query->equals('quiz', $quizId)
-    		)
-    	);
-    	return $query->execute()->getFirst();
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('user', $userId),
+                $query->equals('quiz', $quizId)
+            )
+        );
+        return $query->execute()->getFirst();
     }
 
     /**
      * Fetches a entry for a pid and user.
      *
-     * @param	integer	$userId	FEuser-UID
-     * @param	integer	$quizId	Quiz-PID
-     * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @param integer $userId FEuser-UID
+     * @param integer $quizId Quiz-PID
+     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
     public function findOneByUidAndPid($userId, $quizPid)
     {

@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Fixpunkt\FpMasterquiz\Widgets;
 
@@ -36,7 +36,8 @@ class RecentParticipantsWidget implements WidgetInterface
         StandaloneView               $view,
         ParticipantsDataProvider     $dataProvider,
         array                        $options = []
-    ) {
+    )
+    {
         $this->configuration = $configuration;
         $this->view = $view;
         $this->dataProvider = $dataProvider;

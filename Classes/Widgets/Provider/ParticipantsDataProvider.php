@@ -95,7 +95,7 @@ class ParticipantsDataProvider implements ChartDataProviderInterface
         for ($daysBefore = $this->days; $daysBefore >= 0; $daysBefore--) {
             $this->labels[] = date($format, (int)strtotime('-' . $daysBefore . ' day'));
             $startPeriod = (int)strtotime('-' . $daysBefore . ' day 0:00:00');
-            $endPeriod =  (int)strtotime('-' . $daysBefore . ' day 23:59:59');
+            $endPeriod = (int)strtotime('-' . $daysBefore . ' day 23:59:59');
 
             $this->data[] = $this->getNumberOfVotesInPeriod($startPeriod, $endPeriod);
         }
@@ -105,7 +105,7 @@ class ParticipantsDataProvider implements ChartDataProviderInterface
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_participant');
         $dataArray = $queryBuilder
-            ->select('tx_fpmasterquiz_domain_model_participant.uid AS partid','tx_fpmasterquiz_domain_model_participant.crdate AS startdate','tx_fpmasterquiz_domain_model_participant.name AS username', 'points', 'maximum2', 'quiztable.name AS quizname')
+            ->select('tx_fpmasterquiz_domain_model_participant.uid AS partid', 'tx_fpmasterquiz_domain_model_participant.crdate AS startdate', 'tx_fpmasterquiz_domain_model_participant.name AS username', 'points', 'maximum2', 'quiztable.name AS quizname')
             ->from('tx_fpmasterquiz_domain_model_participant')
             ->join(
                 'tx_fpmasterquiz_domain_model_participant',
@@ -121,7 +121,7 @@ class ParticipantsDataProvider implements ChartDataProviderInterface
         foreach ($dataArray as $result) {
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_selected');
             $answerArray = $queryBuilder
-                ->select('participant','answertable.title AS answertitle', 'questiontable.title AS questiontitle')
+                ->select('participant', 'answertable.title AS answertitle', 'questiontable.title AS questiontitle')
                 ->from('tx_fpmasterquiz_domain_model_selected')
                 ->where($queryBuilder->expr()->eq('participant', $queryBuilder->createNamedParameter($result['partid'], \PDO::PARAM_INT)))
                 ->join(

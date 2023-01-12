@@ -1,4 +1,5 @@
 <?php
+
 namespace Fixpunkt\FpMasterquiz\Domain\Model;
 
 /***
@@ -8,7 +9,7 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2019 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
+ *  (c) 2023 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt für digitales GmbH
  *
  ***/
 
@@ -31,14 +32,14 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $points = 0;
-    
+
     /**
      * joker answer (0: ok; 1: deactivate)
      *
      * @var int
      */
     protected $jokerAnswer = 0;
-    
+
     /**
      * own answer (0: no; 1: yes)
      *
@@ -59,7 +60,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var int
      */
     protected $allAnswers = 0;
-    
+
     /**
      * total percent of all users (checkbox counted ounce)
      *
@@ -146,7 +147,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->points = $points;
     }
-    
+
     /**
      * Returns the jokerAnswer
      *
@@ -156,7 +157,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->jokerAnswer;
     }
-    
+
     /**
      * Sets the jokerAnswer
      *
@@ -167,7 +168,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->jokerAnswer = $jokerAnswer;
     }
-    
+
     /**
      * Returns the ownAnswer
      *
@@ -177,7 +178,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->ownAnswer;
     }
-    
+
     /**
      * Sets the own answer
      *
@@ -219,7 +220,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         return $this->allAnswers;
     }
-    
+
     /**
      * Sets the points/votes
      *
@@ -230,7 +231,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     {
         $this->allAnswers = $nr;
     }
-    
+
     /**
      * Returns percent of all answers
      *
@@ -238,9 +239,9 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getAllPercent()
     {
-        return number_format ( $this->allPercent, 2 );
+        return number_format($this->allPercent, 2);
     }
-    
+
     /**
      * Sets the percent
      *
@@ -259,7 +260,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getTotalPercent()
     {
-        return number_format ( $this->totalPercent, 2 );
+        return number_format($this->totalPercent, 2);
     }
 
     /**

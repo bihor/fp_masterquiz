@@ -158,3 +158,4 @@ ChangeLog
 
 3.5.3
   Replaced invocation of PersistenceManager with DI #46.
+  Reformatting source code and PHP 8 bugfix.

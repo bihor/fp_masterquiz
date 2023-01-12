@@ -1,4 +1,5 @@
 <?php
+
 namespace Fixpunkt\FpMasterquiz\Hooks;
 
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
@@ -93,7 +94,7 @@ class PageLayoutView
             if (!empty($actions)) {
                 $actionList = GeneralUtility::trimExplode(';', $actions);
                 $actionList2 = GeneralUtility::trimExplode('>', $actionList[0]);
-                
+
                 // 1. action
                 $actionTranslationKey = $actionList2[1];
                 $actionTranslation = $this->getLanguageService()->sL(self::LLPATH . 'template.' . $actionTranslationKey);
@@ -111,7 +112,7 @@ class PageLayoutView
             ];
 
             $this->getStartingPoint($params['row']['pages']);
-            
+
             if (is_array($this->flexformData)) {
                $startPageUid = (int)$this->getFieldFromFlexform('settings.startPageUid');
                if ($startPageUid > 0) {
@@ -173,7 +174,7 @@ class PageLayoutView
                     foreach ($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'] as $reference) {
                         GeneralUtility::callUserFunction($reference, $params, $this);
                     }
-               } 
+               }
                $result = $this->renderSettingsAsTable($header, $params['row']['uid']);
             }
         }
@@ -230,11 +231,11 @@ class PageLayoutView
         if (!empty($pids)) {
             $pageIds = GeneralUtility::intExplode(',', $pids, true);
             $pagesOut = [];
-            
+
             foreach ($pageIds as $id) {
                 $pagesOut[] = $this->getRecordData($id, 'pages');
             }
-            
+
             $recursiveLevel = (int)$this->getFieldFromFlexform('settings.recursive');
             $recursiveLevelText = '';
             if ($recursiveLevel === 250) {
@@ -242,12 +243,12 @@ class PageLayoutView
             } elseif ($recursiveLevel > 0) {
                 $recursiveLevelText = $this->getLanguageService()->sL('LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:recursive.I.' . $recursiveLevel);
             }
-            
+
             if (!empty($recursiveLevelText)) {
                 $recursiveLevelText = '<br />' .
                     $this->getLanguageService()->sL(self::LLPATH . 'recursive') . ' ' .  $recursiveLevelText;
             }
-            
+
             $this->tableData[] = [
                 $this->getLanguageService()->sL(self::LLPATH . 'startingpoint'),
                 implode(', ', $pagesOut) . $recursiveLevelText
@@ -303,7 +304,7 @@ class PageLayoutView
         $flexform = $this->flexformData;
         if (isset($flexform['data'])) {
             $flexform = $flexform['data'];
-            if (isset($flexform) && isset($flexform[$sheet]) && isset($flexform[$sheet]['lDEF']) 
+            if (isset($flexform) && isset($flexform[$sheet]) && isset($flexform[$sheet]['lDEF'])
                 && isset($flexform[$sheet]['lDEF'][$key]) && isset($flexform[$sheet]['lDEF'][$key]['vDEF'])
             ) {
                 return $flexform[$sheet]['lDEF'][$key]['vDEF'];

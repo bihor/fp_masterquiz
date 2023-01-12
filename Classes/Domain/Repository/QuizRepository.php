@@ -1,5 +1,9 @@
 <?php
+
 namespace Fixpunkt\FpMasterquiz\Domain\Repository;
+
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /***
  *
@@ -21,24 +25,24 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @var array
      */
     protected $defaultOrderings = [
-        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+        'sorting' => QueryInterface::ORDER_ASCENDING
     ];
-    
-    
+
+
     /**
      * Fetches entries of a folder.
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findFromPid($pageId)
     {
-    	$query = $this->createQuery();
-    	$query->getQuerySettings()->setRespectStoragePage(false);
-    	$query->setOrderings([
-    		'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
-    	]);
-    	$query->matching($query->equals('pid', $pageId));
-    	return $query->execute();
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->setOrderings([
+            'sorting' => QueryInterface::ORDER_ASCENDING
+        ]);
+        $query->matching($query->equals('pid', $pageId));
+        return $query->execute();
     }
 
     /**

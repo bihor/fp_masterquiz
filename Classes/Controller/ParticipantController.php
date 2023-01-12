@@ -1,9 +1,12 @@
 <?php
+
 namespace Fixpunkt\FpMasterquiz\Controller;
 
+use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 
 /***
  *
@@ -19,7 +22,7 @@ use TYPO3\CMS\Core\Pagination\SimplePagination;
 /**
  * ParticipantController
  */
-class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class ParticipantController extends ActionController
 {
     /**
      * participantRepository
@@ -49,9 +52,9 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $pid = (int)GeneralUtility::_GP('id');
         $qid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
         if ($qid) {
-        	$participants = $this->participantRepository->findFromPidAndQuiz($pid, $qid);
+            $participants = $this->participantRepository->findFromPidAndQuiz($pid, $qid);
         } else {
-        	$participants = $this->participantRepository->findFromPid($pid);
+            $participants = $this->participantRepository->findFromPid($pid);
         }
         if ($participants) {
             $participantArray = $participants->toArray();
@@ -68,7 +71,7 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         $this->view->assign('pagination', $participantPagination);
         $this->view->assign('pages', range(1, $participantPagination->getLastPageNumber()));
     }
-    
+
     /**
      * action detail
      *
@@ -95,7 +98,7 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
         }
         $this->view->assign('participant', $participant);
     }
-    
+
     /**
      * action delete
      *
@@ -104,10 +107,10 @@ class ParticipantController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionCont
      */
     public function deleteAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant)
     {
-    	if ($participant->getUid() > 0) {
-    		$this->addFlashMessage($participant->getName() . ' deleted.', '', \TYPO3\CMS\Core\Messaging\AbstractMessage::WARNING);
-    		$this->participantRepository->remove($participant);
-    	}
-    	$this->redirect('list');
+        if ($participant->getUid() > 0) {
+            $this->addFlashMessage($participant->getName() . ' deleted.', '', AbstractMessage::WARNING);
+            $this->participantRepository->remove($participant);
+        }
+        $this->redirect('list');
     }
 }

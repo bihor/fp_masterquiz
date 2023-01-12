@@ -1,5 +1,11 @@
 <?php
+
 namespace Fixpunkt\FpMasterquiz\Domain\Repository;
+
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
 /***
  *
@@ -21,31 +27,31 @@ class QuestionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @var array
      */
     protected $defaultOrderings = [
-        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+        'sorting' => QueryInterface::ORDER_ASCENDING
     ];
-    
+
     /**
      * Fetches questions of with no relation.
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findLostQuestions($pageId)
     {
-    	$query = $this->createQuery();
-    	$query->getQuerySettings()->setRespectStoragePage(false);
-    	$query->matching(
-    		$query->logicalAnd(
-    			$query->equals('pid', $pageId),
-    			$query->equals('quiz', 0)
-    		)
-    	);
-    	return $query->execute();
+        $query = $this->createQuery();
+        $query->getQuerySettings()->setRespectStoragePage(false);
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('pid', $pageId),
+                $query->equals('quiz', 0)
+            )
+        );
+        return $query->execute();
     }
 
     /**
      * Find questions from other quizzes
      *
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findOtherThan($pageId, $quizID)
     {
@@ -63,13 +69,13 @@ class QuestionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * Move a question
      *
-     * @param	integer	$questionID	Question
-     * @param	integer	$quizID 	Quiz
+     * @param integer $questionID Question
+     * @param integer $quizID Quiz
      */
     public function moveToQuiz($questionID, $quizID)
     {
         $table = 'tx_fpmasterquiz_domain_model_question';
-        $queryBuilder = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable($table);
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
         $queryBuilder
             ->update($table)
             ->where(
@@ -86,7 +92,7 @@ class QuestionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function getStoragePids()
     {
-    	$query = $this->createQuery();
-    	return $query->getQuerySettings()->getStoragePageIds();
+        $query = $this->createQuery();
+        return $query->getQuerySettings()->getStoragePageIds();
     }
 }
