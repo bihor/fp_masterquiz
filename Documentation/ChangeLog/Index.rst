@@ -156,6 +156,7 @@ ChangeLog
   Security fix: checking participant against a session-key. Please read the section Administrator / Security fix in version 3.5.2.
   Security fix: check if a quiz/poll is allowed on a page. Therefore, the defaultQuizUid was removed in the settings!
 
-3.5.3
+3.5.5
   Replaced invocation of PersistenceManager with DI #46.
   Reformatting source code and PHP 8 bugfix.
+  Bugfix: optional checkbox was not clickable.

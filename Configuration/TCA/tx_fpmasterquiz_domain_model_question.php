@@ -146,6 +146,7 @@ return [
                 ],
                 'size' => 1,
                 'maxitems' => 1,
+                'default' => 0,
                 'eval' => ''
             ],
         ],
@@ -248,9 +249,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    '1' => [
-                        '0' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled'
-                    ]
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled']
                 ],
                 'default' => 0
             ]
