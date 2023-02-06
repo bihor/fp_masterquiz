@@ -28,6 +28,22 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         'sorting' => QueryInterface::ORDER_ASCENDING
     ];
 
+    
+    /**
+     * Sets the initial query settings
+     * @return void
+     */
+    public function initializeObject()
+    {
+        /** @var QuerySettingsInterface $querySettings */
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
+
+        $querySettings->setRespectStoragePage(false);
+        $querySettings->setLanguageOverlayMode(false);
+
+        $this->setDefaultQuerySettings($querySettings);
+    }
+
 
     /**
      * Fetches entries of a folder.
