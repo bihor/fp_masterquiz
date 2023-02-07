@@ -403,4 +403,11 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
         }
         return $maximum2;
     }
+
+    /**
+     * @return int
+     */
+    public function getLocalizedUid() {
+        return $this->_localizedUid;
+    }
 }
