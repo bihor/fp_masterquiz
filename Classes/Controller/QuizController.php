@@ -1395,7 +1395,7 @@ class QuizController extends ActionController
      */
     public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return;
         }
         if ($this->checkForClosure()) {
@@ -1465,7 +1465,7 @@ class QuizController extends ActionController
      */
     public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return;
         }
         if ($this->checkForClosure()) {
@@ -1565,7 +1565,7 @@ class QuizController extends ActionController
      */
     public function showAjaxAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return;
         }
         if ($this->checkForClosure()) {
@@ -1680,7 +1680,7 @@ class QuizController extends ActionController
      */
     public function resultAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return;
         }
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
@@ -1702,7 +1702,7 @@ class QuizController extends ActionController
      */
     public function highscoreAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
     {
-        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getUid())) {
+        if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return;
         }
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
