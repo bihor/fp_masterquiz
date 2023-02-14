@@ -3,8 +3,6 @@
 namespace Fixpunkt\FpMasterquiz\Domain\Repository;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Persistence\Generic\QuerySettingsInterface;
-use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 
@@ -33,20 +31,60 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
     
     /**
-     * Sets the initial query settings
-     * @return void
-     */
+     * Sets the initial query settings: nicht nötig
     public function initializeObject()
     {
-        /** @var QuerySettingsInterface $querySettings */
+        * var QuerySettingsInterface $querySettings *
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
-
-        $querySettings->setRespectStoragePage(false);
+        $querySettings->setRespectStoragePage(true);
         $querySettings->setLanguageOverlayMode(false);
-
         $this->setDefaultQuerySettings($querySettings);
     }
+    */
 
+    /**
+     * Get the localized uid
+     *
+     * @param	integer	$defaultQuizUid	  quiz-uid
+     * @param	integer	$sys_language_uid language-uid
+     * @return  integer
+     */
+    public function getMyLocalizedUid(int $defaultQuizUid, int $sys_language_uid)
+    {
+        /*
+        $query = $this->createQuery();
+        //$query->getQuerySettings()->setReturnRawQueryResult(TRUE); // funktioniert leider nicht
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('l10n_parent', $defaultQuizUid),
+                $query->equals('sys_language_uid', $sys_language_uid)
+            )
+        );
+        $result = $query->execute()->getFirst();
+        if ($result) {
+            return $result->getUid();
+        } else {
+            return 0;
+        }
+        */
+        $uid = 0;
+        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
+        $statement = $queryBuilder
+            ->select('uid')
+            ->from('tx_fpmasterquiz_domain_model_quiz')
+            ->where(
+                $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($defaultQuizUid, \PDO::PARAM_INT))
+            )
+            ->andWhere(
+                $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sys_language_uid, \PDO::PARAM_INT))
+            )
+            ->setMaxResults(1)
+            ->execute();
+        while ($row = $statement->fetch()) {
+            $uid = $row['uid'];
+        }
+        return $uid;
+    }
 
     /**
      * Fetches entries of a folder.

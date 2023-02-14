@@ -164,23 +164,7 @@ class QuizController extends ActionController
      */
     public function initializeHighscoreAction()
     {
-        if ($this->request->hasArgument('quiz')) {
-            return;
-        }
-        $defaultQuizUid = $this->settings['defaultQuizUid'];
-        if ($defaultQuizUid) {
-            if ($quiz = $this->quizRepository->findOneByUid(intval($defaultQuizUid))) {
-                $this->request->setArgument('quiz', $quiz);
-                return;
-            }
-        }
-        $this->addFlashMessage(
-            LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($defaultQuizUid),
-            LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-            AbstractMessage::WARNING,
-            false
-        );
-        $this->forward('list');
+        $this->initMyArgument();
     }
 
     /**
@@ -189,23 +173,80 @@ class QuizController extends ActionController
      */
     public function initializeShowByTagAction()
     {
+        $this->initMyArgument();
+    }
+
+    /**
+     * initialize some actions
+     * @return void
+     */
+    protected function initMyArgument() {
         if ($this->request->hasArgument('quiz')) {
             return;
         }
-        $defaultQuizUid = $this->settings['defaultQuizUid'];
+        $defaultQuizUid = $this->getLocalizedDefaultQuiz();
         if ($defaultQuizUid) {
-            if ($quiz = $this->quizRepository->findOneByUid(intval($defaultQuizUid))) {
+            if ($quiz = $this->quizRepository->findOneByUid($defaultQuizUid)) {
                 $this->request->setArgument('quiz', $quiz);
                 return;
             }
         }
         $this->addFlashMessage(
-            LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($defaultQuizUid),
+            LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' uid=' . $defaultQuizUid,
             LocalizationUtility::translate('error.error', 'fp_masterquiz'),
             AbstractMessage::WARNING,
             false
         );
         $this->forward('list');
+    }
+
+    /**
+     * initialize some actions
+     * @param string $action
+     * @return void
+     */
+    protected function initMyGoto(string $action) {
+        $defaultQuizUid = $this->getLocalizedDefaultQuiz();
+        if (!$defaultQuizUid) {
+            $this->forward('list');
+        } else {
+            $quiz = $this->quizRepository->findOneByUid($defaultQuizUid);
+            if ($quiz) {
+                $this->forward($action, null, null, array('quiz' => $quiz->getLocalizedUid()));
+            } else {
+                $this->addFlashMessage(
+                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' uid=' . $defaultQuizUid,
+                    LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                    AbstractMessage::WARNING,
+                    false
+                );
+                $this->forward('list');
+            }
+        }
+    }
+
+    /**
+     * Holt die echte Quiz-UID
+     *
+     * @return integer
+     */
+    protected function getLocalizedDefaultQuiz()
+    {
+        $defaultQuizUid = intval($this->settings['defaultQuizUid']);
+        if (!$defaultQuizUid) {
+            return 0;
+        } else {
+            $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
+            $sys_language_uid = $languageAspect->getId();
+            if ($sys_language_uid > 0) {
+                $localizedUid = $this->quizRepository->getMyLocalizedUid($defaultQuizUid, $sys_language_uid);
+                //echo "aus $defaultQuizUid, $sys_language_uid wird $localizedUid";
+                if ($localizedUid) {
+                    $defaultQuizUid = $localizedUid;
+                }
+            }
+        }
+        return $defaultQuizUid;
     }
 
     /**
@@ -1263,7 +1304,7 @@ class QuizController extends ActionController
         if (is_array($storagePidsArray) && !$storagePidsArray[0] == 0) {
             if (!in_array($pid, $storagePidsArray)) {
                 $this->addFlashMessage(
-                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($pid),
+                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' pid=' . intval($pid),
                     LocalizationUtility::translate('error.error', 'fp_masterquiz'),
                     AbstractMessage::WARNING,
                     false
@@ -1271,9 +1312,11 @@ class QuizController extends ActionController
                 return false;
             }
         }
-        if ($this->settings['defaultQuizUid'] && $uid != $this->settings['defaultQuizUid']) {
+        $defaultQuizUid = $this->getLocalizedDefaultQuiz();
+        if ($defaultQuizUid && $uid != $defaultQuizUid) {
             $this->addFlashMessage(
-                LocalizationUtility::translate('error.quizNotAllowed', 'fp_masterquiz') . ' ' . intval($uid),
+                LocalizationUtility::translate('error.quizNotAllowed', 'fp_masterquiz') . ' uid=' . intval($uid) .
+                '<>' .$defaultQuizUid .', pid=' . intval($pid),
                 LocalizationUtility::translate('error.error', 'fp_masterquiz'),
                 AbstractMessage::WARNING,
                 false
@@ -1302,49 +1345,17 @@ class QuizController extends ActionController
      */
     public function defaultAction()
     {
-        $defaultQuizUid = $this->settings['defaultQuizUid'];
-        if (!$defaultQuizUid) {
-            $this->forward('list');
-        } else {
-            $quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
-            if ($quiz) {
-                $this->forward('show', null, null, array('quiz' => $quiz->getUid()));
-            } else {
-                $this->addFlashMessage(
-                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($this->settings['defaultQuizUid']),
-                    LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-                    AbstractMessage::WARNING,
-                    false
-                );
-                $this->forward('list');
-            }
-        }
+        $this->initMyGoto('show');
     }
 
     /**
-     * action defaultres: ein Quiz oder alle Quizze anzeigen.
+     * action defaultres: ein Quiz- oder alle Quiz-Ergebnisse anzeigen.
      *
      * @return void
      */
     public function defaultresAction()
     {
-        $defaultQuizUid = $this->settings['defaultQuizUid'];
-        if (!$defaultQuizUid) {
-            $this->forward('list');
-        } else {
-            $quiz = $this->quizRepository->findOneByUid(intval($this->settings['defaultQuizUid']));
-            if ($quiz) {
-                $this->forward('result', null, null, array('quiz' => $quiz->getUid()));
-            } else {
-                $this->addFlashMessage(
-                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($this->settings['defaultQuizUid']),
-                    LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-                    AbstractMessage::WARNING,
-                    false
-                );
-                $this->forward('list');
-            }
-        }
+        $this->initMyGoto('result');
     }
 
 
@@ -1364,15 +1375,15 @@ class QuizController extends ActionController
         } else {
             $contentElement = '';
         }
-        $defaultQuizUid = $this->settings['defaultQuizUid'];
+        $defaultQuizUid = $this->getLocalizedDefaultQuiz();
         if ($defaultQuizUid) {
-            $quiz = $this->quizRepository->findOneByUid(intval($defaultQuizUid));
+            $quiz = $this->quizRepository->findOneByUid($defaultQuizUid);
             if ($quiz) {
                 $this->view->assign('quiz', $quiz);
             } else {
                 $this->view->assign('quiz', 0);
                 $this->addFlashMessage(
-                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . intval($defaultQuizUid),
+                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . $defaultQuizUid,
                     LocalizationUtility::translate('error.error', 'fp_masterquiz'),
                     AbstractMessage::WARNING,
                     false
