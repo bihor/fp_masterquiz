@@ -103,6 +103,25 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
+     * Fetches quizzes with other languages
+     *
+     * @param	integer	$uid quiz-uid
+     * @return  array
+     */
+    public function findFormUidAndPidOtherLanguages(int $uid)
+    {
+        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
+        $statement = $queryBuilder
+            ->select('*')
+            ->from('tx_fpmasterquiz_domain_model_quiz')
+            ->where(
+                $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+            )
+            ->execute();
+        return $statement->fetchAll();
+    }
+
+    /**
      * Get the PIDs
      *
      * @return array

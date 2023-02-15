@@ -1758,10 +1758,15 @@ class QuizController extends ActionController
      */
     function indexAction()
     {
+        $otherLangs = [];
         $pid = (int)GeneralUtility::_GP('id');
         $quizzes = $this->quizRepository->findFromPid($pid);
+        foreach ($quizzes as $quiz) {
+            $otherLangs[] = $this->quizRepository->findFormUidAndPidOtherLanguages($quiz->getUid());
+        }
         $this->view->assign('pid', $pid);
         $this->view->assign('quizzes', $quizzes);
+        $this->view->assign('otherQuizzes', $otherLangs);
     }
 
     /**
