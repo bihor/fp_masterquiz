@@ -97,27 +97,29 @@
 				</script>
 				
 				<div id="quiz-ajaxCallResult"></div>
-				
-				<f:if condition="{settings.user.askForData} == 1">
-					<f:render partial="Participant/Form" arguments="{_all}" />
-				</f:if>
-				<f:if condition="{settings.user.askForData} == 2">
-					<f:form.hidden name="name" value="{name}" />
-					<f:form.hidden name="email" value="{email}" />
-					<f:form.hidden name="homepage" value="{homepage}" />
+
+				<f:if condition="!{settings.closed}">
+					<f:if condition="{settings.user.askForData} == 1">
+						<f:render partial="Participant/Form" arguments="{_all}" />
+					</f:if>
+					<f:if condition="{settings.user.askForData} == 2">
+						<f:form.hidden name="name" value="{name}" />
+						<f:form.hidden name="email" value="{email}" />
+						<f:form.hidden name="homepage" value="{homepage}" />
+					</f:if>
+
+					<div id="quiz-error-msg" style="display:none;">
+						<div class="alert alert-danger" role="alert">
+							{f:translate(key: "text.errorEmpty")}
+						</div>
+					</div>
+					<div id="quiz-button-wrap">
+						<div class="pull-right quiz-subm">
+							<f:form.submit value="{f:translate(key: 'text.goon')}" class="btn btn-primary btn-lg" name="quizGoOn" id="quiz-GoOn" />
+						</div>
+					</div>
 				</f:if>
 
-				<div id="quiz-error-msg" style="display:none;">
-					<div class="alert alert-danger" role="alert">
-						{f:translate(key: "text.errorEmpty")}
-					</div>
-				</div>
-				<div id="quiz-button-wrap">
-					<div class="pull-right quiz-subm">
-						<f:form.submit value="{f:translate(key: 'text.goon')}" class="btn btn-primary btn-lg" name="quizGoOn" id="quiz-GoOn" />
-					</div>
-				</div>
-				
 				<script>
 					<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
 					
@@ -243,64 +245,82 @@
 								
 							</f:then>
 							<f:else>
-						
-								<!-- show questions -->
-								<f:for each="{quizPaginator.paginatedItems}" as="question" iteration="pageiterator">
-									<f:render partial="Question/Properties" arguments="{_all}" />
-								</f:for>
-
-								<f:if condition="({settings.user.askForData} == 1) && ({page} == 1)">
-									<f:render partial="Participant/Form" arguments="{_all}" />
-								</f:if>
-								<f:if condition="({settings.user.askForData} == 2) && ({page} == 1)">
-									<f:form.hidden name="name" value="{name}" />
-									<f:form.hidden name="email" value="{email}" />
-									<f:form.hidden name="homepage" value="{homepage}" />
-								</f:if>
-
-								<div id="quiz-error-msg" style="display:none;">
-									<div class="alert alert-danger" role="alert">
-										{f:translate(key: "text.errorEmpty")}
-									</div>
-								</div>
-								<div>
-									<div class="pull-right quiz-subm">
-										<f:form.button type="button" name="quizGoOn" id="quiz-GoOn" class="btn btn-primary btn-lg">
-											<f:if condition="{pages} == {page}">
-											<f:then>
-												<f:if condition="{settings.showAnswerPage} == 1"><f:then>
-													{f:translate(key: "text.goon")}
+								<f:if condition="{settings.closed}">
+									<f:then>
+										<br>
+										<div class="alert alert-danger" role="alert">
+											<f:if condition="{quiz.qtype} == 1"><f:then>
+												{f:translate(key: "tx_fpmasterquiz_domain_model_quiz.qtype.1")}
+											</f:then><f:else>
+												<f:if condition="{quiz.qtype} == 2"><f:then>
+													{f:translate(key: "tx_fpmasterquiz_domain_model_quiz.qtype.2")}
 												</f:then><f:else>
-													{f:translate(key: "text.gofinal")}
+													{f:translate(key: "tx_fpmasterquiz_domain_model_quiz.qtype.0")}
 												</f:else></f:if>
-											</f:then>
-											<f:else>
-												{f:translate(key: "text.goon")}
-											</f:else>
-											</f:if>
-										</f:form.button>
-									</div>
-								</div>
-						
-								<script>
-									<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
-									document.addEventListener('DOMContentLoaded', function(){
-                                        <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
+											</f:else></f:if>
+											{f:translate(key: "text.isClosed")}
+										</div>
+									</f:then>
+									<f:else>
+										<!-- show questions -->
+										<f:for each="{quizPaginator.paginatedItems}" as="question" iteration="pageiterator">
+											<f:render partial="Question/Properties" arguments="{_all}" />
+										</f:for>
 
-                                        $( "#quiz-GoOn" ).click(function() {
-                                            // check if there are selected answers to all questions. if not, show an warning
-                                            var allSelected = checkQuizForm();
-                                            if (noFormCheck || allSelected) {
-                                                $('#quiz-form'+ceuid).submit();
-                                            } else {
-                                                $('#quiz-error-msg').removeAttr("style");
-												setTimeout(function() {
-													$('#quiz-error-msg').hide();
-												}, 5000);
-                                            }
-                                        });
-									}, false);
-								</script>
+										<f:if condition="({settings.user.askForData} == 1) && ({page} == 1)">
+											<f:render partial="Participant/Form" arguments="{_all}" />
+										</f:if>
+										<f:if condition="({settings.user.askForData} == 2) && ({page} == 1)">
+											<f:form.hidden name="name" value="{name}" />
+											<f:form.hidden name="email" value="{email}" />
+											<f:form.hidden name="homepage" value="{homepage}" />
+										</f:if>
+
+										<div id="quiz-error-msg" style="display:none;">
+											<div class="alert alert-danger" role="alert">
+												{f:translate(key: "text.errorEmpty")}
+											</div>
+										</div>
+										<div>
+											<div class="pull-right quiz-subm">
+												<f:form.button type="button" name="quizGoOn" id="quiz-GoOn" class="btn btn-primary btn-lg">
+													<f:if condition="{pages} == {page}">
+														<f:then>
+															<f:if condition="{settings.showAnswerPage} == 1"><f:then>
+																{f:translate(key: "text.goon")}
+															</f:then><f:else>
+																{f:translate(key: "text.gofinal")}
+															</f:else></f:if>
+														</f:then>
+														<f:else>
+															{f:translate(key: "text.goon")}
+														</f:else>
+													</f:if>
+												</f:form.button>
+											</div>
+										</div>
+
+										<script>
+											<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
+											document.addEventListener('DOMContentLoaded', function(){
+												<f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
+
+												$( "#quiz-GoOn" ).click(function() {
+													// check if there are selected answers to all questions. if not, show an warning
+													var allSelected = checkQuizForm();
+													if (noFormCheck || allSelected) {
+														$('#quiz-form'+ceuid).submit();
+													} else {
+														$('#quiz-error-msg').removeAttr("style");
+														setTimeout(function() {
+															$('#quiz-error-msg').hide();
+														}, 5000);
+													}
+												});
+											}, false);
+										</script>
+									</f:else>
+								</f:if>
 							</f:else>
 						</f:if>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2021-10-18T09:26:11Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2023-02-21T12:43:29Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fp_masterquiz_pi1.name" resname="tx_fp_masterquiz_pi1.name">
@@ -23,6 +23,18 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.media" resname="tx_fpmasterquiz_domain_model_quiz.media">
 				<source>Media</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype" resname="tx_fpmasterquiz_domain_model_quiz.qtype">
+				<source>Quiz, poll or psycho test?</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.0" resname="tx_fpmasterquiz_domain_model_quiz.qtype.0">
+				<source>quiz</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.1" resname="tx_fpmasterquiz_domain_model_quiz.qtype.1">
+				<source>poll</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.2" resname="tx_fpmasterquiz_domain_model_quiz.qtype.2">
+				<source>psycho test</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.path_segment" resname="tx_fpmasterquiz_domain_model_quiz.path_segment">
 				<source>Path segment</source>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2022-08-18T14:49:53Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2023-02-21T12:55:09Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -20,6 +20,15 @@
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.path_segment" resname="tx_fpmasterquiz_domain_model_quiz.path_segment">
 				<source>Path segment</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.0" resname="tx_fpmasterquiz_domain_model_quiz.qtype.0">
+				<source>The quiz</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.1" resname="tx_fpmasterquiz_domain_model_quiz.qtype.1">
+				<source>The poll</source>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.2" resname="tx_fpmasterquiz_domain_model_quiz.qtype.2">
+				<source>The psycho test</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.questions" resname="tx_fpmasterquiz_domain_model_quiz.questions">
 				<source>Questions</source>
@@ -254,6 +263,9 @@
 			</trans-unit>
 			<trans-unit id="text.chooseQuiz" resname="text.chooseQuiz">
 				<source>Please choose a quiz ...</source>
+			</trans-unit>
+			<trans-unit id="text.isClosed" resname="text.isClosed">
+				<source>is closed now. Participating is no longer possible!</source>
 			</trans-unit>
 			<trans-unit id="text.errorEmpty" resname="text.errorEmpty">
 				<source>Error: please choose an answer!</source>

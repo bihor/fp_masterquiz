@@ -127,104 +127,122 @@
 
                     </f:then>
                     <f:else>
-
-                        <!-- show questions -->
-                        <f:for as="question" each="{tagQuestions}" iteration="pageiterator">
-                            <f:if condition="{pageiterator.isFirst}">
-                                {settings.template.wrapTagName1 -> f:format.raw()}
-                                    {question.tag.name}
-                                {settings.template.wrapTagName2 -> f:format.raw()}
-                            </f:if>
-
-                            <f:render arguments="{_all}" partial="Question/Properties"/>
-
-                            <f:if condition="{pageiterator.isLast} && {question.tag.timeperiod}">
-                                <script>
-                                    tagTimePeriod = parseInt('{question.tag.timeperiod}');
-                                </script>
-                                <div class="alert alert-info" id="quiz-time-page-alert" role="alert" style="display:block;">
-                                    {f:translate(key: "text.remainingTimePage")}
-                                    <span id="quiz-time-page-left">{question.tag.timeperiod}</span>
+                        <f:if condition="{settings.closed}">
+                            <f:then>
+                                <br>
+                                <div class="alert alert-danger" role="alert">
+                                    <f:if condition="{quiz.qtype} == 1"><f:then>
+                                        {f:translate(key: "tx_fpmasterquiz_domain_model_quiz.qtype.1")}
+                                    </f:then><f:else>
+                                        <f:if condition="{quiz.qtype} == 2"><f:then>
+                                            {f:translate(key: "tx_fpmasterquiz_domain_model_quiz.qtype.2")}
+                                        </f:then><f:else>
+                                            {f:translate(key: "tx_fpmasterquiz_domain_model_quiz.qtype.0")}
+                                        </f:else></f:if>
+                                    </f:else></f:if>
+                                    {f:translate(key: "text.isClosed")}
                                 </div>
-                            </f:if>
-                        </f:for>
+                            </f:then>
+                            <f:else>
+                                <!-- show questions -->
+                                <f:for as="question" each="{tagQuestions}" iteration="pageiterator">
+                                    <f:if condition="{pageiterator.isFirst}">
+                                        {settings.template.wrapTagName1 -> f:format.raw()}
+                                            {question.tag.name}
+                                        {settings.template.wrapTagName2 -> f:format.raw()}
+                                    </f:if>
 
-                        <f:if condition="({settings.user.askForData} == 1) && ({page} == 1)">
-                            <f:render partial="Participant/Form" arguments="{_all}" />
-                        </f:if>
-                        <f:if condition="({settings.user.askForData} == 2) && ({page} == 1)">
-                            <f:form.hidden name="name" value="{name}" />
-                            <f:form.hidden name="email" value="{email}" />
-                            <f:form.hidden name="homepage" value="{homepage}" />
-                        </f:if>
+                                    <f:render arguments="{_all}" partial="Question/Properties"/>
 
-                        <div id="quiz-error-msg" style="display:none;">
-                            <div class="alert alert-danger" role="alert">
-                                {f:translate(key: "text.errorEmpty")}
-                            </div>
-                        </div>
-                        <div>
-                            <div class="pull-right quiz-subm">
-                                <f:form.button class="btn btn-primary btn-lg" id="quiz-GoOn" name="quizGoOn"
-                                               type="button">
-                                    <f:if condition="{pages} == {page}">
-                                        <f:then>
-                                            <f:if condition="{settings.showAnswerPage} == 1">
+                                    <f:if condition="{pageiterator.isLast} && {question.tag.timeperiod}">
+                                        <script>
+                                            tagTimePeriod = parseInt('{question.tag.timeperiod}');
+                                        </script>
+                                        <div class="alert alert-info" id="quiz-time-page-alert" role="alert" style="display:block;">
+                                            {f:translate(key: "text.remainingTimePage")}
+                                            <span id="quiz-time-page-left">{question.tag.timeperiod}</span>
+                                        </div>
+                                    </f:if>
+                                </f:for>
+
+                                <f:if condition="({settings.user.askForData} == 1) && ({page} == 1)">
+                                    <f:render partial="Participant/Form" arguments="{_all}" />
+                                </f:if>
+                                <f:if condition="({settings.user.askForData} == 2) && ({page} == 1)">
+                                    <f:form.hidden name="name" value="{name}" />
+                                    <f:form.hidden name="email" value="{email}" />
+                                    <f:form.hidden name="homepage" value="{homepage}" />
+                                </f:if>
+
+                                <div id="quiz-error-msg" style="display:none;">
+                                    <div class="alert alert-danger" role="alert">
+                                        {f:translate(key: "text.errorEmpty")}
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="pull-right quiz-subm">
+                                        <f:form.button class="btn btn-primary btn-lg" id="quiz-GoOn" name="quizGoOn"
+                                                       type="button">
+                                            <f:if condition="{pages} == {page}">
                                                 <f:then>
-                                                    {f:translate(key: "text.goon")}
+                                                    <f:if condition="{settings.showAnswerPage} == 1">
+                                                        <f:then>
+                                                            {f:translate(key: "text.goon")}
+                                                        </f:then>
+                                                        <f:else>
+                                                            {f:translate(key: "text.gofinal")}
+                                                        </f:else>
+                                                    </f:if>
                                                 </f:then>
                                                 <f:else>
-                                                    {f:translate(key: "text.gofinal")}
+                                                    {f:translate(key: "text.goon")}
                                                 </f:else>
                                             </f:if>
-                                        </f:then>
-                                        <f:else>
-                                            {f:translate(key: "text.goon")}
-                                        </f:else>
-                                    </f:if>
-                                </f:form.button>
-                            </div>
-                        </div>
+                                        </f:form.button>
+                                    </div>
+                                </div>
 
-                        <script>
-                            <f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}"/>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}"/>
-                                <f:render partial="Quiz/ShowTime" />
+                                <script>
+                                    <f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}"/>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}"/>
+                                        <f:render partial="Quiz/ShowTime" />
 
-                                if (tagTimePeriod > 0) {
-                                    tagIntervalId = window.setInterval(function () {
-                                        tagTimePeriod--;
-                                        $('#quiz-time-page-left').html(secondsTimeSpanToHMS(tagTimePeriod));
-                                        if (tagTimePeriod <= 10) {
-                                            $('#quiz-time-page-alert').removeClass('alert-warning');
-                                            $('#quiz-time-page-alert').addClass('alert-danger');
-                                        } else if (tagTimePeriod <= 60) {
-                                            $('#quiz-time-page-alert').removeClass('alert-info');
-                                            $('#quiz-time-page-alert').addClass('alert-warning');
+                                        if (tagTimePeriod > 0) {
+                                            tagIntervalId = window.setInterval(function () {
+                                                tagTimePeriod--;
+                                                $('#quiz-time-page-left').html(secondsTimeSpanToHMS(tagTimePeriod));
+                                                if (tagTimePeriod <= 10) {
+                                                    $('#quiz-time-page-alert').removeClass('alert-warning');
+                                                    $('#quiz-time-page-alert').addClass('alert-danger');
+                                                } else if (tagTimePeriod <= 60) {
+                                                    $('#quiz-time-page-alert').removeClass('alert-info');
+                                                    $('#quiz-time-page-alert').addClass('alert-warning');
+                                                }
+                                                if (tagTimePeriod == 0) {
+                                                    clearInterval(tagIntervalId);
+                                                    window.alert(text_errorTimeUp);
+                                                    $('#quiz-form' + ceuid).submit();
+                                                }
+                                            }, 1000);
                                         }
-                                        if (tagTimePeriod == 0) {
-                                            clearInterval(tagIntervalId);
-                                            window.alert(text_errorTimeUp);
-                                            $('#quiz-form' + ceuid).submit();
-                                        }
-                                    }, 1000);
-                                }
 
-                                $("#quiz-GoOn").click(function () {
-                                    // check if there are selected answers to all questions. if not, show an warning
-                                    var allSelected = checkQuizForm();
-                                    if (noFormCheck || allSelected) {
-                                        $('#quiz-form' + ceuid).submit();
-                                    } else {
-                                        $('#quiz-error-msg').removeAttr("style");
-                                        setTimeout(function() {
-                                            $('#quiz-error-msg').hide();
-                                        }, 5000);
-                                    }
-                                });
-                            }, false);
-                        </script>
+                                        $("#quiz-GoOn").click(function () {
+                                            // check if there are selected answers to all questions. if not, show an warning
+                                            var allSelected = checkQuizForm();
+                                            if (noFormCheck || allSelected) {
+                                                $('#quiz-form' + ceuid).submit();
+                                            } else {
+                                                $('#quiz-error-msg').removeAttr("style");
+                                                setTimeout(function() {
+                                                    $('#quiz-error-msg').hide();
+                                                }, 5000);
+                                            }
+                                        });
+                                    }, false);
+                                </script>
+                            </f:else>
+                        </f:if>
                     </f:else>
                 </f:if>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2021-10-18T09:26:11Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2023-02-21T12:43:29Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fp_masterquiz_pi1.name" resname="tx_fp_masterquiz_pi1.name">
@@ -30,6 +30,22 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.media" resname="tx_fpmasterquiz_domain_model_quiz.media">
 				<source>Media</source>
 				<target>Medien</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype" resname="tx_fpmasterquiz_domain_model_quiz.qtype">
+				<source>Quiz, poll or psycho test?</source>
+				<target>Quiz, Umfrage oder Psychotest?</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.0" resname="tx_fpmasterquiz_domain_model_quiz.qtype.0">
+				<source>Quiz</source>
+				<target>Quiz</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.1" resname="tx_fpmasterquiz_domain_model_quiz.qtype.1">
+				<source>Poll</source>
+				<target>Umfrage</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.2" resname="tx_fpmasterquiz_domain_model_quiz.qtype.2">
+				<source>Psycho test</source>
+				<target>Psychotest</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.path_segment" resname="tx_fpmasterquiz_domain_model_quiz.path_segment">
 				<source>Path segment</source>
@@ -96,7 +112,7 @@
 				<target>Auswertung</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.evaluate" resname="tx_fpmasterquiz_domain_model_evaluation.evaluate">
-				<source>Evaluate points (unchecked) or percentage (checked)?</source>
+				<source>Evaluate points (unchecked) or percentage (checked) or categories (a category is checked)?</source>
 				<target>Werte die Punkte (nicht angekreuzt) oder die Prozente (angekreuzt) oder die Kategorien (eine Kategorie markiert) aus?</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_evaluation.minimum" resname="tx_fpmasterquiz_domain_model_evaluation.minimum">
@@ -252,7 +268,7 @@
 				<target>Bewertung mit Sternen</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.qmode.8" resname="tx_fpmasterquiz_domain_model_question.qmode.8">
-				<source>Question-Matrix with categories</source>
+				<source>Matrix with categories of a question</source>
 				<target>Matrix mit Kategorien einer Frage</target>
 			</trans-unit>
 		</body>

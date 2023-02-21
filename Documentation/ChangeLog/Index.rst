@@ -161,5 +161,7 @@ ChangeLog
   Reformatting source code and PHP 8 bugfix.
   Bugfix: optional checkbox was not clickable.
 
-3.5.6:
-  Bugfix for other languages than 0.
+3.5.8:
+  Setting closed added: participation is than not possible.
+  Type added to a quiz-entry.
+  Bugfix for other languages than 0 and PHP 8 bugfix.

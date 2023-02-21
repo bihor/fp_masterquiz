@@ -44,6 +44,7 @@ plugin.tx_fpmasterquiz {
 		phpFormCheck = 0
 		allowEdit = 0
 		allowHtml = 0
+		closed = 0
 		random = 0
 		joker = 0
 		ajax = 0

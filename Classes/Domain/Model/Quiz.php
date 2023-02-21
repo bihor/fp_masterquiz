@@ -40,6 +40,13 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $timeperiod = 0;
 
     /**
+     * Quiz-mode/type
+     *
+     * @var int
+     */
+    protected $qtype = 0;
+
+    /**
      * media
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
@@ -135,6 +142,27 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTimeperiod($timeperiod)
     {
         $this->timeperiod = $timeperiod;
+    }
+
+    /**
+     * Returns the qtype
+     *
+     * @return int qtype
+     */
+    public function getQtype()
+    {
+        return $this->qtype;
+    }
+
+    /**
+     * Sets the qtype
+     *
+     * @param int $qtype
+     * @return void
+     */
+    public function setQtype($qtype)
+    {
+        $this->qtype = $qtype;
     }
 
     /**
@@ -237,7 +265,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             foreach ($this->questions as $question) {
                 $tag = $question->getTag();
                 if ($tag) {
-                    if (!$tags[$tag->getName()]) {
+                    if (!isset($tags[$tag->getName()]) || !$tags[$tag->getName()]) {
                         $pages++;
                         $tags[$tag->getName()] = 1;
                     }
@@ -253,7 +281,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             $tag = $question->getTag();
             if ($tag) {
                 // Nur Fragen mit einem Tag interessieren uns hier!
-                if ($tags[$tag->getName()]) {
+                if (isset($tags[$tag->getName()]) && $tags[$tag->getName()]) {
                     $forpage = $tags[$tag->getName()];
                 } else {
                     $pages++;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2022-08-19T12:56:31Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2023-02-21T13:17:56Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -126,6 +126,10 @@
 			<trans-unit id="settings.random" resname="settings.random">
 				<source>Enable a random mode for tags (works only for show by tag)?</source>
 				<target>Zufallsmodus für Tags aktivieren (funktioniert nur bei &quot;Fragen nach Tag sortieren&quot;)?</target>
+			</trans-unit>
+			<trans-unit id="settings.closed" resname="settings.closed">
+				<source>Quiz/poll/test is closed now (participation is no longer possible)?</source>
+				<target>Quiz/Umfrage/Test ist nun geschlossen (keine Teilnahme mehr möglich)?</target>
 			</trans-unit>
 			<trans-unit id="settings.ajax" resname="settings.ajax">
 				<source>Enable AJAX-version? Important: all FlexForm-settings will be ignored then.</source>

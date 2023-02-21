@@ -24,6 +24,9 @@
 			<trans-unit id="evaluations.description">
 				<source>Evaluations</source>
 			</trans-unit>
+			<trans-unit id="qtype.description">
+				<source>Quiz, poll or psycho test?</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

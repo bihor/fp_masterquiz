@@ -22,26 +22,43 @@
 					
 				</f:then>
 				<f:else>
-				
-					<!-- show questions -->
-					<f:for each="{quiz.questions}" as="question" iteration="pageiterator">
-						<f:if condition="{pageiterator.cycle} >= {from}">
-							<f:if condition="{pageiterator.cycle} <= {to}">
-								<f:render partial="Question/Properties" arguments="{_all}" />
-							</f:if>
-						</f:if>
-					</f:for>
-					<script>
-					quizanswers = 0;
-					</script>
-					
-					<f:if condition="{settings.joker}"><f:if condition="{useJoker} != 1">
-						<div class="quiz-joker">
-							<f:form.button type="button" name="quizGetJoker" id="quiz-GetJoker" class="btn btn-secondary" onclick="getQuizJoker();"
-								title="{f:translate(key: 'text.joker.title')}">{f:translate(key: 'text.joker.button')}</f:form.button><br><br>
-						</div>
-					</f:if></f:if>
-					
+					<f:if condition="{settings.closed}">
+						<f:then>
+							<br>
+							<div class="alert alert-danger" role="alert">
+								<f:if condition="{quiz.qtype} == 1"><f:then>
+									{f:translate(key: "tx_fpmasterquiz_domain_model_quiz.qtype.1")}
+								</f:then><f:else>
+									<f:if condition="{quiz.qtype} == 2"><f:then>
+										{f:translate(key: "tx_fpmasterquiz_domain_model_quiz.qtype.2")}
+									</f:then><f:else>
+										{f:translate(key: "tx_fpmasterquiz_domain_model_quiz.qtype.0")}
+									</f:else></f:if>
+								</f:else></f:if>
+								{f:translate(key: "text.isClosed")}
+							</div>
+						</f:then>
+						<f:else>
+							<!-- show questions -->
+							<f:for each="{quiz.questions}" as="question" iteration="pageiterator">
+								<f:if condition="{pageiterator.cycle} >= {from}">
+									<f:if condition="{pageiterator.cycle} <= {to}">
+										<f:render partial="Question/Properties" arguments="{_all}" />
+									</f:if>
+								</f:if>
+							</f:for>
+							<script>
+							quizanswers = 0;
+							</script>
+
+							<f:if condition="{settings.joker}"><f:if condition="{useJoker} != 1">
+								<div class="quiz-joker">
+									<f:form.button type="button" name="quizGetJoker" id="quiz-GetJoker" class="btn btn-secondary" onclick="getQuizJoker();"
+										title="{f:translate(key: 'text.joker.title')}">{f:translate(key: 'text.joker.button')}</f:form.button><br><br>
+								</div>
+							</f:if></f:if>
+						</f:else>
+					</f:if>
 				</f:else>
 			</f:if>
 			

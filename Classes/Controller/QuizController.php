@@ -399,7 +399,7 @@ class QuizController extends ActionController
     }
 
     /**
-     * action doAll
+     * do All: evaluate selections
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
      * @param array $userData Some user data in an array
@@ -426,6 +426,7 @@ class QuizController extends ActionController
         $newUser = $userData['newUser'];    // is a new user?
         $fe_user_uid = $userData['fe_user_uid'];    // FE user uid
         $quizPid = $quiz->getPid();
+        $isClosed = $this->settings['closed'];
         $phpFormCheck = $this->settings['phpFormCheck'];
         $questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
         $showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
@@ -486,7 +487,7 @@ class QuizController extends ActionController
                     if ($this->settings['debug']) {
                         $debug .= "\nReload nach absenden von Seite 1 detektiert.";
                     }
-                } else {
+                } elseif (!$isClosed) {
                     if ($this->settings['user']['checkFEuser'] && $fe_user_uid) {
                         $feuserData = $this->getFeUser($fe_user_uid);
                         $defaultName = $feuserData['name'];
@@ -534,6 +535,9 @@ class QuizController extends ActionController
             }
         }
         $completed = $this->participant->isCompleted();
+        if ($isClosed) {
+            $completed = true;
+        }
 
         // Ausgewählte Antworten auswerten und speichern
         if ($saveIt && !$reload && !$completed && ($useJoker != 1)) {
@@ -978,9 +982,11 @@ class QuizController extends ActionController
                     }
                 }
             }
-            $this->participant->setCompleted(true);
-            $this->participantRepository->update($this->participant);
-            $doPersist = true;
+            if (!$isClosed) {
+                $this->participant->setCompleted(true);
+                $this->participantRepository->update($this->participant);
+                $doPersist = true;
+            }
         } else {
             $final = 0;
         }
@@ -1486,7 +1492,10 @@ class QuizController extends ActionController
         $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
         // Suche Fragen passend zu einer Seite (jeweils nur 1 Tag verwendet)
         $tagArray = $quiz->getQuestionsSortByTag($page, $this->settings['random'], $this->participant->getRandompages());
-        $tag = $tagArray['pagetags'][$page];
+        $tag = '';
+        if (isset($tagArray['pagetags'][$page])) {
+            $tag = $tagArray['pagetags'][$page];
+        }
         $pages = $tagArray['pages'];
         $data = $this->doAll($quiz, $userData, $pages, $tagArray['randomNumbers']);
         $lastPage = $data['lastPage'];
@@ -1498,9 +1507,8 @@ class QuizController extends ActionController
         if ($this->settings['setMetatags']) {
             $this->setMetatags($quiz);
         }
-        if ($lastPage < 1) {
-            $tagSelections = [];
-        } else if ($data['showAnswers'] || $this->settings['allowEdit']) {
+        $tagSelections = [];
+        if (($lastPage > 0) && $data['showAnswers'] || $this->settings['allowEdit']) {
             // Antworten vom user suchen
             $tagSelections = $this->participant->getSelectionsByTag($tagArray['pagetags'][$lastPage]);
         }
