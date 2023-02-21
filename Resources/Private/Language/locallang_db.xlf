@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2023-02-21T12:43:29Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2023-02-21T15:39:44Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fp_masterquiz_pi1.name" resname="tx_fp_masterquiz_pi1.name">
@@ -8,6 +8,12 @@
 			</trans-unit>
 			<trans-unit id="tx_fp_masterquiz_pi1.description" resname="tx_fp_masterquiz_pi1.description">
 				<source>Show a Quiz, Test or Poll.</source>
+			</trans-unit>
+			<trans-unit id="tabs.questions" resname="tabs.questions">
+				<source>Questions</source>
+			</trans-unit>
+			<trans-unit id="tabs.evaluations" resname="tabs.evaluations">
+				<source>Evaluations</source>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
 				<source>Quiz</source>

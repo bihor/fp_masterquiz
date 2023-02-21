@@ -21,7 +21,11 @@ return [
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_quiz.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, path_segment, about, timeperiod, media, qtype, questions, evaluations, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' =>
+            'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, path_segment, about, timeperiod, media, qtype,
+         --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.questions, questions,
+         --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.evaluations, evaluations,
+         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -224,9 +228,9 @@ return [
                 'foreign_table' => 'tx_fpmasterquiz_domain_model_question',
                 'foreign_field' => 'quiz',
                 'foreign_sortby' => 'sorting',
-                'maxitems' => 9999,
+                'maxitems' => 999,
                 'appearance' => [
-                    'collapseAll' => 0,
+                    'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
@@ -243,9 +247,9 @@ return [
                 'type' => 'inline',
                 'foreign_table' => 'tx_fpmasterquiz_domain_model_evaluation',
                 'foreign_field' => 'quiz',
-                'maxitems' => 9999,
+                'maxitems' => 999,
                 'appearance' => [
-                    'collapseAll' => 0,
+                    'collapseAll' => 1,
                     'levelLinksPosition' => 'top',
                     'showSynchronizationLink' => 1,
                     'showPossibleLocalizationRecords' => 1,
