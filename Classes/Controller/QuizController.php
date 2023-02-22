@@ -936,18 +936,23 @@ class QuizController extends ActionController
                     'settings' => $this->settings
                 ];
                 if ($this->settings['email']['sendToAdmin'] && ($this->settings['email']['adminEmail'] || !empty($specialRecievers))) {
-                    if (GeneralUtility::validEmail($this->settings['email']['adminEmail'])) {
-                        $this->sendTemplateEmail(
-                            array($this->settings['email']['adminEmail'] => $this->settings['email']['adminName']),
-                            array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
-                            $this->settings['email']['adminSubject'],
-                            'ToAdmin',
-                            $dataArray,
-                            true
-                        );
-                        if ($this->settings['debug']) {
-                            $debug .= "\n sending email to: " . $this->settings['email']['adminName']
-                                . ' <' . $this->settings['email']['adminEmail'] . '> : ' . $this->settings['email']['adminSubject'];
+                    if ($this->settings['email']['adminEmail']) {
+                        $adminMails = explode( ',', $this->settings['email']['adminEmail'] );
+                        foreach ($adminMails as $email) {
+                            if (GeneralUtility::validEmail(trim($email))) {
+                                $this->sendTemplateEmail(
+                                    array(trim($email) => $this->settings['email']['adminName']),
+                                    array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
+                                    $this->settings['email']['adminSubject'],
+                                    'ToAdmin',
+                                    $dataArray,
+                                    true
+                                );
+                                if ($this->settings['debug']) {
+                                    $debug .= "\n sending admin-email to: " . $this->settings['email']['adminName']
+                                        . ' <' . $email . '> : ' . $this->settings['email']['adminSubject'];
+                                }
+                            }
                         }
                     }
                     if (!empty($specialRecievers)) {
@@ -962,7 +967,7 @@ class QuizController extends ActionController
                                     true
                                 );
                                 if ($this->settings['debug']) {
-                                    $debug .= "\n sending email to: " . $emailArray['name'] . ' <' . $email . '> : ' . $emailArray['subject'];
+                                    $debug .= "\n sending special-admin-email to: " . $emailArray['name'] . ' <' . $email . '> : ' . $emailArray['subject'];
                                 }
                             }
                         }
@@ -978,7 +983,7 @@ class QuizController extends ActionController
                         false
                     );
                     if ($this->settings['debug']) {
-                        $debug .= "\n sending email to: " . $dataArray['name'] . ' <' . $dataArray['email'] . '> : ' . $this->settings['email']['userSubject'];
+                        $debug .= "\n sending user-email to: " . $dataArray['name'] . ' <' . $dataArray['email'] . '> : ' . $this->settings['email']['userSubject'];
                     }
                 }
             }
@@ -1398,8 +1403,12 @@ class QuizController extends ActionController
         } else {
             $this->view->assign('quiz', 0);
         }
+        $uidOfCE = 0;
+        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
+            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        }
         $this->view->assign('action', 'show');
-        $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+        $this->view->assign('uidOfCE', $uidOfCE);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('contentElement', $contentElement);
     }
@@ -1454,11 +1463,15 @@ class QuizController extends ActionController
         foreach ($data as $key => $value) {
             $this->view->assign($key, $value);
         }
+        $uidOfCE = 0;
+        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
+            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        }
         $this->view->assign('pagesInclFinalPage', ($pages + 1));
         $this->view->assign('pageBasis', ($page - 1) * $this->settings['pagebrowser']['itemsPerPage']);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
-        $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+        $this->view->assign('uidOfCE', $uidOfCE);
         $this->view->assign('startTime', time());
         // $this->view->assign("action", ($this->settings['ajax']) ? 'showAjax' : 'show');
         if ($this->settings['user']['askForData'] == 2) {
@@ -1557,11 +1570,15 @@ class QuizController extends ActionController
         foreach ($data as $key => $value) {
             $this->view->assign($key, $value);
         }
+        $uidOfCE = 0;
+        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
+            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        }
         $this->view->assign('pagesInclFinalPage', ($pages + 1));
         $this->view->assign('pageBasis', 0);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
-        $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+        $this->view->assign('uidOfCE', $uidOfCE);
         $this->view->assign('startTime', time());
         if ($this->settings['user']['askForData'] == 2) {
             if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
@@ -1705,12 +1722,16 @@ class QuizController extends ActionController
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
         $pid = (int)$GLOBALS['TSFE']->id;
+        $uidOfCE = 0;
+        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
+            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        }
         $debug = $this->setAllUserAnswers($quiz, $pid, false);
         $this->view->assign('quiz', $quiz);
         $this->view->assign('debug', $debug);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);
-        $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+        $this->view->assign('uidOfCE', $uidOfCE);
     }
 
     /**
@@ -1729,12 +1750,16 @@ class QuizController extends ActionController
         $pid = (int)$GLOBALS['TSFE']->id;
         $participants = $this->participantRepository->findFromQuizLimit($quiz->getUid(), intval($this->settings['highscoreLimit']));
         $debug = '';
+        $uidOfCE = 0;
+        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
+            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        }
         $this->view->assign('quiz', $quiz);
         $this->view->assign('participants', $participants);
         $this->view->assign('debug', $debug);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);
-        $this->view->assign('uidOfCE', $this->configurationManager->getContentObject()->data['uid']);
+        $this->view->assign('uidOfCE', $uidOfCE);
     }
 
     /**
@@ -1865,7 +1890,7 @@ class QuizController extends ActionController
     protected function sendTemplateEmail(array $recipient, array $sender, $subject, $templateName, array $variables = array(), $toAdmin = false)
     {
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
 
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
@@ -1877,7 +1902,10 @@ class QuizController extends ActionController
         $emailViewHtml->setFormat('html');
         $emailViewHtml->assignMultiple($variables);
         $emailBodyHtml = $emailViewHtml->render();
-        //echo "###" . $emailBodyHtml . '###';
+        if ($this->settings['debug']) {
+            echo "###" . $emailBodyHtml . '###';
+            return true;
+        }
 
         /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
         $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');

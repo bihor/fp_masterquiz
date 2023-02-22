@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 3.5.9
+version 3.5.10
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -36,8 +36,9 @@ Changes in version 3.5.5:
 - Reformatting source code and PHP 8 bugfix
 - Bugfix: optional checkbox.
 
-Changes in version 3.5.9:
+Changes in version 3.5.10:
 - Tabs introduced to a quiz entry in the backend. Questions and evaluations are now collapsed.
 - Setting closed added: participation is than not possible.
 - Type added to a quiz-entry.
+- Bugfix sending emails and adminEmail can now contain more email-addresses and in debug mode the email-content will be prompted.
 - Bugfix for other languages than 0 and PHP 8 bugfix

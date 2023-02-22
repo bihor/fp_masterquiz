@@ -76,7 +76,7 @@ user.defaultEmail            string      Default user email.                    
 user.defaultHomepage         string      Default user homepage.                          -
 email.fromEmail              string      Your email-address.                             -
 email.fromName               string      Your name.                                      -
-email.adminEmail             string      Admin email-address.                            -
+email.adminEmail             string      One or more admin email-address separated by ,  -
 email.adminName              string      Admin name.                                     -
 email.adminSubject           string      Subject of the admin-email.                     New poll/quiz-result
 email.userSubject            string      Subject of the email to the user.               Your poll/quiz-result
