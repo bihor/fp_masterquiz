@@ -161,7 +161,7 @@ ChangeLog
   Reformatting source code and PHP 8 bugfix.
   Bugfix: optional checkbox was not clickable.
 
-3.5.10:
+3.6.0:
   Tabs introduced to a quiz entry in the backend. Questions and evaluations are now collapsed.
   Setting closed added: participation is than not possible.
   Type added to a quiz-entry.

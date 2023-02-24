@@ -41,7 +41,7 @@ And there are this user-related sections: participant and selection (answers of 
 
 A quiz has this variables:
 name, about, timeperiod (in seconds), media, questions, questionsSortByTag, categories, evaluations and
-maximum2 (maximum points for a quiz).
+maximum2 (maximum points for a quiz) and qtype (for quiz, poll or test).
 
 A question has this variables:
 title, qmode (question-mode), image, bodytext, explanation, sorting, tag, answers, selectOptions, numberOfAnswers,
