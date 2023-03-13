@@ -950,7 +950,7 @@ class QuizController extends ActionController
                                 );
                                 if ($this->settings['debug']) {
                                     $debug .= "\n sending admin-email to: " . $this->settings['email']['adminName']
-                                        . ' <' . $email . '> : ' . $this->settings['email']['adminSubject'];
+                                        . ' <' . trim($email) . '> : ' . $this->settings['email']['adminSubject'];
                                 }
                             }
                         }

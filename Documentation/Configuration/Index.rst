@@ -348,6 +348,10 @@ FAQ
 
   You need to define the mark-symbol by yourself via the TypoScript-setting. E.g. settings.template.optionalMark = *.
 
+- Closed is a checkbox at a quiz-entry (tab Access). Why is it a setting too?
+
+  Because with this 2 possibilities you can easy define if one or more quizzes shall be closed.
+
 - The text changes to english when I activate Ajax. Whats wrong?
 
   You need to add some more TypoScript to your page. See chapter "Known problems".

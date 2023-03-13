@@ -22,7 +22,7 @@
 					
 				</f:then>
 				<f:else>
-					<f:if condition="{settings.closed}">
+					<f:if condition="{settings.closed} || {quiz.closed}">
 						<f:then>
 							<br>
 							<div class="alert alert-danger" role="alert">

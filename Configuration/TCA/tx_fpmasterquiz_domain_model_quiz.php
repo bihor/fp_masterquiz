@@ -25,7 +25,7 @@ return [
             'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, path_segment, about, timeperiod, media, qtype,
          --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.questions, questions,
          --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.evaluations, evaluations,
-         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime, closed'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -256,6 +256,17 @@ return [
                     'showAllLocalizationLink' => 1
                 ],
             ],
+        ],
+        'closed' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_quiz.closed',
+            'config' => [
+                'type' => 'check',
+                'items' => [
+                    ['LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled']
+                ],
+                'default' => 0
+            ]
         ],
     ],
 ];

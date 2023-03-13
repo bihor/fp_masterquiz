@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2023-02-21T15:39:44Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf" date="2023-03-13T13:15:16Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fp_masterquiz_pi1.name" resname="tx_fp_masterquiz_pi1.name">
@@ -54,6 +54,10 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.qtype.2" resname="tx_fpmasterquiz_domain_model_quiz.qtype.2">
 				<source>psycho test</source>
 				<target>Psychotest</target>
+			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.closed" resname="tx_fpmasterquiz_domain_model_quiz.closed">
+				<source>Is this quiz/poll/test closed?</source>
+				<target>Ist dieses Quiz/Umfrage/Test beendet/geschlossen (keine Teilnahme mehr möglich)?</target>
 			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz.path_segment" resname="tx_fpmasterquiz_domain_model_quiz.path_segment">
 				<source>Path segment</source>

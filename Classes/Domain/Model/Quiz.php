@@ -47,6 +47,13 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $qtype = 0;
 
     /**
+     * Quiz geschlossen?
+     *
+     * @var bool
+     */
+    protected $closed = false;
+
+    /**
      * media
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
@@ -142,6 +149,37 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function setTimeperiod($timeperiod)
     {
         $this->timeperiod = $timeperiod;
+    }
+
+    /**
+     * Returns the Closed
+     *
+     * @return bool
+     */
+    public function getClosed()
+    {
+        return $this->closed;
+    }
+
+    /**
+     * Sets the Closed
+     *
+     * @param bool $closed
+     * @return void
+     */
+    public function setClosed($closed)
+    {
+        $this->closed = $closed;
+    }
+
+    /**
+     * Returns the boolean state of Closed
+     *
+     * @return bool
+     */
+    public function isClosed()
+    {
+        return $this->closed;
     }
 
     /**

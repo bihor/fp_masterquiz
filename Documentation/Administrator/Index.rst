@@ -40,8 +40,8 @@ There are this sections: quiz, question, answer, evaluation, tag. That are varia
 And there are this user-related sections: participant and selection (answers of a participant).
 
 A quiz has this variables:
-name, about, timeperiod (in seconds), media, questions, questionsSortByTag, categories, evaluations and
-maximum2 (maximum points for a quiz) and qtype (for quiz, poll or test).
+name, about, timeperiod (in seconds), media, questions, questionsSortByTag, categories, evaluations,
+maximum2 (maximum points for a quiz), qtype (for quiz, poll or test) and closed.
 
 A question has this variables:
 title, qmode (question-mode), image, bodytext, explanation, sorting, tag, answers, selectOptions, numberOfAnswers,

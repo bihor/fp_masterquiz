@@ -27,6 +27,9 @@
 			<trans-unit id="qtype.description">
 				<source>Quiz, poll or psycho test?</source>
 			</trans-unit>
+			<trans-unit id="closed.description">
+				<source>Is this quiz/poll/test closed?</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

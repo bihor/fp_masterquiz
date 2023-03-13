@@ -167,3 +167,6 @@ ChangeLog
   Type added to a quiz-entry.
   Bugfix sending emails and adminEmail can now contain more email-addresses and in debug mode the email-content will be prompted.
   Bugfix for other languages than 0 and PHP 8 bugfix.
+
+3.6.1:
+  Closed-checkbox added to a quiz too.
