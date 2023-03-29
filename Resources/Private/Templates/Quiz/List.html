@@ -14,11 +14,11 @@
 			<div class="row">
 				<div class="col-md-4">
                     <f:if condition="{settings.showPageUid}"><f:then>
-                        <f:link.action pageUid="{settings.showPageUid}" action="show" arguments="{quiz : quiz}"> {quiz.name}
+                        <f:link.action pageUid="{settings.showPageUid}" action="{targetAction}" arguments="{quiz : quiz}"> {quiz.name}
                             <f:if condition="{quiz.categories}">(<f:for each="{quiz.categories}" as="category">{category.title}</f:for>)</f:if>
                         </f:link.action>
                     </f:then><f:else>
-                        <f:link.action action="show" arguments="{quiz : quiz}"> {quiz.name}
+                        <f:link.action action="{targetAction}" arguments="{quiz : quiz}"> {quiz.name}
                             <f:if condition="{quiz.categories}">(<f:for each="{quiz.categories}" as="category">{category.title}</f:for>)</f:if>
                         </f:link.action>
 					</f:else></f:if>

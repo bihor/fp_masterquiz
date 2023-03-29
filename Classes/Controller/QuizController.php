@@ -164,7 +164,7 @@ class QuizController extends ActionController
      */
     public function initializeHighscoreAction()
     {
-        $this->initMyArgument();
+        $this->initMyArgument('highscore');
     }
 
     /**
@@ -173,14 +173,16 @@ class QuizController extends ActionController
      */
     public function initializeShowByTagAction()
     {
-        $this->initMyArgument();
+        $this->initMyArgument('showByTag');
     }
 
     /**
      * initialize some actions
+     *
+     * @param string $action target-action
      * @return void
      */
-    protected function initMyArgument() {
+    protected function initMyArgument(string $action = '') {
         if ($this->request->hasArgument('quiz')) {
             return;
         }
@@ -197,7 +199,7 @@ class QuizController extends ActionController
             AbstractMessage::WARNING,
             false
         );
-        $this->forward('list');
+        $this->forward('list', null, null, ['action' => $action]);
     }
 
     /**
@@ -208,7 +210,7 @@ class QuizController extends ActionController
     protected function initMyGoto(string $action) {
         $defaultQuizUid = $this->getLocalizedDefaultQuiz();
         if (!$defaultQuizUid) {
-            $this->forward('list');
+            $this->forward('list', null, null, ['action' => $action]);
         } else {
             $quiz = $this->quizRepository->findOneByUid($defaultQuizUid);
             if ($quiz) {
@@ -1346,7 +1348,13 @@ class QuizController extends ActionController
     public function listAction()
     {
         $quizzes = $this->quizRepository->findAll();
+        if ($this->request->hasArgument('action') && $this->request->getArgument('action')) {
+            $targetAction = $this->request->getArgument('action');
+        } else {
+            $targetAction = 'show';
+        }
         $this->view->assign('quizzes', $quizzes);
+        $this->view->assign('targetAction', $targetAction);
     }
 
     /**
