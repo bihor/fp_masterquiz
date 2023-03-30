@@ -18,24 +18,25 @@
 Page TSconfig
 ^^^^^^^^^^^^^
 
-- You can use the Page TSconfig to define some template layouts.
+- You can use the Page TSconfig to define some template layouts. Currently the templates handle 3 different layouts by default.
 
 Example
 ~~~~~~~
 
-Here an example with 2 layouts for your templates:
+Here an example with 3 layouts, that are already handled in the templates:
 
 ::
 
   tx_fpmasterquiz.templateLayouts {
     0 = Standard-Layout
     1 = Layout for a poll with a pie chart
+    2 = Detailed quiz/poll-results at a result-page
   }
 
 
 - You can use every number and description for the layouts.
 - Now you can select a layout in the FlexForm of every page.
-- Finally you can use now different layouts in your templates.
+- Finally you can use now different layouts in your templates (0-2 are already in use by default).
 
 Example
 ~~~~~~~

@@ -1735,7 +1735,18 @@ class QuizController extends ActionController
             $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
         }
         $debug = $this->setAllUserAnswers($quiz, $pid, false);
+        if ($this->settings['user']['useQuizPid']) {
+            $userPid = $quiz->getPid();
+        } else {
+            $storagePidsArray = $this->quizRepository->getStoragePids();
+            if (is_array($storagePidsArray) && !$storagePidsArray[0] == 0) {
+                $userPid = $storagePidsArray[0];
+            } else {
+                $userPid = $pid;
+            }
+        }
         $this->view->assign('quiz', $quiz);
+        $this->view->assign('participants', $this->participantRepository->findFromPidAndQuiz($userPid, $quiz->getUid()));
         $this->view->assign('debug', $debug);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);

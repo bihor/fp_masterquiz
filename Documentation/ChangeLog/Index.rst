@@ -171,3 +171,4 @@ ChangeLog
 3.7.0:
   Closed-checkbox added to a quiz too.
   Using a target-action at the list-view.
+  New FE-layout for results: detailed table-list.
