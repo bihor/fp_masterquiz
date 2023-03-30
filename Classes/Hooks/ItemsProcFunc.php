@@ -50,7 +50,11 @@ class ItemsProcFunc
     public function user_templateLayout(array &$config)
     {
         $row = BackendUtilityCore::getRecord('tt_content', $config['row']['uid']);
-        $pid = $row['pid'];
+        if (isset($row['pid'])) {
+            $pid = $row['pid'];
+        } else {
+            $pid = 0;
+        }
         $templateLayoutsUtility = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Utility\\TemplateLayout');
         $templateLayouts = $templateLayoutsUtility->getAvailableTemplateLayouts($pid);
         foreach ($templateLayouts as $layout) {

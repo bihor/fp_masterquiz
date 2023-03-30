@@ -27,12 +27,10 @@
 						<th></th>
 						<f:for each="{question.answers}" as="answer">
 							<th>
-								<f:if condition="({question.qmode} == 3) || ({question.qmode} == 5)"><f:then></f:then><f:else>
-									<f:if condition="{settings.allowHtml} == 1">
-										<f:then>{answer.title -> f:format.raw()}</f:then>
-										<f:else>{answer.title -> f:format.nl2br()}</f:else>
-									</f:if>
-								</f:else></f:if>
+								<f:if condition="{settings.allowHtml} == 1">
+									<f:then>{answer.title -> f:format.raw()}</f:then>
+									<f:else>{answer.title -> f:format.nl2br()}</f:else>
+								</f:if>
 							</th>
 						</f:for>
 					</tr>
@@ -41,13 +39,19 @@
 							<td>{participant.name}</td>
 							<f:for each="{participant.selections}" as="selection">
 								<f:if condition="{selection.question.uid} == {question.uid}">
-									<f:for each="{question.answers}" as="qanswer">
+									<f:if condition="({question.qmode} == 3) || ({question.qmode} == 5)"><f:then>
 										<td>
-										<f:for each="{selection.answers}" as="panswer">
-											<f:if condition="{panswer.uid} == {qanswer.uid}">X</f:if>
-										</f:for>
+											{selection.entered -> f:format.nl2br()}
 										</td>
-									</f:for>
+									</f:then><f:else>
+										<f:for each="{question.answers}" as="qanswer">
+											<td>
+											<f:for each="{selection.answers}" as="panswer">
+												<f:if condition="{panswer.uid} == {qanswer.uid}"><span class="quiz-x">X</span></f:if>
+											</f:for>
+											</td>
+										</f:for>
+									</f:else></f:if>
 								</f:if>
 							</f:for>
 						</tr>
