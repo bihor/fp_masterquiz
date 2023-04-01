@@ -401,6 +401,37 @@ class QuizController extends ActionController
     }
 
     /**
+     * Setzt Name, E-Mail und Homepage, falls vorhanden
+     *
+     * @param string $defaultName
+     * @param string $defaultEmail
+     * @param string $defaultHomepage
+     * @return void
+     */
+    protected function setUserData(string $defaultName = '', string $defaultEmail = '', string $defaultHomepage = '') {
+        if ($this->settings['user']['askForData']) {
+            if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
+                $defaultName = $this->request->getArgument('name');
+            }
+            if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
+                $defaultEmail = $this->request->getArgument('email');
+            }
+            if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
+                $defaultHomepage = $this->request->getArgument('homepage');
+            }
+        }
+        if ($defaultName) {
+            $this->participant->setName($defaultName);
+        }
+        if ($defaultEmail) {
+            $this->participant->setEmail($defaultEmail);
+        }
+        if ($defaultHomepage) {
+            $this->participant->setHomepage($defaultHomepage);
+        }
+    }
+    
+    /**
      * do All: evaluate selections
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
@@ -428,7 +459,7 @@ class QuizController extends ActionController
         $newUser = $userData['newUser'];    // is a new user?
         $fe_user_uid = $userData['fe_user_uid'];    // FE user uid
         $quizPid = $quiz->getPid();
-        $isClosed = $this->settings['closed'];
+        $isClosed = $this->settings['closed'];  // quiz closed?
         $phpFormCheck = $this->settings['phpFormCheck'];
         $questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
         $showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
@@ -501,20 +532,7 @@ class QuizController extends ActionController
                         $defaultEmail = $this->settings['user']['defaultEmail'];
                         $defaultHomepage = $this->settings['user']['defaultHomepage'];
                     }
-                    if ($this->settings['user']['askForData']) {
-                        if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
-                            $defaultName = $this->request->getArgument('name');
-                        }
-                        if ($this->request->hasArgument('email') && $this->request->getArgument('email')) {
-                            $defaultEmail = $this->request->getArgument('email');
-                        }
-                        if ($this->request->hasArgument('homepage') && $this->request->getArgument('homepage')) {
-                            $defaultHomepage = $this->request->getArgument('homepage');
-                        }
-                    }
-                    $this->participant->setName($defaultName);
-                    $this->participant->setEmail($defaultEmail);
-                    $this->participant->setHomepage($defaultHomepage);
+                    $this->setUserData($defaultName, $defaultEmail, $defaultHomepage);
                     $this->participant->setUser(isset($GLOBALS['TSFE']->fe_user->user['uid']) ? intval($GLOBALS['TSFE']->fe_user->user['uid']) : 0);
                     $this->participant->setIp($this->getRealIpAddr());
                     // Die Session wurde bisher nur auf der Startseite gesetzt, deshalb wird sie hier nochmal gesetzt
@@ -534,6 +552,9 @@ class QuizController extends ActionController
                         $debug .= "\nNew participant created: " . $this->participant->getUid() . '; with session: ' . $session;
                     }
                 }
+            } else if ($this->settings['allowEdit'] && !$isClosed && !$this->participant->isCompleted()) {
+                // geänderte Userdaten nicht mehr ignorieren
+                $this->setUserData();
             }
         }
         $completed = $this->participant->isCompleted();
