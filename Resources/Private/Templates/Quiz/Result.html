@@ -22,7 +22,7 @@
 				<f:then>
 					<div>{settings.template.wrapQuestionTitle1 -> f:format.raw()}{question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}</div>
 					<div>{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}</div>
-					<table class="table">
+					<table class="table quiz-table">
 					<tr>
 						<th></th>
 						<f:for each="{question.answers}" as="answer">
@@ -47,7 +47,9 @@
 										<f:for each="{question.answers}" as="qanswer">
 											<td>
 											<f:for each="{selection.answers}" as="panswer">
-												<f:if condition="{panswer.uid} == {qanswer.uid}"><span class="quiz-x">X</span></f:if>
+												<f:if condition="{panswer.uid} == {qanswer.uid}">
+												<span class="quiz-x"><f:image src="EXT:fp_masterquiz/Resources/Public/Icons/icon-check.svg" width="18" /></span>
+												</f:if>
 											</f:for>
 											</td>
 										</f:for>

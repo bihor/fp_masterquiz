@@ -161,10 +161,20 @@ class PageLayoutView
                        $itemsPerPage
                    ];
                }
-               $ajax = (int)$this->getFieldFromFlexform('settings.ajax');
+               $yesno = (int)$this->getFieldFromFlexform('settings.showAnswerPage');
+               $this->tableData[] = [
+                   $this->getLanguageService()->sL(self::LLPATH . 'settings.showAnswerPage'),
+                   (($yesno) ? $this->getLanguageService()->sL(self::LLPATH . 'settings.yes') : $this->getLanguageService()->sL(self::LLPATH . 'settings.no'))
+               ];
+               $yesno = (int)$this->getFieldFromFlexform('settings.allowEdit');
+               $this->tableData[] = [
+                   $this->getLanguageService()->sL(self::LLPATH . 'settings.allowEdit'),
+                   (($yesno) ? $this->getLanguageService()->sL(self::LLPATH . 'settings.yes') : $this->getLanguageService()->sL(self::LLPATH . 'settings.no'))
+               ];
+               $yesno = (int)$this->getFieldFromFlexform('settings.ajax');
                $this->tableData[] = [
                    $this->getLanguageService()->sL(self::LLPATH . 'settings.ajax'),
-                   (($ajax) ? $this->getLanguageService()->sL(self::LLPATH . 'settings.yes') : $this->getLanguageService()->sL(self::LLPATH . 'settings.no'))
+                   (($yesno) ? $this->getLanguageService()->sL(self::LLPATH . 'settings.yes') : $this->getLanguageService()->sL(self::LLPATH . 'settings.no'))
                ];
                if (isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'])
                    && is_array($GLOBALS['TYPO3_CONF_VARS']['EXT']['fp_masterquiz']['Quizpalme\\fp_masterquiz\\Hooks\\PageLayoutView']['extensionSummary'])) {

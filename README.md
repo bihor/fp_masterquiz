@@ -43,3 +43,4 @@ Changes in version 3.6.5:
 - Closed-checkbox added to a quiz too.
 - Using a target-action at the list-view.
 - New FE-layout for results: detailed table-list.
+- Bugfix: do not ignore changed user-data in edit mode.
