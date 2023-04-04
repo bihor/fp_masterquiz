@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2023-02-21T12:55:09Z" product-name="fp_masterquiz">
+	<file source-language="en" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf" date="2023-04-04T08:48:59Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
@@ -260,6 +260,9 @@
 			</trans-unit>
 			<trans-unit id="text.explanation" resname="text.explanation">
 				<source>Explanation:</source>
+			</trans-unit>
+			<trans-unit id="text.resultLimit" resname="text.resultLimit">
+				<source>Only the last %s results are shown.</source>
 			</trans-unit>
 			<trans-unit id="text.chooseQuiz" resname="text.chooseQuiz">
 				<source>Please choose a quiz ...</source>

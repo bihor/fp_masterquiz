@@ -48,7 +48,11 @@
 											<td>
 											<f:for each="{selection.answers}" as="panswer">
 												<f:if condition="{panswer.uid} == {qanswer.uid}">
-												<span class="quiz-x"><f:image src="EXT:fp_masterquiz/Resources/Public/Icons/icon-check.svg" width="18" /></span>
+													<f:if condition="({quiz.qtype} > 0) || ({qanswer.points} > 0)"><f:then>
+														<span class="quiz-x-true"><f:image src="EXT:fp_masterquiz/Resources/Public/Icons/icon-check.svg" width="18" /></span>
+													</f:then><f:else>
+														<span class="quiz-x-false"><f:image src="EXT:fp_masterquiz/Resources/Public/Icons/icon-remove.svg" width="18" /></span>
+													</f:else></f:if>
 												</f:if>
 											</f:for>
 											</td>
@@ -59,6 +63,9 @@
 						</tr>
 					</f:for>
 					</table>
+					<f:if condition="{settings.resultLimit} > 0">
+						<p>{f:translate(key: "text.resultLimit", arguments: {0: '{settings.resultLimit}'}, default: 'Result limit 20')}</p>
+					</f:if>
 				</f:then>
 				<f:else>
 					<div class="card"><div class="card-body">

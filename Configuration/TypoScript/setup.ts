@@ -39,6 +39,7 @@ plugin.tx_fpmasterquiz {
 		showQuestionNo = 0
 		showDetailedCategoryEval = 0
 		highscoreLimit = 10
+		resultLimit = 20
 		checkAllStars = 0
 		noFormCheck = 0
 		phpFormCheck = 0

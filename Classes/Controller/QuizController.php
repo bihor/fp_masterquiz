@@ -1767,7 +1767,7 @@ class QuizController extends ActionController
             }
         }
         $this->view->assign('quiz', $quiz);
-        $this->view->assign('participants', $this->participantRepository->findFromPidAndQuiz($userPid, $quiz->getUid()));
+        $this->view->assign('participants', $this->participantRepository->findFromPidAndQuiz($userPid, $quiz->getUid(), $this->settings['resultLimit']));
         $this->view->assign('debug', $debug);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);

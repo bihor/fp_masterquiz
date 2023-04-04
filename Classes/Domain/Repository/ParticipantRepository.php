@@ -43,9 +43,10 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param	integer	$pageId	Page-UID
      * @param	integer	$quizId	Quiz-UID
+     * @param	integer	$limit Limit
      * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
      */
-    public function findFromPidAndQuiz($pageId, $quizId)
+    public function findFromPidAndQuiz($pageId, $quizId, $limit = 0)
     {
         $query = $this->createQuery();
         $query->getQuerySettings()->setRespectStoragePage(false);
@@ -58,6 +59,9 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $query->equals('quiz', $quizId)
             )
         );
+		if ($limit > 0) {
+			$query->setLimit((int) $limit);
+		}
         return $query->execute();
     }
 
