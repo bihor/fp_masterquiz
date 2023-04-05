@@ -17,6 +17,7 @@
 				var chartwidth = parseInt({settings.chart.width});
 			</script>
 		</f:if>
+
 		<f:for each="{quiz.questions}" as="question" iteration="pageiterator">
 			<f:if condition="{settings.templateLayout} == 2">
 				<f:then>
@@ -63,9 +64,6 @@
 						</tr>
 					</f:for>
 					</table>
-					<f:if condition="{settings.resultLimit} > 0">
-						<p>{f:translate(key: "text.resultLimit", arguments: {0: '{settings.resultLimit}'}, default: 'Result limit 20')}</p>
-					</f:if>
 				</f:then>
 				<f:else>
 					<div class="card"><div class="card-body">
@@ -111,6 +109,11 @@
 			<br/>
 		</f:for>
 
+		<f:if condition="{settings.templateLayout} == 2">
+			<f:if condition="{settings.resultLimit} > 0">
+				<p>{f:translate(key: "text.resultLimit", arguments: {0: '{settings.resultLimit}'}, default: 'Result limit 20')}</p>
+			</f:if>
+		</f:if>
 		<f:if condition="{settings.debug}">
 			<pre>{debug}</pre>
 		</f:if>
