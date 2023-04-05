@@ -479,7 +479,7 @@ class QuizController extends ActionController
              }
          } */
         if ($this->settings['allowEdit']) {
-            if ($this->participant->isCompleted()) {
+            if ($this->participant->isCompleted() && (intval($this->settings['allowEdit']) < 2)) {
                 $showAnswers = true;
             } else {
                 $showAnswers = false;
@@ -563,7 +563,8 @@ class QuizController extends ActionController
         }
 
         // Ausgewählte Antworten auswerten und speichern
-        if ($saveIt && !$reload && !$completed && ($useJoker != 1)) {
+        if ($saveIt && !$reload && (!$completed || $this->settings['allowEdit'] == 2) && ($useJoker != 1)) {
+            echo "speichern";
             // special preparation
             if ($this->settings['email']['sendToAdmin'] && $this->settings['email']['specific']) {
                 $emailAnswers = json_decode($this->settings['email']['specific'], true);
@@ -606,6 +607,8 @@ class QuizController extends ActionController
                                 $oldPoints = $oldSelection->getPoints();
                                 $this->participant->subtractPoints($oldPoints);
                                 $this->participant->removeSelection($oldSelection);
+                                $debug .= ' (removing selection ' . $oldSelection->getUid() .') ';
+                                $this->selectedRepository->deleteSelection($oldSelection->getUid());
                             }
                         }
                         $selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');

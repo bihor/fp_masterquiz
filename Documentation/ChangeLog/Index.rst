@@ -172,4 +172,6 @@ ChangeLog
   Closed-checkbox added to a quiz too.
   Using a target-action at the list-view.
   New FE-layout for results: detailed table-list.
+  allowEdit = 2 is new (allow edit even the status is completed).
+  Bugfix: delete old selections when they are replaced in the edit mode.
   Bugfix: do not ignore changed user-data in edit mode.

@@ -145,4 +145,24 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 );
         }
     }
+
+    /**
+     * Delete specific entry (after edit)
+     *
+     * @param integer $uid UID
+     */
+    public function deleteSelection($uid)
+    {
+        $table = 'tx_fpmasterquiz_domain_model_selected';
+        GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table)
+            ->delete(
+                $table,
+                ['uid' => (int)$uid]
+            );
+        GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tx_fpmasterquiz_selected_answer_mm')
+            ->delete(
+                'tx_fpmasterquiz_selected_answer_mm',
+                ['uid_local' => (int)$uid]
+            );
+    }
 }

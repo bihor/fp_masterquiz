@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2023-02-21T13:17:56Z" product-name="fp_masterquiz">
+	<file source-language="en" target-language="de" datatype="plaintext" original="EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf" date="2023-04-05T10:26:01Z" product-name="fp_masterquiz">
 		<header/>
 		<body>
 			<trans-unit id="template" resname="template">
@@ -158,6 +158,10 @@
 			<trans-unit id="settings.yesFinalPage" resname="settings.yesFinalPage">
 				<source>yes, but only at the final page (save the plugin! | you need a closure page too!)</source>
 				<target>ja, aber nur auf der Schluss-Seite (speichern! | man braucht auch eine Abschlussseite)</target>
+			</trans-unit>
+			<trans-unit id="settings.yesAndCompleted" resname="settings.yesAndCompleted">
+				<source>yes, even if a quiz/poll is completed</source>
+				<target>ja, selbst wenn das Quiz/Umfrage abgeschlossen wurde</target>
 			</trans-unit>
 			<trans-unit id="enables" resname="enables">
 				<source>Enable/disable</source>
