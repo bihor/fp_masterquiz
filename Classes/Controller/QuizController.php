@@ -564,7 +564,6 @@ class QuizController extends ActionController
 
         // Ausgewählte Antworten auswerten und speichern
         if ($saveIt && !$reload && (!$completed || $this->settings['allowEdit'] == 2) && ($useJoker != 1)) {
-            echo "speichern";
             // special preparation
             if ($this->settings['email']['sendToAdmin'] && $this->settings['email']['specific']) {
                 $emailAnswers = json_decode($this->settings['email']['specific'], true);
@@ -1576,7 +1575,7 @@ class QuizController extends ActionController
             // eigene Antworten setzen
             foreach ($tagArray['questions'] as $question) {
                 $quid = $question->getUid();
-                if ($answeredQuestions[$quid]) {
+                if (isset($answeredQuestions[$quid])) {
                     if (is_array($answeredQuestions[$quid]['text'])) {
                         $question->setTextAnswers($answeredQuestions[$quid]['text']);
                     }
