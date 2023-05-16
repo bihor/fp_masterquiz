@@ -112,42 +112,38 @@ class QuizController extends ActionController
     }
 
     /**
-     * Injects the Configuration Manager and is initializing the framework settings: wird doppelt aufgerufen!
-     *
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager Instance of the Configuration Manager
+     * Initializes the current action
      */
-    public function injectConfigurationManager(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager)
+    public function initializeAction()
     {
-        $this->configurationManager = $configurationManager;
-        /* Alternative:
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK, 'fp_masterquiz', 'fpmasterquiz_pi1'
-        */
         $tsSettings = $this->configurationManager->getConfiguration(
             \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
-        $tsSettings = $tsSettings['plugin.']['tx_fpmasterquiz.']['settings.'];
-        $originalSettings = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
-        );
-        // if flexform setting is empty and value is available in TS
-        $overrideFlexformFields = GeneralUtility::trimExplode(',', $tsSettings['overrideFlexformSettingsIfEmpty'], true);
-        foreach ($overrideFlexformFields as $fieldName) {
-            if (strpos($fieldName, '.') !== false) {
-                // Multilevel
-                $keyAsArray = explode('.', $fieldName);
-                if ((!isset($originalSettings[$keyAsArray[0]][$keyAsArray[1]]) || !($originalSettings[$keyAsArray[0]][$keyAsArray[1]]))
-                    && isset($tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]])) {
-                    $originalSettings[$keyAsArray[0]][$keyAsArray[1]] = $tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]];
-                }
-            } else {
-                // Simple
-                if ((!isset($originalSettings[$fieldName]) || !($originalSettings[$fieldName]))
-                    && isset($tsSettings[$fieldName])) {
-                    $originalSettings[$fieldName] = $tsSettings[$fieldName];
+        if (isset($tsSettings['plugin.']['tx_fpmasterquiz.'])) {
+            $tsSettings = $tsSettings['plugin.']['tx_fpmasterquiz.']['settings.'];
+            $originalSettings = $this->configurationManager->getConfiguration(
+                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+            );
+            // if flexform setting is empty and value is available in TS
+            $overrideFlexformFields = GeneralUtility::trimExplode(',', $tsSettings['overrideFlexformSettingsIfEmpty'], true);
+            foreach ($overrideFlexformFields as $fieldName) {
+                if (strpos($fieldName, '.') !== false) {
+                    // Multilevel
+                    $keyAsArray = explode('.', $fieldName);
+                    if ((!isset($originalSettings[$keyAsArray[0]][$keyAsArray[1]]) || !($originalSettings[$keyAsArray[0]][$keyAsArray[1]]))
+                        && isset($tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]])) {
+                        $originalSettings[$keyAsArray[0]][$keyAsArray[1]] = $tsSettings[$keyAsArray[0] . '.'][$keyAsArray[1]];
+                    }
+                } else {
+                    // Simple
+                    if ((!isset($originalSettings[$fieldName]) || !($originalSettings[$fieldName]))
+                        && isset($tsSettings[$fieldName])) {
+                        $originalSettings[$fieldName] = $tsSettings[$fieldName];
+                    }
                 }
             }
+            $this->settings = $originalSettings;
         }
-        $this->settings = $originalSettings;
     }
 
     /**
@@ -1366,9 +1362,9 @@ class QuizController extends ActionController
     /**
      * action list
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
         $quizzes = $this->quizRepository->findAll();
         if ($this->request->hasArgument('action') && $this->request->getArgument('action')) {
@@ -1378,35 +1374,38 @@ class QuizController extends ActionController
         }
         $this->view->assign('quizzes', $quizzes);
         $this->view->assign('targetAction', $targetAction);
+        return $this->htmlResponse();
     }
 
     /**
      * action default: ein Quiz oder alle Quizze anzeigen. Nur forward!
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function defaultAction()
+    public function defaultAction(): ResponseInterface
     {
         $this->initMyGoto('show');
+        return $this->htmlResponse();
     }
 
     /**
      * action defaultres: ein Quiz- oder alle Quiz-Ergebnisse anzeigen.
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function defaultresAction()
+    public function defaultresAction(): ResponseInterface
     {
         $this->initMyGoto('result');
+        return $this->htmlResponse();
     }
 
 
     /**
      * action intro
      *
-     * @return void
+     * @return ResponseInterface
      */
-    public function introAction()
+    public function introAction(): ResponseInterface
     {
         if ($this->settings['introContentUid'] > 0) {
             $ttContentConfig = array(
@@ -1442,18 +1441,19 @@ class QuizController extends ActionController
         $this->view->assign('uidOfCE', $uidOfCE);
         $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
         $this->view->assign('contentElement', $contentElement);
+        return $this->htmlResponse();
     }
 
     /**
      * action show
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @return void
+     * @return ResponseInterface
      */
-    public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
     {
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
-            return;
+            return $this->htmlResponse();
         }
         if ($this->checkForClosure()) {
             $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant, 'session' => $this->participant->getSession()], $this->settings['closurePageUid']);
@@ -1516,6 +1516,7 @@ class QuizController extends ActionController
                 $this->view->assign('homepage', $this->request->getArgument('homepage'));
             }
         }
+        return $this->htmlResponse();
     }
 
     /**
