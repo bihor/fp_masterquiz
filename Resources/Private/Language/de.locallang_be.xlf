@@ -19,7 +19,7 @@
 				<source>Show a selected quiz and use a pagebrowser (you need to select the storage folder too)</source>
 				<target>Ein bestimmtes Quiz anzeigen und den Pagebrowser nutzen (Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
-			<trans-unit id="template.showByTag" resname="template.showByTag">
+			<trans-unit id="template.showbytag" resname="template.showbytag">
 				<source>Show a selected quiz and order questions by tag (you need to select the storage folder too)</source>
 				<target>Ein bestimmtes Quiz anzeigen und Fragen nach Tag sortieren (Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>

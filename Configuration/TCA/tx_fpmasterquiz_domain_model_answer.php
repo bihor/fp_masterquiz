@@ -17,6 +17,9 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'searchFields' => 'title,points',
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_answer.gif'
     ],
@@ -137,5 +140,11 @@ return [
                 'type' => 'passthrough',
             ],
         ],
+        'categories' => [
+            'config' => [
+                'type' => 'category',
+            ],
+        ],
     ],
 ];
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tx_fpmasterquiz_domain_model_answer', 'categories');

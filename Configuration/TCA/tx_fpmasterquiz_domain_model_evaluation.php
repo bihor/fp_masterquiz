@@ -16,6 +16,9 @@ return [
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'searchFields' => 'evaluate,minimum,maximum,bodytext,ce,page',
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_evaluation.gif'
     ],
@@ -235,5 +238,11 @@ return [
                 'type' => 'passthrough',
             ],
         ],
+        'categories' => [
+            'config' => [
+                'type' => 'category',
+            ],
+        ],
     ],
 ];
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tx_fpmasterquiz_domain_model_evaluation', 'categories');

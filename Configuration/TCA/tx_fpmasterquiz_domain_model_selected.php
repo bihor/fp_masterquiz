@@ -14,6 +14,9 @@ return [
         'enablecolumns' => [
             'disabled' => 'hidden',
         ],
+        'security' => [
+            'ignorePageTypeRestriction' => true,
+        ],
         'searchFields' => 'points,entered,question,answers',
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_selected.gif'
     ],
@@ -128,11 +131,16 @@ return [
                 'MM' => 'tx_fpmasterquiz_selected_answer_mm',
             ],
         ],
-    
         'participant' => [
             'config' => [
                 'type' => 'passthrough',
             ],
         ],
+        'categories' => [
+            'config' => [
+                'type' => 'category',
+            ],
+        ],
     ],
 ];
+\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tx_fpmasterquiz_domain_model_selected', 'categories');

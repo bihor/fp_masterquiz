@@ -15,7 +15,7 @@
 			<trans-unit id="template.show" resname="template.show">
 				<source>Show a selected quiz and use a pagebrowser (you need to select the storage folder too)</source>
 			</trans-unit>
-			<trans-unit id="template.showByTag" resname="template.showByTag">
+			<trans-unit id="template.showbytag" resname="template.showbytag">
 				<source>Show a selected quiz and order questions by tag (you need to select the storage folder too)</source>
 			</trans-unit>
 			<trans-unit id="template.intro" resname="template.intro">

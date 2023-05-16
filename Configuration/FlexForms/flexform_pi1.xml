@@ -8,46 +8,6 @@
         </TCEforms>
         <type>array</type>
         <el>
-          <switchableControllerActions>
-          <TCEforms>
-          <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template</label>
-          <config>
-           <type>select</type>
-           <renderType>selectSingle</renderType>
-           <onChange>reload</onChange>
-           <items>
-             <numIndex index="0">
-                <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.list</numIndex>
-                <numIndex index="1">Quiz->list;Quiz->show;Quiz->showAjax</numIndex>
-             </numIndex>
-             <numIndex index="1">
-                <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.show</numIndex>
-                <numIndex index="1">Quiz->default;Quiz->show;Quiz->showAjax</numIndex>
-             </numIndex>
-			 <numIndex index="2">
-			    <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.showByTag</numIndex>
-				<numIndex index="1">Quiz->showByTag</numIndex>
-			 </numIndex>
-			 <numIndex index="3">
-			   <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.intro</numIndex>
-			   <numIndex index="1">Quiz->intro;Quiz->show;Quiz->showAjax;Quiz->showByTag</numIndex>
-			 </numIndex>
-			   <numIndex index="4">
-				   <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.closure</numIndex>
-				   <numIndex index="1">Quiz->closure</numIndex>
-			   </numIndex>
-             <numIndex index="5">
-                <numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.result</numIndex>
-                <numIndex index="1">Quiz->defaultres;Quiz->result</numIndex>
-             </numIndex>
-			 <numIndex index="6">
-				<numIndex index="0">LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.highscore</numIndex>
-				<numIndex index="1">Quiz->highscore</numIndex>
-			 </numIndex>
-           </items>
-          </config>
-          </TCEforms>
-          </switchableControllerActions>
           <settings.templateLayout>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:templateLayout</label>
@@ -95,7 +55,6 @@
 			<settings.closurePageUid>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.closurePageUid</label>
-					<displayCond>FIELD:sUSER.settings.user.askForData:=:3</displayCond>
 					<config>
 						<type>group</type>
 						<internal_type>db</internal_type>
@@ -152,7 +111,6 @@
 			<settings.introContentUid>
 				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.introContentUid</label>
-					<displayCond>FIELD:sDEF.switchableControllerActions:=:Quiz->intro;Quiz->show;Quiz->showAjax;Quiz->showByTag</displayCond>
 					<config>
 						<type>group</type>
 						<internal_type>db</internal_type>
