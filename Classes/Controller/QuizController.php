@@ -9,6 +9,7 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
+use Psr\Http\Message\ResponseInterface;
 
 /***
  *
@@ -1523,12 +1524,12 @@ class QuizController extends ActionController
      * action showByTag
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @return void
+     * @return ResponseInterface
      */
-    public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
     {
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
-            return;
+            return $this->htmlResponse();
         }
         if ($this->checkForClosure()) {
             $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant, 'session' => $this->participant->getSession()], $this->settings['closurePageUid']);
@@ -1623,18 +1624,19 @@ class QuizController extends ActionController
                 $this->view->assign('homepage', $this->request->getArgument('homepage'));
             }
         }
+        return $this->htmlResponse();
     }
 
     /**
      * action showAjax. So könnte es vielleicht auch gehen: at dontverifyrequesthash
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @return void
+     * @return ResponseInterface
      */
-    public function showAjaxAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    public function showAjaxAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
     {
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
-            return;
+            return $this->htmlResponse();
         }
         if ($this->checkForClosure()) {
             $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant, 'session' => $this->participant->getSession()], $this->settings['closurePageUid']);
@@ -1738,18 +1740,19 @@ class QuizController extends ActionController
         $this->view->assign('from', $from);
         $this->view->assign('to', $to);
         $this->view->assign('uidOfCE', ($this->request->hasArgument('uidOfCE') ? intval($this->request->getArgument('uidOfCE')) : 0));
+        return $this->htmlResponse();
     }
 
     /**
      * action result
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @return void
+     * @return ResponseInterface
      */
-    public function resultAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    public function resultAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
     {
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
-            return;
+            return $this->htmlResponse();
         }
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
@@ -1775,18 +1778,19 @@ class QuizController extends ActionController
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);
         $this->view->assign('uidOfCE', $uidOfCE);
+        return $this->htmlResponse();
     }
 
     /**
      * action highscore
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @return void
+     * @return ResponseInterface
      */
-    public function highscoreAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    public function highscoreAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
     {
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
-            return;
+            return $this->htmlResponse();
         }
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
@@ -1803,6 +1807,7 @@ class QuizController extends ActionController
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);
         $this->view->assign('uidOfCE', $uidOfCE);
+        return $this->htmlResponse();
     }
 
     /**
@@ -1810,9 +1815,9 @@ class QuizController extends ActionController
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
      * @param string $session
-     * @return void
+     * @return ResponseInterface
      */
-    public function closureAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant, string $session = '')
+    public function closureAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant, string $session = ''): ResponseInterface
     {
         if ($participant->getSession() == $session) {
             $this->view->assign('participant', $participant);
@@ -1825,14 +1830,15 @@ class QuizController extends ActionController
                 false
             );
         }
+        return $this->htmlResponse();
     }
 
     /**
      * Action list for the backend
      *
-     * @return    void
+     * @return ResponseInterface
      */
-    function indexAction()
+    function indexAction(): ResponseInterface
     {
         $otherLangs = [];
         $pid = (int)GeneralUtility::_GP('id');
@@ -1843,15 +1849,16 @@ class QuizController extends ActionController
         $this->view->assign('pid', $pid);
         $this->view->assign('quizzes', $quizzes);
         $this->view->assign('otherQuizzes', $otherLangs);
+        return $this->htmlResponse();
     }
 
     /**
      * action show for the backend
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @return void
+     * @return ResponseInterface
      */
-    public function detailAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    public function detailAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
     {
         $questionRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\QuestionRepository');
         $pid = (int)GeneralUtility::_GP('id');
@@ -1897,15 +1904,16 @@ class QuizController extends ActionController
         } else {
             $this->view->assign('chart', 0);
         }
+        return $this->htmlResponse();
     }
 
     /**
      * action charts for the backend
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @return void
+     * @return ResponseInterface
      */
-    public function chartsAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    public function chartsAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
     {
         $be = $this->request->hasArgument('be') ? true : false;
         if ($be) {
@@ -1917,6 +1925,7 @@ class QuizController extends ActionController
         $this->view->assign('debug', $debug);
         $this->view->assign('pid', $pid);
         $this->view->assign('quiz', $quiz);
+        return $this->htmlResponse();
     }
 
     /**
