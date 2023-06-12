@@ -53,7 +53,6 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 		$fieldId = 'task_page';
 		$fieldCode = '<input type="text" name="tx_scheduler[fp_masterquiz][page]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['page']) . '"/>';
 		$label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.page');
-		$label = BackendUtility::wrapInHelp('fp_masterquiz', $fieldId, $label);
 		$additionalFields[$fieldId] = array(
 				'code' => $fieldCode,
 				'label' => $label
@@ -62,7 +61,6 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 		$fieldId = 'task_days';
 		$fieldCode = '<input type="text" name="tx_scheduler[fp_masterquiz][days]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['days']) . '"/>';
 		$label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.days');
-		$label = BackendUtility::wrapInHelp('fp_masterquiz', $fieldId, $label);
 		$additionalFields[$fieldId] = array(
 				'code' => $fieldCode,
 				'label' => $label
@@ -72,7 +70,6 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 		$checked = ($taskInfo['flag']) ? ' checked="checked"' : '';
 		$fieldCode = '<input type="checkbox" name="tx_scheduler[fp_masterquiz][flag]" id="' . $fieldId . '" value="1"' . $checked . ' />';
 		$label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.flag');
-		$label = BackendUtility::wrapInHelp('fp_masterquiz', $fieldId, $label);
 		$additionalFields[$fieldId] = array(
 		    'code' => $fieldCode,
 		    'label' => $label

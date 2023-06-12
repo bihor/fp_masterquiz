@@ -74,7 +74,6 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         $fieldId = 'task_page';
         $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][page]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['page']) . '"/>';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.page');
-        $label = BackendUtility::wrapInHelp('fpmasterquiz', $fieldId, $label);
         $additionalFields[$fieldId] = array(
             'code' => $fieldCode,
             'label' => $label
@@ -83,7 +82,6 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         $fieldId = 'task_csvfile';
         $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][csvfile]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['csvfile']) . '" size="50" />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.csvfile');
-        $label = BackendUtility::wrapInHelp('fpmasterquiz', $fieldId, $label);
         $additionalFields[$fieldId] = array(
             'code' => $fieldCode,
             'label' => $label
@@ -92,7 +90,6 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         $fieldId = 'task_separator';
         $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][separator]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['separator']) . '" size="5" />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.separator');
-        $label = BackendUtility::wrapInHelp('fpmasterquiz', $fieldId, $label);
         $additionalFields[$fieldId] = array(
             'code' => $fieldCode,
             'label' => $label
@@ -101,7 +98,6 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         $fieldId = 'task_delimiter';
         $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][delimiter]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['delimiter']) . '" size="5" />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.delimiter');
-        $label = BackendUtility::wrapInHelp('fpmasterquiz', $fieldId, $label);
         $additionalFields[$fieldId] = array(
             'code' => $fieldCode,
             'label' => $label
@@ -110,7 +106,6 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         $fieldId = 'task_ansdelimiter';
         $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][ansdelimiter]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['ansdelimiter']) . '" size="5" />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.ansdelimiter');
-        $label = BackendUtility::wrapInHelp('fpmasterquiz', $fieldId, $label);
         $additionalFields[$fieldId] = array(
             'code' => $fieldCode,
             'label' => $label
@@ -120,7 +115,6 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         $checked = ($taskInfo['convert']) ? ' checked="checked"' : '';
         $fieldCode = '<input type="checkbox" name="tx_scheduler[fpmasterquiz][convert]" id="' . $fieldId . '" value="1"' . $checked . ' />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.convert');
-        $label = BackendUtility::wrapInHelp('fpmasterquiz', $fieldId, $label);
         $additionalFields[$fieldId] = array(
             'code' => $fieldCode,
             'label' => $label
