@@ -7,3 +7,8 @@ services:
   Fixpunkt\FpMasterquiz\:
     resource: '../Classes/*'
     exclude: '../Classes/Domain/Model/*'
+
+  Fixpunkt\FpMasterquiz\Backend\EventListener\PreviewEventListener:
+    tags:
+      - name: "event.listener"
+        identifier: 'fp_masterquiz/preview-rendering'
