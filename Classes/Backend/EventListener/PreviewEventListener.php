@@ -52,6 +52,34 @@ final class PreviewEventListener
         'defaultQuizUid' => [
             'table' => 'tx_fpmasterquiz_domain_model_quiz',
             'multiValue' => false,
+        ],
+        'pagebrowser.itemsPerPage' => [
+            'table' => '',
+            'multiValue' => false,
+        ],
+        'showAnswerPage' => [
+            'table' => '',
+            'multiValue' => false,
+        ],
+        'showOwnAnswers' => [
+            'table' => '',
+            'multiValue' => false,
+        ],
+        'showCorrectAnswers' => [
+            'table' => '',
+            'multiValue' => false,
+        ],
+        'showEveryAnswer' => [
+            'table' => '',
+            'multiValue' => false,
+        ],
+        'allowEdit' => [
+            'table' => '',
+            'multiValue' => false,
+        ],
+        'ajax' => [
+            'table' => '',
+            'multiValue' => false,
         ]
     ];
 
@@ -102,10 +130,17 @@ final class PreviewEventListener
             if (is_array($this->flexformData)) {
                 foreach ($this->recordMapping as $fieldName => $fieldConfiguration) {
                     $value = $this->getFieldFromFlexform('settings.' . $fieldName);
-                    if (isset($value) && $value) {
-                        $content = $this->getRecordData($value, $fieldConfiguration['table']);
+                    if (isset($value) && (!$fieldConfiguration['table'] || $value)) {
+                        if ($fieldConfiguration['table']) {
+                            $content = $this->getRecordData($value, $fieldConfiguration['table']);
+                        } else {
+                            $content = $value;
+                        }
+                        if ($fieldName == 'pagebrowser.itemsPerPage') {
+                            $fieldName = 'itemsPerPage';
+                        }
                         $this->tableData[] = [
-                            $this->getLanguageService()->sL(self::LLPATH . $fieldName),
+                            $this->getLanguageService()->sL(self::LLPATH . 'settings.' . $fieldName),
                             $content
                         ];
                     }
@@ -173,7 +208,7 @@ final class PreviewEventListener
             }
 
             $this->tableData[] = [
-                $this->getLanguageService()->sL(self::LLPATH . 'startingPoint'),
+                $this->getLanguageService()->sL(self::LLPATH . 'startingpoint'),
                 implode(', ', $pagesOut) . $recursiveLevelText
             ];
         }
