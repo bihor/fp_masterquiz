@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 use Symfony\Component\DependencyInjection\Reference;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
 use Fixpunkt\FpMasterquiz\Widgets\Provider\ParticipantsDataProvider;
 use Fixpunkt\FpMasterquiz\Widgets\RecentParticipantsWidget;
 
@@ -32,8 +33,6 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
 
         $services->set('dashboard.widget.fixpunktLastDays')
             ->class(BarChartWidget::class)
-            ->arg('$dataProvider', new Reference(ParticipantsDataProvider::class))
-            ->arg('$view', new Reference('dashboard.views.widget'))
             ->tag(
                 'dashboard.widget',
                 [
@@ -45,6 +44,8 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
                     'height' => 'medium',
                     'width' => 'medium'
                 ]
-            );
+            )
+            ->arg('$dataProvider', new Reference(ParticipantsDataProvider::class))
+            ->arg('$backendViewFactory', new Reference(BackendViewFactory::class));;
     }
 };

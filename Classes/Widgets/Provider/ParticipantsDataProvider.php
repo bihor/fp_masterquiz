@@ -84,8 +84,8 @@ class ParticipantsDataProvider implements ChartDataProviderInterface
                     $queryBuilder->createNamedParameter($end, Connection::PARAM_INT)
                 )
             )
-            ->execute()
-            ->fetchColumn();
+            ->executeQuery()
+            ->fetchOne();
     }
 
     protected function calculateDataForLastDays(): void
@@ -115,8 +115,8 @@ class ParticipantsDataProvider implements ChartDataProviderInterface
             )
             ->orderBy('startdate', 'DESC')
             ->setMaxResults(7)
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         $i = 0;
         foreach ($dataArray as $result) {
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_selected');
@@ -153,8 +153,8 @@ class ParticipantsDataProvider implements ChartDataProviderInterface
                 )
                 ->orderBy('tx_fpmasterquiz_domain_model_selected.sorting', 'ASC')
                 ->setMaxResults(1)
-                ->execute()
-                ->fetchAll();
+                ->executeQuery()
+                ->fetchAllAssociative();
             foreach ($answerArray as $oneAnswer) {
                 $dataArray[$i]['question1'] = $oneAnswer['questiontitle'];
                 $dataArray[$i]['answer1'] = $oneAnswer['answertitle'];
