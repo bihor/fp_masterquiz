@@ -20,10 +20,10 @@ call_user_func(
             'FpMasterquiz',
             'Show',
             [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'default, show, showAjax'
+                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
             ],
             [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'default, show, showAjax'
+                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
             ]
         );
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
@@ -60,10 +60,10 @@ call_user_func(
             'FpMasterquiz',
             'Result',
             [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'defaultres, result'
+                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
             ],
             [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'defaultres, result'
+                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
             ]
         );
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(

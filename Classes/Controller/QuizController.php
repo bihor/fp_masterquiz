@@ -155,73 +155,25 @@ class QuizController extends ActionController
         $this->persistenceManager = $persistenceManager;
     }
 
-    /**
-     * initialize action highscore
-     * @return void
-     */
-    public function initializeHighscoreAction()
+    /*
+    * Sucht ein default-Quiz
+    */
+    protected function getDefaultQuiz()
     {
-        $this->initMyArgument('highscore');
-    }
-
-    /**
-     * initialize action showByTag
-     * @return void
-     */
-    public function initializeShowByTagAction()
-    {
-        $this->initMyArgument('showByTag');
-    }
-
-    /**
-     * initialize some actions
-     *
-     * @param string $action target-action
-     * @return void
-     */
-    protected function initMyArgument(string $action = '') {
-        if ($this->request->hasArgument('quiz')) {
-            return;
-        }
+        $quiz = null;
         $defaultQuizUid = $this->getLocalizedDefaultQuiz();
         if ($defaultQuizUid) {
-            if ($quiz = $this->quizRepository->findOneByUid($defaultQuizUid)) {
-                $this->request->setArgument('quiz', $quiz);
-                return;
-            }
+            $quiz = $this->quizRepository->findOneBy(['uid' => $defaultQuizUid]);
         }
-        $this->addFlashMessage(
-            LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' uid=' . $defaultQuizUid,
-            LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-            AbstractMessage::WARNING,
-            false
-        );
-        $this->forward('list', null, null, ['action' => $action]);
-    }
-
-    /**
-     * initialize some actions
-     * @param string $action
-     * @return void
-     */
-    protected function initMyGoto(string $action) {
-        $defaultQuizUid = $this->getLocalizedDefaultQuiz();
-        if (!$defaultQuizUid) {
-            $this->forward('list', null, null, ['action' => $action]);
-        } else {
-            $quiz = $this->quizRepository->findOneByUid($defaultQuizUid);
-            if ($quiz) {
-                $this->forward($action, null, null, array('quiz' => $quiz->getLocalizedUid()));
-            } else {
-                $this->addFlashMessage(
-                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' uid=' . $defaultQuizUid,
-                    LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-                    AbstractMessage::WARNING,
-                    false
-                );
-                $this->forward('list');
-            }
+        if (!$quiz) {
+            $this->addFlashMessage(
+                LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' uid=' . $defaultQuizUid,
+                LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                AbstractMessage::WARNING,
+                false
+            );
         }
+        return $quiz;
     }
 
     /**
@@ -1379,29 +1331,6 @@ class QuizController extends ActionController
     }
 
     /**
-     * action default: ein Quiz oder alle Quizze anzeigen. Nur forward!
-     *
-     * @return ResponseInterface
-     */
-    public function defaultAction(): ResponseInterface
-    {
-        $this->initMyGoto('show');
-        return $this->htmlResponse();
-    }
-
-    /**
-     * action defaultres: ein Quiz- oder alle Quiz-Ergebnisse anzeigen.
-     *
-     * @return ResponseInterface
-     */
-    public function defaultresAction(): ResponseInterface
-    {
-        $this->initMyGoto('result');
-        return $this->htmlResponse();
-    }
-
-
-    /**
      * action intro
      *
      * @return ResponseInterface
@@ -1448,11 +1377,18 @@ class QuizController extends ActionController
     /**
      * action show
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz||null $quiz
      * @return ResponseInterface
      */
-    public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
+    public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz = null): ResponseInterface
     {
+        if (!$quiz) {
+            $quiz = $this->getDefaultQuiz();
+            if (!$quiz) {
+                return (new \TYPO3\CMS\Extbase\Http\ForwardResponse('list'))
+                    ->withArguments(['action' => 'show']);
+            }
+        }
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return $this->htmlResponse();
         }
@@ -1523,11 +1459,18 @@ class QuizController extends ActionController
     /**
      * action showByTag
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz||null $quiz
      * @return ResponseInterface
      */
-    public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
+    public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz = null): ResponseInterface
     {
+        if (!$quiz) {
+            $quiz = $this->getDefaultQuiz();
+            if (!$quiz) {
+                return (new \TYPO3\CMS\Extbase\Http\ForwardResponse('list'))
+                    ->withArguments(['action' => 'showByTag']);
+            }
+        }
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return $this->htmlResponse();
         }
@@ -1746,11 +1689,18 @@ class QuizController extends ActionController
     /**
      * action result
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz||null $quiz
      * @return ResponseInterface
      */
-    public function resultAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
+    public function resultAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz = null): ResponseInterface
     {
+        if (!$quiz) {
+            $quiz = $this->getDefaultQuiz();
+            if (!$quiz) {
+                return (new \TYPO3\CMS\Extbase\Http\ForwardResponse('list'))
+                    ->withArguments(['action' => 'result']);
+            }
+        }
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return $this->htmlResponse();
         }
@@ -1784,11 +1734,18 @@ class QuizController extends ActionController
     /**
      * action highscore
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz||null $quiz
      * @return ResponseInterface
      */
-    public function highscoreAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
+    public function highscoreAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz = null): ResponseInterface
     {
+        if (!$quiz) {
+            $quiz = $this->getDefaultQuiz();
+            if (!$quiz) {
+                return (new \TYPO3\CMS\Extbase\Http\ForwardResponse('list'))
+                    ->withArguments(['action' => 'highscore']);
+            }
+        }
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return $this->htmlResponse();
         }
