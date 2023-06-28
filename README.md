@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 4.0.0
+version 4.0.0 beta
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -35,3 +35,7 @@ Changes in version 3.7.1:
 - Absolute path to images in emails.
 - debug-echo removed.
 - PHP 8 bugfix.
+
+Changes in version 4.0.0:
+- Breaking: all plugins must be changed via an update-script (in the install-tool)!
+- TypoScript module.tx_fpmasterquiz_web_fpmasterquizmod1 changed to module.tx_fpmasterquiz
