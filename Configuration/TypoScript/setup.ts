@@ -112,7 +112,7 @@ plugin.tx_fpmasterquiz {
 }
 
 # Module configuration
-module.tx_fpmasterquiz_web_fpmasterquizmod1 {
+module.tx_fpmasterquiz {
     persistence {
         storagePid = {$module.tx_fpmasterquiz_mod1.persistence.storagePid}
     }

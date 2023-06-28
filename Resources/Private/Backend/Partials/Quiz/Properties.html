@@ -35,7 +35,7 @@
 			</f:if>
 		</td>
 		<td>
-			<f:format.html>{question.bodytext}</f:format.html>
+			<f:format.raw>{question.bodytext}</f:format.raw>
 		</td>
 		<td>
 			<f:switch expression="{question.qmode}">
@@ -70,7 +70,7 @@
 			</f:switch>
 		</td>
 		<td>
-			<f:format.html>{question.explanation}</f:format.html>
+			<f:format.raw>{question.explanation}</f:format.raw>
 		</td>
 		<td>
 			<f:if condition="{question.image.uid}">

@@ -180,3 +180,7 @@ ChangeLog
   Absolute path to images in emails.
   debug-echo removed.
   PHP 8 bugfix.
+
+4.0.0:
+  Breaking: all plugins must be changed via an update-script (in the install-tool)!
+  TypoScript module.tx_fpmasterquiz_web_fpmasterquizmod1 changed to module.tx_fpmasterquiz

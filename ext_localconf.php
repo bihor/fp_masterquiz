@@ -77,23 +77,6 @@ call_user_func(
             ]
         );
 
-        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
-        $iconRegistry->registerIcon(
-            'fp_masterquiz-plugin-pi1',
-            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:fp_masterquiz/Resources/Public/Icons/user_plugin_pi1.gif']
-        );
-        $iconRegistry->registerIcon(
-            'fp_masterquiz-mod1',
-            \TYPO3\CMS\Core\Imaging\IconProvider\BitmapIconProvider::class,
-            ['source' => 'EXT:fp_masterquiz/Resources/Public/Icons/user_mod_mod1.gif']
-        );
-        $iconRegistry->registerIcon(
-            'ext-fpmasterquiz-folder-icon',
-            \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-            ['source' => 'EXT:fp_masterquiz/Resources/Public/Icons/ext-fpmasterquiz-folder-icon.svg']
-        );
-
         // wizards
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
             'mod {

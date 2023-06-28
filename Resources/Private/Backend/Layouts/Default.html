@@ -1,27 +1,10 @@
-<html
-		xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
-		xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers"
-		data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:be="http://typo3.org/ns/TYPO3/CMS/Backend/ViewHelpers" data-namespace-typo3-fluid="true">
 
-<be:moduleLayout>
-	<f:be.pageRenderer
-			includeRequireJsModules="{
-            0:'TYPO3/CMS/Backend/ContextMenu'
-        }"
-	/>
+<f:asset.css identifier="backendtools" href="EXT:fp_masterquiz/Resources/Public/Css/Backend.css"/>
 
-	<be:moduleLayout.menu identifier="FpMasterquizModuleMenu">
-		<be:moduleLayout.menuItem label="---" uri="{f:uri.action(controller: 'Quiz', action: 'index')}"/>
-		<be:moduleLayout.menuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.quiz')}" uri="{f:uri.action(controller: 'Quiz', action: 'index')}"/>
-		<be:moduleLayout.menuItem label="{f:translate(key: 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.participant')}" uri="{f:uri.action(controller: 'Participant', action: 'list')}"/>
-	</be:moduleLayout.menu>
-
-	<be:moduleLayout.button.shortcutButton displayName="Create a shortcut" />
-
-	<div id="masterquiz-main-content">
-		<f:flashMessages />
-		<f:render section="Content" />
-	</div>
-</be:moduleLayout>
+<div id="masterquiz-main-content">
+	<f:flashMessages />
+	<f:render section="Content" />
+</div>
 
 </html>

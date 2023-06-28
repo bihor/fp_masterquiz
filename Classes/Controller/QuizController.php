@@ -10,6 +10,9 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Localization\LanguageService;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 
 /***
  *
@@ -27,6 +30,10 @@ use Psr\Http\Message\ResponseInterface;
  */
 class QuizController extends ActionController
 {
+    protected int $id;
+
+    protected ModuleTemplate $moduleTemplate;
+
     /**
      * quizRepository
      *
@@ -71,6 +78,27 @@ class QuizController extends ActionController
      * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
      */
     protected $persistenceManager;
+
+    public function __construct(
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
+    ) {
+    }
+
+    public function initializeIndexAction()
+    {
+        $this->id = (int)($this->request->getQueryParams()['id'] ?? 0);
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+    }
+    public function initializeDetailAction()
+    {
+        $this->id = (int)($this->request->getQueryParams()['id'] ?? 0);
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+    }
+    public function initializeChartsAction()
+    {
+        $this->id = (int)($this->request->getQueryParams()['id'] ?? 0);
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+    }
 
     /**
      * Injects the quiz-Repository
@@ -816,7 +844,7 @@ class QuizController extends ActionController
                     (!$categoryUid && ($finalPoints >= $evaluation->getMinimum()) && ($finalPoints <= $evaluation->getMaximum()))) {
                     // Punkte-Match
                     if ($evaluation->getPage() > 0) {
-                        // Weiterleitung zu diese Seite
+                        // Weiterleitung zu dieser Seite
                         $this->redirectToURI(
                             $this->uriBuilder->reset()
                                 ->setTargetPageUid($evaluation->getPage())
@@ -830,7 +858,8 @@ class QuizController extends ActionController
                             'source' => $evaluation->getCe(),
                             'dontCheckPid' => 1
                         ];
-                        $finalContent = $this->objectManager->get('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
+                        // TODO: funktioniert nicht mehr!
+                        $finalContent = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
                         $finalBodytext = $evaluation->getBodytext();
                         $finalImageuid = $evaluation->getImage();
                     } else {
@@ -1248,7 +1277,6 @@ class QuizController extends ActionController
     protected function setAllUserAnswers(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz, int $pid, bool $be)
     {
         $debug = '';
-        // Alternative: $selectedRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\SelectedRepository');
         foreach ($c_quiz->getQuestions() as $oneQuestion) {
             $debug .= $this->setAllUserAnswersForOneQuestion($oneQuestion, $pid, $be);
         }
@@ -1342,7 +1370,8 @@ class QuizController extends ActionController
                 'tables' => 'tt_content',
                 'source' => $this->settings['introContentUid'],
                 'dontCheckPid' => 1);
-            $contentElement = $this->objectManager->get('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
+            // TODO: funktioniert nicht mehr!
+            $contentElement = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
         } else {
             $contentElement = '';
         }
@@ -1393,7 +1422,21 @@ class QuizController extends ActionController
             return $this->htmlResponse();
         }
         if ($this->checkForClosure()) {
-            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant, 'session' => $this->participant->getSession()], $this->settings['closurePageUid']);
+            $this->redirectToURI(
+                $this->uriBuilder->reset()
+                    ->setTargetPageUid($this->settings['closurePageUid'])
+                    ->uriFor(
+                        'closure',
+                        [
+                            'participant' => $this->participant,
+                            'session' => $this->participant->getSession()
+                        ],
+                        'Quiz',
+                        null,
+                        'closure'
+                    )
+                    ->build()
+            );
         }
         // participant wird zuerst hier definiert ...
         $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
@@ -1475,7 +1518,21 @@ class QuizController extends ActionController
             return $this->htmlResponse();
         }
         if ($this->checkForClosure()) {
-            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant, 'session' => $this->participant->getSession()], $this->settings['closurePageUid']);
+            $this->redirectToURI(
+                $this->uriBuilder->reset()
+                    ->setTargetPageUid($this->settings['closurePageUid'])
+                    ->uriFor(
+                        'closure',
+                        [
+                            'participant' => $this->participant,
+                            'session' => $this->participant->getSession()
+                        ],
+                        'Quiz',
+                        null,
+                        'closure'
+                    )
+                    ->build()
+            );
         }
         $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
         $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
@@ -1582,7 +1639,21 @@ class QuizController extends ActionController
             return $this->htmlResponse();
         }
         if ($this->checkForClosure()) {
-            $this->redirect('closure', 'Quiz', NULL, ['participant' => $this->participant, 'session' => $this->participant->getSession()], $this->settings['closurePageUid']);
+            $this->redirectToURI(
+                $this->uriBuilder->reset()
+                    ->setTargetPageUid($this->settings['closurePageUid'])
+                    ->uriFor(
+                        'closure',
+                        [
+                            'participant' => $this->participant,
+                            'session' => $this->participant->getSession()
+                        ],
+                        'Quiz',
+                        null,
+                        'closure'
+                    )
+                    ->build()
+            );
         }
         // siehe: https://www.sebkln.de/tutorials/erstellung-einer-typo3-extension-mit-ajax-aufruf/
         //	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
@@ -1791,7 +1862,7 @@ class QuizController extends ActionController
     }
 
     /**
-     * Action list for the backend
+     * Action index for the backend
      *
      * @return ResponseInterface
      */
@@ -1806,7 +1877,8 @@ class QuizController extends ActionController
         $this->view->assign('pid', $pid);
         $this->view->assign('quizzes', $quizzes);
         $this->view->assign('otherQuizzes', $otherLangs);
-        return $this->htmlResponse();
+        $this->addDocHeaderDropDown('index');
+        return $this->defaultRendering();
     }
 
     /**
@@ -1817,7 +1889,7 @@ class QuizController extends ActionController
      */
     public function detailAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
     {
-        $questionRepository = $this->objectManager->get('Fixpunkt\\FpMasterquiz\\Domain\\Repository\QuestionRepository');
+        $questionRepository = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\QuestionRepository');
         $pid = (int)GeneralUtility::_GP('id');
         $uid = (int)$quiz->getUid();
         $updated = false;
@@ -1861,7 +1933,8 @@ class QuizController extends ActionController
         } else {
             $this->view->assign('chart', 0);
         }
-        return $this->htmlResponse();
+        $this->addDocHeaderDropDown('index');
+        return $this->defaultRendering();
     }
 
     /**
@@ -1882,7 +1955,8 @@ class QuizController extends ActionController
         $this->view->assign('debug', $debug);
         $this->view->assign('pid', $pid);
         $this->view->assign('quiz', $quiz);
-        return $this->htmlResponse();
+        $this->addDocHeaderDropDown('index');
+        return $this->defaultRendering();
     }
 
     /**
@@ -1903,7 +1977,7 @@ class QuizController extends ActionController
         );
 
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
-        $emailViewHtml = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        $emailViewHtml = GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
         $emailViewHtml->setTemplateRootPaths($extbaseFrameworkConfiguration['view']['templateRootPaths']);
         $emailViewHtml->setLayoutRootPaths($extbaseFrameworkConfiguration['view']['layoutRootPaths']);
         $emailViewHtml->setPartialRootPaths($extbaseFrameworkConfiguration['view']['partialRootPaths']);
@@ -1917,7 +1991,7 @@ class QuizController extends ActionController
         }
 
         /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $message = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
         foreach ($recipient as $key => $value) {
             $email = $key;
             $name = $value;
@@ -1936,5 +2010,46 @@ class QuizController extends ActionController
         $message->html($emailBodyHtml);
         $message->send();
         return $message->isSent();
+    }
+
+
+    /*
+    * Fürs Backend-Modul
+    */
+    protected function getLanguageService(): LanguageService
+    {
+        return $GLOBALS['LANG'];
+    }
+
+    protected function defaultRendering(): ResponseInterface
+    {
+        $this->moduleTemplate->setContent($this->view->render());
+        return $this->htmlResponse($this->moduleTemplate->renderContent());
+    }
+
+    protected function addDocHeaderDropDown(string $currentAction): void
+    {
+        $languageService = $this->getLanguageService();
+        $actionMenu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
+        $actionMenu->setIdentifier('masterquizSelector');
+        $actions = ['Quiz,index', 'Participant,list'];
+        foreach ($actions as $controller_action_string) {
+            $controller_action_array = explode(",", $controller_action_string);
+            $actionMenu->addMenuItem(
+                $actionMenu->makeMenuItem()
+                    ->setTitle($languageService->sL(
+                        'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:index.' .
+                        strtolower($controller_action_array[0])
+                    ))
+                    ->setHref($this->getModuleUri($controller_action_array[0], $controller_action_array[1]))
+                    ->setActive($currentAction === $controller_action_array[1])
+            );
+        }
+        $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($actionMenu);
+    }
+
+    protected function getModuleUri(string $controller = null, string $action = null): string
+    {
+        return $this->uriBuilder->reset()->uriFor($action, null, $controller, 'mod1');
     }
 }
