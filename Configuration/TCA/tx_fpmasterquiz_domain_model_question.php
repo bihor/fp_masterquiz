@@ -24,7 +24,7 @@ return [
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_question.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, qmode, image, bodytext, explanation, tag, optional, answers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, title, qmode, image, bodytext, explanation, tag, optional, answers, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime, --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.categories, categories'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -255,4 +255,3 @@ return [
         ],
     ],
 ];
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tx_fpmasterquiz_domain_model_question', 'categories');

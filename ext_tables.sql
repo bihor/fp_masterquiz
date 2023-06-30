@@ -15,7 +15,6 @@ CREATE TABLE tx_fpmasterquiz_domain_model_quiz (
 	evaluations int(11) unsigned DEFAULT '0' NOT NULL,
     closed smallint(5) unsigned DEFAULT '0' NOT NULL,
 	path_segment varchar(2048),
-	categories int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
@@ -327,45 +326,12 @@ CREATE TABLE tx_fpmasterquiz_domain_model_answer (
 );
 
 #
-# Table structure for table 'tx_fpmasterquiz_domain_model_question'
-#
-CREATE TABLE tx_fpmasterquiz_domain_model_question (
-	categories int(11) unsigned DEFAULT '0' NOT NULL,
-);
-
-#
-# Table structure for table 'tx_fpmasterquiz_domain_model_answer'
-#
-CREATE TABLE tx_fpmasterquiz_domain_model_answer (
-	categories int(11) unsigned DEFAULT '0' NOT NULL,
-);
-
-CREATE TABLE tx_fpmasterquiz_domain_model_evaluation
-(
-    categories int(11) unsigned DEFAULT '0' NOT NULL,
-);
-
-#
 # Table structure for table 'tx_fpmasterquiz_domain_model_selected'
 #
 CREATE TABLE tx_fpmasterquiz_domain_model_selected (
 
 	participant int(11) unsigned DEFAULT '0' NOT NULL,
 
-);
-
-#
-# Table structure for table 'tx_fpmasterquiz_domain_model_participant'
-#
-CREATE TABLE tx_fpmasterquiz_domain_model_participant (
-	categories int(11) unsigned DEFAULT '0' NOT NULL,
-);
-
-#
-# Table structure for table 'tx_fpmasterquiz_domain_model_selected'
-#
-CREATE TABLE tx_fpmasterquiz_domain_model_selected (
-	categories int(11) unsigned DEFAULT '0' NOT NULL,
 );
 
 #

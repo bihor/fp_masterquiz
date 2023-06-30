@@ -28,7 +28,8 @@ return [
             'sys_language_uid, l10n_parent, l10n_diffsource, hidden, name, path_segment, about, timeperiod, media, qtype,
          --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.questions, questions,
          --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.evaluations, evaluations,
-         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime, closed'],
+         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime, closed,
+         --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.categories, categories'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -250,4 +251,3 @@ return [
         ],
     ],
 ];
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes('tx_fpmasterquiz_domain_model_quiz', 'categories');

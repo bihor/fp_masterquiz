@@ -429,6 +429,7 @@ class QuizController extends ActionController
         $finalImageuid = 0;         // image for the final page
         $finalContent = '';            // special content for the final page
         $finalCategoryArray = [];   // Auswertung der angeklickten Kategorien
+        $redirectTo = '';             // redirect to uri (after evaluation)
         $emailAnswers = [];            // special admin email to answer relations
         $specialRecievers = [];        // special admin email recievers
         $debug = $userData['debug'];        // debug output
@@ -845,11 +846,9 @@ class QuizController extends ActionController
                     // Punkte-Match
                     if ($evaluation->getPage() > 0) {
                         // Weiterleitung zu dieser Seite
-                        $this->redirectToURI(
-                            $this->uriBuilder->reset()
+                        $redirectTo = $this->uriBuilder->reset()
                                 ->setTargetPageUid($evaluation->getPage())
-                                ->build()
-                        );
+                                ->build();
                     } else if ($evaluation->getCe() > 0) {
                         // Content-Element ausgeben
                         $ttContentConfig = [
@@ -1015,6 +1014,7 @@ class QuizController extends ActionController
             'useJoker' => $useJoker,
             'mandatoryNotAnswered' => $mandatoryNotAnswered,
             'session' => $session,
+            'redirectTo' => $redirectTo,
             'debug' => $debug
         ];
     }
@@ -1419,26 +1419,29 @@ class QuizController extends ActionController
             return $this->htmlResponse();
         }
         if ($this->checkForClosure()) {
-            $this->redirectToURI(
-                $this->uriBuilder->reset()
-                    ->setTargetPageUid($this->settings['closurePageUid'])
-                    ->uriFor(
-                        'closure',
-                        [
-                            'participant' => $this->participant,
-                            'session' => $this->participant->getSession()
-                        ],
-                        'Quiz',
-                        null,
-                        'closure'
-                    )
-                    ->build()
-            );
+            $uri = $this->uriBuilder->reset()
+                ->setTargetPageUid($this->settings['closurePageUid'])
+                ->uriFor(
+                    'closure',
+                    [
+                        'participant' => $this->participant,
+                        'session' => $this->participant->getSession()
+                    ],
+                    'Quiz',
+                    null,
+                    'closure'
+                );
+            return $this->responseFactory->createResponse(307)
+                ->withHeader('Location', $uri);
         }
         // participant wird zuerst hier definiert ...
         $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
         /// ... und dann hier in der DB abgespeichert
         $data = $this->doAll($quiz, $userData, 0, []);
+        if ($data['redirectTo']) {
+            return $this->responseFactory->createResponse(307)
+                ->withHeader('Location', $data['redirectTo']);
+        }
         $page = $data['page'];
         $pages = $data['pages'];
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
@@ -1515,21 +1518,20 @@ class QuizController extends ActionController
             return $this->htmlResponse();
         }
         if ($this->checkForClosure()) {
-            $this->redirectToURI(
-                $this->uriBuilder->reset()
-                    ->setTargetPageUid($this->settings['closurePageUid'])
-                    ->uriFor(
-                        'closure',
-                        [
-                            'participant' => $this->participant,
-                            'session' => $this->participant->getSession()
-                        ],
-                        'Quiz',
-                        null,
-                        'closure'
-                    )
-                    ->build()
-            );
+            $uri = $this->uriBuilder->reset()
+                ->setTargetPageUid($this->settings['closurePageUid'])
+                ->uriFor(
+                    'closure',
+                    [
+                        'participant' => $this->participant,
+                        'session' => $this->participant->getSession()
+                    ],
+                    'Quiz',
+                    null,
+                    'closure'
+                );
+            return $this->responseFactory->createResponse(307)
+                ->withHeader('Location', $uri);
         }
         $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
         $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
@@ -1541,6 +1543,10 @@ class QuizController extends ActionController
         }
         $pages = $tagArray['pages'];
         $data = $this->doAll($quiz, $userData, $pages, $tagArray['randomNumbers']);
+        if ($data['redirectTo']) {
+            return $this->responseFactory->createResponse(307)
+                ->withHeader('Location', $data['redirectTo']);
+        }
         $lastPage = $data['lastPage'];
         if ($this->settings['allowEdit']) {
             $lastPage = $page;
@@ -1636,21 +1642,20 @@ class QuizController extends ActionController
             return $this->htmlResponse();
         }
         if ($this->checkForClosure()) {
-            $this->redirectToURI(
-                $this->uriBuilder->reset()
-                    ->setTargetPageUid($this->settings['closurePageUid'])
-                    ->uriFor(
-                        'closure',
-                        [
-                            'participant' => $this->participant,
-                            'session' => $this->participant->getSession()
-                        ],
-                        'Quiz',
-                        null,
-                        'closure'
-                    )
-                    ->build()
-            );
+            $uri = $this->uriBuilder->reset()
+                ->setTargetPageUid($this->settings['closurePageUid'])
+                ->uriFor(
+                    'closure',
+                    [
+                        'participant' => $this->participant,
+                        'session' => $this->participant->getSession()
+                    ],
+                    'Quiz',
+                    null,
+                    'closure'
+                );
+            return $this->responseFactory->createResponse(307)
+                ->withHeader('Location', $uri);
         }
         // siehe: https://www.sebkln.de/tutorials/erstellung-einer-typo3-extension-mit-ajax-aufruf/
         //	$quizUid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
@@ -1659,6 +1664,10 @@ class QuizController extends ActionController
         $this->settings['user']['useCookie'] = 0;
         $userData = $this->findParticipant($quiz->getUid(), $quiz->getPid());
         $data = $this->doAll($quiz, $userData, 0, []);
+        if ($data['redirectTo']) {
+            return $this->responseFactory->createResponse(307)
+                ->withHeader('Location', $data['redirectTo']);
+        }
         $page = $data['page'];
         $pages = $data['pages'];
         $from = 1 + (($page - 1) * intval($this->settings['pagebrowser']['itemsPerPage']));

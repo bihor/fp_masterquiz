@@ -130,8 +130,8 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                     $queryBuilder->expr()->eq('question', $queryBuilder->createNamedParameter($questionId, \PDO::PARAM_INT))
                 )
             )
-            ->execute()
-            ->fetchAll();
+            ->executeQuery()
+            ->fetchAllAssociative();
         foreach ($rows as $row) {
             GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table)
                 ->delete(

@@ -79,7 +79,7 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sys_language_uid, \PDO::PARAM_INT))
             )
             ->setMaxResults(1)
-            ->execute();
+            ->executeQuery();
         while ($row = $statement->fetch()) {
             $uid = $row['uid'];
         }
@@ -117,8 +117,8 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             ->where(
                 $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
             )
-            ->execute();
-        return $statement->fetchAll();
+            ->executeQuery();
+        return $statement->fetchAllAssociative();
     }
 
     /**

@@ -82,7 +82,7 @@ class QuestionRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($questionID, \PDO::PARAM_INT))
             )
             ->set('quiz', intval($quizID))
-            ->execute();
+            ->executeStatement();
     }
 
     /**

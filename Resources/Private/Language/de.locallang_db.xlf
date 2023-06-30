@@ -19,6 +19,10 @@
 				<source>Evaluations</source>
 				<target>Auswertungen</target>
 			</trans-unit>
+			<trans-unit id="tabs.categories" resname="tabs.categories">
+				<source>Categories</source>
+				<target>Kategorien</target>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_quiz" resname="tx_fpmasterquiz_domain_model_quiz">
 				<source>Quiz</source>
 				<target>Quiz/Test</target>

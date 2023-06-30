@@ -314,7 +314,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
                     $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($this->user, \PDO::PARAM_INT))
                 )
                 ->setMaxResults(1)
-                ->execute();
+                ->executeQuery();
             while ($row = $statement->fetch()) {
                 return $row['username'];
             }
