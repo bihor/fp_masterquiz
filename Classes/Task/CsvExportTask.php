@@ -214,7 +214,7 @@ class CsvExportTask extends AbstractTask
                 $queryBuilder->expr()->eq('tx_fpmasterquiz_domain_model_answer.pid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
             )
             ->orderBy('mm.sorting', 'ASC')
-            ->execute();
+            ->executeQuery();
         while ($row = $statement->fetch()) {
             if (isset($mmArray[$row['uid_local']])) {
                 $mmArray[$row['uid_local']] .= $answersDelimiter . $row['title'];
@@ -253,7 +253,7 @@ class CsvExportTask extends AbstractTask
             )
             ->orderBy('part.uid', 'DESC')
             ->addOrderBy('suid', 'ASC')
-            ->execute();
+            ->executeQuery();
         while ($row = $statement->fetch()) {
 
             if ($i > 0)

@@ -111,7 +111,7 @@ class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     		   	->andWhere(
     		   		$queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, \PDO::PARAM_INT))
     	   		)
-    		   ->execute();
+    		   ->executeQuery();
     		while ($row = $statement->fetch()) {
     			$participantArray[] = $row['uid'];
     		}
@@ -124,7 +124,7 @@ class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     				)
     				->set('deleted', '1')
     				->set('tstamp', $now)
-    				->execute();
+    				->executeStatement();
     			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_participant');
     			$queryBuilder
     				->update('tx_fpmasterquiz_domain_model_participant')
@@ -133,7 +133,7 @@ class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     				)
     				->set('deleted', '1')
     				->set('tstamp', $now)
-    				->execute();
+    				->executeStatement();
     		}
 		} else {
 		    $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_selected');
@@ -146,7 +146,7 @@ class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		      ->andWhere(
 		         $queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, \PDO::PARAM_INT))
 		      )
-		      ->execute();
+		      ->executeQuery();
 		    while ($row = $statement->fetch()) {
 		        $selectedArray[] = $row['uid'];
 		    }
@@ -159,7 +159,7 @@ class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
     		      ->where(
     		          $queryBuilder->expr()->eq('uid_local', $queryBuilder->createNamedParameter($selectedUid, \PDO::PARAM_INT))
 		          )
-		          ->execute();
+		          ->executeStatement();
 		    }
 		    
 		    $table = 'tx_fpmasterquiz_domain_model_selected';
@@ -170,7 +170,7 @@ class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		          ->where(
 		              $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($selectedUid, \PDO::PARAM_INT))
 		          )
-		          ->execute();
+		          ->executeStatement();
 		    }
 		    
 		    $table = 'tx_fpmasterquiz_domain_model_participant';
@@ -183,7 +183,7 @@ class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
 		      ->andWhere(
 		          $queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, \PDO::PARAM_INT))
 		      )
-		      ->execute();
+		      ->executeStatement();
 		}
 		return $successfullyExecuted;
 	}

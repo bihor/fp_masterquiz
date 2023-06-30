@@ -852,14 +852,12 @@ class QuizController extends ActionController
                         );
                     } else if ($evaluation->getCe() > 0) {
                         // Content-Element ausgeben
-                        // oder so: https://www.andrerinas.de/tutorials/typo3-viewhelper-zum-rendern-von-tt-content-anhand-der-uid.html
                         $ttContentConfig = [
                             'tables' => 'tt_content',
                             'source' => $evaluation->getCe(),
                             'dontCheckPid' => 1
                         ];
-                        // TODO: funktioniert nicht mehr!
-                        $finalContent = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
+                        $finalContent = $GLOBALS['TSFE']->cObj->cObjGetSingle('RECORDS', $ttContentConfig);
                         $finalBodytext = $evaluation->getBodytext();
                         $finalImageuid = $evaluation->getImage();
                     } else {
@@ -1370,8 +1368,7 @@ class QuizController extends ActionController
                 'tables' => 'tt_content',
                 'source' => $this->settings['introContentUid'],
                 'dontCheckPid' => 1);
-            // TODO: funktioniert nicht mehr!
-            $contentElement = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\RecordsContentObject')->render($ttContentConfig);
+            $contentElement = $GLOBALS['TSFE']->cObj->cObjGetSingle('RECORDS', $ttContentConfig);
         } else {
             $contentElement = '';
         }

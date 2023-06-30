@@ -96,8 +96,8 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
                 ->where(
                     $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter((int)$submittedData['fp_masterquiz']['page'], \PDO::PARAM_INT))
                 )
-                ->execute()
-                ->fetchColumn(0);
+                ->executeQuery()
+                ->fetchOne();
 			if ($count == 0) {
 				$isValid = FALSE;
 				$this->addMessage(
@@ -132,8 +132,11 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 	public function saveAdditionalFields(array $submittedData, AbstractTask $task)
 	{
 		/** @var $task ValidatorTask */
-		$task->setPage($submittedData['fp_masterquiz']['page']);
-		$task->setDays($submittedData['fp_masterquiz']['days']);
-		$task->setFlag($submittedData['fp_masterquiz']['flag']);
+		$task->setPage(intval($submittedData['fp_masterquiz']['page']));
+		$task->setDays(intval($submittedData['fp_masterquiz']['days']));
+        if (isset($submittedData['fp_masterquiz']['flag']))
+		    $task->setFlag(intval($submittedData['fp_masterquiz']['flag']));
+        else
+            $task->setFlag(0);
 	}
 }

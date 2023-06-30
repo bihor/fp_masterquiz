@@ -142,8 +142,8 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
                 ->where(
                     $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter((int)$submittedData['fpmasterquiz']['page'], \PDO::PARAM_INT))
                 )
-                ->execute()
-                ->fetchColumn(0);
+                ->executeQuery()
+                ->fetchOne();
             if ($count == 0) {
                 $isValid = FALSE;
                 $this->addMessage(
@@ -179,10 +179,13 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
     {
         /** @var $task ValidatorTask */
         $task->setCsvfile($submittedData['fpmasterquiz']['csvfile']);
-        $task->setPage($submittedData['fpmasterquiz']['page']);
+        $task->setPage(intval($submittedData['fpmasterquiz']['page']));
         $task->setSeparator($submittedData['fpmasterquiz']['separator']);
         $task->setDelimiter($submittedData['fpmasterquiz']['delimiter']);
         $task->setAnswersDelimiter($submittedData['fpmasterquiz']['ansdelimiter']);
-        $task->setConvert($submittedData['fpmasterquiz']['convert']);
+        if (isset($submittedData['fpmasterquiz']['convert']))
+            $task->setConvert(intval($submittedData['fpmasterquiz']['convert']));
+        else
+            $task->setConvert(0);
     }
 }
