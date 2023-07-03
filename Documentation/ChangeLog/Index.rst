@@ -181,6 +181,7 @@ ChangeLog
   debug-echo removed.
   PHP 8 bugfix.
 
-4.0.0:
+4.0:
   Breaking: all plugins must be changed via an update-script (in the install-tool)!
   TypoScript module.tx_fpmasterquiz_web_fpmasterquizmod1 changed to module.tx_fpmasterquiz
+  Note for the Ajax-version: maybe you need to change the value of "ajaxfpmasterquiz_page.10.pluginName"

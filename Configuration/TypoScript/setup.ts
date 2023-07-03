@@ -147,6 +147,7 @@ module.tx_dashboard {
 }
 
 # PAGE object for Ajax call (you need to add your language settings here too!):
+# TODO: statt fpmasterquiz_show müssten auch andere Werte erlaubt sein
 ajaxfpmasterquiz_page = PAGE
 ajaxfpmasterquiz_page {
     typeNum = {$plugin.tx_fpmasterquiz.settings.typeNum}
@@ -158,5 +159,5 @@ ajaxfpmasterquiz_page {
         no_cache = 1
         admPanel = 0
     }
-    10 < tt_content.list.20.fpmasterquiz_pi1
+    10 < tt_content.list.20.fpmasterquiz_show
 }
