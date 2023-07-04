@@ -1214,16 +1214,22 @@ class QuizController extends ActionController
                     */
                 } else if ($be) {
                     // Text-Antworten anderer interessieren uns nur im Backend
-                    if (!is_array($allResults['text'])) {
-                        $allResults['text'] = [];
-                    }
-                    if (!is_array($allResults['text'][$aSelectedQuestion->getEntered()])) {
-                        $allResults['text'][$aSelectedQuestion->getEntered()] = [];
-                    }
-                    if (isset($allResults['text'][$aSelectedQuestion->getEntered()]['sum'])) {
-                        $allResults['text'][$aSelectedQuestion->getEntered()]['sum']++;
+                    if (isset($allResults['text'])) {
+                        if (!is_array($allResults['text'])) {
+                            $allResults['text'] = [];
+                        }
+                        if (isset($allResults['text'][$aSelectedQuestion->getEntered()])) {
+                            if (!is_array($allResults['text'][$aSelectedQuestion->getEntered()])) {
+                                $allResults['text'][$aSelectedQuestion->getEntered()] = [];
+                            }
+                            if (isset($allResults['text'][$aSelectedQuestion->getEntered()]['sum'])) {
+                                $allResults['text'][$aSelectedQuestion->getEntered()]['sum']++;
+                            } else {
+                                $allResults['text'][$aSelectedQuestion->getEntered()]['sum'] = 1;
+                            }
+                        }
                     } else {
-                        $allResults['text'][$aSelectedQuestion->getEntered()]['sum'] = 1;
+                        $allResults['text'] = [];
                     }
                 }
             }
@@ -1557,7 +1563,7 @@ class QuizController extends ActionController
             $this->setMetatags($quiz);
         }
         $tagSelections = [];
-        if (($lastPage > 0) && $data['showAnswers'] || $this->settings['allowEdit']) {
+        if (($lastPage > 0) && ($data['showAnswers'] || $this->settings['allowEdit']) && (isset($tagArray['pagetags'][$lastPage]))) {
             // Antworten vom user suchen
             $tagSelections = $this->participant->getSelectionsByTag($tagArray['pagetags'][$lastPage]);
         }
@@ -1585,7 +1591,11 @@ class QuizController extends ActionController
                         $question->setTextAnswers($answeredQuestions[$quid]['text']);
                     }
                     foreach ($question->getAnswers() as $answer) {
-                        $checked = ($answeredQuestions[$quid]['check'][$answer->getTitle()]) ? 1 : 0;
+                        if (isset($answeredQuestions[$quid]['check'][$answer->getTitle()])) {
+                            $checked = ($answeredQuestions[$quid]['check'][$answer->getTitle()]) ? 1 : 0;
+                        } else {
+                            $checked = 0;
+                        }
                         $answer->setOwnAnswer($checked);
                     }
                 }

@@ -124,10 +124,16 @@ AJAX*) If you enable AJAX, you should know this:
 
 - The AJAX-call calls an normal action and not an eID-script. Therefore it is necessary to set this TypoScript:
   plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0
-  This is set by default. You can change the value to 1, if you do not use the AJAX-version.
+  This is set by default in older versions. You can change the value to 1, if you do not use the AJAX-version.
   If it is still not working, you can disable the cHash-check in the install tool:
   [FE][pageNotFoundOnCHashError] = false
-  
+
+- *Important* for versions >= 4: if you don´t use the plugin
+  "Show a selected quiz and use a pagebrowser (you need to select the storage folder too)" /
+  "Ein bestimmtes Quiz anzeigen und den Pagebrowser nutzen (Datensatzsammlung muss dennoch gewählt werden)",
+  you must change this TypoScript value of: "ajaxfpmasterquiz_page.10.pluginName".
+  Set it to "List" or "Intro" (depending on the selected plugin).
+
 - You have still problems? Then read the chapter "Known problems".
 
 Layout**) If you use template layout 1, you should know this:
