@@ -81,7 +81,7 @@ call_user_func(
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
             'mod {
                 wizards.newContentElement.wizardItems.masterquiz {
-                    header = fp_masterquiz
+                    header = Masterquiz
                     elements {
                         fpmasterquiz_list {
                             iconIdentifier = fp_masterquiz-plugin-pi1
