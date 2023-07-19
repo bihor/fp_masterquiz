@@ -1,6 +1,13 @@
-<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+{namespace q=Fixpunkt\FpMasterquiz\ViewHelpers}
+<html
+   xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+   xmlns:q="https://typo3.org/ns/Fixpunkt/FpMasterquiz/ViewHelpers"
+   data-namespace-typo3-fluid="true">
+
+
+
 	<f:layout name="Default" />
- 
+
 	<f:section name="content">
 		<f:flashMessages />
 		<f:form.validationResults>
@@ -29,7 +36,7 @@
 				var chartwidth = parseInt({settings.chart.width});
 			</script>
 		</f:if>
-		
+
 		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
 		<f:if condition="{quiz.media.0}">
 			<f:media file="{quiz.media.0}" alt="{quiz.media.0.originalResource.name}" title="{quiz.media.0.originalResource.title}" class="img-fluid" />
@@ -54,11 +61,13 @@
 			</div></div>
 		</f:if>
 
+      <q:trueForJavaScript value="{settings.noFormCheck}" />
+
 		<script>
 			var ceuid = '{uidOfCE}';
 			var quizfinal = 0;
 			var quizend = false;
-			var noFormCheck = (({settings.noFormCheck} == 1) ? true : false);
+			var noFormCheck = '{q:trueForJavaScript(value: "{settings.noFormCheck}")}';
 			var ajaxVersion = false;
 			var quizIntervalId = null;
 			var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';
@@ -80,7 +89,7 @@
 				<f:form.hidden name="currentPage" value="1" id="quiz-form-page" />
 				<f:form.hidden name="showAnswers" value="0" id="quiz-form-answers" />
 				<f:form.hidden name="useJoker" value="0" id="quiz-form-joker" />
-	            
+
 	            <script>
 					ajaxVersion = true;
 					var quizanswers = 0;
@@ -95,7 +104,7 @@
 		        <script type="text/javascript">
 		            if (ajaxTypeSetting == 'GET') {	ajaxType = 'GET'; }
 				</script>
-				
+
 				<div id="quiz-ajaxCallResult"></div>
 
 				<f:if condition="!{settings.closed} && !{quiz.closed}">
@@ -122,7 +131,7 @@
 
 				<script>
 					<f:render partial="Quiz/CheckForm" arguments="{uidOfCE: uidOfCE}" />
-					
+
 					document.addEventListener('DOMContentLoaded', function(){
 			            var form = $('#quiz-form'+ceuid);
 			            var resultContainer = $('#quiz-ajaxCallResult');
@@ -177,7 +186,7 @@
 			            });
 			            service.ajaxCall(form);
 					}, false);
-					
+
 					function getQuizJoker() {
 						$('#quiz-form'+ceuid+' #quiz-form-page').val(thisPage);
 						$('#quiz-form'+ceuid+' #quiz-form-answers').val('0');
@@ -201,7 +210,7 @@
 				<f:form.hidden name="showAnswers" value="{showAnswersNext}" />
 				<f:form.hidden name="session" value="{session}" />
 				<f:form.hidden name="startTime" value="{startTime}" />
-				
+
 				<f:if condition="{final} == 0">
 					<f:then>
 						<f:if condition="({settings.showPageNo} == 1) && ({pages} != 1)">
@@ -214,20 +223,20 @@
 								</div>
 							</p>
 						</f:if>
-						
+
 						<f:if condition="{showAnswers}">
 							<f:then>
-							
+
 								<!--  show answers after submit -->
 								<f:for each="{participantPaginator.paginatedItems}" as="selection" iteration="pageiterator">
 									<f:render partial="Question/PropertiesSent" arguments="{_all}" />
 								</f:for>
 
 								<f:if condition="{settings.showPoints} && ({participant.maximum1} > 0)">
-									<f:comment> {participant -> f:debug(title: 'Members of participant')} </f:comment> 
+									<f:comment> {participant -> f:debug(title: 'Members of participant')} </f:comment>
 									<p>{f:translate(key: "text.pointsYet")} {participant.points}/{participant.maximum1}.</p>
 								</f:if>
-				
+
 								<div>
 									<div class="pull-right quiz-subm">
 										<f:form.button type="submit" name="quizGoOn" class="btn btn-primary btn-lg">
@@ -242,7 +251,7 @@
 										</f:form.button>
 									</div>
 								</div>
-								
+
 							</f:then>
 							<f:else>
 								<f:if condition="{settings.closed} || {quiz.closed}">
@@ -343,7 +352,7 @@
 					<f:else>
 
 						<f:render partial="Quiz/FinalPage" arguments="{_all}" />
-						
+
 					</f:else>
 				</f:if>
 			</f:form>
