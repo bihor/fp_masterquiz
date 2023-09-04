@@ -51,8 +51,7 @@ final class FixImageReferencesUpgradeWizard implements UpgradeWizardInterface, R
         $queryBuilder->update('sys_file_reference')
             ->set('fieldname', 'media')
             ->where(
-                $queryBuilder->expr()->eq('
-                tablenames',
+                $queryBuilder->expr()->eq('tablenames',
                     $queryBuilder->createNamedParameter('tx_fpmasterquiz_domain_model_quiz')
                 )
             )
