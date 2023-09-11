@@ -170,5 +170,8 @@ call_user_func(
         // Register switchableControllerActions plugin migrator
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['switchableControllerActionsPluginUpdaterFpQuiz']
             = \Fixpunkt\FpMasterquiz\Updates\SwitchableControllerActionsPluginUpdater::class;
+        // Fix faulty image references
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['fpmasterquiz_fiximagereferences']
+            = \Fixpunkt\FpMasterquiz\Updates\FixImageReferencesUpgradeWizard::class;
     }
 );

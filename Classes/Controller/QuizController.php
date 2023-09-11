@@ -505,10 +505,10 @@ class QuizController extends ActionController
                         $defaultEmail = $feuserData['email'];
                         $defaultHomepage = $feuserData['www'];
                     } else {
-                        $defaultName = $this->settings['user']['defaultName'];
+                        $defaultName = $this->settings['user']['defaultName']??'';
                         $defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
-                        $defaultEmail = $this->settings['user']['defaultEmail'];
-                        $defaultHomepage = $this->settings['user']['defaultHomepage'];
+                        $defaultEmail = $this->settings['user']['defaultEmail']??'';
+                        $defaultHomepage = $this->settings['user']['defaultHomepage']??'';
                     }
                     $this->setUserData($defaultName, $defaultEmail, $defaultHomepage);
                     $this->participant->setUser(isset($GLOBALS['TSFE']->fe_user->user['uid']) ? intval($GLOBALS['TSFE']->fe_user->user['uid']) : 0);
