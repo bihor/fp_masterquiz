@@ -125,7 +125,7 @@ class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             ->select('uid')
             ->from($table)
             ->where(
-                $queryBuilder->expr()->andX(
+                $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('participant', $queryBuilder->createNamedParameter($participantId, \PDO::PARAM_INT)),
                     $queryBuilder->expr()->eq('question', $queryBuilder->createNamedParameter($questionId, \PDO::PARAM_INT))
                 )

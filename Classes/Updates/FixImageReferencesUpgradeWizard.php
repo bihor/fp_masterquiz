@@ -18,7 +18,7 @@ final class FixImageReferencesUpgradeWizard implements UpgradeWizardInterface, R
      */
     public function getIdentifier(): string
     {
-        return 'fpmasterquiz_fiximagereferences';
+        return 'fixImageReferencesFpQuiz';
     }
 
     /**

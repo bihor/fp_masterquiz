@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 4.0.2
+version 4.1.0
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -40,3 +40,8 @@ Changes in version 4.0:
 - Breaking: all plugins must be changed via an update-script (in the install-tool)!
 - TypoScript module.tx_fpmasterquiz_web_fpmasterquizmod1 changed to module.tx_fpmasterquiz
 - Note for the Ajax-version: maybe you need to change the value of "ajaxfpmasterquiz_page.10.pluginName"
+
+Changes in version 4.1:
+- TypoScript-files renamed from .ts to .typoscript
+- Prevent PHP and JavaScript errors from missing settings
+- Upgrade Wizard for old file references

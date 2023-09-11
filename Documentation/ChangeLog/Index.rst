@@ -185,3 +185,8 @@ ChangeLog
   Breaking: all plugins must be changed via an update-script (in the install-tool)!
   TypoScript module.tx_fpmasterquiz_web_fpmasterquizmod1 changed to module.tx_fpmasterquiz
   Note for the Ajax-version: maybe you need to change the value of "ajaxfpmasterquiz_page.10.pluginName"
+
+Changes in version 4.1:
+  TypoScript-files renamed from .ts to .typoscript
+  Prevent PHP and JavaScript errors from missing settings
+  Upgrade Wizard for old file references

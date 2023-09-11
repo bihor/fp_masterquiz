@@ -171,7 +171,7 @@ call_user_func(
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['switchableControllerActionsPluginUpdaterFpQuiz']
             = \Fixpunkt\FpMasterquiz\Updates\SwitchableControllerActionsPluginUpdater::class;
         // Fix faulty image references
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['fpmasterquiz_fiximagereferences']
+        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['fixImageReferencesFpQuiz']
             = \Fixpunkt\FpMasterquiz\Updates\FixImageReferencesUpgradeWizard::class;
     }
 );
