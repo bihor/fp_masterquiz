@@ -65,6 +65,7 @@ CREATE TABLE tx_fpmasterquiz_domain_model_question (
 	explanation text,
     tag int(11) unsigned DEFAULT '0',
     optional smallint(5) unsigned DEFAULT '0' NOT NULL,
+    closed smallint(5) unsigned DEFAULT '0' NOT NULL,
 	answers int(11) unsigned DEFAULT '0' NOT NULL,
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,

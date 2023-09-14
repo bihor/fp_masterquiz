@@ -61,13 +61,11 @@
 			</div></div>
 		</f:if>
 
-      <q:trueForJavaScript value="{settings.noFormCheck}" />
-
 		<script>
 			var ceuid = '{uidOfCE}';
 			var quizfinal = 0;
 			var quizend = false;
-			var noFormCheck = '{q:trueForJavaScript(value: "{settings.noFormCheck}")}';
+			var noFormCheck = {q:trueForJavaScript(value: "{settings.noFormCheck}")};
 			var ajaxVersion = false;
 			var quizIntervalId = null;
 			var text_errorTimeUp = '{f:translate(key: "text.expiredTime")}';

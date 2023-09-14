@@ -69,6 +69,13 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     protected $optional = false;
 
     /**
+     * Frage geschlossen?
+     *
+     * @var bool
+     */
+    protected $closed = false;
+
+    /**
      * Answers of this question
      *
      * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Answer>
@@ -289,6 +296,37 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     public function isOptional()
     {
         return $this->optional;
+    }
+
+    /**
+     * Returns the Closed
+     *
+     * @return bool
+     */
+    public function getClosed()
+    {
+        return $this->closed;
+    }
+
+    /**
+     * Sets the Closed
+     *
+     * @param bool $closed
+     * @return void
+     */
+    public function setClosed($closed)
+    {
+        $this->closed = $closed;
+    }
+
+    /**
+     * Returns the boolean state of Closed
+     *
+     * @return bool
+     */
+    public function isClosed()
+    {
+        return $this->closed;
     }
 
     /**

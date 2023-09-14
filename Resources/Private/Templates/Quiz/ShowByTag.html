@@ -52,7 +52,7 @@
 
     <script>
         var ceuid = '{uidOfCE}';
-        var noFormCheck = (({settings.noFormCheck} == 1) ? true : false);
+        var noFormCheck = {q:trueForJavaScript(value: "{settings.noFormCheck}")};
         var quizfinal = 0;
         var tagTimePeriod = 0;
         var quizIntervalId = null;

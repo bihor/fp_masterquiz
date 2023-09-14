@@ -303,6 +303,10 @@
 				<source>Question</source>
 				<target>Frage</target>
 			</trans-unit>
+			<trans-unit id="text.questionClosed" resname="text.questionClosed">
+				<source>This question can´t be answered anymore.</source>
+				<target>Diese Frage kann nicht mehr beantwortet werden.</target>
+			</trans-unit>
 			<trans-unit id="text.of" resname="text.of">
 				<source>of</source>
 				<target>von</target>

@@ -23,7 +23,9 @@ return [
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_evaluation.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, evaluate, minimum, maximum, image, bodytext, ce, page, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime, --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.categories, categories'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, evaluate, minimum, maximum, image, bodytext, ce, page,
+         --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime,
+         --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.categories, categories'],
     ],
     'columns' => [
         'sys_language_uid' => [

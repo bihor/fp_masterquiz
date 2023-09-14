@@ -228,6 +228,9 @@
 			<trans-unit id="text.question" resname="text.question">
 				<source>Question</source>
 			</trans-unit>
+			<trans-unit id="text.questionClosed" resname="text.questionClosed">
+				<source>This question can´t be answered anymore.</source>
+			</trans-unit>
 			<trans-unit id="text.of" resname="text.of">
 				<source>of</source>
 			</trans-unit>

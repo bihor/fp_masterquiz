@@ -107,6 +107,10 @@
 				<source>The answer is optional</source>
 				<target>Die Beantwortung ist optional</target>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.closed" resname="tx_fpmasterquiz_domain_model_question.closed">
+				<source>The question is closed</source>
+				<target>Die Beantwortung dieser Frage ist nicht mehr möglich</target>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.answers" resname="tx_fpmasterquiz_domain_model_question.answers">
 				<source>Answers of this question</source>
 				<target>Antworten zu dieser Frage</target>
