@@ -45,7 +45,7 @@ maximum2 (maximum points for a quiz), qtype (for quiz, poll or test) and closed.
 
 A question has this variables:
 title, qmode (question-mode), image, bodytext, explanation, sorting, tag, answers, selectOptions, numberOfAnswers,
-arrayOfAnswers, categories, categoriesArray, sortedCategoriesArray.
+arrayOfAnswers, categories, categoriesArray, sortedCategoriesArray and closed.
 And furthermore:
 maximum1 (maximum points for a question),
 allAnswers (no. of all answers/votes - checkboxes counted once),

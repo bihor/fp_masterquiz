@@ -445,7 +445,7 @@ class QuizController extends ActionController
         $startTime = $this->request->hasArgument('startTime') ? intval($this->request->getArgument('startTime')) : 0;
         $page = $this->request->hasArgument('currentPage') ? intval($this->request->getArgument('currentPage')) : 1;
         $reachedPage = $this->participant->getPage();
-        if (!$questionsPerPage) {
+        if (!$questionsPerPage || $this->settings['ajax']) {
             $questionsPerPage = 1;
         }
         /* if ($this->settings['ajax'] && $session && !$this->participant->getUid() && ($showAnswers || $page>1)) {
