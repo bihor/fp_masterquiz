@@ -199,3 +199,6 @@ ChangeLog
   Questions can now be closed too.
 
   Bugfix for: prevent PHP and JavaScript errors from missing settings.
+
+4.2.3:
+  Setting redirectToResultPageAtFinal added: redirect to the result page when the final page is reached?

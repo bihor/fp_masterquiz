@@ -119,6 +119,10 @@
 				<source>Enable a form check (of mandatory questions) via PHP?</source>
 				<target>Fragen-Check auch via PHP einschalten?</target>
 			</trans-unit>
+			<trans-unit id="settings.redirectToResultPageAtFinal" resname="settings.redirectToResultPageAtFinal">
+				<source>Redirect to the result page when the end/final page is reached?</source>
+				<target>Gehe zur Ergebnis-Seite, wenn das Ende/Schlussseite erreicht ist?</target>
+			</trans-unit>
 			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
 				<source>Allow edit answered questions (works only for show by tag)?</source>
 				<target>Erlaube es, Antworten zu editieren (funktioniert nur bei &quot;Fragen nach Tag sortieren&quot;)?</target>

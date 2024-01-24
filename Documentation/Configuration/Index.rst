@@ -52,6 +52,7 @@ showPoints                   boolean     Show the possible/reached points if max
 showPageNo                   boolean     Show the page number / number of pages?         1
 showQuestionNo               boolean     Show the question no. / no. of questions?       0
 showDetailedCategoryEval     boolean     Show detailed category evaluation if available? 0
+redirectToResultPageAtFinal  boolean     Redirect to the result page at the end?         0
 checkAllStars                boolean     Check all stars on star rating by default?      0
 highscoreLimit               integer     Number of entries in the highscore              10
 resultLimit                  integer     Number of entries in the result list (layout=2) 20

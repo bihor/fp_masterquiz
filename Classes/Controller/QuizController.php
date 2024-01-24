@@ -992,6 +992,11 @@ class QuizController extends ActionController
                 $this->participantRepository->update($this->participant);
                 $doPersist = true;
             }
+            if ($this->settings['redirectToResultPageAtFinal'] && $this->settings['resultPageUid'] && !$redirectTo) {
+                $redirectTo = $this->uriBuilder->reset()
+                    ->setTargetPageUid(intval($this->settings['resultPageUid']))
+                    ->build();
+            }
         } else {
             $final = 0;
         }
@@ -1855,7 +1860,7 @@ class QuizController extends ActionController
     }
 
     /**
-     * action show
+     * action closure: show only text and links
      *
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
      * @param string $session
@@ -1876,6 +1881,7 @@ class QuizController extends ActionController
         }
         return $this->htmlResponse();
     }
+
 
     /**
      * Action index for the backend

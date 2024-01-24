@@ -85,10 +85,13 @@
 				<source>Show detailed category evaluation if categories are used?</source>
 			</trans-unit>
 			<trans-unit id="settings.noFormCheck" resname="settings.noFormCheck">
-				<source>Disable form check (set all questions as non mandatory)?</source>
+				<source>Disable form check (set all questions as not mandatory)?</source>
 			</trans-unit>
 			<trans-unit id="settings.phpFormCheck" resname="settings.phpFormCheck">
 				<source>Enable a form check (of mandatory questions) via PHP?</source>
+			</trans-unit>
+			<trans-unit id="settings.redirectToResultPageAtFinal" resname="settings.redirectToResultPageAtFinal">
+				<source>Redirect to the result page when the end/final page is reached?</source>
 			</trans-unit>
 			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
 				<source>Allow edit answered questions (works only for show by tag)?</source>
