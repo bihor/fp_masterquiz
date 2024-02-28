@@ -56,6 +56,7 @@ redirectToResultPageAtFinal  boolean     Redirect to the result page at the end?
 checkAllStars                boolean     Check all stars on star rating by default?      0
 highscoreLimit               integer     Number of entries in the highscore              10
 resultLimit                  integer     Number of entries in the result list (layout=2) 20
+pointsMode                   integer     Points per answered question: 0, 1, 2 or 3.     0
 noFormCheck                  boolean     Don´t check for answered questions at all?      0
 phpFormCheck                 boolean     Enable check for answered questions with PHP?   0
 allowEdit                    boolean     Show links to pages and allow to edit answers?  0
@@ -242,6 +243,19 @@ Normally every question needs to be answered before the page can be send. You ca
 Since version 3.2.0 you can define at each question if it should be optional or not.
 Note: only question of type radio, checkbox, select-box, input-field and textarea are checked. All answers to other type of
 questions are optional (they will not be checked).
+
+
+.. _pointsMode:
+
+pointsMode
+""""""""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.pointsMode = 1`
+
+In the default mode, negative points are possible at e.g. checkboxes when not all correct answers are checked.
+pointsMode=1: negative points will be set to 0 points.
+pointsMode=3: like pointsMode=1, but when not all correct answers are selected, the participant will get 0 points for
+the whole question instead of x/y points.
 
 
 .. _joker:

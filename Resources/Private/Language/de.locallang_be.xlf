@@ -123,6 +123,22 @@
 				<source>Redirect to the result page when the end/final page is reached?</source>
 				<target>Gehe zur Ergebnis-Seite, wenn das Ende/Schlussseite erreicht ist?</target>
 			</trans-unit>
+			<trans-unit id="settings.pointsMode" resname="settings.pointsMode">
+				<source>How many points for a not correct answered question?</source>
+				<target>Wie viele Punkte für eine nicht korrekt beantwortete Frage?</target>
+			</trans-unit>
+			<trans-unit id="settings.pointsMode.0" resname="settings.pointsMode.0">
+				<source>Even negative points are possible</source>
+				<target>Auch negative Punkte sind möglich</target>
+			</trans-unit>
+			<trans-unit id="settings.pointsMode.1" resname="settings.pointsMode.1">
+				<source>Translate negative points to 0</source>
+				<target>Mach aus negativen Punkten eine 0</target>
+			</trans-unit>
+			<trans-unit id="settings.pointsMode.3" resname="settings.pointsMode.3">
+				<source>0 points when not all correct answers are checked</source>
+				<target>0 Punkte, wenn nicht alle richtigen Antworten ausgewählt wurden</target>
+			</trans-unit>
 			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
 				<source>Allow edit answered questions (works only for show by tag)?</source>
 				<target>Erlaube es, Antworten zu editieren (funktioniert nur bei &quot;Fragen nach Tag sortieren&quot;)?</target>

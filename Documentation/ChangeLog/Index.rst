@@ -200,5 +200,7 @@ ChangeLog
 
   Bugfix for: prevent PHP and JavaScript errors from missing settings.
 
-4.2.3:
+4.3.0:
   Setting redirectToResultPageAtFinal added: redirect to the result page when the final page is reached?
+
+  Setting pointsMode added: 0 points if not all answers are correct now possible.

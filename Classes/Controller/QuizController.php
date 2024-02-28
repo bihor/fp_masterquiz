@@ -21,7 +21,7 @@ use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2023 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt für digitales GmbH
+ *  (c) 2024 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt für digitales GmbH
  *
  ***/
 
@@ -571,6 +571,7 @@ class QuizController extends ActionController
                         $debug .= ' reload!? ';
                     } else {
                         $qmode = $question->getQmode();
+                        $pmode = intval($this->settings['pointsMode']);
                         $isOptional = ($this->settings['noFormCheck'] || $question->isOptional() || $qmode == 4 || $qmode == 7) ? true : false;
                         if ($this->settings['debug']) {
                             $debug .= ' OK ' . (($isOptional) ? 'optional: ' : 'mandatory: ');
@@ -605,6 +606,7 @@ class QuizController extends ActionController
                         $selectedWithAnswer = false;
                         $qmode8Answers = [];
                         $newPoints = 0;
+                        $questionPoints = 0;
                         switch ($qmode) {
                             case 0:
                             case 4:
@@ -656,16 +658,26 @@ class QuizController extends ActionController
                                                 // Joker wurde eingesetzt: Punkte halbieren
                                                 $newPoints = intval(ceil($newPoints / 2));
                                             }
-                                            $selected->addPoints($newPoints);
-                                            $this->participant->addPoints($newPoints);
-                                            if ($this->settings['debug']) {
-                                                $debug .= $newPoints . 'P ';
-                                            }
+                                            // jetzt später: $selected->addPoints($newPoints);
+                                            $questionPoints += $newPoints;
                                         }
                                         $selected->addAnswer($answer);
                                         $selectedWithAnswer = true;
                                         if (isset($emailAnswers[$quid][$auid])) {
                                             $specialRecievers[$emailAnswers[$quid][$auid]['email']] = $emailAnswers[$quid][$auid];
+                                        }
+                                    }
+                                }
+                                if ($questionPoints != 0) {
+                                    if (($pmode<3) ||
+                                        ($pmode==3 && $questionPoints==$question->getMaximum1())) {
+                                        if ($pmode>0 && $questionPoints<0) {
+                                            $questionPoints = 0;
+                                        }
+                                        $selected->setPoints($questionPoints);
+                                        $this->participant->addPoints($questionPoints);
+                                        if ($this->settings['debug']) {
+                                            $debug .= $questionPoints . 'P ';
                                         }
                                     }
                                 }
@@ -709,6 +721,9 @@ class QuizController extends ActionController
                                         if ($useJoker == 2) {
                                             // Joker wurde eingesetzt: Punkte halbieren
                                             $newPoints = intval(ceil($newPoints / 2));
+                                        }
+                                        if ($pmode>0 && $newPoints<0) {
+                                            $newPoints = 0;
                                         }
                                         $selected->addPoints($newPoints);
                                         $this->participant->addPoints($newPoints);

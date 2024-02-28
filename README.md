@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 4.2.3
+version 4.3.0
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -50,5 +50,6 @@ Changes in version 4.2:
 - Questions can now be closed too.
 - Bugfix for: prevent PHP and JavaScript errors from missing settings.
 
-Changes in version 4.2.3:
+Changes in version 4.3:
 - Setting redirectToResultPageAtFinal added: redirect to the result page when the final page is reached?
+- Setting pointsMode added: 0 points if not all answers are correct now possible.

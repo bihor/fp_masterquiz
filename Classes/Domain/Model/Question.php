@@ -423,7 +423,7 @@ class Question extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
             		$maximum1 = $points;
             	}
             } else {
-            	// several Answers are possible, all should be choosen
+            	// several Answers are possible, all should be chosen
 	            if ($points > 0) {
     	            $maximum1 += $points;
         	    }

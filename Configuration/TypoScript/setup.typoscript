@@ -41,6 +41,7 @@ plugin.tx_fpmasterquiz {
     redirectToResultPageAtFinal = 0
     highscoreLimit = 10
     resultLimit = 20
+    pointsMode = 0
     checkAllStars = 0
     noFormCheck = 0
     phpFormCheck = 0
