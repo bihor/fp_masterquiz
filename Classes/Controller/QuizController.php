@@ -659,7 +659,9 @@ class QuizController extends ActionController
                                                 $newPoints = intval(ceil($newPoints / 2));
                                             }
                                             // jetzt später: $selected->addPoints($newPoints);
-                                            $questionPoints += $newPoints;
+                                            //if (($pmode==4 && $questionPoints==0) || $pmode<4) {
+                                                $questionPoints += $newPoints;
+                                            //}
                                         }
                                         $selected->addAnswer($answer);
                                         $selectedWithAnswer = true;
@@ -670,9 +672,12 @@ class QuizController extends ActionController
                                 }
                                 if ($questionPoints != 0) {
                                     if (($pmode<3) ||
-                                        ($pmode==3 && $questionPoints==$question->getMaximum1())) {
+                                        ($questionPoints==$question->getMaximum1())) {
                                         if ($pmode>0 && $questionPoints<0) {
                                             $questionPoints = 0;
+                                        }
+                                        if ($pmode == 4) {
+                                            $questionPoints = 1;
                                         }
                                         $selected->setPoints($questionPoints);
                                         $this->participant->addPoints($questionPoints);
