@@ -20,9 +20,6 @@
 			"Fixpunkt\\FpMasterquiz\\Tests\\" : "Tests"
 		}
 	},
-	"replace" : {
-		"typo3-ter/fp-masterquiz" : "self.version"
-	},
 	"homepage" : "https://github.com/bihor/fp_masterquiz",
 	"license" : "GPL-3.0-or-later",
 	"keywords" : [
