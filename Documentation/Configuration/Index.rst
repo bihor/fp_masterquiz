@@ -56,7 +56,7 @@ redirectToResultPageAtFinal  boolean     Redirect to the result page at the end?
 checkAllStars                boolean     Check all stars on star rating by default?      0
 highscoreLimit               integer     Number of entries in the highscore              10
 resultLimit                  integer     Number of entries in the result list (layout=2) 20
-pointsMode                   integer     Points per answered question: 0, 1, 2 or 3.     0
+pointsMode                   integer     Points per answered question: 0, 1, 2, 3 or 4.  0
 noFormCheck                  boolean     Don´t check for answered questions at all?      0
 phpFormCheck                 boolean     Enable check for answered questions with PHP?   0
 allowEdit                    boolean     Show links to pages and allow to edit answers?  0
@@ -256,6 +256,7 @@ In the default mode, negative points are possible at e.g. checkboxes when not al
 pointsMode=1: negative points will be set to 0 points.
 pointsMode=3: like pointsMode=1, but when not all correct answers are selected, the participant will get 0 points for
 the whole question instead of x/y points.
+pointsMode=4: like pointsMode=3, but when all answers are answered correct, only 1 point will be given, else 0.
 
 
 .. _joker:

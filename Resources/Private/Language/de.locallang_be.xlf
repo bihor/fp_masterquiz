@@ -137,7 +137,11 @@
 			</trans-unit>
 			<trans-unit id="settings.pointsMode.3" resname="settings.pointsMode.3">
 				<source>0 points when not all correct answers are checked</source>
-				<target>0 Punkte, wenn nicht alle richtigen Antworten ausgewählt wurden</target>
+				<target>0 Punkte, wenn nicht alle richtigen Antworten ausgewählt wurden, sonst alle Punkte</target>
+			</trans-unit>
+			<trans-unit id="settings.pointsMode.4" resname="settings.pointsMode.4">
+				<source>0 points when not all correct answers are checked, else 1 point</source>
+				<target>0 Punkte, wenn nicht alle richtigen Antworten ausgewählt wurden, sonst 1 Punkt</target>
 			</trans-unit>
 			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
 				<source>Allow edit answered questions (works only for show by tag)?</source>
