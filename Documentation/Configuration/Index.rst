@@ -111,7 +111,7 @@ chart.type                   string      You can choose between: pie, donut or b
 chart.width                  integer     Width of the chart.                             492
 templateLayout               integer     See in chapter PageTSconfig**.                  -
 overrideFlexformSettings...  string      Fields that should be overwritten if empty.     startPageUid,...
-debug                        boolean     Show debug data at the page.                    0
+debug                        integer     Show debug data? 0: no; 1: in HTML; 2: in file. 0
 typeNum                      integer     Type of the AJAX-call. Don´t change it.         190675
 ============================ =========== =============================================== ===========================
 
@@ -358,6 +358,18 @@ With this TypoScript you can configure a simple poll with a pie chart as result:
   plugin.tx_fpmasterquiz.settings.templateLayout = 1
   plugin.tx_fpmasterquiz.settings.template.wrapDone1 = <div class="hidden">
   plugin.tx_fpmasterquiz.settings.template.wrapDone2 = </div>
+
+
+.. _debug:
+
+Debug
+"""""
+
+:typoscript:`plugin.tx_fpmasterquiz.settings.debug = 2`
+
+If debug = 1, a debug output will be shown under the quiz/poll-output in the FE.
+If debug = 2, the debug output will be written in a log file called var/log/typo3_fpmasterquiz_*.log
+
 
 .. _configuration-faq:
 

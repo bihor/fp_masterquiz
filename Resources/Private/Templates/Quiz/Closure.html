@@ -20,8 +20,5 @@
     <f:link.action controller="Quiz" action="highscore" pageUid="{settings.highscorePageUid}" arguments="{quiz:quiz}"
                    class="btn btn-info">{f:translate(key: "text.showHighscorePage")}</f:link.action>
   </f:if>
-  <f:if condition="{settings.debug}">
-    <pre>{debug}</pre>
-  </f:if>
 </f:section>
 </html>

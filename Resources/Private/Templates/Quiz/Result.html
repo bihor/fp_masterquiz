@@ -114,7 +114,7 @@
 				<p>{f:translate(key: "text.resultLimit", arguments: {0: '{settings.resultLimit}'}, default: 'Result limit 20')}</p>
 			</f:if>
 		</f:if>
-		<f:if condition="{settings.debug}">
+		<f:if condition="{settings.debug} == 1">
 			<pre>{debug}</pre>
 		</f:if>
 	</f:section>

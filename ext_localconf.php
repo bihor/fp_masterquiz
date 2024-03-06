@@ -173,5 +173,15 @@ call_user_func(
         // Fix faulty image references
         $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['fixImageReferencesFpQuiz']
             = \Fixpunkt\FpMasterquiz\Updates\FixImageReferencesUpgradeWizard::class;
+
+        // Custom Logger
+        $GLOBALS['TYPO3_CONF_VARS']['LOG']['Fixpunkt']['FpMasterquiz']['Controller']['writerConfiguration'] = [
+            // Configuration including all levels with higher severity
+            \Psr\Log\LogLevel::DEBUG => [
+                \TYPO3\CMS\Core\Log\Writer\FileWriter::class => [
+                    'logFileInfix' => 'fpmasterquiz',
+                ],
+            ],
+        ];
     }
 );

@@ -204,3 +204,6 @@ ChangeLog
   Setting redirectToResultPageAtFinal added: redirect to the result page when the final page is reached?
 
   Setting pointsMode added: 0 points if not all answers are correct now possible.
+
+4.4.0:
+  settings.debug=2 is new. If 2 instead of 1, the debug output will be written into a log file.

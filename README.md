@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 4.3.1
+version 4.4.0
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -53,3 +53,6 @@ Changes in version 4.2:
 Changes in version 4.3:
 - Setting redirectToResultPageAtFinal added: redirect to the result page when the final page is reached?
 - Setting pointsMode added: 0 points if not all answers are correct now possible.
+
+Changes in version 4.4:
+- settings.debug=2 is new. If 2 instead of 1, the debug output will be written into a log file.

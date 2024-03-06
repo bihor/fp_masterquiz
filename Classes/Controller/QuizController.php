@@ -13,6 +13,7 @@ use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use Psr\Log\LoggerInterface;
 
 /***
  *
@@ -79,9 +80,13 @@ class QuizController extends ActionController
      */
     protected $persistenceManager;
 
+    private LoggerInterface $logger;
+
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
+        LoggerInterface $logger
     ) {
+        $this->logger = $logger;
     }
 
     public function initializeIndexAction()
@@ -1166,11 +1171,8 @@ class QuizController extends ActionController
 
     /**
      * action getFeUser
-     *
-     * @param int $userid
-     * @return array
      */
-    public function getFeUser($userid)
+    public function getFeUser(int $userid): array
     {
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('fe_users');
         $queryBuilder = $connection->createQueryBuilder();
@@ -1180,6 +1182,7 @@ class QuizController extends ActionController
         while ($row = $statement->fetch()) {
             return $row;
         }
+        return [];
     }
 
     /**
@@ -1527,6 +1530,9 @@ class QuizController extends ActionController
                 $this->view->assign('homepage', $this->request->getArgument('homepage'));
             }
         }
+        if (intval($this->settings['debug'])==2 && $data['debug']) {
+            $this->logger->debug($data['debug']);
+        }
         return $this->htmlResponse();
     }
 
@@ -1662,6 +1668,9 @@ class QuizController extends ActionController
                 $this->view->assign('homepage', $this->request->getArgument('homepage'));
             }
         }
+        if (intval($this->settings['debug'])==2 && $data['debug']) {
+            $this->logger->debug($data['debug']);
+        }
         return $this->htmlResponse();
     }
 
@@ -1795,6 +1804,9 @@ class QuizController extends ActionController
         $this->view->assign('from', $from);
         $this->view->assign('to', $to);
         $this->view->assign('uidOfCE', ($this->request->hasArgument('uidOfCE') ? intval($this->request->getArgument('uidOfCE')) : 0));
+        if (intval($this->settings['debug'])==2 && $data['debug']) {
+            $this->logger->debug($data['debug']);
+        }
         return $this->htmlResponse();
     }
 
@@ -1840,6 +1852,9 @@ class QuizController extends ActionController
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);
         $this->view->assign('uidOfCE', $uidOfCE);
+        if (intval($this->settings['debug'])==2 && $debug) {
+            $this->logger->debug($debug);
+        }
         return $this->htmlResponse();
     }
 
@@ -1865,14 +1880,12 @@ class QuizController extends ActionController
         $sys_language_uid = $languageAspect->getId();
         $pid = (int)$GLOBALS['TSFE']->id;
         $participants = $this->participantRepository->findFromQuizLimit($quiz->getUid(), intval($this->settings['highscoreLimit']));
-        $debug = '';
         $uidOfCE = 0;
         if (isset($this->configurationManager->getContentObject()->data['uid'])) {
             $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
         }
         $this->view->assign('quiz', $quiz);
         $this->view->assign('participants', $participants);
-        $this->view->assign('debug', $debug);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);
         $this->view->assign('uidOfCE', $uidOfCE);
