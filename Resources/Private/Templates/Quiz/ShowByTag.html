@@ -41,6 +41,12 @@
         {settings.template.wrapQuizDesc1 -> f:format.raw()}{quiz.about}{settings.template.wrapQuizDesc2 -> f:format.raw()}
     </f:if>
 
+    <f:if condition="({settings.user.checkFEuser} > 1) && ({participated} > 0)">
+        <p>
+            {f:translate(key: "text.participated", arguments: {0: '{participated}'})} {settings.user.checkFEuser}.
+        </p>
+    </f:if>
+
     <f:if condition="{quiz.timeperiod} && ({final} == 0)">
         <script>
             var quizTimePassed = parseInt({participant.timePassed});

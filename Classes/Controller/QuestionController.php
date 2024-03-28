@@ -2,6 +2,9 @@
 
 namespace Fixpunkt\FpMasterquiz\Controller;
 
+use Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository;
+use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
+use Fixpunkt\FpMasterquiz\Domain\Model\Question;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Psr\Http\Message\ResponseInterface;
@@ -32,16 +35,14 @@ class QuestionController extends ActionController
     /**
      * questionRepository
      *
-     * @var \Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository
+     * @var QuestionRepository
      */
     protected $questionRepository = null;
 
     /**
      * Injects the question-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository $questionRepository
      */
-    public function injectQuestionRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository $questionRepository)
+    public function injectQuestionRepository(QuestionRepository $questionRepository)
     {
         $this->questionRepository = $questionRepository;
     }
@@ -60,11 +61,9 @@ class QuestionController extends ActionController
     /**
      * action move
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $question
      * @return ResponseInterface
      */
-    public function moveAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz, \Fixpunkt\FpMasterquiz\Domain\Model\Question $question = NULL): ResponseInterface
+    public function moveAction(Quiz $quiz, Question $question = NULL): ResponseInterface
     {
         $pid = (int)GeneralUtility::_GP('id');
         if ($question) {

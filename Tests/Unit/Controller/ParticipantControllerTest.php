@@ -1,22 +1,26 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Controller;
 
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Fixpunkt\FpMasterquiz\Controller\ParticipantController;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
 /**
  * Test case.
  *
  * @author Kurt Gusbeth <k.gusbeth@fixpunkt.com>
  */
-class ParticipantControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class ParticipantControllerTest extends UnitTestCase
 {
     /**
-     * @var \Fixpunkt\FpMasterquiz\Controller\ParticipantController
+     * @var ParticipantController
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        parent::setUp();
-        $this->subject = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Controller\ParticipantController::class)
+        $this->subject = $this->getMockBuilder(ParticipantController::class)
             ->setMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -24,7 +28,6 @@ class ParticipantControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
     protected function tearDown()
     {
-        parent::tearDown();
     }
 
     /**
@@ -33,18 +36,18 @@ class ParticipantControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function listActionFetchesAllParticipantsFromRepositoryAndAssignsThemToView()
     {
 
-        $allParticipants = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $allParticipants = $this->getMockBuilder(ObjectStorage::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $participantRepository = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository::class)
+        $participantRepository = $this->getMockBuilder(ParticipantRepository::class)
             ->setMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
         $participantRepository->expects(self::once())->method('findAll')->will(self::returnValue($allParticipants));
         $this->inject($this->subject, 'participantRepository', $participantRepository);
 
-        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+        $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assign')->with('participants', $allParticipants);
         $this->inject($this->subject, 'view', $view);
 

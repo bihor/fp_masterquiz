@@ -1,22 +1,27 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Controller;
 
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Fixpunkt\FpMasterquiz\Controller\QuestionController;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use Fixpunkt\FpMasterquiz\Domain\Model\Question;
 /**
  * Test case.
  *
  * @author Kurt Gusbeth <k.gusbeth@fixpunkt.com>
  */
-class QuestionControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class QuestionControllerTest extends UnitTestCase
 {
     /**
-     * @var \Fixpunkt\FpMasterquiz\Controller\QuestionController
+     * @var QuestionController
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        parent::setUp();
-        $this->subject = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Controller\QuestionController::class)
+        $this->subject = $this->getMockBuilder(QuestionController::class)
             ->setMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -24,7 +29,6 @@ class QuestionControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
     protected function tearDown()
     {
-        parent::tearDown();
     }
 
     /**
@@ -33,18 +37,18 @@ class QuestionControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function listActionFetchesAllQuestionsFromRepositoryAndAssignsThemToView()
     {
 
-        $allQuestions = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $allQuestions = $this->getMockBuilder(ObjectStorage::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $questionRepository = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository::class)
+        $questionRepository = $this->getMockBuilder(QuestionRepository::class)
             ->setMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
         $questionRepository->expects(self::once())->method('findAll')->will(self::returnValue($allQuestions));
         $this->inject($this->subject, 'questionRepository', $questionRepository);
 
-        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+        $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assign')->with('questions', $allQuestions);
         $this->inject($this->subject, 'view', $view);
 
@@ -56,9 +60,9 @@ class QuestionControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function showActionAssignsTheGivenQuestionToView()
     {
-        $question = new \Fixpunkt\FpMasterquiz\Domain\Model\Question();
+        $question = new Question();
 
-        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+        $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $this->inject($this->subject, 'view', $view);
         $view->expects(self::once())->method('assign')->with('question', $question);
 

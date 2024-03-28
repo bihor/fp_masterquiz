@@ -1,6 +1,12 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
+use TYPO3\CMS\Extbase\Domain\Model\Category;
 /***
  *
  * This file is part of the "Master-Quiz" Extension for TYPO3 CMS.
@@ -11,18 +17,17 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
  *  (c) 2023 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt für digitales GmbH
  *
  ***/
-
 /**
  * Quiz / Test / Umfrage
  */
-class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Quiz extends AbstractEntity
 {
     /**
      * Name / Title
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $name = '';
 
     /**
@@ -56,31 +61,31 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * media
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var ObjectStorage<FileReference>
      */
+    #[Cascade(['value' => 'remove'])]
     protected $media = null;
 
     /**
      * Questions
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Question>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var ObjectStorage<Question>
      */
+    #[Cascade(['value' => 'remove'])]
     protected $questions = null;
 
     /**
      * Evaluations
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Evaluation>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var ObjectStorage<Evaluation>
      */
+    #[Cascade(['value' => 'remove'])]
     protected $evaluations = null;
 
     /**
      * category
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @var ObjectStorage<Category>
      */
     protected $categories = null;
     
@@ -103,10 +108,10 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-    	$this->media = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-    	$this->questions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-    	$this->evaluations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-    	$this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    	$this->media = new ObjectStorage();
+    	$this->questions = new ObjectStorage();
+    	$this->evaluations = new ObjectStorage();
+    	$this->categories = new ObjectStorage();
     }
     
     /**
@@ -204,17 +209,17 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     }
 
     /**
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference>
+     * @return ObjectStorage<FileReference>
      */
-    public function getMedia(): \TYPO3\CMS\Extbase\Persistence\ObjectStorage
+    public function getMedia(): ObjectStorage
     {
         return $this->media;
     }
 
     /**
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\FileReference> $media
+     * @param ObjectStorage<FileReference> $media
      */
-    public function setMedia(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $media): void
+    public function setMedia(ObjectStorage $media): void
     {
         $this->media = $media;
     }
@@ -222,30 +227,27 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a medium
      *
-     * @param  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
      * @return void
      */
-    public function addMedia(\TYPO3\CMS\Extbase\Domain\Model\FileReference $media) {
+    public function addMedia(FileReference $media) {
         $this->media->attach($media);
     }
 
     /**
      * Removes a medium
      *
-     * @param  \TYPO3\CMS\Extbase\Domain\Model\FileReference $media
      * @return void
      */
-    public function removeMedia(\TYPO3\CMS\Extbase\Domain\Model\FileReference $media) {
+    public function removeMedia(FileReference $media) {
         $this->media->detach($media);
     }
 
     /**
      * Adds a Question
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $question
      * @return void
      */
-    public function addQuestion(\Fixpunkt\FpMasterquiz\Domain\Model\Question $question)
+    public function addQuestion(Question $question)
     {
         $this->questions->attach($question);
     }
@@ -253,10 +255,10 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Question
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $questionToRemove The Question to be removed
+     * @param Question $questionToRemove The Question to be removed
      * @return void
      */
-    public function removeQuestion(\Fixpunkt\FpMasterquiz\Domain\Model\Question $questionToRemove)
+    public function removeQuestion(Question $questionToRemove)
     {
         $this->questions->detach($questionToRemove);
     }
@@ -264,7 +266,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the questions
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Question> $questions
+     * @return ObjectStorage<Question> $questions
      */
     public function getQuestions()
     {
@@ -274,10 +276,10 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the questions
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Question> $questions
+     * @param ObjectStorage<Question> $questions
      * @return void
      */
-    public function setQuestions(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $questions)
+    public function setQuestions(ObjectStorage $questions)
     {
         $this->questions = $questions;
     }
@@ -354,10 +356,9 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Evaluation
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Evaluation $evaluation
      * @return void
      */
-    public function addEvaluation(\Fixpunkt\FpMasterquiz\Domain\Model\Evaluation $evaluation)
+    public function addEvaluation(Evaluation $evaluation)
     {
         $this->evaluations->attach($evaluation);
     }
@@ -365,10 +366,10 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Evaluation
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Evaluation $evaluationToRemove The Evaluation to be removed
+     * @param Evaluation $evaluationToRemove The Evaluation to be removed
      * @return void
      */
-    public function removeEvaluation(\Fixpunkt\FpMasterquiz\Domain\Model\Evaluation $evaluationToRemove)
+    public function removeEvaluation(Evaluation $evaluationToRemove)
     {
         $this->evaluations->detach($evaluationToRemove);
     }
@@ -376,7 +377,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the evaluations
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Evaluation> $evaluations
+     * @return ObjectStorage<Evaluation> $evaluations
      */
     public function getEvaluations()
     {
@@ -386,10 +387,10 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the evaluations
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Evaluation> $evaluations
+     * @param ObjectStorage<Evaluation> $evaluations
      * @return void
      */
-    public function setEvaluations(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $evaluations)
+    public function setEvaluations(ObjectStorage $evaluations)
     {
         $this->evaluations = $evaluations;
     }
@@ -418,7 +419,7 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the categories
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @return ObjectStorage<Category>
      */
     public function getCategories()
     {
@@ -428,10 +429,10 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the category
      *
-     * @param  \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category> $categories
+     * @param ObjectStorage<Category> $categories
      * @return void
      */
-    public function setCategories(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $categories)
+    public function setCategories(ObjectStorage $categories)
     {
         $this->categories = $categories;
     }
@@ -439,20 +440,18 @@ class Quiz extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a category
      *
-     * @param  \TYPO3\CMS\Extbase\Domain\Model\Category $category
      * @return void
      */
-    public function addCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category) {
+    public function addCategory(Category $category) {
         $this->categories->attach($category);
     }
     
     /**
      * Removes a category
      *
-     * @param  \TYPO3\CMS\Extbase\Domain\Model\Category $category
      * @return void
      */
-    public function removeCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category) {
+    public function removeCategory(Category $category) {
         $this->categories->detach($category);
     }
     				

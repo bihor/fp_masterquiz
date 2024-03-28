@@ -12,35 +12,17 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 class RecentParticipantsWidget implements WidgetInterface
 {
     /**
-     * @var WidgetConfigurationInterface
-     */
-    private $configuration;
-
-    /**
-     * @var StandaloneView
-     */
-    private $view;
-
-    /**
      * @var array
      */
     private $options;
 
-    /**
-     * @var ParticipantsDataProvider
-     */
-    private $dataProvider;
-
     public function __construct(
-        WidgetConfigurationInterface $configuration,
-        StandaloneView               $view,
-        ParticipantsDataProvider     $dataProvider,
+        private readonly WidgetConfigurationInterface $configuration,
+        private readonly StandaloneView               $view,
+        private readonly ParticipantsDataProvider     $dataProvider,
         array                        $options = []
     )
     {
-        $this->configuration = $configuration;
-        $this->view = $view;
-        $this->dataProvider = $dataProvider;
         $this->options = array_merge(
             [
                 'showErrors' => true,

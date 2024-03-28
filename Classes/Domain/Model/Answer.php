@@ -2,6 +2,10 @@
 
 namespace Fixpunkt\FpMasterquiz\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\Validate;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Domain\Model\Category;
 /***
  *
  * This file is part of the "Master-Quiz" Extension for TYPO3 CMS.
@@ -12,18 +16,17 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
  *  (c) 2023 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt für digitales GmbH
  *
  ***/
-
 /**
  * Answer of a question
  */
-class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Answer extends AbstractEntity
 {
     /**
      * Answer-text
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $title = '';
 
     /**
@@ -78,7 +81,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * category
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @var ObjectStorage<Category>
      */
     protected $categories = null;
 
@@ -92,7 +95,7 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->categories = new ObjectStorage();
     }
 
     /**
@@ -112,8 +115,8 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     public function getTitleJS()
     {
-        $title = str_replace(array("'"), "\'", $this->title);
-        return str_replace(array("\r\n", "\r", "\n"), "<br />", $title);
+        $title = str_replace(["'"], "\'", $this->title);
+        return str_replace(["\r\n", "\r", "\n"], "<br />", $title);
     }
 
     /**
@@ -277,17 +280,16 @@ class Answer extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Category
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\Category $category
      * @return void
      */
-    public function addCategory(\TYPO3\CMS\Extbase\Domain\Model\Category $category) {
+    public function addCategory(Category $category) {
         $this->categories->attach($category);
     }
 
     /**
      * Returns the categories
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @return ObjectStorage<Category>
      */
     public function getCategories()
     {

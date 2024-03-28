@@ -1,7 +1,8 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Domain\Model;
 
-
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 /***
  *
  * This file is part of the "Master-Quiz" Extension for TYPO3 CMS.
@@ -15,15 +16,15 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
 /**
  * Tag
  */
-class Tag extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Tag extends AbstractEntity
 {
 
     /**
      * Name
-     * 
+     *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $name = '';
 
     /**

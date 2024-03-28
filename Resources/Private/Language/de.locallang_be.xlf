@@ -283,6 +283,14 @@
 				<source>Check if a FE-user has already participated?</source>
 				<target>Abfragen, ob ein FE-user schon teilgenommen hat?</target>
 			</trans-unit>
+			<trans-unit id="settings.user.checkFEuser.2" resname="settings.user.checkFEuser.2">
+				<source>Allow 2 participations</source>
+				<target>Ja, aber 2 Teilnahmen erlauben</target>
+			</trans-unit>
+			<trans-unit id="settings.user.checkFEuser.3" resname="settings.user.checkFEuser.3">
+				<source>Allow 3 participations</source>
+				<target>Ja, aber 3 Teilnahmen erlauben</target>
+			</trans-unit>
 			<trans-unit id="settings.user.useQuizPid" resname="settings.user.useQuizPid">
 				<source>Use automatically the pid from the quiz?</source>
 				<target>Benutze die PID des Quiz für den Teilnehmer?</target>

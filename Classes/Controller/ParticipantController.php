@@ -2,6 +2,9 @@
 
 namespace Fixpunkt\FpMasterquiz\Controller;
 
+use Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository;
+use Fixpunkt\FpMasterquiz\Domain\Model\Participant;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
@@ -35,16 +38,14 @@ class ParticipantController extends ActionController
     /**
      * participantRepository
      *
-     * @var \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository
+     * @var ParticipantRepository
      */
     protected $participantRepository = null;
 
     /**
      * Injects the participant-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository
      */
-    public function injectParticipantRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository)
+    public function injectParticipantRepository(ParticipantRepository $participantRepository)
     {
         $this->participantRepository = $participantRepository;
     }
@@ -63,7 +64,6 @@ class ParticipantController extends ActionController
     /**
      * action list
      *
-     * @param int $currentPage
      * @return ResponseInterface
      */
     public function listAction(int $currentPage = 1): ResponseInterface
@@ -96,10 +96,9 @@ class ParticipantController extends ActionController
     /**
      * action detail
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
      * @return ResponseInterface
      */
-    public function detailAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant): ResponseInterface
+    public function detailAction(Participant $participant): ResponseInterface
     {
         foreach ($participant->getSelections() as $selection) {
             if ($selection->getQuestion()->getQmode() == 8) {
@@ -125,13 +124,12 @@ class ParticipantController extends ActionController
     /**
      * action delete
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
      * @return ResponseInterface
      */
-    public function deleteAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant): ResponseInterface
+    public function deleteAction(Participant $participant): ResponseInterface
     {
         if ($participant->getUid() > 0) {
-            $this->addFlashMessage($participant->getName() . ' deleted.', '', AbstractMessage::WARNING);
+            $this->addFlashMessage($participant->getName() . ' deleted.', '', ContextualFeedbackSeverity::WARNING);
             $this->participantRepository->remove($participant);
         }
         return $this->responseFactory->createResponse(307)

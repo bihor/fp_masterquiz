@@ -1,6 +1,9 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Domain\Model\Category;
 /***
  *
  * This file is part of the "Master-Quiz" Extension for TYPO3 CMS.
@@ -11,11 +14,10 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
  *  (c) 2019 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
  *
  ***/
-
 /**
  * Selected question with answers
  */
-class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Selected extends AbstractEntity
 {
     /**
      * Points for this question
@@ -34,14 +36,14 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Question
      *
-     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Question
+     * @var Question
      */
     protected $question = null;
 
     /**
      * Answers to this question
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Answer>
+     * @var ObjectStorage<Answer>
      */
     protected $answers = null;
     
@@ -55,7 +57,7 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * category
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @var ObjectStorage<Category>
      */
     protected $categories = null;
 
@@ -78,8 +80,8 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->answers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
-        $this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->answers = new ObjectStorage();
+        $this->categories = new ObjectStorage();
     }
     
     /**
@@ -159,7 +161,7 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the question
      *
-     * @return \Fixpunkt\FpMasterquiz\Domain\Model\Question $question
+     * @return Question $question
      */
     public function getQuestion()
     {
@@ -169,10 +171,9 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the question
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $question
      * @return void
      */
-    public function setQuestion(\Fixpunkt\FpMasterquiz\Domain\Model\Question $question)
+    public function setQuestion(Question $question)
     {
         $this->question = $question;
     }
@@ -180,10 +181,9 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds an Answer
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answer
      * @return void
      */
-    public function addAnswer(\Fixpunkt\FpMasterquiz\Domain\Model\Answer $answer)
+    public function addAnswer(Answer $answer)
     {
         $this->answers->attach($answer);
     }
@@ -191,10 +191,10 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes an Answer
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Answer $answerToRemove The Answer to be removed
+     * @param Answer $answerToRemove The Answer to be removed
      * @return void
      */
-    public function removeAnswer(\Fixpunkt\FpMasterquiz\Domain\Model\Answer $answerToRemove)
+    public function removeAnswer(Answer $answerToRemove)
     {
         $this->answers->detach($answerToRemove);
     }
@@ -202,7 +202,7 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the answers
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Answer> $answers
+     * @return ObjectStorage<Answer> $answers
      */
     public function getAnswers()
     {
@@ -212,10 +212,10 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the answers
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Answer> $answers
+     * @param ObjectStorage<Answer> $answers
      * @return void
      */
-    public function setAnswers(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $answers)
+    public function setAnswers(ObjectStorage $answers)
     {
         $this->answers = $answers;
     }
@@ -233,7 +233,7 @@ class Selected extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the categories
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @return ObjectStorage<Category>
      */
     public function getCategories()
     {

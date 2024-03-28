@@ -2,6 +2,8 @@
 
 namespace Fixpunkt\FpMasterquiz\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 
 /***
@@ -18,14 +20,14 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /**
  * The repository for Participants
  */
-class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class ParticipantRepository extends Repository
 {
 
     /**
      * Fetches entries of a folder.
      *
      * @param	integer	$pageId	Page-UID
-     * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findFromPid($pageId)
     {
@@ -44,7 +46,7 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      * @param	integer	$pageId	Page-UID
      * @param	integer	$quizId	Quiz-UID
      * @param	integer	$limit Limit
-     * @return	array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findFromPidAndQuiz($pageId, $quizId, $limit = 0)
     {
@@ -70,7 +72,7 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param integer $quizId Quiz-UID
      * @param integer $limit Limit for highscore
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findFromQuizLimit(int $quizId, $limit = 10)
     {
@@ -85,11 +87,31 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     }
 
     /**
+     * Fetches # of entries for a quiz and user.
+     *
+     * @param integer $userId FEuser-UID
+     * @param integer $quizId Quiz-UID
+     * @return array|QueryResultInterface
+     */
+    public function findCountByUserAndQuiz($userId, $quizId)
+    {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                $query->equals('user', $userId),
+                $query->equals('quiz', $quizId),
+                $query->equals('completed', 1)
+            )
+        );
+        return $query->execute()->count();
+    }
+
+    /**
      * Fetches entries for a quiz and user.
      *
      * @param integer $userId FEuser-UID
      * @param integer $quizId Quiz-UID
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findOneByUserAndQuiz($userId, $quizId)
     {
@@ -108,7 +130,7 @@ class ParticipantRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      *
      * @param integer $userId FEuser-UID
      * @param integer $quizId Quiz-PID
-     * @return array|\TYPO3\CMS\Extbase\Persistence\QueryResultInterface
+     * @return array|QueryResultInterface
      */
     public function findOneByUidAndPid($userId, $quizPid)
     {

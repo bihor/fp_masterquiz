@@ -2,6 +2,9 @@
 
 namespace Fixpunkt\FpMasterquiz\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -19,7 +22,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * Participant
  */
-class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Participant extends AbstractEntity
 {
     /**
      * @var \DateTime
@@ -125,16 +128,16 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Participated quiz: darf in TYPO3 10 nicht lazy sein!
      *
-     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Quiz
+     * @var Quiz
      */
     protected $quiz = null;
 
     /**
      * Answered questions
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Selected>
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var ObjectStorage<Selected>
      */
+    #[Cascade(['value' => 'remove'])]
     protected $selections = null;
 
     /**
@@ -156,7 +159,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-    	$this->selections = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+    	$this->selections = new ObjectStorage();
     }
 
     /**
@@ -399,7 +402,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the quiz
      *
-     * @return \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
+     * @return Quiz $quiz
      */
     public function getQuiz()
     {
@@ -409,10 +412,9 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the quiz
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
      * @return void
      */
-    public function setQuiz(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz)
+    public function setQuiz(Quiz $quiz)
     {
         $this->quiz = $quiz;
     }
@@ -650,10 +652,9 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Adds a Selected
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Selected $selection
      * @return void
      */
-    public function addSelection(\Fixpunkt\FpMasterquiz\Domain\Model\Selected $selection)
+    public function addSelection(Selected $selection)
     {
         $this->selections->attach($selection);
     }
@@ -661,10 +662,10 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Removes a Selected
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Selected $selectionToRemove The Selected to be removed
+     * @param Selected $selectionToRemove The Selected to be removed
      * @return void
      */
-    public function removeSelection(\Fixpunkt\FpMasterquiz\Domain\Model\Selected $selectionToRemove)
+    public function removeSelection(Selected $selectionToRemove)
     {
         $this->selections->detach($selectionToRemove);
     }
@@ -672,7 +673,7 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the selections
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Selected> selections
+     * @return ObjectStorage<Selected> selections
      */
     public function getSelections()
     {
@@ -727,10 +728,10 @@ class Participant extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the selections
      *
-     * @param \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\Fixpunkt\FpMasterquiz\Domain\Model\Selected> $selections
+     * @param ObjectStorage<Selected> $selections
      * @return void
      */
-    public function setSelections(\TYPO3\CMS\Extbase\Persistence\ObjectStorage $selections)
+    public function setSelections(ObjectStorage $selections)
     {
         $this->selections = $selections;
     }

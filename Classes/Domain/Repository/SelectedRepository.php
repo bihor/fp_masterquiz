@@ -2,6 +2,7 @@
 
 namespace Fixpunkt\FpMasterquiz\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
@@ -21,7 +22,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 /**
  * The repository for Selecteds
  */
-class SelectedRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class SelectedRepository extends Repository
 {
     /**
      * @var array

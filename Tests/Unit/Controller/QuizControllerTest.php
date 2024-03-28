@@ -1,22 +1,27 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Controller;
 
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Fixpunkt\FpMasterquiz\Controller\QuizController;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository;
+use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
+use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
 /**
  * Test case.
  *
  * @author Kurt Gusbeth <k.gusbeth@fixpunkt.com>
  */
-class QuizControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class QuizControllerTest extends UnitTestCase
 {
     /**
-     * @var \Fixpunkt\FpMasterquiz\Controller\QuizController
+     * @var QuizController
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        parent::setUp();
-        $this->subject = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Controller\QuizController::class)
+        $this->subject = $this->getMockBuilder(QuizController::class)
             ->setMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -24,7 +29,6 @@ class QuizControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
 
     protected function tearDown()
     {
-        parent::tearDown();
     }
 
     /**
@@ -33,18 +37,18 @@ class QuizControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
     public function listActionFetchesAllQuizzesFromRepositoryAndAssignsThemToView()
     {
 
-        $allQuizzes = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $allQuizzes = $this->getMockBuilder(ObjectStorage::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $quizRepository = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository::class)
+        $quizRepository = $this->getMockBuilder(QuizRepository::class)
             ->setMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
         $quizRepository->expects(self::once())->method('findAll')->will(self::returnValue($allQuizzes));
         $this->inject($this->subject, 'quizRepository', $quizRepository);
 
-        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+        $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assign')->with('quizzes', $allQuizzes);
         $this->inject($this->subject, 'view', $view);
 
@@ -56,9 +60,9 @@ class QuizControllerTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function showActionAssignsTheGivenQuizToView()
     {
-        $quiz = new \Fixpunkt\FpMasterquiz\Domain\Model\Quiz();
+        $quiz = new Quiz();
 
-        $view = $this->getMockBuilder(\TYPO3\CMS\Extbase\Mvc\View\ViewInterface::class)->getMock();
+        $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $this->inject($this->subject, 'view', $view);
         $view->expects(self::once())->method('assign')->with('quiz', $quiz);
 

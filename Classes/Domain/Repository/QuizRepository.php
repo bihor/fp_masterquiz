@@ -2,6 +2,8 @@
 
 namespace Fixpunkt\FpMasterquiz\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -20,7 +22,7 @@ use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
 /**
  * The repository for Quizzes
  */
-class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class QuizRepository extends Repository
 {
     /**
      * @var array
@@ -68,7 +70,7 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         }
         */
         $uid = 0;
-        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
         $statement = $queryBuilder
             ->select('uid')
             ->from('tx_fpmasterquiz_domain_model_quiz')
@@ -110,7 +112,7 @@ class QuizRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
      */
     public function findFormUidAndPidOtherLanguages(int $uid)
     {
-        $queryBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Database\ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
         $statement = $queryBuilder
             ->select('*')
             ->from('tx_fpmasterquiz_domain_model_quiz')

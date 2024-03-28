@@ -1,6 +1,8 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Task;
 
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
@@ -53,7 +55,7 @@ class CsvExportTask extends AbstractTask
     protected $convert = 0;
 
     /**
-     * @var TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @var ConfigurationManagerInterface
      */
     protected $configurationManager;
 
@@ -271,7 +273,7 @@ class CsvExportTask extends AbstractTask
                 } else {
                     $text = $row[trim($field)];
                 }
-                $text = preg_replace( "/\r|\n/", " ", $text);
+                $text = preg_replace( "/\r|\n/", " ", (string) $text);
                 if ($convert)
                     $text = iconv('utf-8', 'iso-8859-1', $text);
                 if ($field == 'crdate')
@@ -285,7 +287,7 @@ class CsvExportTask extends AbstractTask
 
         }
 
-        $fp = fopen(\TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/' . $this->getCsvfile(), 'w');
+        $fp = fopen(Environment::getPublicPath() . '/' . $this->getCsvfile(), 'w');
         $ergebnis = fwrite($fp, $content);
         fclose($fp);
         if (!$ergebnis)

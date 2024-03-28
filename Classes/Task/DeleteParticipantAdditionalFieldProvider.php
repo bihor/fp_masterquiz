@@ -1,6 +1,7 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Task;
 
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -25,7 +26,7 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 	 */
 	public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule)
 	{
-		$additionalFields = array();
+		$additionalFields = [];
 		$currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
 		if (empty($taskInfo['page'])) {
 			if ($currentSchedulerModuleAction->equals(Action::ADD)) {
@@ -51,29 +52,20 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 		
 		// Ordner
 		$fieldId = 'task_page';
-		$fieldCode = '<input type="text" name="tx_scheduler[fp_masterquiz][page]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['page']) . '"/>';
+		$fieldCode = '<input type="text" name="tx_scheduler[fp_masterquiz][page]" id="' . $fieldId . '" value="' . htmlspecialchars((string) $taskInfo['page']) . '"/>';
 		$label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.page');
-		$additionalFields[$fieldId] = array(
-				'code' => $fieldCode,
-				'label' => $label
-		);
+		$additionalFields[$fieldId] = ['code' => $fieldCode, 'label' => $label];
 		// Days
 		$fieldId = 'task_days';
-		$fieldCode = '<input type="text" name="tx_scheduler[fp_masterquiz][days]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['days']) . '"/>';
+		$fieldCode = '<input type="text" name="tx_scheduler[fp_masterquiz][days]" id="' . $fieldId . '" value="' . htmlspecialchars((string) $taskInfo['days']) . '"/>';
 		$label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.days');
-		$additionalFields[$fieldId] = array(
-				'code' => $fieldCode,
-				'label' => $label
-		);
+		$additionalFields[$fieldId] = ['code' => $fieldCode, 'label' => $label];
 		// flag or real delete?
 		$fieldId = 'task_flag';
 		$checked = ($taskInfo['flag']) ? ' checked="checked"' : '';
 		$fieldCode = '<input type="checkbox" name="tx_scheduler[fp_masterquiz][flag]" id="' . $fieldId . '" value="1"' . $checked . ' />';
 		$label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.flag');
-		$additionalFields[$fieldId] = array(
-		    'code' => $fieldCode,
-		    'label' => $label
-		);
+		$additionalFields[$fieldId] = ['code' => $fieldCode, 'label' => $label];
 		return $additionalFields;
 	}
 	
@@ -102,21 +94,21 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 				$isValid = FALSE;
 				$this->addMessage(
 					$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidPage'),
-					FlashMessage::ERROR
+					ContextualFeedbackSeverity::ERROR
 				);
 			}
 		} else {
 			$isValid = FALSE;
 			$this->addMessage(
 				$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidPage'),
-				FlashMessage::ERROR
+				ContextualFeedbackSeverity::ERROR
 			);
 		}
 		if (intval($submittedData['fp_masterquiz']['days']) < 1) {
 			$isValid = FALSE;
 			$this->addMessage(
 				$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidDays'),
-				FlashMessage::ERROR
+				ContextualFeedbackSeverity::ERROR
 			);
 		}
 		return $isValid;

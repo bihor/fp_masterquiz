@@ -1,27 +1,30 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Domain\Model;
 
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Fixpunkt\FpMasterquiz\Domain\Model\Question;
+use Fixpunkt\FpMasterquiz\Domain\Model\Evaluation;
 /**
  * Test case.
  *
  * @author Kurt Gusbeth <k.gusbeth@fixpunkt.com>
  */
-class QuizTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class QuizTest extends UnitTestCase
 {
     /**
-     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Quiz
+     * @var Quiz
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        parent::setUp();
-        $this->subject = new \Fixpunkt\FpMasterquiz\Domain\Model\Quiz();
+        $this->subject = new Quiz();
     }
 
     protected function tearDown()
     {
-        parent::tearDown();
     }
 
     /**
@@ -79,7 +82,7 @@ class QuizTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getQuestionsReturnsInitialValueForQuestion()
     {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $newObjectStorage = new ObjectStorage();
         self::assertEquals(
             $newObjectStorage,
             $this->subject->getQuestions()
@@ -91,8 +94,8 @@ class QuizTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setQuestionsForObjectStorageContainingQuestionSetsQuestions()
     {
-        $question = new \Fixpunkt\FpMasterquiz\Domain\Model\Question();
-        $objectStorageHoldingExactlyOneQuestions = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $question = new Question();
+        $objectStorageHoldingExactlyOneQuestions = new ObjectStorage();
         $objectStorageHoldingExactlyOneQuestions->attach($question);
         $this->subject->setQuestions($objectStorageHoldingExactlyOneQuestions);
 
@@ -108,8 +111,8 @@ class QuizTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addQuestionToObjectStorageHoldingQuestions()
     {
-        $question = new \Fixpunkt\FpMasterquiz\Domain\Model\Question();
-        $questionsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $question = new Question();
+        $questionsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->setMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -125,8 +128,8 @@ class QuizTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function removeQuestionFromObjectStorageHoldingQuestions()
     {
-        $question = new \Fixpunkt\FpMasterquiz\Domain\Model\Question();
-        $questionsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $question = new Question();
+        $questionsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->setMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -142,7 +145,7 @@ class QuizTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function getEvaluationsReturnsInitialValueForEvaluation()
     {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $newObjectStorage = new ObjectStorage();
         self::assertEquals(
             $newObjectStorage,
             $this->subject->getEvaluations()
@@ -154,8 +157,8 @@ class QuizTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function setEvaluationsForObjectStorageContainingEvaluationSetsEvaluations()
     {
-        $evaluation = new \Fixpunkt\FpMasterquiz\Domain\Model\Evaluation();
-        $objectStorageHoldingExactlyOneEvaluations = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $evaluation = new Evaluation();
+        $objectStorageHoldingExactlyOneEvaluations = new ObjectStorage();
         $objectStorageHoldingExactlyOneEvaluations->attach($evaluation);
         $this->subject->setEvaluations($objectStorageHoldingExactlyOneEvaluations);
 
@@ -171,8 +174,8 @@ class QuizTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function addEvaluationToObjectStorageHoldingEvaluations()
     {
-        $evaluation = new \Fixpunkt\FpMasterquiz\Domain\Model\Evaluation();
-        $evaluationsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $evaluation = new Evaluation();
+        $evaluationsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->setMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -188,8 +191,8 @@ class QuizTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
      */
     public function removeEvaluationFromObjectStorageHoldingEvaluations()
     {
-        $evaluation = new \Fixpunkt\FpMasterquiz\Domain\Model\Evaluation();
-        $evaluationsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $evaluation = new Evaluation();
+        $evaluationsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->setMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();

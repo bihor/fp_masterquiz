@@ -1,12 +1,13 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Task;
 
+use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 
-class DeleteParticipantTask extends \TYPO3\CMS\Scheduler\Task\AbstractTask {
+class DeleteParticipantTask extends AbstractTask {
 
 	/**
 	 * Uid of the folder

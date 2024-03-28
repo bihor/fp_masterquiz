@@ -72,7 +72,7 @@ user.ipSave                  boolean     Save the IP-address of a user?         
 user.ipAnonymous             boolean     Anonymize the IP-address?                       1
 user.useCookie               integer     Save the session in a cookie too? See below.    0
 user.useQuizPid              boolean     Use automatically the pid from the quiz?        0
-user.checkFEuser             boolean     Check if a FEuser has already participated?     0
+user.checkFEuser             integer     Check if a FEuser has already participated?°    0
 user.askForData              integer     Ask for user data? 0, 1, 2 or 3 (see below).    0
 user.defaultName             string      Default user name ({TIME} will be replaced).    default {TIME}
 user.defaultEmail            string      Default user email.                             -
@@ -143,6 +143,9 @@ Layout**) If you use template layout 1, you should know this:
 - The charts settings will be ignored if you use another layout.
 
 - The ApexCharts will be used automatically. More information: https://apexcharts.com/
+
+feusers°) If you use a value greater than 1 for user.checkFEuser, then a participant can participate more than one time.
+If you set the value to 4, 4 participations are allowed (not tested in the Ajax mode).
 
 Note: if you enable a cookie or FEuser check, then an user cannot vote again, if he had already voted/participated.
 The participant will see his result of a poll/quiz instead of the checkboxes/radio buttons.

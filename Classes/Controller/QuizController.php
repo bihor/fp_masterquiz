@@ -2,6 +2,20 @@
 
 namespace Fixpunkt\FpMasterquiz\Controller;
 
+use Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository;
+use Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository;
+use Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository;
+use Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository;
+use Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository;
+use Fixpunkt\FpMasterquiz\Domain\Model\Participant;
+use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
+use Fixpunkt\FpMasterquiz\Domain\Model\Selected;
+use Fixpunkt\FpMasterquiz\Domain\Model\Question;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
+use TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry;
+use TYPO3\CMS\Extbase\Http\ForwardResponse;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -38,55 +52,50 @@ class QuizController extends ActionController
     /**
      * quizRepository
      *
-     * @var \Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository
+     * @var QuizRepository
      */
     protected $quizRepository = null;
 
     /**
      * answerRepository
      *
-     * @var \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository
+     * @var AnswerRepository
      */
     protected $answerRepository = null;
 
     /**
      * participantRepository
      *
-     * @var \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository
+     * @var ParticipantRepository
      */
     protected $participantRepository = null;
 
     /**
      * selectedRepository
      *
-     * @var \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository
+     * @var SelectedRepository
      */
     protected $selectedRepository = null;
 
     /**
      * participant
      *
-     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Participant
+     * @var Participant
      */
     protected $participant = null;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @var ConfigurationManagerInterface
      */
     protected $configurationManager;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface
+     * @var PersistenceManagerInterface
      */
     protected $persistenceManager;
 
-    private LoggerInterface $logger;
-
-    public function __construct(
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-        LoggerInterface $logger
-    ) {
-        $this->logger = $logger;
+    public function __construct(protected readonly ModuleTemplateFactory $moduleTemplateFactory, private readonly LoggerInterface $logger)
+    {
     }
 
     public function initializeIndexAction()
@@ -107,42 +116,39 @@ class QuizController extends ActionController
 
     /**
      * Injects the quiz-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository $quizRepository
      */
-    public function injectQuizRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository $quizRepository)
+    public function injectQuizRepository(QuizRepository $quizRepository)
     {
         $this->quizRepository = $quizRepository;
     }
 
     /**
      * Injects the answer-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository $answerRepository
      */
-    public function injectAnswerRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository $answerRepository)
+    public function injectAnswerRepository(AnswerRepository $answerRepository)
     {
         $this->answerRepository = $answerRepository;
     }
 
     /**
      * Injects the selected-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository $selectedRepository
      */
-    public function injectSelectedRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository $selectedRepository)
+    public function injectSelectedRepository(SelectedRepository $selectedRepository)
     {
         $this->selectedRepository = $selectedRepository;
     }
 
     /**
      * Injects the participant-Repository
-     *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository
      */
-    public function injectParticipantRepository(\Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository)
+    public function injectParticipantRepository(ParticipantRepository $participantRepository)
     {
         $this->participantRepository = $participantRepository;
+    }
+
+    public function injectPersistenceManager(PersistenceManagerInterface $persistenceManager)
+    {
+        $this->persistenceManager = $persistenceManager;
     }
 
     /**
@@ -151,17 +157,17 @@ class QuizController extends ActionController
     public function initializeAction()
     {
         $tsSettings = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT
         );
         if (isset($tsSettings['plugin.']['tx_fpmasterquiz.'])) {
             $tsSettings = $tsSettings['plugin.']['tx_fpmasterquiz.']['settings.'];
             $originalSettings = $this->configurationManager->getConfiguration(
-                \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_SETTINGS
             );
             // if flexform setting is empty and value is available in TS
             $overrideFlexformFields = GeneralUtility::trimExplode(',', $tsSettings['overrideFlexformSettingsIfEmpty'], true);
             foreach ($overrideFlexformFields as $fieldName) {
-                if (strpos($fieldName, '.') !== false) {
+                if (str_contains($fieldName, '.')) {
                     // Multilevel
                     $keyAsArray = explode('.', $fieldName);
                     if ((!isset($originalSettings[$keyAsArray[0]][$keyAsArray[1]]) || !($originalSettings[$keyAsArray[0]][$keyAsArray[1]]))
@@ -180,14 +186,6 @@ class QuizController extends ActionController
         }
     }
 
-    /**
-     * @param \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager
-     */
-    public function injectPersistenceManager(\TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager)
-    {
-        $this->persistenceManager = $persistenceManager;
-    }
-
     /*
     * Sucht ein default-Quiz
     */
@@ -202,7 +200,7 @@ class QuizController extends ActionController
             $this->addFlashMessage(
                 LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' uid=' . $defaultQuizUid,
                 LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-                AbstractMessage::WARNING,
+                ContextualFeedbackSeverity::WARNING,
                 false
             );
         }
@@ -236,7 +234,6 @@ class QuizController extends ActionController
     /**
      * Prüft, ob eine Session gültig ist: check the session against the request-parameter
      *
-     * @param string $c_debug
      * @return boolean
      */
     public function isSessionOK(string &$c_debug): bool
@@ -259,14 +256,13 @@ class QuizController extends ActionController
     /**
      * Sucht einen Teilnehmer und erzeugt ggf. einen
      *
-     * @param int $quizUid
-     * @param int $quizPid
      * @return array
      */
     public function findParticipant(int $quizUid, int $quizPid)
     {
         $session = '';          // session key
         $debug = '';
+        $participated = 0;
         $newUser = false;
         $context = GeneralUtility::makeInstance(Context::class);
         $fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
@@ -286,7 +282,7 @@ class QuizController extends ActionController
                 $session = $_COOKIE['qsession' . $quizUid];
             }
             if ($session) {
-                $this->participant = $this->participantRepository->findOneBySession($session);
+                $this->participant = $this->participantRepository->findOneBy(['session' => $session]);
                 if ($this->settings['debug']) {
                     if ($this->participant) {
                         $debug .= "\nsession from cookie: " . $session . '; and the participant-uid of that session: ' . $this->participant->getUid();
@@ -298,9 +294,26 @@ class QuizController extends ActionController
                 if ($this->settings['user']['checkFEuser'] && $fe_user_uid) {
                     $this->participant = $this->participantRepository->findOneByUserAndQuiz($fe_user_uid, $quizUid);
                     if ($this->participant) {
-                        $session = $this->participant->getSession();
-                        if ($this->settings['debug']) {
-                            $debug .= "\nsession from FEuser: " . $session . '; and the participant-uid: ' . $this->participant->getUid();
+                        if ($this->settings['user']['checkFEuser'] > 1) {
+                            $allowedParticipations = intval($this->settings['user']['checkFEuser']);
+                            $participated = $this->participantRepository->findCountByUserAndQuiz($fe_user_uid, $quizUid);
+                            if (($participated >= $allowedParticipations) || !$this->participant->isCompleted()) {
+                                if ($this->settings['debug']) {
+                                    $debug .= "\n" . $participated . 'x participated; no restriction.';
+                                }
+                            } else {
+                                // Reset a completed participant to allow a new "Teilnahme"
+                                $this->participant = null;
+                                if ($this->settings['debug']) {
+                                    $debug .= "\n" . $participated . 'x participated; allow more participations.';
+                                }
+                            }
+                        }
+                        if ($this->participant) {
+                            $session = $this->participant->getSession();
+                            if ($this->settings['debug']) {
+                                $debug .= "\nsession from FEuser: " . $session . '; and the participant-uid: ' . $this->participant->getUid();
+                            }
                         }
                     }
                 }
@@ -320,7 +333,7 @@ class QuizController extends ActionController
             if ($this->settings['user']['useQuizPid']) {
                 $this->participant = $this->participantRepository->findOneByUidAndPid($participantUid, $quizPid);
             } else {
-                $this->participant = $this->participantRepository->findOneByUid($participantUid);
+                $this->participant = $this->participantRepository->findOneBy(['uid' => $participantUid]);
             }
             if ($this->participant) {
                 // ein abgelegter session-key hat Vorrang
@@ -334,7 +347,7 @@ class QuizController extends ActionController
             }
         }
         if (!$this->participant) {
-            $this->participant = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Participant');
+            $this->participant = GeneralUtility::makeInstance(Participant::class);
             $this->participant->_setProperty('_languageUid', -1);
             if ($this->settings['debug']) {
                 $debug .= "\nMaking new participant.";
@@ -346,7 +359,7 @@ class QuizController extends ActionController
                 }
             }
             if ($this->settings['random'] && $this->request->hasArgument('randomPages') && $this->request->getArgument('randomPages')) {
-                $this->participant->setRandompages(explode(',', $this->request->getArgument('randomPages')));
+                $this->participant->setRandompages(explode(',', (string) $this->request->getArgument('randomPages')));
                 if ($this->settings['debug']) {
                     $debug .= " Set random pages: " . $this->request->getArgument('randomPages');
                 }
@@ -371,13 +384,14 @@ class QuizController extends ActionController
                 $GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quizUid, $session);
                 $GLOBALS["TSFE"]->fe_user->storeSessionData();
             } else if (intval($this->settings['user']['useCookie']) > 0) {
-                setcookie('qsession' . $quizUid, $session, time() + (3600 * 24 * intval($this->settings['user']['useCookie'])));  /* verfällt in x Tagen */
+                setcookie('qsession' . $quizUid, (string) $session, ['expires' => time() + (3600 * 24 * intval($this->settings['user']['useCookie']))]);  /* verfällt in x Tagen */
             }
         }
         $result = [];
         $result['session'] = $session;
         $result['newUser'] = $newUser;
         $result['fe_user_uid'] = $fe_user_uid;
+        $result['participated'] = $participated;
         $result['debug'] = $debug;
         return $result;
     }
@@ -385,9 +399,6 @@ class QuizController extends ActionController
     /**
      * Setzt Name, E-Mail und Homepage, falls vorhanden
      *
-     * @param string $defaultName
-     * @param string $defaultEmail
-     * @param string $defaultHomepage
      * @return void
      */
     protected function setUserData(string $defaultName = '', string $defaultEmail = '', string $defaultHomepage = '') {
@@ -416,13 +427,12 @@ class QuizController extends ActionController
     /**
      * do All: evaluate selections
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
      * @param array $userData Some user data in an array
      * @param int $pages No. of pages if tags are used
      * @param array $randomNumbers Random page numbers
      * @return array
      */
-    public function doAll(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz, array $userData, int $pages, array $randomNumbers): array
+    public function doAll(Quiz $quiz, array $userData, int $pages, array $randomNumbers): array
     {
         $saveIt = false;
         $reload = false;
@@ -495,7 +505,7 @@ class QuizController extends ActionController
             }
             if (!$this->participant->getUid()) {
                 if (!$newUser && $session) {
-                    $partBySes = $this->participantRepository->findOneBySession($session);
+                    $partBySes = $this->participantRepository->findOneBy(['session' => $session]);
                 }
                 if ($partBySes) {
                     $this->participant = $partBySes;
@@ -511,7 +521,7 @@ class QuizController extends ActionController
                         $defaultHomepage = $feuserData['www'];
                     } else {
                         $defaultName = $this->settings['user']['defaultName']??'';
-                        $defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), $defaultName);
+                        $defaultName = str_replace('{TIME}', date('Y-m-d H:i:s'), (string) $defaultName);
                         $defaultEmail = $this->settings['user']['defaultEmail']??'';
                         $defaultHomepage = $this->settings['user']['defaultHomepage']??'';
                     }
@@ -549,7 +559,7 @@ class QuizController extends ActionController
         if ($saveIt && !$reload && (!$completed || $this->settings['allowEdit'] == 2) && ($useJoker != 1)) {
             // special preparation
             if ($this->settings['email']['sendToAdmin'] && $this->settings['email']['specific']) {
-                $emailAnswers = json_decode($this->settings['email']['specific'], true);
+                $emailAnswers = json_decode((string) $this->settings['email']['specific'], true);
                 //var_dump($emailAnswers);
             }
             $i = 0;
@@ -594,7 +604,7 @@ class QuizController extends ActionController
                                 $this->selectedRepository->deleteSelection($oldSelection->getUid());
                             }
                         }
-                        $selected = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Model\\Selected');
+                        $selected = GeneralUtility::makeInstance(Selected::class);
                         $selected->_setProperty('_languageUid', -1);
                         if ($this->settings['user']['useQuizPid']) {
                             $selected->setPid($quizPid);
@@ -962,12 +972,12 @@ class QuizController extends ActionController
                 ];
                 if ($this->settings['email']['sendToAdmin'] && ($this->settings['email']['adminEmail'] || !empty($specialRecievers))) {
                     if ($this->settings['email']['adminEmail']) {
-                        $adminMails = explode( ',', $this->settings['email']['adminEmail'] );
+                        $adminMails = explode( ',', (string) $this->settings['email']['adminEmail'] );
                         foreach ($adminMails as $email) {
                             if (GeneralUtility::validEmail(trim($email))) {
                                 $this->sendTemplateEmail(
-                                    array(trim($email) => $this->settings['email']['adminName']),
-                                    array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
+                                    [trim($email) => $this->settings['email']['adminName']],
+                                    [$this->settings['email']['fromEmail'] => $this->settings['email']['fromName']],
                                     $this->settings['email']['adminSubject'],
                                     'ToAdmin',
                                     $dataArray,
@@ -984,8 +994,8 @@ class QuizController extends ActionController
                         foreach ($specialRecievers as $email => $emailArray) {
                             if (GeneralUtility::validEmail($email)) {
                                 $this->sendTemplateEmail(
-                                    array($email => $emailArray['name']),
-                                    array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
+                                    [$email => $emailArray['name']],
+                                    [$this->settings['email']['fromEmail'] => $this->settings['email']['fromName']],
                                     $emailArray['subject'],
                                     'ToAdmin',
                                     $dataArray,
@@ -1000,8 +1010,8 @@ class QuizController extends ActionController
                 }
                 if ($this->settings['email']['sendToUser'] && GeneralUtility::validEmail($dataArray['email'])) {
                     $this->sendTemplateEmail(
-                        array($dataArray['email'] => $dataArray['name']),
-                        array($this->settings['email']['fromEmail'] => $this->settings['email']['fromName']),
+                        [$dataArray['email'] => $dataArray['name']],
+                        [$this->settings['email']['fromEmail'] => $this->settings['email']['fromName']],
                         $this->settings['email']['userSubject'],
                         'ToUser',
                         $dataArray,
@@ -1044,6 +1054,7 @@ class QuizController extends ActionController
             'useJoker' => $useJoker,
             'mandatoryNotAnswered' => $mandatoryNotAnswered,
             'session' => $session,
+            'participated' => $userData['participated'],
             'redirectTo' => $redirectTo,
             'debug' => $debug
         ];
@@ -1059,7 +1070,7 @@ class QuizController extends ActionController
         if (($page == 999) && ($this->settings['user']['askForData'] == 3) && $this->settings['closurePageUid'] &&
             $this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
             $participantUid = intval($this->request->getArgument('participant'));
-            $this->participant = $this->participantRepository->findOneByUid($participantUid);
+            $this->participant = $this->participantRepository->findOneBy(['uid' => $participantUid]);
             if ($this->isSessionOK($debug)) {
                 if ($this->request->hasArgument('name') && $this->request->getArgument('name')) {
                     $this->participant->setName($this->request->getArgument('name'));
@@ -1082,14 +1093,14 @@ class QuizController extends ActionController
      * Try to evaluate the answer of an Input Textbox
      *
      * @param int $i_quid The Question ID
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question The Question dataset
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Selected $c_selected The Selected dataset
+     * @param Question $i_question The Question dataset
+     * @param Selected $c_selected The Selected dataset
      * @param string $c_debug Debug
      * @return int The max. possible points until the current question
      */
     protected function evaluateInputTextAnswerResult(int $i_quid, 
-                                                   \Fixpunkt\FpMasterquiz\Domain\Model\Question $i_question, 
-                                                   \Fixpunkt\FpMasterquiz\Domain\Model\Selected &$c_selected,
+                                                   Question $i_question, 
+                                                   Selected &$c_selected,
                                                    string &$c_debug)
     {
         $maximum1 = 0;
@@ -1163,8 +1174,8 @@ class QuizController extends ActionController
             $ip = $_SERVER['REMOTE_ADDR'];
         }
         if ($this->settings['user']['ipSave'] && $this->settings['user']['ipAnonymous']) {
-            $pos = strrpos($ip, '.');
-            $ip = substr($ip, 0, $pos) . '.0';
+            $pos = strrpos((string) $ip, '.');
+            $ip = substr((string) $ip, 0, $pos) . '.0';
         }
         return filter_var($ip, FILTER_VALIDATE_IP);
     }
@@ -1178,7 +1189,7 @@ class QuizController extends ActionController
         $queryBuilder = $connection->createQueryBuilder();
         $statement = $queryBuilder->select('*')->from('fe_users')->where(
             $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($userid, \PDO::PARAM_INT))
-        )->setMaxResults(1)->execute();
+        )->setMaxResults(1)->executeQuery();
         while ($row = $statement->fetch()) {
             return $row;
         }
@@ -1188,12 +1199,10 @@ class QuizController extends ActionController
     /**
      * Set all user-answers to a question
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Question $oneQuestion The question dataset
-     * @param int $pid
-     * @param boolean $be
+     * @param Question $oneQuestion The question dataset
      * @return string
      */
-    protected function setAllUserAnswersForOneQuestion(\Fixpunkt\FpMasterquiz\Domain\Model\Question &$oneQuestion, int $pid, bool $be)
+    protected function setAllUserAnswersForOneQuestion(Question &$oneQuestion, int $pid, bool $be)
     {
         $votes = 0;
         $votesTotal = 0;
@@ -1208,7 +1217,7 @@ class QuizController extends ActionController
         if ($be) {
             $allAnsweredQuestions = $this->selectedRepository->findFromPidAndQuestion($pid, $questionID);
         } else {
-            $allAnsweredQuestions = $this->selectedRepository->findByQuestion($questionID);
+            $allAnsweredQuestions = $this->selectedRepository->findBy(['question' => $questionID]);
         }
         // alle User-Ergebnisse durchgehen:
         foreach ($allAnsweredQuestions as $aSelectedQuestion) {
@@ -1301,12 +1310,10 @@ class QuizController extends ActionController
     /**
      * Set all user-answers to a quiz
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $c_quiz The Quiz dataset
-     * @param int $pid
-     * @param boolean $be
+     * @param Quiz $c_quiz The Quiz dataset
      * @return string
      */
-    protected function setAllUserAnswers(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz, int $pid, bool $be)
+    protected function setAllUserAnswers(Quiz &$c_quiz, int $pid, bool $be)
     {
         $debug = '';
         foreach ($c_quiz->getQuestions() as $oneQuestion) {
@@ -1318,15 +1325,15 @@ class QuizController extends ActionController
     /**
      * Set all metatags
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $c_quiz The Quiz dataset
+     * @param Quiz $c_quiz The Quiz dataset
      * @return void
      */
-    protected function setMetatags(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz &$c_quiz)
+    protected function setMetatags(Quiz &$c_quiz)
     {
         $title = $c_quiz->getName();
         $GLOBALS['TSFE']->page['title'] = $title;
-        $metaTagManager = GeneralUtility::makeInstance( \TYPO3\CMS\Core\MetaTag\MetaTagManagerRegistry::class);
-        $description = str_replace(array("\r", "\n"), " ", $c_quiz->getAbout());
+        $metaTagManager = GeneralUtility::makeInstance( MetaTagManagerRegistry::class);
+        $description = str_replace(["\r", "\n"], " ", $c_quiz->getAbout());
         $description = str_replace("  ", " ", $description);
         $meta = $metaTagManager->getManagerForProperty('description');
         $meta->addProperty('description', $description);
@@ -1339,8 +1346,6 @@ class QuizController extends ActionController
     /**
      * Checks if a quiz is allowed
      *
-     * @param integer $pid
-     * @param integer $uid
      * @return boolean
      */
     public function checkQuizAccess(int $pid, int $uid): bool
@@ -1351,7 +1356,7 @@ class QuizController extends ActionController
                 $this->addFlashMessage(
                     LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' pid=' . intval($pid),
                     LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-                    AbstractMessage::WARNING,
+                    ContextualFeedbackSeverity::WARNING,
                     false
                 );
                 return false;
@@ -1363,7 +1368,7 @@ class QuizController extends ActionController
                 LocalizationUtility::translate('error.quizNotAllowed', 'fp_masterquiz') . ' uid=' . intval($uid) .
                 '<>' .$defaultQuizUid .', pid=' . intval($pid),
                 LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-                AbstractMessage::WARNING,
+                ContextualFeedbackSeverity::WARNING,
                 false
             );
             return false;
@@ -1398,17 +1403,14 @@ class QuizController extends ActionController
     public function introAction(): ResponseInterface
     {
         if ($this->settings['introContentUid'] > 0) {
-            $ttContentConfig = array(
-                'tables' => 'tt_content',
-                'source' => $this->settings['introContentUid'],
-                'dontCheckPid' => 1);
+            $ttContentConfig = ['tables' => 'tt_content', 'source' => $this->settings['introContentUid'], 'dontCheckPid' => 1];
             $contentElement = $GLOBALS['TSFE']->cObj->cObjGetSingle('RECORDS', $ttContentConfig);
         } else {
             $contentElement = '';
         }
         $defaultQuizUid = $this->getLocalizedDefaultQuiz();
         if ($defaultQuizUid) {
-            $quiz = $this->quizRepository->findOneByUid($defaultQuizUid);
+            $quiz = $this->quizRepository->findOneBy(['uid' => $defaultQuizUid]);
             if ($quiz) {
                 $this->view->assign('quiz', $quiz);
             } else {
@@ -1416,7 +1418,7 @@ class QuizController extends ActionController
                 $this->addFlashMessage(
                     LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . $defaultQuizUid,
                     LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-                    AbstractMessage::WARNING,
+                    ContextualFeedbackSeverity::WARNING,
                     false
                 );
             }
@@ -1440,12 +1442,12 @@ class QuizController extends ActionController
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz||null $quiz
      * @return ResponseInterface
      */
-    public function showAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz = null): ResponseInterface
+    public function showAction(Quiz $quiz = null): ResponseInterface
     {
         if (!$quiz) {
             $quiz = $this->getDefaultQuiz();
             if (!$quiz) {
-                return (new \TYPO3\CMS\Extbase\Http\ForwardResponse('list'))
+                return (new ForwardResponse('list'))
                     ->withArguments(['action' => 'show']);
             }
         }
@@ -1542,12 +1544,12 @@ class QuizController extends ActionController
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz||null $quiz
      * @return ResponseInterface
      */
-    public function showByTagAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz = null): ResponseInterface
+    public function showByTagAction(Quiz $quiz = null): ResponseInterface
     {
         if (!$quiz) {
             $quiz = $this->getDefaultQuiz();
             if (!$quiz) {
-                return (new \TYPO3\CMS\Extbase\Http\ForwardResponse('list'))
+                return (new ForwardResponse('list'))
                     ->withArguments(['action' => 'showByTag']);
             }
         }
@@ -1677,10 +1679,9 @@ class QuizController extends ActionController
     /**
      * action showAjax. So könnte es vielleicht auch gehen: at dontverifyrequesthash
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
      * @return ResponseInterface
      */
-    public function showAjaxAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
+    public function showAjaxAction(Quiz $quiz): ResponseInterface
     {
         if (!$this->checkQuizAccess($quiz->getPid(), $quiz->getLocalizedUid())) {
             return $this->htmlResponse();
@@ -1816,12 +1817,12 @@ class QuizController extends ActionController
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz||null $quiz
      * @return ResponseInterface
      */
-    public function resultAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz = null): ResponseInterface
+    public function resultAction(Quiz $quiz = null): ResponseInterface
     {
         if (!$quiz) {
             $quiz = $this->getDefaultQuiz();
             if (!$quiz) {
-                return (new \TYPO3\CMS\Extbase\Http\ForwardResponse('list'))
+                return (new ForwardResponse('list'))
                     ->withArguments(['action' => 'result']);
             }
         }
@@ -1864,12 +1865,12 @@ class QuizController extends ActionController
      * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz||null $quiz
      * @return ResponseInterface
      */
-    public function highscoreAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz = null): ResponseInterface
+    public function highscoreAction(Quiz $quiz = null): ResponseInterface
     {
         if (!$quiz) {
             $quiz = $this->getDefaultQuiz();
             if (!$quiz) {
-                return (new \TYPO3\CMS\Extbase\Http\ForwardResponse('list'))
+                return (new ForwardResponse('list'))
                     ->withArguments(['action' => 'highscore']);
             }
         }
@@ -1895,11 +1896,9 @@ class QuizController extends ActionController
     /**
      * action closure: show only text and links
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant
-     * @param string $session
      * @return ResponseInterface
      */
-    public function closureAction(\Fixpunkt\FpMasterquiz\Domain\Model\Participant $participant, string $session = ''): ResponseInterface
+    public function closureAction(Participant $participant, string $session = ''): ResponseInterface
     {
         if ($participant->getSession() == $session) {
             $this->view->assign('participant', $participant);
@@ -1908,7 +1907,7 @@ class QuizController extends ActionController
             $this->addFlashMessage(
                 LocalizationUtility::translate('error.invalidParameters', 'fp_masterquiz'),
                 LocalizationUtility::translate('error.error', 'fp_masterquiz'),
-                AbstractMessage::WARNING,
+                ContextualFeedbackSeverity::WARNING,
                 false
             );
         }
@@ -1939,12 +1938,11 @@ class QuizController extends ActionController
     /**
      * action show for the backend
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
      * @return ResponseInterface
      */
-    public function detailAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
+    public function detailAction(Quiz $quiz): ResponseInterface
     {
-        $questionRepository = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Domain\\Repository\\QuestionRepository');
+        $questionRepository = GeneralUtility::makeInstance(QuestionRepository::class);
         $pid = (int)GeneralUtility::_GP('id');
         $uid = (int)$quiz->getUid();
         $updated = false;
@@ -1959,7 +1957,7 @@ class QuizController extends ActionController
             $this->addFlashMessage(
                 LocalizationUtility::translate('text.questionAdded', 'fp_masterquiz'),
                 LocalizationUtility::translate('text.updated', 'fp_masterquiz'),
-                AbstractMessage::OK,
+                ContextualFeedbackSeverity::OK,
                 false
             );
             // bringt auch NICHTS: $quiz = $this->quizRepository->findbyUid($uid);
@@ -1995,10 +1993,9 @@ class QuizController extends ActionController
     /**
      * action charts for the backend
      *
-     * @param \Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz
      * @return ResponseInterface
      */
-    public function chartsAction(\Fixpunkt\FpMasterquiz\Domain\Model\Quiz $quiz): ResponseInterface
+    public function chartsAction(Quiz $quiz): ResponseInterface
     {
         $be = $this->request->hasArgument('be') ? true : false;
         if ($be) {
@@ -2025,14 +2022,14 @@ class QuizController extends ActionController
      * @param boolean $toAdmin email to the admin?
      * @return boolean TRUE on success, otherwise false
      */
-    protected function sendTemplateEmail(array $recipient, array $sender, $subject, $templateName, array $variables = array(), $toAdmin = false)
+    protected function sendTemplateEmail(array $recipient, array $sender, $subject, $templateName, array $variables = [], $toAdmin = false): bool
     {
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
-            \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
 
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
-        $emailViewHtml = GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        $emailViewHtml = GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
         $emailViewHtml->setTemplateRootPaths($extbaseFrameworkConfiguration['view']['templateRootPaths']);
         $emailViewHtml->setLayoutRootPaths($extbaseFrameworkConfiguration['view']['layoutRootPaths']);
         $emailViewHtml->setPartialRootPaths($extbaseFrameworkConfiguration['view']['partialRootPaths']);
@@ -2046,7 +2043,7 @@ class QuizController extends ActionController
         }
 
         /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $message = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $message = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\MailMessage::class);
         foreach ($recipient as $key => $value) {
             $email = $key;
             $name = $value;

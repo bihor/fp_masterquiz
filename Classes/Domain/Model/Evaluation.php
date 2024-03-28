@@ -1,6 +1,11 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
+use TYPO3\CMS\Extbase\Annotation\ORM\Cascade;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use TYPO3\CMS\Extbase\Domain\Model\Category;
 /***
  *
  * This file is part of the "Master-Quiz" Extension for TYPO3 CMS.
@@ -11,11 +16,10 @@ namespace Fixpunkt\FpMasterquiz\Domain\Model;
  *  (c) 2019 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
  *
  ***/
-
 /**
  * Evaluation of a quiz/test
  */
-class Evaluation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Evaluation extends AbstractEntity
 {
     /**
      * Evaluate points (unchecked) or percentage (checked)?
@@ -41,9 +45,9 @@ class Evaluation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Image
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FileReference
-     * @TYPO3\CMS\Extbase\Annotation\ORM\Cascade("remove")
+     * @var FileReference
      */
+    #[Cascade(['value' => 'remove'])]
     protected $image = null;
     
     /**
@@ -70,7 +74,7 @@ class Evaluation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * category
      *
-     * @var \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @var ObjectStorage<Category>
      */
     protected $categories = null;
 
@@ -84,7 +88,7 @@ class Evaluation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      */
     protected function initStorageObjects()
     {
-        $this->categories = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $this->categories = new ObjectStorage();
     }
 
     /**
@@ -142,7 +146,7 @@ class Evaluation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the image
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
+     * @return FileReference $image
      */
     public function getImage()
     {
@@ -152,10 +156,9 @@ class Evaluation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the image
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FileReference $image
      * @return void
      */
-    public function setImage(\TYPO3\CMS\Extbase\Domain\Model\FileReference $image)
+    public function setImage(FileReference $image)
     {
     	$this->image = $image;
     }
@@ -247,7 +250,7 @@ class Evaluation extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the categories
      *
-     * @return \TYPO3\CMS\Extbase\Persistence\ObjectStorage<\TYPO3\CMS\Extbase\Domain\Model\Category>
+     * @return ObjectStorage<Category>
      */
     public function getCategories()
     {

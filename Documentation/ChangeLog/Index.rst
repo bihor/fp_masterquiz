@@ -205,5 +205,9 @@ ChangeLog
 
   Setting pointsMode added: 0 points if not all answers are correct now possible.
 
-4.4.0:
+5.0.0:
+  Refactoring with the rector-tool.
+
   settings.debug=2 is new. If 2 instead of 1, the debug output will be written into a log file.
+
+  settings.user.checkFEuser allows now values greater than 1.

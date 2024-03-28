@@ -1,6 +1,7 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Task;
 
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -25,7 +26,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
      */
     public function getAdditionalFields(array &$taskInfo, $task, SchedulerModuleController $schedulerModule)
     {
-        $additionalFields = array();
+        $additionalFields = [];
         $currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
         if (empty($taskInfo['csvfile'])) {
             if ($currentSchedulerModuleAction->equals(Action::ADD)) {
@@ -72,53 +73,35 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
 
         // Ordner
         $fieldId = 'task_page';
-        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][page]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['page']) . '"/>';
+        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][page]" id="' . $fieldId . '" value="' . htmlspecialchars((string) $taskInfo['page']) . '"/>';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.page');
-        $additionalFields[$fieldId] = array(
-            'code' => $fieldCode,
-            'label' => $label
-        );
+        $additionalFields[$fieldId] = ['code' => $fieldCode, 'label' => $label];
         // path to csv file
         $fieldId = 'task_csvfile';
-        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][csvfile]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['csvfile']) . '" size="50" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][csvfile]" id="' . $fieldId . '" value="' . htmlspecialchars((string) $taskInfo['csvfile']) . '" size="50" />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.csvfile');
-        $additionalFields[$fieldId] = array(
-            'code' => $fieldCode,
-            'label' => $label
-        );
+        $additionalFields[$fieldId] = ['code' => $fieldCode, 'label' => $label];
         // separator
         $fieldId = 'task_separator';
-        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][separator]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['separator']) . '" size="5" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][separator]" id="' . $fieldId . '" value="' . htmlspecialchars((string) $taskInfo['separator']) . '" size="5" />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.separator');
-        $additionalFields[$fieldId] = array(
-            'code' => $fieldCode,
-            'label' => $label
-        );
+        $additionalFields[$fieldId] = ['code' => $fieldCode, 'label' => $label];
         // delimiter
         $fieldId = 'task_delimiter';
-        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][delimiter]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['delimiter']) . '" size="5" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][delimiter]" id="' . $fieldId . '" value="' . htmlspecialchars((string) $taskInfo['delimiter']) . '" size="5" />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.delimiter');
-        $additionalFields[$fieldId] = array(
-            'code' => $fieldCode,
-            'label' => $label
-        );
+        $additionalFields[$fieldId] = ['code' => $fieldCode, 'label' => $label];
         // ansdelimiter
         $fieldId = 'task_ansdelimiter';
-        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][ansdelimiter]" id="' . $fieldId . '" value="' . htmlspecialchars($taskInfo['ansdelimiter']) . '" size="5" />';
+        $fieldCode = '<input type="text" name="tx_scheduler[fpmasterquiz][ansdelimiter]" id="' . $fieldId . '" value="' . htmlspecialchars((string) $taskInfo['ansdelimiter']) . '" size="5" />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.ansdelimiter');
-        $additionalFields[$fieldId] = array(
-            'code' => $fieldCode,
-            'label' => $label
-        );
+        $additionalFields[$fieldId] = ['code' => $fieldCode, 'label' => $label];
         // convert
         $fieldId = 'task_convert';
         $checked = ($taskInfo['convert']) ? ' checked="checked"' : '';
         $fieldCode = '<input type="checkbox" name="tx_scheduler[fpmasterquiz][convert]" id="' . $fieldId . '" value="1"' . $checked . ' />';
         $label = $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.convert');
-        $additionalFields[$fieldId] = array(
-            'code' => $fieldCode,
-            'label' => $label
-        );
+        $additionalFields[$fieldId] = ['code' => $fieldCode, 'label' => $label];
         return $additionalFields;
     }
 
@@ -148,21 +131,21 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
                 $isValid = FALSE;
                 $this->addMessage(
                     $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidPage'),
-                    FlashMessage::ERROR
+                    ContextualFeedbackSeverity::ERROR
                 );
             }
         } else {
             $isValid = FALSE;
             $this->addMessage(
                 $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidPage'),
-                FlashMessage::ERROR
+                ContextualFeedbackSeverity::ERROR
             );
         }
-        if (substr($submittedData['fpmasterquiz']['csvfile'],0,10) != 'fileadmin/') {
+        if (!str_starts_with((string) $submittedData['fpmasterquiz']['csvfile'], 'fileadmin/')) {
             $isValid = FALSE;
             $this->addMessage(
                 $GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:tasks.validate.invalidCsvfile'),
-                FlashMessage::ERROR
+                ContextualFeedbackSeverity::ERROR
             );
         }
         return $isValid;

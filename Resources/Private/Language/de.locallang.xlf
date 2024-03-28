@@ -271,6 +271,10 @@
 				<source>Your data have been saved.</source>
 				<target>Deine Angaben wurden gespeichert.</target>
 			</trans-unit>
+			<trans-unit id="text.participated" resname="text.participated">
+				<source>You have participated %s times. Allowed participations:</source>
+				<target>Du hast bisher %s mal teilgenommen. Anzahl erlaubte Teilnahmen:</target>
+			</trans-unit>
 			<trans-unit id="text.yes" resname="text.yes">
 				<source>yes</source>
 				<target>ja</target>

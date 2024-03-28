@@ -213,6 +213,12 @@
 			<trans-unit id="settings.user.checkFEuser" resname="settings.user.checkFEuser">
 				<source>Check if a FE-user has already participated?</source>
 			</trans-unit>
+			<trans-unit id="settings.user.checkFEuser.2" resname="settings.user.checkFEuser.2">
+				<source>Yes, but allow 2 participations</source>
+			</trans-unit>
+			<trans-unit id="settings.user.checkFEuser.3" resname="settings.user.checkFEuser.3">
+				<source>Yes, but allow 3 participations</source>
+			</trans-unit>
 			<trans-unit id="settings.user.useQuizPid" resname="settings.user.useQuizPid">
 				<source>Use automatically the pid from the quiz?</source>
 			</trans-unit>

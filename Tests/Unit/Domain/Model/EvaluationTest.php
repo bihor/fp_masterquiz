@@ -1,27 +1,27 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Domain\Model;
 
+use TYPO3\CMS\Core\Tests\UnitTestCase;
+use Fixpunkt\FpMasterquiz\Domain\Model\Evaluation;
 /**
  * Test case.
  *
  * @author Kurt Gusbeth <k.gusbeth@fixpunkt.com>
  */
-class EvaluationTest extends \TYPO3\CMS\Core\Tests\UnitTestCase
+class EvaluationTest extends UnitTestCase
 {
     /**
-     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Evaluation
+     * @var Evaluation
      */
     protected $subject = null;
 
     protected function setUp()
     {
-        parent::setUp();
-        $this->subject = new \Fixpunkt\FpMasterquiz\Domain\Model\Evaluation();
+        $this->subject = new Evaluation();
     }
 
     protected function tearDown()
     {
-        parent::tearDown();
     }
 
     /**

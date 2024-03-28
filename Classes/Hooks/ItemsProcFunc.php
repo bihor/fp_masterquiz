@@ -28,6 +28,7 @@
 
 namespace Fixpunkt\FpMasterquiz\Hooks;
 
+use Fixpunkt\FpMasterquiz\Utility\TemplateLayout;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -55,11 +56,11 @@ class ItemsProcFunc
         } else {
             $pid = 0;
         }
-        $templateLayoutsUtility = GeneralUtility::makeInstance('Fixpunkt\\FpMasterquiz\\Utility\\TemplateLayout');
+        $templateLayoutsUtility = GeneralUtility::makeInstance(TemplateLayout::class);
         $templateLayouts = $templateLayoutsUtility->getAvailableTemplateLayouts($pid);
         foreach ($templateLayouts as $layout) {
             $additionalLayout = [
-                htmlspecialchars($this->getLanguageService()->sL($layout[0])),
+                htmlspecialchars((string) $this->getLanguageService()->sL($layout[0])),
                 $layout[1]
             ];
             array_push($config['items'], $additionalLayout);

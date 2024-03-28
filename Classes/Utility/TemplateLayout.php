@@ -26,6 +26,8 @@
 */
 namespace Fixpunkt\FpMasterquiz\Utility;
 
+use TYPO3\CMS\Core\SingletonInterface;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
 /**
  * TemplateLayout: Template-Layout per TSconfig
  *
@@ -33,7 +35,7 @@ namespace Fixpunkt\FpMasterquiz\Utility;
  * @license http://www.gnu.org/licenses/gpl.html GNU General Public License, version 3 or later
  *
  */
-class TemplateLayout implements \TYPO3\CMS\Core\SingletonInterface {
+class TemplateLayout implements SingletonInterface {
 
 	/**
 	 * Get available template layouts for a page
@@ -43,9 +45,9 @@ class TemplateLayout implements \TYPO3\CMS\Core\SingletonInterface {
 	 */
 	public function getAvailableTemplateLayouts($pageUid)
 	{
-		$templateLayouts = array();
+		$templateLayouts = [];
 		foreach($this->getTemplateLayoutsFromTsConfig($pageUid) as $templateKey => $title) {
-			$templateLayouts[] = array($title, $templateKey);
+			$templateLayouts[] = [$title, $templateKey];
 		}
 		return $templateLayouts;
 	}
@@ -58,8 +60,8 @@ class TemplateLayout implements \TYPO3\CMS\Core\SingletonInterface {
 	 */
 	protected function getTemplateLayoutsFromTsConfig($pageUid)
 	{
-		$templateLayouts = array();
-		$pagesTsConfig = \TYPO3\CMS\Backend\Utility\BackendUtility::getPagesTSconfig($pageUid);
+		$templateLayouts = [];
+		$pagesTsConfig = BackendUtility::getPagesTSconfig($pageUid);
 		if (isset($pagesTsConfig['tx_fpmasterquiz.']['templateLayouts.']) && is_array($pagesTsConfig['tx_fpmasterquiz.']['templateLayouts.'])) {
 			$templateLayouts = $pagesTsConfig['tx_fpmasterquiz.']['templateLayouts.'];
 		}

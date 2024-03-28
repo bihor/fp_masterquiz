@@ -1,6 +1,8 @@
 <?php
 namespace Fixpunkt\FpMasterquiz\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /***
  *
  * This file is part of the "Master-Quiz" Extension for TYPO3 CMS.
@@ -11,16 +13,15 @@ namespace Fixpunkt\FpMasterquiz\Domain\Repository;
  *  (c) 2019 Kurt Gusbeth <k.gusbeth@fixpunkt.com>, fixpunkt werbeagentur gmbh
  *
  ***/
-
 /**
  * The repository for Answers
  */
-class AnswerRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class AnswerRepository extends Repository
 {
     /**
      * @var array
      */
     protected $defaultOrderings = [
-        'sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING
+        'sorting' => QueryInterface::ORDER_ASCENDING
     ];
 }
