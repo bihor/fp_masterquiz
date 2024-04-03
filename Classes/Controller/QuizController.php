@@ -537,7 +537,7 @@ class QuizController extends ActionController
                         $this->participant->setRandompages($randomNumbers);
                     }
                     $this->participant->setQuiz($quiz);
-                    $this->participant->setMaximum2($quiz->getMaximum2());
+                    $this->participant->setMaximum2($quiz->getMaximum2(intval($this->settings['pointsMode'])));
                     $this->participantRepository->add($this->participant);
                     $this->persistenceManager->persistAll();
                     $newUser = true;
@@ -587,6 +587,7 @@ class QuizController extends ActionController
                     } else {
                         $qmode = $question->getQmode();
                         $pmode = intval($this->settings['pointsMode']);
+                        $question->setPmode($pmode);    // wird aber nicht benutzt
                         $isOptional = ($this->settings['noFormCheck'] || $question->isOptional() || $qmode == 4 || $qmode == 7) ? true : false;
                         if ($this->settings['debug']) {
                             $debug .= ' OK ' . (($isOptional) ? 'optional: ' : 'mandatory: ');
@@ -702,7 +703,7 @@ class QuizController extends ActionController
                                     }
                                 }
                                 if (!$vorhanden) {
-                                    $maximum1 += $question->getMaximum1();
+                                    $maximum1 += (($pmode == 4) ? 1 : $question->getMaximum1());
                                 }
                                 break;
                             case 1:
@@ -745,6 +746,9 @@ class QuizController extends ActionController
                                         if ($pmode>0 && $newPoints<0) {
                                             $newPoints = 0;
                                         }
+                                        if ($pmode==4 && $newPoints>0) {
+                                            $newPoints = 1;
+                                        }
                                         $selected->addPoints($newPoints);
                                         $this->participant->addPoints($newPoints);
                                         if ($this->settings['debug']) {
@@ -758,7 +762,7 @@ class QuizController extends ActionController
                                     }
                                 }
                                 if (!$vorhanden) {
-                                    $maximum1 += $question->getMaximum1();
+                                    $maximum1 += (($pmode == 4) ? 1 : $question->getMaximum1());
                                 }
                                 break;
                             case 3:
@@ -773,7 +777,7 @@ class QuizController extends ActionController
                                     $question->setTextAnswers($ownAnswer);
                                 }
                                 if (!$vorhanden) {
-                                    $maximum1 += $tmpMaximum1;
+                                    $maximum1 += (($pmode == 4) ? 1 : $tmpMaximum1);
                                 }
                                 break;
                             default:

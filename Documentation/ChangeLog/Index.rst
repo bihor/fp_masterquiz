@@ -211,3 +211,5 @@ ChangeLog
   settings.debug=2 is new. If 2 instead of 1, the debug output will be written into a log file.
 
   settings.user.checkFEuser allows now values greater than 1.
+
+  Bugfix for settings.pointsMode 4.

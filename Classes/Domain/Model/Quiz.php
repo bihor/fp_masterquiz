@@ -460,11 +460,16 @@ class Quiz extends AbstractEntity
      *
      * @return int $maximum2
      */
-    public function getMaximum2()
+    public function getMaximum2($mode = 0)
     {
         $maximum2 = 0;
         foreach ($this->getQuestions() as $question) {
-            $maximum2 += $question->getMaximum1();
+            $maximum1 = $question->getMaximum1();
+            $add = 0;
+            if ($maximum1 > 0) {
+                $add = ($mode == 4) ? 1 : $maximum1;
+            }
+            $maximum2 += $add;
         }
         return $maximum2;
     }

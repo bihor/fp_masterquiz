@@ -40,6 +40,13 @@ class Question extends AbstractEntity
     protected $qmode = 0;
 
     /**
+     * Points-mode
+     *
+     * @var int
+     */
+    protected $pmode = 0;
+
+    /**
      * Image
      *
      * @var FileReference
@@ -395,6 +402,27 @@ class Question extends AbstractEntity
     public function setQmode($qmode)
     {
         $this->qmode = $qmode;
+    }
+
+    /**
+     * Returns the points-mode
+     *
+     * @return int pmode
+     */
+    public function getPmode()
+    {
+        return $this->pmode;
+    }
+
+    /**
+     * Sets the pints-mode
+     *
+     * @param int $pmode
+     * @return void
+     */
+    public function setPmode($pmode)
+    {
+        $this->pmode = $pmode;
     }
 
     /**
