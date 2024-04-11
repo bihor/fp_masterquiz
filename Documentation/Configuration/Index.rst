@@ -122,19 +122,22 @@ AJAX*) If you enable AJAX, you should know this:
 - **Configure the quiz only by TypoScript**.
   You need to set the persistence.storagePid too!
 
-- The AJAX-solution is currently not supported in the action "show by tag".
+- The AJAX-solution is not supported for the action "show by tag".
 
-- The AJAX-call calls an normal action and not an eID-script. Therefore it is necessary to set this TypoScript:
-  plugin.tx_fpmasterquiz.features.requireCHashArgumentForActionArguments = 0
-  This is set by default in older versions. You can change the value to 1, if you do not use the AJAX-version.
+- *Important*: the AJAX-call calls an normal action and not an eID-script.
+  The problem is, that the form contains no cHash.
+  Therefore must must disable the cHash requirement in the install tool via:
+  [FE][cacheHash][enforceValidation] = false
   If it is still not working, you can disable the cHash-check in the install tool:
   [FE][pageNotFoundOnCHashError] = false
 
-- *Important* for versions >= 4: if you don´t use the plugin
+- *Important*: if you don´t use the plugin
   "Show a selected quiz and use a pagebrowser (you need to select the storage folder too)" /
   "Ein bestimmtes Quiz anzeigen und den Pagebrowser nutzen (Datensatzsammlung muss dennoch gewählt werden)",
   you must change this TypoScript value of: "ajaxfpmasterquiz_page.10.pluginName".
   Set it to "List" or "Intro" (depending on the selected plugin).
+
+- Saving of user-data at the final page does not work.
 
 - You have still problems? Then read the chapter "Known problems".
 
