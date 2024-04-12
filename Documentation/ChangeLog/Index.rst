@@ -214,5 +214,7 @@ ChangeLog
 
   Bugfix for settings.pointsMode 4.
 
-5.0.2:
+5.0.3:
   Bugfix: prevent multiple ajax calls.
+
+  Bugfix: Matrix-Display.

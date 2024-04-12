@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 5.0.2
+version 5.0.3
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -47,5 +47,6 @@ Changes in version 5.0:
 - settings.user.checkFEuser allows now values greater than 1.
 - Bugfix for pointsMode 4.
 
-Changes in version 5.0.2:
+Changes in version 5.0.3:
 - Bugfix: prevent multiple ajax calls.
+- Bugfix: Matrix-Display.

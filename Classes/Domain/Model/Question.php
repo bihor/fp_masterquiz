@@ -597,6 +597,6 @@ class Question extends AbstractEntity
                 $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('tx_fpmasterquiz_domain_model_question'))
             )
             ->orderBy('sys_category.sorting')
-            ->executeQuery();
+            ->executeQuery()->fetchAllAssociative();
     }
 }

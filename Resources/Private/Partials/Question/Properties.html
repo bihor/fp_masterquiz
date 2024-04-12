@@ -65,7 +65,7 @@
 								<f:comment>Nicht für jede Antwort ein Select hinzufügen, deshalb erst später hinzufügen</f:comment>
 							</f:case>
 							<f:case value="3">
-								<f:comment>When 'Enter an answer' in a text field</f:comment> 
+								<f:comment>When 'Enter an answer' in a text field</f:comment>
 								<br/>
 								<div class="quiz-input{f:if(condition: '{question.optional} || {question.closed}', then: ' quiz-answer-optional')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
@@ -92,7 +92,7 @@
 								</div>
 							</f:case>
 							<f:case value="5">
-								<f:comment>When 'Enter an answer' in a textarea</f:comment> 
+								<f:comment>When 'Enter an answer' in a textarea</f:comment>
 								<br/>
 								<div class="quiz-textarea{f:if(condition: '{question.optional} || {question.closed}', then: ' quiz-answer-optional')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
@@ -120,7 +120,7 @@
 										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" checked="checked" />
 									</f:then><f:else>
 										<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" />
-									</f:else></f:if>								  
+									</f:else></f:if>
 								  </f:then><f:else>
 									<f:form.radio name="answer_{question.uid}" value="{answer.uid}" id="star_{question.uid}_{answer.uid}" />
 								  </f:else></f:if>
@@ -134,11 +134,11 @@
 										<f:if condition="{settings.allowHtml} == 1"><f:then>{answer.title -> f:format.raw()}</f:then><f:else>{answer.title -> f:format.nl2br()}</f:else></f:if> &nbsp;
 									</div></td>
 									<f:if condition="!{question.closed}">
-									<f:for each="{question.sortedCategoriesArray}" as="qcategory">
-									<td><label>
-										<f:form.radio name="answer_{question.uid}_{answer.uid}" value="{qcategory.uid}" class="quiz-radiobox" checked="{answer.ownAnswer}" />
-									</label></td>
-									</f:for>
+										<f:for each="{question.sortedCategoriesArray}" as="qcategory">
+										<td><label>
+											<f:form.radio name="answer_{question.uid}_{answer.uid}" value="{qcategory.uid}" class="quiz-radiobox" checked="{answer.ownAnswer}" />
+										</label></td>
+										</f:for>
 									</f:if>
 								</tr>
 							</f:case>
