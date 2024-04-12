@@ -213,3 +213,6 @@ ChangeLog
   settings.user.checkFEuser allows now values greater than 1.
 
   Bugfix for settings.pointsMode 4.
+
+5.0.2:
+  Bugfix: prevent multiple ajax calls.

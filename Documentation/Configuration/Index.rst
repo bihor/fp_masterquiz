@@ -122,6 +122,8 @@ AJAX*) If you enable AJAX, you should know this:
 - **Configure the quiz only by TypoScript**.
   You need to set the persistence.storagePid too!
 
+- Only one question per page is possible.
+
 - The AJAX-solution is not supported for the action "show by tag".
 
 - *Important*: the AJAX-call calls an normal action and not an eID-script.
@@ -137,7 +139,7 @@ AJAX*) If you enable AJAX, you should know this:
   you must change this TypoScript value of: "ajaxfpmasterquiz_page.10.pluginName".
   Set it to "List" or "Intro" (depending on the selected plugin).
 
-- Saving of user-data at the final page does not work.
+- Saving of user-data (at the final page) does not work.
 
 - You have still problems? Then read the chapter "Known problems".
 

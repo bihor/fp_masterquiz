@@ -136,14 +136,23 @@
 					document.addEventListener('DOMContentLoaded', function(){
 			            var form = $('#quiz-form'+ceuid);
 			            var resultContainer = $('#quiz-ajaxCallResult');
+						var isAjaxSubmitting = false;
 			            var service = {
 			                ajaxCall: function (data) {
+								if(isAjaxSubmitting) {
+									//console.log('ajax cancel');
+									return;
+								}
+								isAjaxSubmitting = true;
+								//console.log('ajax submitting');
 			                    $.ajax({
 			                        url: '/index.php',
 			                        cache: false,
 			                        type: ajaxType,
 			                        data: data.serialize(),
 			                        success: function (result) {
+										isAjaxSubmitting = false;
+										//console.log('success submitting false');
 			                        	// display the AJAX-result and set the JS-variable quizfinal
 			                            resultContainer.html(result).show();
 			                            <f:render partial="Quiz/CheckFields" arguments="{uidOfCE: uidOfCE}" />
@@ -168,6 +177,8 @@
 			                            }
 			                        },
 			                        error: function (jqXHR, textStatus, errorThrow) {
+										isAjaxSubmitting = false;
+										//console.log('error submitting false');
 			                            resultContainer.html('Ajax request - ' + textStatus + ': ' + errorThrow + ' ('+data.serialize()+')').fadeIn('fast');
 			                        }
 			                    });
