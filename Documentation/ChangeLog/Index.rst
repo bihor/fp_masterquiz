@@ -218,3 +218,6 @@ ChangeLog
   Bugfix: prevent multiple ajax calls.
 
   Bugfix: Matrix-Display.
+
+5.1.0:
+  More layout possibilities: group a normal quiz/poll by tags; show answers inline (span instead of div).

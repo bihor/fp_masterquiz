@@ -54,11 +54,11 @@ Here an example for a template (extract) with 2 layouts:
 		</f:else>
 	</f:if>
 
-- Furthermore you can use TSconfig to rename or hide quiz-fields. Here two examples:
+- Furthermore you can use TSconfig to rename or hide quiz-fields in the BE. Here two examples:
 
 ::
 
    TCEFORM.tx_fpmasterquiz_domain_model_question.explanation.disabled = 1
    TCEFORM.tx_fpmasterquiz_domain_model_quiz.about.label = Description for the list view
 
-You find the TSconfig when you edit a page. Go to the tab Ressources.
+You find the TSconfig when you edit a page. Go to the tab Resources.

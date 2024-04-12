@@ -23,7 +23,7 @@ return [
         'iconfile' => 'EXT:fp_masterquiz/Resources/Public/Icons/tx_fpmasterquiz_domain_model_question.gif'
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, qmode, image, bodytext, explanation, tag, optional, answers,
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, title, qmode, image, bodytext, explanation, tag, span, optional, answers,
          --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime, closed,
          --div--;LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tabs.categories, categories'],
     ],
@@ -196,6 +196,17 @@ return [
                 'minitems' => 0,
                 'maxitems' => 1
             ],
+        ],
+        'span' => [
+            'exclude' => true,
+            'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_question.span',
+            'config' => [
+                'type' => 'check',
+                'items' => [
+                    ['label' => 'LLL:EXT:lang/Resources/Private/Language/locallang_core.xlf:labels.enabled']
+                ],
+                'default' => 0
+            ]
         ],
         'optional' => [
             'exclude' => true,

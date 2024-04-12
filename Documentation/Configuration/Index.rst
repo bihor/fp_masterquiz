@@ -52,6 +52,7 @@ showPoints                   boolean     Show the possible/reached points if max
 showPageNo                   boolean     Show the page number / number of pages?         1
 showQuestionNo               boolean     Show the question no. / no. of questions?       0
 showDetailedCategoryEval     boolean     Show detailed category evaluation if available? 0
+groupByTag                   boolean     Group a normal quiz/poll by used tags?          0
 redirectToResultPageAtFinal  boolean     Redirect to the result page at the end?         0
 checkAllStars                boolean     Check all stars on star rating by default?      0
 highscoreLimit               integer     Number of entries in the highscore              10
@@ -366,6 +367,24 @@ With this TypoScript you can configure a simple poll with a pie chart as result:
   plugin.tx_fpmasterquiz.settings.templateLayout = 1
   plugin.tx_fpmasterquiz.settings.template.wrapDone1 = <div class="hidden">
   plugin.tx_fpmasterquiz.settings.template.wrapDone2 = </div>
+
+
+.. _text:
+
+Text
+""""
+
+You can change the text (of buttons) like this::
+
+  plugin.tx_fpmasterquiz._LOCAL_LANG.de {
+    text.answer.input = Eingabe:
+    text.answer.textarea = Kommentar:
+    text.goon = weiter
+    text.gofinal = Beenden
+    text.showResultPage = Ergebnisse
+    text.showHighscorePage = Highscore
+    text.optional = optionale Frage
+  }
 
 
 .. _debug:

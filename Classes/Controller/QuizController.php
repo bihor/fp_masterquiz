@@ -1503,6 +1503,22 @@ class QuizController extends ActionController
         $quizPaginator = new ArrayPaginator($questionsArray, $page, intval($this->settings['pagebrowser']['itemsPerPage']));
         $participantPaginator = new ArrayPaginator($participantArray, $page, intval($this->settings['pagebrowser']['itemsPerPage']));
 
+        if ($this->settings['groupByTag']) {
+            // in diesem Fall brauchen wir das letzte und nächste Tag
+            $lastItem = null;
+            $lastTag = '';
+            foreach ($quizPaginator->getPaginatedItems() as $itemQuestion) {
+                if ($lastItem) {
+                    $lastItem->setNextTag($itemQuestion->getTag()->getName());
+                }
+                if (($lastTag)) {
+                    $itemQuestion->setPrevTag($lastTag);
+                }
+                $lastTag = $itemQuestion->getTag()->getName();
+                $lastItem = $itemQuestion;
+            }
+        }
+
         $this->view->assign('quiz', $quiz);
         $this->view->assign('quizPaginator', $quizPaginator);
         $this->view->assign('participant', $this->participant);

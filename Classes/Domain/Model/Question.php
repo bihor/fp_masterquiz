@@ -76,6 +76,28 @@ class Question extends AbstractEntity
     protected $tag = null;
 
     /**
+     * previous Tag
+     *
+     * @var string
+     */
+    protected $prevTag = '';
+
+    /**
+     * next Tag
+     *
+     * @var string
+     */
+    protected $nextTag = '';
+
+
+    /**
+     * span statt div?
+     *
+     * @var bool
+     */
+    protected $span = false;
+
+    /**
      * Beantwortung optional?
      *
      * @var bool
@@ -277,6 +299,77 @@ class Question extends AbstractEntity
     public function setTag(Tag $tag)
     {
         $this->tag = $tag;
+    }
+
+    /**
+     * Returns the previous tag
+     *
+     * @return string $prevTag
+     */
+    public function getPrevTag()
+    {
+        return $this->prevTag;
+    }
+
+    /**
+     * Sets the previous tag
+     *
+     * @return void
+     */
+    public function setPrevTag(string $prevTag)
+    {
+        $this->prevTag = $prevTag;
+    }
+
+    /**
+     * Returns the next tag
+     *
+     * @return string $nextTag
+     */
+    public function getNextTag()
+    {
+        return $this->nextTag;
+    }
+
+    /**
+     * Sets the next tag
+     *
+     * @return void
+     */
+    public function setNextTag(string $nextTag)
+    {
+        $this->nextTag = $nextTag;
+    }
+
+    /**
+     * Returns the Span
+     *
+     * @return bool
+     */
+    public function getSpan()
+    {
+        return $this->span;
+    }
+
+    /**
+     * Sets the Span
+     *
+     * @param bool $span
+     * @return void
+     */
+    public function setSpan($span)
+    {
+        $this->span = $span;
+    }
+
+    /**
+     * Returns the boolean state of Span
+     *
+     * @return bool
+     */
+    public function isSpan()
+    {
+        return $this->span;
     }
 
     /**

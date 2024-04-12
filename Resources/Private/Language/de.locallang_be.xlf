@@ -21,7 +21,7 @@
 			</trans-unit>
 			<trans-unit id="template.showbytag" resname="template.showbytag">
 				<source>Show a selected quiz and order questions by tag (you need to select the storage folder too)</source>
-				<target>Ein bestimmtes Quiz anzeigen und Fragen nach Tag sortieren (Datensatzsammlung muss dennoch gewählt werden)</target>
+				<target>Ein bestimmtes Quiz anzeigen und Seiten nach Tag sortieren (Datensatzsammlung muss dennoch gewählt werden)</target>
 			</trans-unit>
 			<trans-unit id="template.intro" resname="template.intro">
 				<source>Show an intro page and then a quiz (you need to select the storage folder too)</source>
@@ -111,6 +111,10 @@
 				<source>Show detailed category evaluation if categories are used?</source>
 				<target>Zeige eine detaillierte Kategorieauswertung an, wenn Kategorien benutzt werden?</target>
 			</trans-unit>
+			<trans-unit id="settings.groupByTag" resname="settings.groupByTag">
+				<source>Group a normal quiz by used tags?</source>
+				<target>Gruppiere ein normales Quiz nach den benutzen Tags?</target>
+			</trans-unit>
 			<trans-unit id="settings.noFormCheck" resname="settings.noFormCheck">
 				<source>Disable form check (set all questions as non mandatory)?</source>
 				<target>Fragen-Check ausschalten (Abfrage, ob alle Fragen beantwortet wurden)?</target>
@@ -145,11 +149,11 @@
 			</trans-unit>
 			<trans-unit id="settings.allowEdit" resname="settings.allowEdit">
 				<source>Allow edit answered questions (works only for show by tag)?</source>
-				<target>Erlaube es, Antworten zu editieren (funktioniert nur bei &quot;Fragen nach Tag sortieren&quot;)?</target>
+				<target>Erlaube es, Antworten zu editieren (funktioniert nur bei &quot;Seiten nach Tag sortieren&quot;)?</target>
 			</trans-unit>
 			<trans-unit id="settings.random" resname="settings.random">
 				<source>Enable a random mode for tags (works only for show by tag)?</source>
-				<target>Zufallsmodus für Tags aktivieren (funktioniert nur bei &quot;Fragen nach Tag sortieren&quot;)?</target>
+				<target>Zufallsmodus für Tags aktivieren (funktioniert nur bei &quot;Seiten nach Tag sortieren&quot;)?</target>
 			</trans-unit>
 			<trans-unit id="settings.closed" resname="settings.closed">
 				<source>Quiz/poll/test is closed now (participation is no longer possible)?</source>

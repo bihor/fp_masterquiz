@@ -78,6 +78,9 @@
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.tag" resname="tx_fpmasterquiz_domain_model_question.tag">
 				<source>Tag</source>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.span" resname="tx_fpmasterquiz_domain_model_question.span">
+				<source>Use the span tag instead of the div tag</source>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.optional" resname="tx_fpmasterquiz_domain_model_question.optional">
 				<source>The answer is optional</source>
 			</trans-unit>

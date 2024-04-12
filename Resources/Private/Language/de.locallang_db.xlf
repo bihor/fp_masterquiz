@@ -103,6 +103,10 @@
 				<source>Tag</source>
 				<target>Tag</target>
 			</trans-unit>
+			<trans-unit id="tx_fpmasterquiz_domain_model_question.span" resname="tx_fpmasterquiz_domain_model_question.spann">
+				<source>span</source>
+				<target>span-Tag statt div-Tag benutzen</target>
+			</trans-unit>
 			<trans-unit id="tx_fpmasterquiz_domain_model_question.optional" resname="tx_fpmasterquiz_domain_model_question.optional">
 				<source>The answer is optional</source>
 				<target>Die Beantwortung ist optional</target>
