@@ -21,6 +21,7 @@
 		<f:for each="{quiz.questions}" as="question" iteration="pageiterator">
 			<f:if condition="{settings.templateLayout} == 2">
 				<f:then>
+					<f:comment>Detailed results</f:comment>
 					<div>{settings.template.wrapQuestionTitle1 -> f:format.raw()}{question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}</div>
 					<div>{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}</div>
 					<table class="table quiz-table">
@@ -66,7 +67,13 @@
 					</table>
 				</f:then>
 				<f:else>
-					<div class="card"><div class="card-body">
+					<f:if condition="{settings.groupByTag}"><f:then>
+						<f:if condition="{question.tag.name} != {question.prevTag}">
+							<div class="card"><div class="card-header">{question.tag.name}</div><div class="card-body">
+						</f:if>
+					</f:then><f:else>
+						<div class="card"><div class="card-body">
+					</f:else></f:if>
 						{settings.template.wrapQuestionTitle1 -> f:format.raw()}{question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
 						<div class="row">
 							<div class="{f:if(condition: '{question.image.uid}', then: settings.template.colText, else: settings.template.col12)}">
@@ -103,7 +110,13 @@
 							<p>{f:translate(key: "text.explanation", default: 'Explanation: ')}</p>
 							<f:format.html>{question.explanation}</f:format.html>
 						</f:if>
-					</div></div>
+					<f:if condition="{settings.groupByTag}"><f:then>
+						<f:if condition="{question.tag.name} != {question.nextTag}">
+							</div></div>
+						</f:if>
+					</f:then><f:else>
+						</div></div>
+					</f:else></f:if>
 				</f:else>
 			</f:if>
 			<br/>

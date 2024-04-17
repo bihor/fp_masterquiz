@@ -54,6 +54,10 @@ Here an example for a template (extract) with 2 layouts:
 		</f:else>
 	</f:if>
 
+Note: by default, the template will load JavaScript from cdn.jsdelivr.net, if you use templateLayout 1.
+Then the results will be displayed as a chart. Apexcharts will be used then. Here you find more informations about Apexcharts:
+https://apexcharts.com/
+
 - Furthermore you can use TSconfig to rename or hide quiz-fields in the BE. Here two examples:
 
 ::

@@ -200,12 +200,12 @@ ChangeLog
 
   Bugfix for: prevent PHP and JavaScript errors from missing settings.
 
-4.3.0:
+4.3:
   Setting redirectToResultPageAtFinal added: redirect to the result page when the final page is reached?
 
   Setting pointsMode added: 0 points if not all answers are correct now possible.
 
-5.0.0:
+5.0:
   Refactoring with the rector-tool.
 
   settings.debug=2 is new. If 2 instead of 1, the debug output will be written into a log file.
@@ -219,5 +219,8 @@ ChangeLog
 
   Bugfix: Matrix-Display.
 
-5.1.0:
+5.1:
   More layout possibilities: group a normal quiz/poll by tags; show answers inline (span instead of div).
+
+5.1.1:
+  Bugfix for group by tags.

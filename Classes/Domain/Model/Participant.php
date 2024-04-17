@@ -706,22 +706,40 @@ class Participant extends AbstractEntity
 
     /**
      * Returns the sorted selections
-     *
-     * @return array sortedSelections
      */
-    public function getSortedSelections()
+    public function getSortedSelections(): array
     {
         $sortedSelections = [];
         $i = 0;
+        $hasTags = false;
         foreach ($this->selections as $selection) {
             $sorting = $selection->getSorting();
             if ($sorting == 0) {
                 $sorting = $i;
             }
+            if ($selection->getQuestion()->getTag()) {
+                $hasTags = true;
+            }
             $sortedSelections[$sorting] = $selection;
             $i++;
         }
         ksort($sortedSelections);
+        if ($hasTags) {
+            // prev und next Tag immer setzen, wenn Tags vorhanden sind
+            $lastItem = null;
+            $lastTag = '';
+            foreach ($sortedSelections as $selection) {
+                $itemQuestion = $selection->getQuestion();
+                if ($lastItem) {
+                    $lastItem->setNextTag($itemQuestion->getTag()->getName());
+                }
+                if (($lastTag)) {
+                    $itemQuestion->setPrevTag($lastTag);
+                }
+                $lastTag = $itemQuestion->getTag()->getName();
+                $lastItem = $itemQuestion;
+            }
+        }
         return $sortedSelections;
     }
 

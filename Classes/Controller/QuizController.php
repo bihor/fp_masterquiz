@@ -1507,15 +1507,21 @@ class QuizController extends ActionController
             // in diesem Fall brauchen wir das letzte und nächste Tag
             $lastItem = null;
             $lastTag = '';
-            foreach ($quizPaginator->getPaginatedItems() as $itemQuestion) {
-                if ($lastItem) {
-                    $lastItem->setNextTag($itemQuestion->getTag()->getName());
+            if ($data['final']) {
+                // next und prev werden hier gesetzt: getSortedSelections()
+            } else {
+                foreach ($quizPaginator->getPaginatedItems() as $itemQuestion) {
+                    if ($itemQuestion->getTag()) {
+                        if ($lastItem) {
+                            $lastItem->setNextTag($itemQuestion->getTag()->getName());
+                        }
+                        if (($lastTag)) {
+                            $itemQuestion->setPrevTag($lastTag);
+                        }
+                        $lastTag = $itemQuestion->getTag()->getName();
+                        $lastItem = $itemQuestion;
+                    }
                 }
-                if (($lastTag)) {
-                    $itemQuestion->setPrevTag($lastTag);
-                }
-                $lastTag = $itemQuestion->getTag()->getName();
-                $lastItem = $itemQuestion;
             }
         }
 
@@ -1865,6 +1871,21 @@ class QuizController extends ActionController
                 $userPid = $storagePidsArray[0];
             } else {
                 $userPid = $pid;
+            }
+        }
+        if ($this->settings['groupByTag']) {
+            // in diesem Fall brauchen wir das letzte und nächste Tag
+            $lastItem = null;
+            $lastTag = '';
+            foreach ($quiz->getQuestions() as $itemQuestion) {
+                if ($lastItem) {
+                    $lastItem->setNextTag($itemQuestion->getTag()->getName());
+                }
+                if (($lastTag)) {
+                    $itemQuestion->setPrevTag($lastTag);
+                }
+                $lastTag = $itemQuestion->getTag()->getName();
+                $lastItem = $itemQuestion;
             }
         }
         $this->view->assign('quiz', $quiz);

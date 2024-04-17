@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 5.1.0
+version 5.1.1
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -51,5 +51,8 @@ Changes in version 5.0.3:
 - Bugfix: prevent multiple ajax calls.
 - Bugfix: Matrix-Display.
 
-Changes in version 5.1.0:
+Changes in version 5.1:
 - More layout possibilities: group a normal quiz/poll by tags; show answers inline (span instead of div).
+
+Changes in version 5.1.1:
+- Bugfix for group by tags.
