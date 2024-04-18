@@ -58,6 +58,13 @@ class Answer extends AbstractEntity
     protected $ownCategoryAnswer = [];
 
     /**
+     * all category answers (for question mode 8): uid and title
+     *
+     * @var array
+     */
+    protected $allCategoryAnswers = [];
+
+    /**
      * total answers of all users
      *
      * @var int
@@ -212,6 +219,27 @@ class Answer extends AbstractEntity
     public function setOwnCategoryAnswer($array)
     {
         $this->ownCategoryAnswer = $array;
+    }
+
+    /**
+     * Returns all Category Answers
+     *
+     * @return array $allCategoryAnswers
+     */
+    public function getAllCategoryAnswers()
+    {
+        return $this->allCategoryAnswer;
+    }
+
+    /**
+     * Sets all category answers
+     *
+     * @param array $array uid and title of a category
+     * @return void
+     */
+    public function setAllCategoryAnswers($array)
+    {
+        $this->allCategoryAnswer = $array;
     }
 
     /**

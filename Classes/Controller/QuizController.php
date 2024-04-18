@@ -1202,17 +1202,14 @@ class QuizController extends ActionController
 
     /**
      * Set all user-answers to a question
-     *
-     * @param Question $oneQuestion The question dataset
-     * @return string
      */
-    protected function setAllUserAnswersForOneQuestion(Question &$oneQuestion, int $pid, bool $be)
+    protected function setAllUserAnswersForOneQuestion(Question &$oneQuestion, int $pid, bool $be): string
     {
         $votes = 0;
         $votesTotal = 0;
         $debug = '';
         $allResults = [];
-        //$allCategoryResults = [];
+        $allCategoryResults = [];
         $questionID = $oneQuestion->getUid();
         $isEnterQuestion = (($oneQuestion->getQmode() == 3) || ($oneQuestion->getQmode() == 5));
         if ($this->settings['debug']) {
@@ -1237,22 +1234,6 @@ class QuizController extends ActionController
                     } else {
                         $allResults[$oneAnswer->getUid()] = 1;
                     }
-                    /* TODO:
-                    if ($oneQuestion->getQmode() == 8) {
-                        // ausgewählte Kategorien einer Antwort
-                        $catAnswers = unserialize($aSelectedQuestion->getEntered());
-                        foreach ($catAnswers as $key => $value) {
-                            if (!is_array($allCategoryResults[$key])) {
-                                $allCategoryResults[$key] = [];
-                            }
-                            if (isset($allCategoryResults[$key][$value])) {
-                                $allCategoryResults[$key][$value]++;
-                            } else {
-                                $allCategoryResults[$key][$value] = 1;
-                            }
-                        }
-                    }
-                    */
                 } else if ($be) {
                     // Text-Antworten anderer interessieren uns nur im Backend
                     if (isset($allResults['text'])) {
@@ -1274,6 +1255,20 @@ class QuizController extends ActionController
                     }
                 }
             }
+            if ($oneQuestion->getQmode() == 8) {
+                // ausgewählte Kategorien einer Antwort
+                $catAnswers = unserialize($aSelectedQuestion->getEntered());
+                foreach ($catAnswers as $key => $value) {
+                    if (!is_array($allCategoryResults[$key])) {
+                        $allCategoryResults[$key] = [];
+                    }
+                    if (isset($allCategoryResults[$key][$value])) {
+                        $allCategoryResults[$key][$value]++;
+                    } else {
+                        $allCategoryResults[$key][$value] = 1;
+                    }
+                }
+            }
         }
         // gesammeltes speichern bei: alle möglichen Antworten einer Frage...
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
@@ -1288,6 +1283,9 @@ class QuizController extends ActionController
                 $oneQuestion->setTextAnswers($allResults['text']);
             }
             $oneAnswer->setAllAnswers($thisVotes);
+            if ($oneQuestion->getQmode() == 8) {
+                $oneAnswer->setAllCategoryAnswers($allCategoryResults);
+            }
         }
         // ... und Prozentwerte speichern
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
@@ -1309,6 +1307,7 @@ class QuizController extends ActionController
         }
         $oneQuestion->setAllAnswers($votes);
         $oneQuestion->setTotalAnswers($votesTotal);
+        return $debug;
     }
 
     /**

@@ -222,5 +222,6 @@ ChangeLog
 5.1:
   More layout possibilities: group a normal quiz/poll by tags; show answers inline (span instead of div).
 
-5.1.1:
-  Bugfix for group by tags.
+5.1.2:
+  More support for group by tags.
+  More support for matrix-questions.
