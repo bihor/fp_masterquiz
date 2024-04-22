@@ -5,19 +5,69 @@
   <f:if condition="({question.qmode} == 0) || ({question.qmode} == 4)"> / {question.totalAnswers}</f:if>
 </p>
 
-<ul class="chart">
-<f:for each="{question.answers}" as="answer3" iteration="iter3">
-  <li>
-    <span style="height:{answer3.allPercent}%" title="{answer3.title}: {answer3.allAnswers}x ({answer3.allPercent}%)"></span>
-  </li>
-</f:for>
-</ul>
-<f:if condition="({question.qmode} == 3) || ({question.qmode} == 5)">
-  <ul>
-  <f:for each="{question.textAnswers}" key="textAnswer" as="textCount">
-    <li>{textAnswer}: {textCount.sum}x ({textCount.percent}%)
-  </f:for>
-  </ul>
+<f:if condition="{question.qmode} == 8">
+  <f:then>
+    <f:comment>Pure CSS Color Bars from: https://speckyboy.com/code-snippets-css3-bar-graphs/</f:comment>
+    <div id="bar-chart">
+      <div class="graph">
+        <ul class="x-axis">
+          <f:for each="{question.answers}" as="answer3" iteration="iter3">
+            <li>
+              <span>{answer3.title}</span>
+            </li>
+          </f:for>
+        </ul>
+        <ul class="y-axis">
+          <li><span>100%</span></li>
+          <li><span>80</span></li>
+          <li><span>60</span></li>
+          <li><span>40</span></li>
+          <li><span>20</span></li>
+          <li><span>0</span></li>
+        </ul>
+        <div class="bars">
+          <f:for each="{question.answers}" as="answer3" iteration="iter3">
+          <div class="bar-group">
+            <f:for each="{question.categoriesArray}" key="catkey" as="category" iteration="itercat">
+                <f:for each="{answer3.allCategoryAnswers}" key="an3key" as="an3array">
+                  <f:if condition="{answer3.uid} == {an3key}">
+                    <f:for each="{an3array}" key="cat3key" as="cat3count">
+                      <f:if condition="{catkey} == {cat3key}">
+                        <div class="bar stat-{itercat.cycle}" style="height: {cat3count * 100 / question.allAnswers}%;">
+                          <span>{cat3count}</span>
+                        </div>
+                      </f:if>
+                    </f:for>
+                  </f:if>
+                </f:for>
+            </f:for>
+          </div>
+          </f:for>
+        </div>
+      </div>
+      <div>
+        <f:for each="{question.categoriesArray}" key="catkey" as="category" iteration="itercat">
+          <span class="cat-bg cat-bg-{itercat.cycle}">&nbsp;</span>{category}&nbsp; &nbsp;
+        </f:for>
+      </div>
+    </div>
+  </f:then>
+  <f:else>
+    <ul class="chart">
+      <f:for each="{question.answers}" as="answer3" iteration="iter3">
+        <li>
+          <span style="height:{answer3.allPercent}%" title="{answer3.title}: {answer3.allAnswers}x ({answer3.allPercent}%)"></span>
+        </li>
+      </f:for>
+    </ul>
+    <f:if condition="({question.qmode} == 3) || ({question.qmode} == 5)">
+      <ul>
+        <f:for each="{question.textAnswers}" key="textAnswer" as="textCount">
+          <li>{textAnswer}: {textCount.sum}x ({textCount.percent}%)
+        </f:for>
+      </ul>
+    </f:if>
+  </f:else>
 </f:if>
 <hr />
 </html>

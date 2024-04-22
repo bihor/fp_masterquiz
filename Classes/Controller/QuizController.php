@@ -1259,7 +1259,7 @@ class QuizController extends ActionController
                 // ausgewählte Kategorien einer Antwort
                 $catAnswers = unserialize($aSelectedQuestion->getEntered());
                 foreach ($catAnswers as $key => $value) {
-                    if (!is_array($allCategoryResults[$key])) {
+                    if (!isset($allCategoryResults[$key]) || !is_array($allCategoryResults[$key])) {
                         $allCategoryResults[$key] = [];
                     }
                     if (isset($allCategoryResults[$key][$value])) {
