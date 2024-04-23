@@ -25,13 +25,23 @@
 				<f:then>
 					<br/>
 					<table>
-					<f:for each="{question.categoriesArray}" key="catkey" as="category">
-						<tr><td>{category}:</td><td>
+					<f:for each="{question.sortedCategoriesArray}" as="category">
+						<tr><td>{category.title}:&nbsp;</td><td>
 							<f:for each="{answer3.allCategoryAnswers}" key="an3key" as="an3array">
 								<f:if condition="{answer3.uid} == {an3key}">
 									<f:for each="{an3array}" key="cat3key" as="cat3count">
-										<f:if condition="{catkey} == {cat3key}">
-											{cat3count} {f:translate(key: "text.choices")}
+										<f:if condition="{category.uid} == {cat3key}">
+											{cat3count}
+											{f:translate(key: "text.choices")}<f:if condition="{cat3key} == {answer3.ownCategoryAnswer.0}">;
+											{f:translate(key: "text.myChoice", default: 'my choice')}</f:if>
+											&nbsp;</td><td style="width:200px">
+											<div class="progress">
+												<div class="progress-bar" style="width:{cat3count * 100 / question.allAnswers}%">
+													<f:format.number decimals="1" decimalSeparator="," thousandsSeparator=".">
+														{cat3count * 100 / question.allAnswers}
+													</f:format.number> %
+												</div>
+											</div>
 										</f:if>
 									</f:for>
 								</f:if>

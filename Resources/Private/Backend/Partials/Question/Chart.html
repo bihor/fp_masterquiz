@@ -28,11 +28,11 @@
         <div class="bars">
           <f:for each="{question.answers}" as="answer3" iteration="iter3">
           <div class="bar-group">
-            <f:for each="{question.categoriesArray}" key="catkey" as="category" iteration="itercat">
+            <f:for each="{question.sortedCategoriesArray}" key="catkey" as="category" iteration="itercat">
                 <f:for each="{answer3.allCategoryAnswers}" key="an3key" as="an3array">
                   <f:if condition="{answer3.uid} == {an3key}">
                     <f:for each="{an3array}" key="cat3key" as="cat3count">
-                      <f:if condition="{catkey} == {cat3key}">
+                      <f:if condition="{category.uid} == {cat3key}">
                         <div class="bar stat-{itercat.cycle}" style="height: {cat3count * 100 / question.allAnswers}%;">
                           <span>{cat3count}</span>
                         </div>
@@ -46,8 +46,8 @@
         </div>
       </div>
       <div>
-        <f:for each="{question.categoriesArray}" key="catkey" as="category" iteration="itercat">
-          <span class="cat-bg cat-bg-{itercat.cycle}">&nbsp;</span>{category}&nbsp; &nbsp;
+        <f:for each="{question.sortedCategoriesArray}" key="catkey" as="category" iteration="itercat">
+          <span class="cat-bg cat-bg-{itercat.cycle}">&nbsp;</span>{category.title}&nbsp; &nbsp;
         </f:for>
       </div>
     </div>
