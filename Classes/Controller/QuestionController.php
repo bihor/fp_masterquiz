@@ -65,7 +65,7 @@ class QuestionController extends ActionController
      */
     public function moveAction(Quiz $quiz, Question $question = NULL): ResponseInterface
     {
-        $pid = (int)GeneralUtility::_GP('id');
+        $pid = $this->id;
         if ($question) {
             $this->questionRepository->moveToQuiz($question->getUid(), $quiz->getUid());
         }

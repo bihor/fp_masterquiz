@@ -68,7 +68,7 @@ class ParticipantController extends ActionController
      */
     public function listAction(int $currentPage = 1): ResponseInterface
     {
-        $pid = (int)GeneralUtility::_GP('id');
+        $pid = $this->id;
         $qid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
         if ($qid) {
             $participants = $this->participantRepository->findFromPidAndQuiz($pid, $qid);

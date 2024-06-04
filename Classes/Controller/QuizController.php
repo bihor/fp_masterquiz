@@ -1963,7 +1963,7 @@ class QuizController extends ActionController
     function indexAction(): ResponseInterface
     {
         $otherLangs = [];
-        $pid = (int)GeneralUtility::_GP('id');
+        $pid = $this->id;
         $quizzes = $this->quizRepository->findFromPid($pid);
         foreach ($quizzes as $quiz) {
             $otherLangs[] = $this->quizRepository->findFormUidAndPidOtherLanguages($quiz->getUid());
@@ -1983,8 +1983,8 @@ class QuizController extends ActionController
     public function detailAction(Quiz $quiz): ResponseInterface
     {
         $questionRepository = GeneralUtility::makeInstance(QuestionRepository::class);
-        $pid = (int)GeneralUtility::_GP('id');
-        $uid = (int)$quiz->getUid();
+        $pid = $this->id;
+        //$uid = (int)$quiz->getUid();
         $updated = false;
         $lost = $this->request->hasArgument('lost') ? intval($this->request->getArgument('lost')) : 0;
         if ($lost > 0) {
@@ -2039,7 +2039,7 @@ class QuizController extends ActionController
     {
         $be = $this->request->hasArgument('be') ? true : false;
         if ($be) {
-            $pid = (int)GeneralUtility::_GP('id');
+            $pid = $this->id;
         } else {
             $pid = (int)$GLOBALS['TSFE']->id;
         }
