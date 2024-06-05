@@ -26,7 +26,7 @@ final class FixImageReferencesUpgradeWizard implements UpgradeWizardInterface, R
      */
     public function getTitle(): string
     {
-        return 'Fix image references for quizzes after update';
+        return 'EXT:fp_masterquiz: Fix image references for quizzes after update';
     }
 
     /**
@@ -34,7 +34,7 @@ final class FixImageReferencesUpgradeWizard implements UpgradeWizardInterface, R
      */
     public function getDescription(): string
     {
-        return '';
+        return 'Sets fieldname = media in sys_file_reference where tablenames = tx_fpmasterquiz_domain_model_quiz.';
     }
 
     /**

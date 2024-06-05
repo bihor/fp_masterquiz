@@ -70,12 +70,6 @@ return [
                 ],
             ],
         ],
-    	'sorting' => [
-    		'label' => 'sorting',
-    		'config' => [
-    			'type' => 'passthrough'
-    		]
-    	],
         'points' => [
             'exclude' => true,
             'label' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fpmasterquiz_domain_model_selected.points',

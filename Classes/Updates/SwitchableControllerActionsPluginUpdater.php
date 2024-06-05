@@ -73,7 +73,7 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
 
     public function getTitle(): string
     {
-        return 'Migrates plugin and settings of existing Masterquiz plugins using switchableControllerActions';
+        return 'EXT:fp_masterquiz: Migrates plugin and settings of existing MasterQuiz plugins using switchableControllerActions';
     }
 
     public function getDescription(): string

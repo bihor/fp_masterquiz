@@ -222,7 +222,10 @@ ChangeLog
 5.1:
   More layout possibilities: group a normal quiz/poll by tags; show answers inline (span instead of div).
 
-5.1.5:
+5.1.4:
   More support for group by tags.
   More support for matrix-questions.
+
+5.1.6:
   Bugfix: backend preview.
+  Remove of deprecated methods and sql-fields.
