@@ -1,36 +1,44 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Domain\Model;
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Fixpunkt\FpMasterquiz\Domain\Model\Question;
-use TYPO3\CMS\Extbase\Domain\Model\FileReference;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Fixpunkt\FpMasterquiz\Domain\Model\Answer;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+
 /**
- * Test case.
+ * Test case
  *
- * @author Kurt Gusbeth <k.gusbeth@fixpunkt.com>
+ * @author Kurt Gusbeth <news@quizpalme.de>
  */
 class QuestionTest extends UnitTestCase
 {
     /**
-     * @var Question
+     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Question|MockObject|AccessibleObjectInterface
      */
-    protected $subject = null;
+    protected $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->subject = new Question();
+        parent::setUp();
+
+        $this->subject = $this->getAccessibleMock(
+            \Fixpunkt\FpMasterquiz\Domain\Model\Question::class,
+            ['dummy']
+        );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
+        parent::tearDown();
     }
 
     /**
      * @test
      */
-    public function getTitleReturnsInitialValueForString()
+    public function getTitleReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -41,21 +49,17 @@ class QuestionTest extends UnitTestCase
     /**
      * @test
      */
-    public function setTitleForStringSetsTitle()
+    public function setTitleForStringSetsTitle(): void
     {
         $this->subject->setTitle('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'title',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('title'));
     }
 
     /**
      * @test
      */
-    public function getQmodeReturnsInitialValueForInt()
+    public function getQmodeReturnsInitialValueForInt(): void
     {
         self::assertSame(
             0,
@@ -66,21 +70,17 @@ class QuestionTest extends UnitTestCase
     /**
      * @test
      */
-    public function setQmodeForIntSetsQmode()
+    public function setQmodeForIntSetsQmode(): void
     {
         $this->subject->setQmode(12);
 
-        self::assertAttributeEquals(
-            12,
-            'qmode',
-            $this->subject
-        );
+        self::assertEquals(12, $this->subject->_get('qmode'));
     }
 
     /**
      * @test
      */
-    public function getImageReturnsInitialValueForFileReference()
+    public function getImageReturnsInitialValueForFileReference(): void
     {
         self::assertEquals(
             null,
@@ -91,22 +91,18 @@ class QuestionTest extends UnitTestCase
     /**
      * @test
      */
-    public function setImageForFileReferenceSetsImage()
+    public function setImageForFileReferenceSetsImage(): void
     {
-        $fileReferenceFixture = new FileReference();
+        $fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
         $this->subject->setImage($fileReferenceFixture);
 
-        self::assertAttributeEquals(
-            $fileReferenceFixture,
-            'image',
-            $this->subject
-        );
+        self::assertEquals($fileReferenceFixture, $this->subject->_get('image'));
     }
 
     /**
      * @test
      */
-    public function getBodytextReturnsInitialValueForString()
+    public function getBodytextReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -117,21 +113,17 @@ class QuestionTest extends UnitTestCase
     /**
      * @test
      */
-    public function setBodytextForStringSetsBodytext()
+    public function setBodytextForStringSetsBodytext(): void
     {
         $this->subject->setBodytext('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'bodytext',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('bodytext'));
     }
 
     /**
      * @test
      */
-    public function getExplanationReturnsInitialValueForString()
+    public function getExplanationReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -142,23 +134,73 @@ class QuestionTest extends UnitTestCase
     /**
      * @test
      */
-    public function setExplanationForStringSetsExplanation()
+    public function setExplanationForStringSetsExplanation(): void
     {
         $this->subject->setExplanation('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'explanation',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('explanation'));
     }
 
     /**
      * @test
      */
-    public function getAnswersReturnsInitialValueForAnswer()
+    public function getSpanReturnsInitialValueForBool(): void
     {
-        $newObjectStorage = new ObjectStorage();
+        self::assertFalse($this->subject->getSpan());
+    }
+
+    /**
+     * @test
+     */
+    public function setSpanForBoolSetsSpan(): void
+    {
+        $this->subject->setSpan(true);
+
+        self::assertEquals(true, $this->subject->_get('span'));
+    }
+
+    /**
+     * @test
+     */
+    public function getOptionalReturnsInitialValueForBool(): void
+    {
+        self::assertFalse($this->subject->getOptional());
+    }
+
+    /**
+     * @test
+     */
+    public function setOptionalForBoolSetsOptional(): void
+    {
+        $this->subject->setOptional(true);
+
+        self::assertEquals(true, $this->subject->_get('optional'));
+    }
+
+    /**
+     * @test
+     */
+    public function getClosedReturnsInitialValueForBool(): void
+    {
+        self::assertFalse($this->subject->getClosed());
+    }
+
+    /**
+     * @test
+     */
+    public function setClosedForBoolSetsClosed(): void
+    {
+        $this->subject->setClosed(true);
+
+        self::assertEquals(true, $this->subject->_get('closed'));
+    }
+
+    /**
+     * @test
+     */
+    public function getAnswersReturnsInitialValueForAnswer(): void
+    {
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
             $newObjectStorage,
             $this->subject->getAnswers()
@@ -168,33 +210,29 @@ class QuestionTest extends UnitTestCase
     /**
      * @test
      */
-    public function setAnswersForObjectStorageContainingAnswerSetsAnswers()
+    public function setAnswersForObjectStorageContainingAnswerSetsAnswers(): void
     {
-        $answer = new Answer();
-        $objectStorageHoldingExactlyOneAnswers = new ObjectStorage();
+        $answer = new \Fixpunkt\FpMasterquiz\Domain\Model\Answer();
+        $objectStorageHoldingExactlyOneAnswers = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneAnswers->attach($answer);
         $this->subject->setAnswers($objectStorageHoldingExactlyOneAnswers);
 
-        self::assertAttributeEquals(
-            $objectStorageHoldingExactlyOneAnswers,
-            'answers',
-            $this->subject
-        );
+        self::assertEquals($objectStorageHoldingExactlyOneAnswers, $this->subject->_get('answers'));
     }
 
     /**
      * @test
      */
-    public function addAnswerToObjectStorageHoldingAnswers()
+    public function addAnswerToObjectStorageHoldingAnswers(): void
     {
-        $answer = new Answer();
-        $answersObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['attach'])
+        $answer = new \Fixpunkt\FpMasterquiz\Domain\Model\Answer();
+        $answersObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->onlyMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $answersObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($answer));
-        $this->inject($this->subject, 'answers', $answersObjectStorageMock);
+        $this->subject->_set('answers', $answersObjectStorageMock);
 
         $this->subject->addAnswer($answer);
     }
@@ -202,17 +240,39 @@ class QuestionTest extends UnitTestCase
     /**
      * @test
      */
-    public function removeAnswerFromObjectStorageHoldingAnswers()
+    public function removeAnswerFromObjectStorageHoldingAnswers(): void
     {
-        $answer = new Answer();
-        $answersObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['detach'])
+        $answer = new \Fixpunkt\FpMasterquiz\Domain\Model\Answer();
+        $answersObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->onlyMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $answersObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($answer));
-        $this->inject($this->subject, 'answers', $answersObjectStorageMock);
+        $this->subject->_set('answers', $answersObjectStorageMock);
 
         $this->subject->removeAnswer($answer);
+    }
+
+    /**
+     * @test
+     */
+    public function getTagReturnsInitialValueForTag(): void
+    {
+        self::assertEquals(
+            null,
+            $this->subject->getTag()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setTagForTagSetsTag(): void
+    {
+        $tagFixture = new \Fixpunkt\FpMasterquiz\Domain\Model\Tag();
+        $this->subject->setTag($tagFixture);
+
+        self::assertEquals($tagFixture, $this->subject->_get('tag'));
     }
 }

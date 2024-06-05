@@ -3,22 +3,28 @@
         {
             "config": {
                 "position": [
-                    642,
-                    228
+                    73,
+                    71
                 ]
             },
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": true,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
+                    "_default0_index": true,
+                    "_default1_list": true,
+                    "_default2_show": true,
+                    "_default3_new_create": false,
+                    "_default4_edit_update": false,
+                    "_default5_delete": false,
                     "customActions": [
-                        "default",
                         "showAjax",
-                        "index"
+                        "showByTag",
+                        "intro",
+                        "closure",
+                        "result",
+                        "highscore",
+                        "detail",
+                        "charts"
                     ]
                 },
                 "name": "Quiz",
@@ -27,38 +33,99 @@
                     "addHiddenField": true,
                     "addStarttimeEndtimeFields": true,
                     "aggregateRoot": true,
-                    "categorizable": false,
-                    "description": "Quiz \/ Test \/ Umfrage",
+                    "categorizable": true,
+                    "description": "Quiz",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": true,
                     "type": "Entity",
-                    "uid": "1230872731981"
+                    "uid": "623770459494"
                 },
                 "propertyGroup": {
                     "properties": [
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Name \/ Title",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": true,
                             "propertyName": "name",
                             "propertyType": "String",
-                            "uid": "34107744349"
+                            "uid": "10721104380"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Text about this quiz",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "about",
                             "propertyType": "Text",
-                            "uid": "1482759510869"
+                            "uid": "1395840398985"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "qtype",
+                            "propertyType": "Select",
+                            "uid": "725686390158"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "timeperiod",
+                            "propertyType": "Integer",
+                            "uid": "1152697424754"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "media",
+                            "propertyType": "Image",
+                            "uid": "1680925598153"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "closed",
+                            "propertyType": "Integer",
+                            "uid": "1002131562733"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "pathSegment",
+                            "propertyType": "Slug",
+                            "uid": "1270259606662"
                         }
                     ]
                 },
@@ -66,25 +133,25 @@
                     "relations": [
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": true,
+                            "lazyLoading": false,
                             "propertyIsExcludeField": true,
                             "relationDescription": "Questions",
                             "relationName": "questions",
                             "relationType": "zeroToMany",
                             "relationWire": "[wired]",
                             "renderType": "inline",
-                            "uid": "1428971409314"
+                            "uid": "1532251349287"
                         },
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": true,
+                            "lazyLoading": false,
                             "propertyIsExcludeField": true,
                             "relationDescription": "Evaluations",
                             "relationName": "evaluations",
                             "relationType": "zeroToMany",
                             "relationWire": "[wired]",
                             "renderType": "inline",
-                            "uid": "429828058797"
+                            "uid": "557218985702"
                         }
                     ]
                 }
@@ -93,19 +160,22 @@
         {
             "config": {
                 "position": [
-                    199,
-                    325
+                    387,
+                    50
                 ]
             },
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": true,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": []
+                    "_default0_index": false,
+                    "_default1_list": false,
+                    "_default2_show": false,
+                    "_default3_new_create": false,
+                    "_default4_edit_update": false,
+                    "_default5_delete": false,
+                    "customActions": [
+                        "move"
+                    ]
                 },
                 "name": "Question",
                 "objectsettings": {
@@ -114,70 +184,110 @@
                     "addStarttimeEndtimeFields": true,
                     "aggregateRoot": true,
                     "categorizable": true,
-                    "description": "Question for a quiz\/test\/poll",
+                    "description": "Question of a quiz",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": true,
                     "type": "Entity",
-                    "uid": "92940863982"
+                    "uid": "875485549341"
                 },
                 "propertyGroup": {
                     "properties": [
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Title",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": true,
                             "propertyName": "title",
                             "propertyType": "String",
-                            "uid": "555501664823"
+                            "uid": "795335720297"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Question-mode",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "qmode",
                             "propertyType": "Select",
-                            "uid": "330507187009"
+                            "uid": "491841997861"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Image",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "image",
                             "propertyType": "Image",
-                            "uid": "869218684005"
+                            "uid": "1029568015076"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Description",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "bodytext",
-                            "propertyType": "RichText",
-                            "uid": "1043865928247"
+                            "propertyType": "Text",
+                            "uid": "1283561985355"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Explanation to the question\/answers",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "explanation",
-                            "propertyType": "RichText",
-                            "uid": "1431104693043"
+                            "propertyType": "Text",
+                            "uid": "1299375267676"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "span",
+                            "propertyType": "Boolean",
+                            "uid": "24045842231"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "optional",
+                            "propertyType": "Boolean",
+                            "uid": "398214868883"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "closed",
+                            "propertyType": "Boolean",
+                            "uid": "1408770178208"
                         }
                     ]
                 },
@@ -185,14 +295,25 @@
                     "relations": [
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": true,
+                            "lazyLoading": false,
                             "propertyIsExcludeField": true,
-                            "relationDescription": "Answers of this question",
+                            "relationDescription": "Answers of a quiz",
                             "relationName": "answers",
                             "relationType": "zeroToMany",
                             "relationWire": "[wired]",
                             "renderType": "inline",
-                            "uid": "747806392586"
+                            "uid": "314355759856"
+                        },
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "Tag",
+                            "relationName": "tag",
+                            "relationType": "zeroToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
+                            "uid": "562468339714"
                         }
                     ]
                 }
@@ -201,18 +322,19 @@
         {
             "config": {
                 "position": [
-                    195,
-                    567
+                    691,
+                    31
                 ]
             },
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": true,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
+                    "_default0_index": false,
+                    "_default1_list": false,
+                    "_default2_show": false,
+                    "_default3_new_create": false,
+                    "_default4_edit_update": false,
+                    "_default5_delete": false,
                     "customActions": []
                 },
                 "name": "Answer",
@@ -225,34 +347,35 @@
                     "description": "Answer of a question",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": true,
                     "type": "Entity",
-                    "uid": "283285639698"
+                    "uid": "1139160370967"
                 },
                 "propertyGroup": {
                     "properties": [
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Answer-text",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": true,
                             "propertyName": "title",
                             "propertyType": "Text",
-                            "uid": "372676630278"
+                            "uid": "1499257405077"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Points (if the answer is true, type here a number greater than 0)",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "points",
                             "propertyType": "Integer",
-                            "uid": "1436193971692"
+                            "uid": "1185135229444"
                         }
                     ]
                 },
@@ -264,18 +387,19 @@
         {
             "config": {
                 "position": [
-                    323,
-                    23
+                    91,
+                    570
                 ]
             },
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": false,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
+                    "_default0_index": false,
+                    "_default1_list": false,
+                    "_default2_show": false,
+                    "_default3_new_create": false,
+                    "_default4_edit_update": false,
+                    "_default5_delete": false,
                     "customActions": []
                 },
                 "name": "Evaluation",
@@ -283,72 +407,100 @@
                     "addDeletedField": true,
                     "addHiddenField": true,
                     "addStarttimeEndtimeFields": true,
-                    "aggregateRoot": false,
-                    "categorizable": false,
-                    "description": "Evaluation of a quiz\/test",
+                    "aggregateRoot": true,
+                    "categorizable": true,
+                    "description": "Evaluation of a quiz",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": false,
                     "type": "Entity",
-                    "uid": "890681815722"
+                    "uid": "1229729567279"
                 },
                 "propertyGroup": {
                     "properties": [
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Evaluate points (unchecked) or percentage (checked)?",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "evaluate",
                             "propertyType": "Boolean",
-                            "uid": "1465040911392"
+                            "uid": "531199036964"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Minimum value",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "bodytext",
+                            "propertyType": "Text",
+                            "uid": "1606630610773"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "minimum",
                             "propertyType": "Float",
-                            "uid": "405480808565"
+                            "uid": "1618170680372"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Maximum value",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "maximum",
                             "propertyType": "Float",
-                            "uid": "1002000765806"
+                            "uid": "859182398737"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Show this content element at the final page",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
-                            "propertyName": "ce",
-                            "propertyType": "Integer",
-                            "uid": "101089059225"
+                            "propertyName": "image",
+                            "propertyType": "Image",
+                            "uid": "313605491199"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Or redirect to this page",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "page",
-                            "propertyType": "Integer",
-                            "uid": "604312049532"
+                            "propertyType": "InputLink",
+                            "uid": "213205118991"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "ce",
+                            "propertyType": "InputLink",
+                            "uid": "952633310771"
                         }
                     ]
                 },
@@ -360,135 +512,194 @@
         {
             "config": {
                 "position": [
-                    1096,
-                    27
+                    392,
+                    488
                 ]
             },
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
-                    "customActions": []
+                    "_default0_index": false,
+                    "_default1_list": true,
+                    "_default2_show": false,
+                    "_default3_new_create": false,
+                    "_default4_edit_update": false,
+                    "_default5_delete": true,
+                    "customActions": [
+                        "detail"
+                    ]
                 },
                 "name": "Participant",
                 "objectsettings": {
                     "addDeletedField": true,
                     "addHiddenField": true,
-                    "addStarttimeEndtimeFields": false,
+                    "addStarttimeEndtimeFields": true,
                     "aggregateRoot": true,
                     "categorizable": true,
-                    "description": "",
+                    "description": "Participant of a quiz",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
                     "sorting": false,
                     "type": "Entity",
-                    "uid": "1478123021177"
+                    "uid": "645820140380"
                 },
                 "propertyGroup": {
                     "properties": [
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Name",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "name",
                             "propertyType": "String",
-                            "uid": "661471453065"
+                            "uid": "819939943684"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "E-Mail",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "email",
                             "propertyType": "String",
-                            "uid": "804994433747"
+                            "uid": "524274678074"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Homepage",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "homepage",
                             "propertyType": "String",
-                            "uid": "1149958216605"
+                            "uid": "233178559372"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "fe-user",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "user",
-                            "propertyType": "Integer",
-                            "uid": "741770585878"
+                            "propertyType": "Select",
+                            "uid": "657886755673"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "IP-address",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "ip",
                             "propertyType": "String",
-                            "uid": "1494908931154"
+                            "uid": "447104403494"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Session-key",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "session",
                             "propertyType": "String",
-                            "uid": "326262869893"
+                            "uid": "52520927039"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Reached points for this quiz",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "sessionstart",
+                            "propertyType": "Integer",
+                            "uid": "755647836386"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "randompages",
+                            "propertyType": "String",
+                            "uid": "961126125160"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "points",
                             "propertyType": "Integer",
-                            "uid": "1054721102799"
+                            "uid": "637572285677"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Maximum points for the answered questions",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "maximum1",
                             "propertyType": "Integer",
-                            "uid": "1507274199889"
+                            "uid": "32840333337"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Maximum points for this quiz",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
                             "propertyName": "maximum2",
                             "propertyType": "Integer",
-                            "uid": "1363870406979"
+                            "uid": "562636028001"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "completed",
+                            "propertyType": "Boolean",
+                            "uid": "1100180988421"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "page",
+                            "propertyType": "Integer",
+                            "uid": "1385977859145"
                         }
                     ]
                 },
@@ -496,25 +707,113 @@
                     "relations": [
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": true,
+                            "lazyLoading": false,
                             "propertyIsExcludeField": true,
-                            "relationDescription": "Participated quiz",
+                            "relationDescription": "",
                             "relationName": "quiz",
-                            "relationType": "manyToOne",
+                            "relationType": "zeroToOne",
                             "relationWire": "[wired]",
                             "renderType": "selectSingle",
-                            "uid": "499602761958"
+                            "uid": "1275069546800"
                         },
                         {
                             "foreignRelationClass": "",
-                            "lazyLoading": true,
+                            "lazyLoading": false,
                             "propertyIsExcludeField": true,
-                            "relationDescription": "Answered questions",
+                            "relationDescription": "",
                             "relationName": "selections",
                             "relationType": "zeroToMany",
                             "relationWire": "[wired]",
                             "renderType": "inline",
-                            "uid": "139638215619"
+                            "uid": "1580139472705"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "config": {
+                "position": [
+                    651,
+                    475
+                ]
+            },
+            "name": "New Model Object",
+            "value": {
+                "actionGroup": {
+                    "_default0_index": false,
+                    "_default1_list": false,
+                    "_default2_show": false,
+                    "_default3_new_create": false,
+                    "_default4_edit_update": false,
+                    "_default5_delete": false,
+                    "customActions": []
+                },
+                "name": "Selected",
+                "objectsettings": {
+                    "addDeletedField": true,
+                    "addHiddenField": true,
+                    "addStarttimeEndtimeFields": true,
+                    "aggregateRoot": true,
+                    "categorizable": true,
+                    "description": "Selected answers of a participant",
+                    "mapToTable": "",
+                    "parentClass": "",
+                    "sorting": true,
+                    "type": "Entity",
+                    "uid": "1700511599242"
+                },
+                "propertyGroup": {
+                    "properties": [
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "points",
+                            "propertyType": "Integer",
+                            "uid": "672855043973"
+                        },
+                        {
+                            "allowedFileTypes": "",
+                            "maxItems": "1",
+                            "propertyDescription": "",
+                            "propertyIsExcludeField": true,
+                            "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
+                            "propertyIsRequired": false,
+                            "propertyName": "entered",
+                            "propertyType": "Text",
+                            "uid": "1638119195210"
+                        }
+                    ]
+                },
+                "relationGroup": {
+                    "relations": [
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "question",
+                            "relationType": "zeroToOne",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingle",
+                            "uid": "637228244876"
+                        },
+                        {
+                            "foreignRelationClass": "",
+                            "lazyLoading": false,
+                            "propertyIsExcludeField": true,
+                            "relationDescription": "",
+                            "relationName": "answers",
+                            "relationType": "manyToMany",
+                            "relationWire": "[wired]",
+                            "renderType": "selectSingleBox",
+                            "uid": "1288580081064"
                         }
                     ]
                 }
@@ -524,85 +823,64 @@
             "config": {
                 "position": [
                     908,
-                    486
+                    443
                 ]
             },
             "name": "New Model Object",
             "value": {
                 "actionGroup": {
-                    "_default0_list": true,
-                    "_default1_show": false,
-                    "_default2_new_create": false,
-                    "_default3_edit_update": false,
-                    "_default4_delete": false,
+                    "_default0_index": false,
+                    "_default1_list": false,
+                    "_default2_show": false,
+                    "_default3_new_create": false,
+                    "_default4_edit_update": false,
+                    "_default5_delete": false,
                     "customActions": []
                 },
-                "name": "Selected",
+                "name": "Tag",
                 "objectsettings": {
                     "addDeletedField": true,
                     "addHiddenField": true,
-                    "addStarttimeEndtimeFields": false,
+                    "addStarttimeEndtimeFields": true,
                     "aggregateRoot": true,
-                    "categorizable": true,
-                    "description": "Selected question with answers",
+                    "categorizable": false,
+                    "description": "Tag",
                     "mapToTable": "",
                     "parentClass": "",
-                    "skipTypeConfiguration": false,
-                    "sorting": false,
+                    "sorting": true,
                     "type": "Entity",
-                    "uid": "275177111951"
+                    "uid": "827036306072"
                 },
                 "propertyGroup": {
                     "properties": [
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Points for this question",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
-                            "propertyName": "points",
-                            "propertyType": "Integer",
-                            "uid": "735839894611"
+                            "propertyName": "name",
+                            "propertyType": "String",
+                            "uid": "214863764125"
                         },
                         {
                             "allowedFileTypes": "",
                             "maxItems": "1",
-                            "propertyDescription": "Entered text to this question",
+                            "propertyDescription": "",
                             "propertyIsExcludeField": true,
                             "propertyIsL10nModeExclude": false,
+                            "propertyIsNullable": false,
                             "propertyIsRequired": false,
-                            "propertyName": "entered",
-                            "propertyType": "String",
-                            "uid": "598197275560"
+                            "propertyName": "timeperiod",
+                            "propertyType": "Integer",
+                            "uid": "1460400235394"
                         }
                     ]
                 },
                 "relationGroup": {
-                    "relations": [
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "Question",
-                            "relationName": "question",
-                            "relationType": "manyToOne",
-                            "relationWire": "[wired]",
-                            "renderType": "selectSingle",
-                            "uid": "254055986728"
-                        },
-                        {
-                            "foreignRelationClass": "",
-                            "lazyLoading": false,
-                            "propertyIsExcludeField": true,
-                            "relationDescription": "Answers to this question",
-                            "relationName": "answers",
-                            "relationType": "manyToMany",
-                            "relationWire": "[wired]",
-                            "renderType": "selectSingleBox",
-                            "uid": "603613935842"
-                        }
-                    ]
+                    "relations": []
                 }
             }
         }
@@ -611,36 +889,38 @@
         "backendModules": [
             {
                 "actions": {
-                    "controllerActionCombinations": "Quiz => index"
+                    "controllerActionCombinations": "Quiz => index,detail,charts\nQuestion => move\nParticipant => list,detail,delete"
                 },
-                "description": "Evaluations of quiz\/poll\/test",
-                "key": "mod1",
+                "description": "Show list and details and evaluations of a quiz",
+                "key": "masterquiz",
                 "mainModule": "web",
-                "name": "Master-Quiz",
+                "name": "Quiz evaluation (name)",
                 "tabLabel": "Quiz evaluation"
             }
         ],
-        "description": "A modern extension that offers Quiz, Tests and Polls. With a simple import-task for myquizpoll-questions.",
+        "description": "A modern extension that offers quiz, polls and tests. Ajax support. The result can be displayed as a chart too. Supports 8 question modes.",
         "emConf": {
             "category": "plugin",
             "custom_category": "",
-            "dependsOn": "typo3 => 8.7.0-9.5.99\n",
+            "dependsOn": "typo3 => 11.5.0-11.5.99\n",
             "disableLocalization": false,
             "disableVersioning": false,
-            "skipGenerateDocumentationTemplate": false,
+            "generateDocumentationTemplate": true,
+            "generateEditorConfig": false,
+            "generateEmptyGitRepository": false,
             "sourceLanguage": "en",
-            "state": "beta",
-            "targetVersion": "8.7.0-8.7.99",
-            "version": "0.4.2"
+            "state": "stable",
+            "targetVersion": "11.5.0-11.5.99",
+            "version": "5.1.7"
         },
         "extensionKey": "fp_masterquiz",
         "name": "Master-Quiz",
-        "originalExtensionKey": "fp_masterquiz",
-        "originalVendorName": "Fixpunkt",
+        "originalExtensionKey": "",
+        "originalVendorName": "",
         "persons": [
             {
-                "company": "fixpunkt werbeagentur gmbh",
-                "email": "k.gusbeth@fixpunkt.com",
+                "company": "Fixpunkt f\u00fcr difitales GmbH",
+                "email": "news@quizpalme.de",
                 "name": "Kurt Gusbeth",
                 "role": "Developer"
             }
@@ -648,13 +928,66 @@
         "plugins": [
             {
                 "actions": {
-                    "controllerActionCombinations": "Quiz => list,show,showAjax,default",
-                    "noncacheableActions": "Quiz => show,showAjax,default",
-                    "switchableActions": ""
+                    "controllerActionCombinations": "Quiz => list, show, showAjax",
+                    "noncacheableActions": "Quiz => show, showAjax"
                 },
-                "description": "Show all or one Quiz\/Test.",
-                "key": "pi1",
-                "name": "Master-Quiz"
+                "description": "List of all quiz of one folder (desc)",
+                "key": "list",
+                "name": "List of all quiz of one folder"
+            },
+            {
+                "actions": {
+                    "controllerActionCombinations": "Quiz => show, showAjax",
+                    "noncacheableActions": "Quiz => show, showAjax"
+                },
+                "description": "Show a selected quiz and use a pagebrowser (you need to select the storage folder too)",
+                "key": "show",
+                "name": "Show a selected quiz and use a pagebrowser"
+            },
+            {
+                "actions": {
+                    "controllerActionCombinations": "Quiz => showByTag",
+                    "noncacheableActions": "Quiz => showByTag"
+                },
+                "description": "Show a selected quiz and order pages by tag (you need to select the storage folder too)",
+                "key": "showbytag",
+                "name": "Show a selected quiz and order pages by tag"
+            },
+            {
+                "actions": {
+                    "controllerActionCombinations": "Quiz => intro, show, showAjax, showByTag",
+                    "noncacheableActions": "Quiz => intro, show, showAjax, showByTag"
+                },
+                "description": "Show an intro page and then a quiz (you need to select the storage folder too)",
+                "key": "intro",
+                "name": "Show an intro page and then a quiz"
+            },
+            {
+                "actions": {
+                    "controllerActionCombinations": "Quiz => closure",
+                    "noncacheableActions": "Quiz => closure"
+                },
+                "description": "Show a closure page after a quiz (you need to select the storage folder too)",
+                "key": "closure",
+                "name": "Show a closure page after a quiz"
+            },
+            {
+                "actions": {
+                    "controllerActionCombinations": "Quiz => result",
+                    "noncacheableActions": "Quiz => result"
+                },
+                "description": "Show a result of a quiz (you need to select the storage folder too)",
+                "key": "result",
+                "name": "Show a result of a quiz"
+            },
+            {
+                "actions": {
+                    "controllerActionCombinations": "Quiz => highscore",
+                    "noncacheableActions": "Quiz => highscore"
+                },
+                "description": "Show a highscore of a quiz (you need to select the storage folder too)",
+                "key": "highscore",
+                "name": "Show a highscore of a quiz"
             }
         ],
         "vendorName": "Fixpunkt"
@@ -664,90 +997,103 @@
             "src": {
                 "moduleId": 0,
                 "terminal": "relationWire_0",
-                "uid": "1428971409314"
+                "uid": "1532251349287"
             },
             "tgt": {
                 "moduleId": 1,
                 "terminal": "SOURCES",
-                "uid": "92940863982"
-            }
-        },
-        {
-            "src": {
-                "moduleId": 1,
-                "terminal": "relationWire_0",
-                "uid": "747806392586"
-            },
-            "tgt": {
-                "moduleId": 2,
-                "terminal": "SOURCES",
-                "uid": "283285639698"
+                "uid": "875485549341"
             }
         },
         {
             "src": {
                 "moduleId": 0,
                 "terminal": "relationWire_1",
-                "uid": "429828058797"
+                "uid": "557218985702"
             },
             "tgt": {
                 "moduleId": 3,
                 "terminal": "SOURCES",
-                "uid": "890681815722"
+                "uid": "1229729567279"
             }
         },
         {
             "src": {
-                "moduleId": 4,
-                "terminal": "relationWire_0",
-                "uid": "499602761958"
-            },
-            "tgt": {
-                "moduleId": 0,
-                "terminal": "SOURCES",
-                "uid": "1230872731981"
-            }
-        },
-        {
-            "src": {
-                "moduleId": 4,
-                "terminal": "relationWire_1",
-                "uid": "139638215619"
-            },
-            "tgt": {
-                "moduleId": 5,
-                "terminal": "SOURCES",
-                "uid": "275177111951"
-            }
-        },
-        {
-            "src": {
-                "moduleId": 5,
-                "terminal": "relationWire_0",
-                "uid": "254055986728"
-            },
-            "tgt": {
                 "moduleId": 1,
-                "terminal": "SOURCES",
-                "uid": "92940863982"
-            }
-        },
-        {
-            "src": {
-                "moduleId": 5,
-                "terminal": "relationWire_1",
-                "uid": "603613935842"
+                "terminal": "relationWire_0",
+                "uid": "314355759856"
             },
             "tgt": {
                 "moduleId": 2,
                 "terminal": "SOURCES",
-                "uid": "283285639698"
+                "uid": "1139160370967"
+            }
+        },
+        {
+            "src": {
+                "moduleId": 1,
+                "terminal": "relationWire_1",
+                "uid": "562468339714"
+            },
+            "tgt": {
+                "moduleId": 6,
+                "terminal": "SOURCES",
+                "uid": "827036306072"
+            }
+        },
+        {
+            "src": {
+                "moduleId": 4,
+                "terminal": "relationWire_0",
+                "uid": "1275069546800"
+            },
+            "tgt": {
+                "moduleId": 0,
+                "terminal": "SOURCES",
+                "uid": "623770459494"
+            }
+        },
+        {
+            "src": {
+                "moduleId": 4,
+                "terminal": "relationWire_1",
+                "uid": "1580139472705"
+            },
+            "tgt": {
+                "moduleId": 5,
+                "terminal": "SOURCES",
+                "uid": "1700511599242"
+            }
+        },
+        {
+            "src": {
+                "moduleId": 5,
+                "terminal": "relationWire_0",
+                "uid": "637228244876"
+            },
+            "tgt": {
+                "moduleId": 1,
+                "terminal": "SOURCES",
+                "uid": "875485549341"
+            }
+        },
+        {
+            "src": {
+                "moduleId": 5,
+                "terminal": "relationWire_1",
+                "uid": "1288580081064"
+            },
+            "tgt": {
+                "moduleId": 2,
+                "terminal": "SOURCES",
+                "uid": "1139160370967"
             }
         }
     ],
+    "storagePath": "C:\/laragon\/www\/typo3-materialsuche\/packages\/",
     "log": {
-        "last_modified": "2019-03-14 01:17",
-        "extension_builder_version": "8.10.4",
-        "be_user": " (28)"
+        "last_modified": "2024-06-05 09:30",
+        "extension_builder_version": "v11.0.12",
+        "be_user": "Kurt Gusbeth (15)"
     }
 }

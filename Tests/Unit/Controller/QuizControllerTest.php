@@ -1,56 +1,59 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Controller;
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Fixpunkt\FpMasterquiz\Controller\QuizController;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository;
-use TYPO3\CMS\Extbase\Mvc\View\ViewInterface;
-use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use TYPO3Fluid\Fluid\View\ViewInterface;
+
 /**
- * Test case.
+ * Test case
  *
- * @author Kurt Gusbeth <k.gusbeth@fixpunkt.com>
+ * @author Kurt Gusbeth <news@quizpalme.de>
  */
 class QuizControllerTest extends UnitTestCase
 {
     /**
-     * @var QuizController
+     * @var \Fixpunkt\FpMasterquiz\Controller\QuizController|MockObject|AccessibleObjectInterface
      */
-    protected $subject = null;
+    protected $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->subject = $this->getMockBuilder(QuizController::class)
-            ->setMethods(['redirect', 'forward', 'addFlashMessage'])
+        parent::setUp();
+        $this->subject = $this->getMockBuilder($this->buildAccessibleProxy(\Fixpunkt\FpMasterquiz\Controller\QuizController::class))
+            ->onlyMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
+        parent::tearDown();
     }
 
     /**
      * @test
      */
-    public function listActionFetchesAllQuizzesFromRepositoryAndAssignsThemToView()
+    public function listActionFetchesAllQuizzesFromRepositoryAndAssignsThemToView(): void
     {
-
-        $allQuizzes = $this->getMockBuilder(ObjectStorage::class)
+        $allQuizzes = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $quizRepository = $this->getMockBuilder(QuizRepository::class)
-            ->setMethods(['findAll'])
+        $quizRepository = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository::class)
+            ->onlyMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
         $quizRepository->expects(self::once())->method('findAll')->will(self::returnValue($allQuizzes));
-        $this->inject($this->subject, 'quizRepository', $quizRepository);
+        $this->subject->_set('quizRepository', $quizRepository);
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $view->expects(self::once())->method('assign')->with('quizzes', $allQuizzes);
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
 
         $this->subject->listAction();
     }
@@ -58,12 +61,12 @@ class QuizControllerTest extends UnitTestCase
     /**
      * @test
      */
-    public function showActionAssignsTheGivenQuizToView()
+    public function showActionAssignsTheGivenQuizToView(): void
     {
-        $quiz = new Quiz();
+        $quiz = new \Fixpunkt\FpMasterquiz\Domain\Model\Quiz();
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
-        $this->inject($this->subject, 'view', $view);
+        $this->subject->_set('view', $view);
         $view->expects(self::once())->method('assign')->with('quiz', $quiz);
 
         $this->subject->showAction($quiz);

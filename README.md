@@ -41,4 +41,4 @@ Changes in version 5.1.4:
 
 Changes in version 5.1.6:
 - Bugfix: backend preview.
-- Remove of deprecated methods.
+- Remove of deprecated methods and sql-fields.

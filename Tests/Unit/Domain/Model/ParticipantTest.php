@@ -1,36 +1,44 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Domain\Model;
 
-use TYPO3\CMS\Core\Tests\UnitTestCase;
-use Fixpunkt\FpMasterquiz\Domain\Model\Participant;
-use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
-use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
-use Fixpunkt\FpMasterquiz\Domain\Model\Selected;
+use PHPUnit\Framework\MockObject\MockObject;
+use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
+use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+
 /**
- * Test case.
+ * Test case
  *
- * @author Kurt Gusbeth <k.gusbeth@fixpunkt.com>
+ * @author Kurt Gusbeth <news@quizpalme.de>
  */
 class ParticipantTest extends UnitTestCase
 {
     /**
-     * @var Participant
+     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Participant|MockObject|AccessibleObjectInterface
      */
-    protected $subject = null;
+    protected $subject;
 
-    protected function setUp()
+    protected function setUp(): void
     {
-        $this->subject = new Participant();
+        parent::setUp();
+
+        $this->subject = $this->getAccessibleMock(
+            \Fixpunkt\FpMasterquiz\Domain\Model\Participant::class,
+            ['dummy']
+        );
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
+        parent::tearDown();
     }
 
     /**
      * @test
      */
-    public function getNameReturnsInitialValueForString()
+    public function getNameReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -41,21 +49,17 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setNameForStringSetsName()
+    public function setNameForStringSetsName(): void
     {
         $this->subject->setName('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'name',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('name'));
     }
 
     /**
      * @test
      */
-    public function getEmailReturnsInitialValueForString()
+    public function getEmailReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -66,21 +70,17 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setEmailForStringSetsEmail()
+    public function setEmailForStringSetsEmail(): void
     {
         $this->subject->setEmail('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'email',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('email'));
     }
 
     /**
      * @test
      */
-    public function getHomepageReturnsInitialValueForString()
+    public function getHomepageReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -91,21 +91,17 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setHomepageForStringSetsHomepage()
+    public function setHomepageForStringSetsHomepage(): void
     {
         $this->subject->setHomepage('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'homepage',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('homepage'));
     }
 
     /**
      * @test
      */
-    public function getUserReturnsInitialValueForInt()
+    public function getUserReturnsInitialValueForInt(): void
     {
         self::assertSame(
             0,
@@ -116,21 +112,17 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setUserForIntSetsUser()
+    public function setUserForIntSetsUser(): void
     {
         $this->subject->setUser(12);
 
-        self::assertAttributeEquals(
-            12,
-            'user',
-            $this->subject
-        );
+        self::assertEquals(12, $this->subject->_get('user'));
     }
 
     /**
      * @test
      */
-    public function getIpReturnsInitialValueForString()
+    public function getIpReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -141,21 +133,17 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setIpForStringSetsIp()
+    public function setIpForStringSetsIp(): void
     {
         $this->subject->setIp('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'ip',
-            $this->subject
-        );
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('ip'));
     }
 
     /**
      * @test
      */
-    public function getSessionReturnsInitialValueForString()
+    public function getSessionReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
@@ -166,21 +154,59 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSessionForStringSetsSession()
+    public function setSessionForStringSetsSession(): void
     {
         $this->subject->setSession('Conceived at T3CON10');
 
-        self::assertAttributeEquals(
-            'Conceived at T3CON10',
-            'session',
-            $this->subject
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('session'));
+    }
+
+    /**
+     * @test
+     */
+    public function getSessionstartReturnsInitialValueForInt(): void
+    {
+        self::assertSame(
+            0,
+            $this->subject->getSessionstart()
         );
     }
 
     /**
      * @test
      */
-    public function getPointsReturnsInitialValueForInt()
+    public function setSessionstartForIntSetsSessionstart(): void
+    {
+        $this->subject->setSessionstart(12);
+
+        self::assertEquals(12, $this->subject->_get('sessionstart'));
+    }
+
+    /**
+     * @test
+     */
+    public function getRandompagesReturnsInitialValueForString(): void
+    {
+        self::assertSame(
+            '',
+            $this->subject->getRandompages()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function setRandompagesForStringSetsRandompages(): void
+    {
+        $this->subject->setRandompages('Conceived at T3CON10');
+
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('randompages'));
+    }
+
+    /**
+     * @test
+     */
+    public function getPointsReturnsInitialValueForInt(): void
     {
         self::assertSame(
             0,
@@ -191,21 +217,17 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setPointsForIntSetsPoints()
+    public function setPointsForIntSetsPoints(): void
     {
         $this->subject->setPoints(12);
 
-        self::assertAttributeEquals(
-            12,
-            'points',
-            $this->subject
-        );
+        self::assertEquals(12, $this->subject->_get('points'));
     }
 
     /**
      * @test
      */
-    public function getMaximum1ReturnsInitialValueForInt()
+    public function getMaximum1ReturnsInitialValueForInt(): void
     {
         self::assertSame(
             0,
@@ -216,21 +238,17 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMaximum1ForIntSetsMaximum1()
+    public function setMaximum1ForIntSetsMaximum1(): void
     {
         $this->subject->setMaximum1(12);
 
-        self::assertAttributeEquals(
-            12,
-            'maximum1',
-            $this->subject
-        );
+        self::assertEquals(12, $this->subject->_get('maximum1'));
     }
 
     /**
      * @test
      */
-    public function getMaximum2ReturnsInitialValueForInt()
+    public function getMaximum2ReturnsInitialValueForInt(): void
     {
         self::assertSame(
             0,
@@ -241,21 +259,56 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setMaximum2ForIntSetsMaximum2()
+    public function setMaximum2ForIntSetsMaximum2(): void
     {
         $this->subject->setMaximum2(12);
 
-        self::assertAttributeEquals(
-            12,
-            'maximum2',
-            $this->subject
+        self::assertEquals(12, $this->subject->_get('maximum2'));
+    }
+
+    /**
+     * @test
+     */
+    public function getCompletedReturnsInitialValueForBool(): void
+    {
+        self::assertFalse($this->subject->getCompleted());
+    }
+
+    /**
+     * @test
+     */
+    public function setCompletedForBoolSetsCompleted(): void
+    {
+        $this->subject->setCompleted(true);
+
+        self::assertEquals(true, $this->subject->_get('completed'));
+    }
+
+    /**
+     * @test
+     */
+    public function getPageReturnsInitialValueForInt(): void
+    {
+        self::assertSame(
+            0,
+            $this->subject->getPage()
         );
     }
 
     /**
      * @test
      */
-    public function getQuizReturnsInitialValueForQuiz()
+    public function setPageForIntSetsPage(): void
+    {
+        $this->subject->setPage(12);
+
+        self::assertEquals(12, $this->subject->_get('page'));
+    }
+
+    /**
+     * @test
+     */
+    public function getQuizReturnsInitialValueForQuiz(): void
     {
         self::assertEquals(
             null,
@@ -266,24 +319,20 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setQuizForQuizSetsQuiz()
+    public function setQuizForQuizSetsQuiz(): void
     {
-        $quizFixture = new Quiz();
+        $quizFixture = new \Fixpunkt\FpMasterquiz\Domain\Model\Quiz();
         $this->subject->setQuiz($quizFixture);
 
-        self::assertAttributeEquals(
-            $quizFixture,
-            'quiz',
-            $this->subject
-        );
+        self::assertEquals($quizFixture, $this->subject->_get('quiz'));
     }
 
     /**
      * @test
      */
-    public function getSelectionsReturnsInitialValueForSelected()
+    public function getSelectionsReturnsInitialValueForSelected(): void
     {
-        $newObjectStorage = new ObjectStorage();
+        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         self::assertEquals(
             $newObjectStorage,
             $this->subject->getSelections()
@@ -293,33 +342,29 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function setSelectionsForObjectStorageContainingSelectedSetsSelections()
+    public function setSelectionsForObjectStorageContainingSelectedSetsSelections(): void
     {
-        $selection = new Selected();
-        $objectStorageHoldingExactlyOneSelections = new ObjectStorage();
+        $selection = new \Fixpunkt\FpMasterquiz\Domain\Model\Selected();
+        $objectStorageHoldingExactlyOneSelections = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
         $objectStorageHoldingExactlyOneSelections->attach($selection);
         $this->subject->setSelections($objectStorageHoldingExactlyOneSelections);
 
-        self::assertAttributeEquals(
-            $objectStorageHoldingExactlyOneSelections,
-            'selections',
-            $this->subject
-        );
+        self::assertEquals($objectStorageHoldingExactlyOneSelections, $this->subject->_get('selections'));
     }
 
     /**
      * @test
      */
-    public function addSelectionToObjectStorageHoldingSelections()
+    public function addSelectionToObjectStorageHoldingSelections(): void
     {
-        $selection = new Selected();
-        $selectionsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['attach'])
+        $selection = new \Fixpunkt\FpMasterquiz\Domain\Model\Selected();
+        $selectionsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->onlyMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $selectionsObjectStorageMock->expects(self::once())->method('attach')->with(self::equalTo($selection));
-        $this->inject($this->subject, 'selections', $selectionsObjectStorageMock);
+        $this->subject->_set('selections', $selectionsObjectStorageMock);
 
         $this->subject->addSelection($selection);
     }
@@ -327,16 +372,16 @@ class ParticipantTest extends UnitTestCase
     /**
      * @test
      */
-    public function removeSelectionFromObjectStorageHoldingSelections()
+    public function removeSelectionFromObjectStorageHoldingSelections(): void
     {
-        $selection = new Selected();
-        $selectionsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
-            ->setMethods(['detach'])
+        $selection = new \Fixpunkt\FpMasterquiz\Domain\Model\Selected();
+        $selectionsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+            ->onlyMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();
 
         $selectionsObjectStorageMock->expects(self::once())->method('detach')->with(self::equalTo($selection));
-        $this->inject($this->subject, 'selections', $selectionsObjectStorageMock);
+        $this->subject->_set('selections', $selectionsObjectStorageMock);
 
         $this->subject->removeSelection($selection);
     }

@@ -13,10 +13,10 @@ use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
  *
  * @author Kurt Gusbeth <news@quizpalme.de>
  */
-class AnswerTest extends UnitTestCase
+class TagTest extends UnitTestCase
 {
     /**
-     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Answer|MockObject|AccessibleObjectInterface
+     * @var \Fixpunkt\FpMasterquiz\Domain\Model\Tag|MockObject|AccessibleObjectInterface
      */
     protected $subject;
 
@@ -25,7 +25,7 @@ class AnswerTest extends UnitTestCase
         parent::setUp();
 
         $this->subject = $this->getAccessibleMock(
-            \Fixpunkt\FpMasterquiz\Domain\Model\Answer::class,
+            \Fixpunkt\FpMasterquiz\Domain\Model\Tag::class,
             ['dummy']
         );
     }
@@ -38,42 +38,42 @@ class AnswerTest extends UnitTestCase
     /**
      * @test
      */
-    public function getTitleReturnsInitialValueForString(): void
+    public function getNameReturnsInitialValueForString(): void
     {
         self::assertSame(
             '',
-            $this->subject->getTitle()
+            $this->subject->getName()
         );
     }
 
     /**
      * @test
      */
-    public function setTitleForStringSetsTitle(): void
+    public function setNameForStringSetsName(): void
     {
-        $this->subject->setTitle('Conceived at T3CON10');
+        $this->subject->setName('Conceived at T3CON10');
 
-        self::assertEquals('Conceived at T3CON10', $this->subject->_get('title'));
+        self::assertEquals('Conceived at T3CON10', $this->subject->_get('name'));
     }
 
     /**
      * @test
      */
-    public function getPointsReturnsInitialValueForInt(): void
+    public function getTimeperiodReturnsInitialValueForInt(): void
     {
         self::assertSame(
             0,
-            $this->subject->getPoints()
+            $this->subject->getTimeperiod()
         );
     }
 
     /**
      * @test
      */
-    public function setPointsForIntSetsPoints(): void
+    public function setTimeperiodForIntSetsTimeperiod(): void
     {
-        $this->subject->setPoints(12);
+        $this->subject->setTimeperiod(12);
 
-        self::assertEquals(12, $this->subject->_get('points'));
+        self::assertEquals(12, $this->subject->_get('timeperiod'));
     }
 }
