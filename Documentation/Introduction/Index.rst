@@ -30,7 +30,7 @@ jQuery is required. Optimized for Bootstrap 4. 2 widgets for the dashboard avail
 
 Available languages: english and german/deutsch.
 
-It is the official successor extension of myquizpoll. It is not backward compatible, but there is a simple import-task.
+It is the official successor extension of myquizpoll. It is not backward compatible, but there is a simple import-task in old versions.
 
 You will find some examples on my homepage: `quizpalme.de <https://www.quizpalme.de/quiz-umfrage>`_
 
@@ -59,8 +59,8 @@ Here you find 4 examples and 2 more screenshots are in the user manual.
 
    This screenshot shows a poll in the backend module.
 
-.. figure:: ../Images/BackendExample.jpg
-   :width: 600px
+.. figure:: ../Images/BackendExample1.jpg
+   :width: 640px
    :alt: A chart example
 
    This screenshot shows a chart in the backend.
