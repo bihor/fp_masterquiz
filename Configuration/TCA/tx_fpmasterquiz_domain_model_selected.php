@@ -5,6 +5,7 @@ return [
         'label' => 'answers',
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
+        'sortby' => 'sorting',
         'versioningWS' => true,
         'languageField' => 'sys_language_uid',
         'transOrigPointerField' => 'l10n_parent',
@@ -110,6 +111,12 @@ return [
                 'foreign_table_where' => 'AND question = ###REC_FIELD_question###',
                 'MM' => 'tx_fpmasterquiz_selected_answer_mm',
             ],
+        ],
+        'sorting' => [
+            'label' => 'sorting',
+            'config' => [
+                'type' => 'passthrough'
+            ]
         ],
         'participant' => [
             'config' => [

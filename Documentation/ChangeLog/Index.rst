@@ -224,8 +224,13 @@ ChangeLog
 
 5.1.4:
   More support for group by tags.
+
   More support for matrix-questions.
 
 5.1.6:
   Bugfix: backend preview.
+
   Remove of deprecated methods and sql-fields.
+
+5.1.7:
+ Bugfix: sorting-error of selected-table.
