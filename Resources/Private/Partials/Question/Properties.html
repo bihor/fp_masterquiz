@@ -9,12 +9,12 @@
 	<div class="card"><div class="card-body">
 </f:else></f:if>
 	<f:if condition="({settings.showPageNo} == 1) && ({settings.ajax} == 1) && ({pages} != 1)">
-	  <p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
+	  <p class="quiz-progress">{f:translate(key: "text.page", extensionName: 'FpMasterquiz')} <span>{page}</span> {f:translate(key: "text.of", extensionName: 'FpMasterquiz')} {pages} ({pagePercent}%)</p>
 	</f:if>
 	<f:if condition="({settings.showQuestionNo} == 1)">
-	  <p class="quiz-question-no">{f:translate(key: "text.question")}
+	  <p class="quiz-question-no">{f:translate(key: "text.question", extensionName: 'FpMasterquiz')}
 		<span id="quiz-questno"><f:if condition="{settings.ajax} == 1"><f:then>{pageiterator.cycle}</f:then><f:else>{pageiterator.cycle + pageBasis}</f:else></f:if></span>
-		{f:translate(key: "text.of")} {questions}</p>
+		{f:translate(key: "text.of", extensionName: 'FpMasterquiz')} {questions}</p>
 		<br/>
 	</f:if>
 	<f:comment> {question -> f:debug(title: 'Members of question')} </f:comment>
@@ -76,7 +76,7 @@
 								<br/>
 								<div class="quiz-input{f:if(condition: '{question.optional} || {question.closed}', then: ' quiz-answer-optional')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
-										{f:translate(key: "text.answer.input")}
+										{f:translate(key: "text.answer.input", extensionName: 'FpMasterquiz')}
 										<f:if condition="!{question.closed}">
 										<f:form.textfield name="answer_text_{question.uid}" value="{x->f:for(each:'{question.textAnswers}', as: 'x')}" class="quiz-inputbox" autofocus="autofocus" />
 										</f:if>
@@ -89,11 +89,11 @@
 									<f:if condition="!{question.closed}">
 									<label>
 										<f:form.radio name="answer_{question.uid}_{answer.uid}" value="{answer.uid}" class="quiz-radiobox" checked="{answer.ownAnswer}" />
-										{f:translate(key: "text.yes")} &nbsp;
+										{f:translate(key: "text.yes", extensionName: 'FpMasterquiz')} &nbsp;
 									</label>
 									<label>
 										<f:form.radio name="answer_{question.uid}_{answer.uid}" value="0" class="quiz-radiobox" />
-										{f:translate(key: "text.no")}
+										{f:translate(key: "text.no", extensionName: 'FpMasterquiz')}
 									</label>
 									</f:if>
 								</div>
@@ -103,7 +103,7 @@
 								<br/>
 								<div class="quiz-textarea{f:if(condition: '{question.optional} || {question.closed}', then: ' quiz-answer-optional')}{f:if(condition: '{answer.ownAnswer}', then: ' quiz-answer-selected')}">
 									<label>
-										{f:translate(key: "text.answer.textarea")}
+										{f:translate(key: "text.answer.textarea", extensionName: 'FpMasterquiz')}
 										<f:if condition="!{question.closed}">
 										<f:form.textarea name="answer_text_{question.uid}" value="{x->f:for(each:'{question.textAnswers}', as: 'x')}" class="quiz-textbox" />
 										</f:if>
@@ -164,7 +164,7 @@
 						</tbody></table>
 					</f:if>
 					<f:if condition="{question.closed}">
-						<div>{f:translate(key: "text.questionClosed")}</div>
+						<div>{f:translate(key: "text.questionClosed", extensionName: 'FpMasterquiz')}</div>
 					</f:if>
 				</div>
 			</div>

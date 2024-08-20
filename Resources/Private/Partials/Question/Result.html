@@ -13,8 +13,8 @@
 		    		</f:else></f:if>
 			    </f:for>
 		   </span>
-		   ({answer3.allAnswers} {f:translate(key: "text.choices", default: 'choices')})
-			<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice", default: 'my choice')})</f:if>	
+		   ({answer3.allAnswers} {f:translate(key: "text.choices", default: 'choices', extensionName: 'FpMasterquiz')})
+			<f:if condition="{answer3.ownAnswer} > 0">({f:translate(key: "text.myChoice", default: 'my choice', extensionName: 'FpMasterquiz')})</f:if>
 		</f:then>
 		<f:else>
 			<f:if condition="{settings.allowHtml} == 1">
@@ -32,8 +32,8 @@
 									<f:for each="{an3array}" key="cat3key" as="cat3count">
 										<f:if condition="{category.uid} == {cat3key}">
 											{cat3count}
-											{f:translate(key: "text.choices")}<f:if condition="{cat3key} == {answer3.ownCategoryAnswer.0}">;
-											{f:translate(key: "text.myChoice", default: 'my choice')}</f:if>
+											{f:translate(key: "text.choices", extensionName: 'FpMasterquiz')}<f:if condition="{cat3key} == {answer3.ownCategoryAnswer.0}">;
+											{f:translate(key: "text.myChoice", default: 'my choice', extensionName: 'FpMasterquiz')}</f:if>
 											&nbsp;</td><td style="width:200px">
 											<div class="progress">
 												<div class="progress-bar" style="width:{cat3count * 100 / question.allAnswers}%">
@@ -51,9 +51,9 @@
 					</table>
 				</f:then>
 				<f:else>
-					<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points", default: 'P')})</f:if>
+					<f:if condition="{settings.showPoints}"> ({answer3.points} {f:translate(key: "text.points", default: 'P', extensionName: 'FpMasterquiz')})</f:if>
 					({answer3.allAnswers}
-					{f:translate(key: "text.choices")}<f:if condition="({answer3.ownAnswer} > 0) && ({question.qmode} != 3)">; {f:translate(key: "text.myChoice", default: 'my choice')})</f:if>)
+					{f:translate(key: "text.choices", extensionName: 'FpMasterquiz')}<f:if condition="({answer3.ownAnswer} > 0) && ({question.qmode} != 3)">; {f:translate(key: "text.myChoice", default: 'my choice', extensionName: 'FpMasterquiz')})</f:if>)
 					<br/>
 					<div class="progress">
 						<div class="progress-bar" style="width:{answer3.allPercent}%">{answer3.allPercent} %</div>

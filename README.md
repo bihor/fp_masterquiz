@@ -45,3 +45,6 @@ Changes in version 5.1.6:
 
 Changes in 5.1.7:
 - Bugfix: sorting-error of selected-table.
+
+Changes in 5.1.8:
+- Bugfix: translations in Ajax-mode.

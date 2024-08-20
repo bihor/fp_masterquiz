@@ -9,13 +9,13 @@
 	<div class="card"><div class="card-body">
 </f:else></f:if>
 	<f:if condition="({settings.showPageNo} == 1) && ({settings.ajax} == 1) && ({pages} != 1) && ({final} == 0)">
-	  <p class="quiz-progress">{f:translate(key: "text.page")} <span>{page}</span> {f:translate(key: "text.of")} {pages} ({pagePercent}%)</p>
+	  <p class="quiz-progress">{f:translate(key: "text.page", extensionName: 'FpMasterquiz')} <span>{page}</span> {f:translate(key: "text.of", extensionName: 'FpMasterquiz')} {pages} ({pagePercent}%)</p>
 	</f:if>
 	<f:if condition="({settings.showQuestionNo} == 1)">
-	  <p class="quiz-question-no">{f:translate(key: "text.question")} 
+	  <p class="quiz-question-no">{f:translate(key: "text.question", extensionName: 'FpMasterquiz')}
 		<span id="quiz-questno"><f:if condition="({settings.ajax} == 1) || {isEmail}"><f:then>{pageiterator.cycle}</f:then><f:else>
 			<f:if condition="{final} == 0"><f:then>{pageiterator.cycle + pageBasis}</f:then><f:else>{pageiterator.cycle}</f:else></f:if></f:else></f:if></span>
-		{f:translate(key: "text.of")} {questions}</p>
+		{f:translate(key: "text.of", extensionName: 'FpMasterquiz')} {questions}</p>
 	</f:if>
 	{settings.template.wrapQuestionTitle1 -> f:format.raw()}{selection.question.title}{settings.template.wrapQuestionTitle2 -> f:format.raw()}
 	{settings.template.wrapQuestionDesc1 -> f:format.raw()}<f:format.html>{selection.question.bodytext}</f:format.html>{settings.template.wrapQuestionDesc2 -> f:format.raw()}
@@ -28,11 +28,11 @@
 						<f:if condition="({selection.question.qmode} == 3) || ({selection.question.qmode} == 5)">
 						<f:then>
 							<f:if condition="{selection.entered}">
-								<p>{f:translate(key: "text.yourTextAnswer", default: 'Given text-answer:')}</p>													
+								<p>{f:translate(key: "text.yourTextAnswer", default: 'Given text-answer:', extensionName: 'FpMasterquiz')}</p>
 							</f:if>
 						</f:then>
 						<f:else>
-							<p>{f:translate(key: "text.yourAnswers", default: 'Given answers:')}</p>						
+							<p>{f:translate(key: "text.yourAnswers", default: 'Given answers:', extensionName: 'FpMasterquiz')}</p>
 						</f:else>
 						</f:if>
 						<f:for each="{selection.answers}" as="answer" iteration="nr">
@@ -71,7 +71,7 @@
 									: {answer.ownCategoryAnswer.1}
 								</f:if>
 								<f:if condition="{settings.showPoints} && {enablePoints}">
-                                    ({answer.points} {f:translate(key: "text.points", default: 'P')})
+                                    ({answer.points} {f:translate(key: "text.points", default: 'P', extensionName: 'FpMasterquiz')})
                                 </f:if>
 								</li>
 								<f:if condition="{nr.isLast}"></ul></f:if>
@@ -82,7 +82,7 @@
 				
 					<f:if condition="((({settings.showCorrectAnswers} == 2) && ({final} == 0)) || ({settings.showCorrectAnswers} == 1)) && ({enablePoints} > 0)">
 						<f:comment> Nur die richtigen Antworten bei einem Quiz anzeigen </f:comment>
-						<p>{f:translate(key: "text.correctAnswers", default: 'Correct answers:')}</p>
+						<p>{f:translate(key: "text.correctAnswers", default: 'Correct answers:', extensionName: 'FpMasterquiz')}</p>
 						<ul class="quiz-showCorrectAnswers">
 						<f:for each="{selection.question.answers}" as="answer2" iteration="nr2">
 						<f:if condition="{answer2.points} > 0">
@@ -93,7 +93,7 @@
                                 </f:if>
 								<f:comment> Don't show the points directly after the answer for Textbox answers </f:comment>
 								<f:if condition="({selection.question.qmode} != 3) && ({selection.question.qmode} != 5) && ({settings.showPoints} > 0)">
-                                    ({answer2.points} {f:translate(key: "text.points", default: 'P')})
+                                    ({answer2.points} {f:translate(key: "text.points", default: 'P', extensionName: 'FpMasterquiz')})
 								</f:if>
 							</li>
 						</f:if>
@@ -117,7 +117,7 @@
 										<f:then>{answer5.title -> f:format.raw()}</f:then>
 										<f:else>{answer5.title -> f:format.nl2br()}</f:else>
 									</f:if>
-									<f:if condition="{settings.showPoints} && {enablePoints}"> ({answer5.points} {f:translate(key: "text.points", default: 'P')})</f:if>
+									<f:if condition="{settings.showPoints} && {enablePoints}"> ({answer5.points} {f:translate(key: "text.points", default: 'P', extensionName: 'FpMasterquiz')})</f:if>
 								</li></f:spaceless> 
 							</f:for>
 						</ul>
@@ -125,7 +125,7 @@
 				
 					<f:if condition="({settings.showAllAnswers} == 1) && ({final} == 1)">
 						<f:comment> Alle Fragen am Schluss anzeigen </f:comment>
-						<p>{f:translate(key: "text.allAnswers", default: 'All answers:')}</p>
+						<p>{f:translate(key: "text.allAnswers", default: 'All answers:', extensionName: 'FpMasterquiz')}</p>
 						<f:if condition="{settings.templateLayout} == 1">
 						<f:then>
 							<f:render partial="Question/Chart" arguments="{settings:settings, question:selection.question}" />
@@ -137,7 +137,7 @@
 					</f:if>
 					
 					<f:if condition="{settings.showPoints} && {enablePoints}">
-						<p>{f:translate(key: "text.pointsQuestion", default: 'Points: ')} {selection.points}/{maxPoints}.</p>
+						<p>{f:translate(key: "text.pointsQuestion", default: 'Points: ', extensionName: 'FpMasterquiz')} {selection.points}/{maxPoints}.</p>
 					</f:if>
 				</f:if>
 			</div>
@@ -150,7 +150,7 @@
 	</div>
 	<f:if condition="{selection.question.explanation}">
 		<br />
-		<p>{f:translate(key: "text.explanation", default: 'Explanation: ')}</p>
+		<p>{f:translate(key: "text.explanation", default: 'Explanation: ', extensionName: 'FpMasterquiz')}</p>
 		<f:format.html>{selection.question.explanation}</f:format.html>
 	</f:if>
 <f:if condition="{settings.groupByTag}"><f:then>

@@ -1,15 +1,15 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 	<div class="text-buttons final">
-		{settings.template.wrapDone1 -> f:format.raw()}<f:translate key="text.done" />{settings.template.wrapDone2 -> f:format.raw()}
+		{settings.template.wrapDone1 -> f:format.raw()}<f:translate key="text.done" extensionName="FpMasterquiz" />{settings.template.wrapDone2 -> f:format.raw()}
 		<f:if condition="{settings.showPoints}"><f:if condition="{participant.maximum2} > 0">
-			<p><f:translate key="text.youHave" /> {participant.points}/{participant.maximum2} <f:translate key="text.gottenPoints" />
+			<p><f:translate key="text.youHave" extensionName="FpMasterquiz" /> {participant.points}/{participant.maximum2} <f:translate key="text.gottenPoints" extensionName="FpMasterquiz" />
 				<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%.</p>
         	<br/>
 		</f:if></f:if>
 		<f:if condition="{settings.showDetailedCategoryEval} && {finalCategories.uid}">
-			<p><f:translate key="text.detailEvaluation" /></p>
+			<p><f:translate key="text.detailEvaluation" extensionName="FpMasterquiz" /></p>
 			<table>
-				<tr><th><f:translate key="text.categoryTitle" /></th><th><f:translate key="text.categoryCount" /></th></tr>
+				<tr><th><f:translate key="text.categoryTitle" extensionName="FpMasterquiz" /></th><th><f:translate key="text.categoryCount" extensionName="FpMasterquiz" /></th></tr>
 				<f:for each="{finalCategories.all}" as="oneCat">
 					<tr><td>{oneCat.title}</td><td>{oneCat.count}x</td></tr>
 				</f:for>
@@ -32,7 +32,7 @@
 		<f:if condition="({settings.user.askForData} == 3) && ({settings.closurePageUid})">
 			<f:render partial="Participant/Form" arguments="{_all}" />
 			<p><button class="btn btn-primary btn-lg" onclick="$('#quiz-form-page').val('999');this.form.submit();">
-				<f:translate key="text.saveData" />
+				<f:translate key="text.saveData" extensionName="FpMasterquiz" />
 			</button></p>
 			<script>
 				setTimeout(function(){ $('#quiz-userData').show(); }, 1000);
@@ -41,10 +41,10 @@
 		<p>
 		<f:if condition="{settings.startPageUid}">
 		<f:then>
-            <f:link.page class="btn btn-primary btn-lg" pageUid="{settings.startPageUid}" id="quiz-restart"><f:translate key="text.backToStart" /></f:link.page>
+            <f:link.page class="btn btn-primary btn-lg" pageUid="{settings.startPageUid}" id="quiz-restart"><f:translate key="text.backToStart" extensionName="FpMasterquiz" /></f:link.page>
         </f:then>
         <f:else>
-            <f:link.page class="btn btn-primary btn-lg" id="quiz-restart"><f:translate key="text.backToStart" /></f:link.page>
+            <f:link.page class="btn btn-primary btn-lg" id="quiz-restart"><f:translate key="text.backToStart" extensionName="FpMasterquiz" /></f:link.page>
         </f:else>
         </f:if>
         </p>

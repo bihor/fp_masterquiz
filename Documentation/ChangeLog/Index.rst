@@ -233,4 +233,7 @@ ChangeLog
   Remove of deprecated methods and sql-fields.
 
 5.1.7:
- Bugfix: sorting-error of selected-table.
+  Bugfix: sorting-error of selected-table.
+
+5.1.8:
+  Bugfix: translations in Ajax-mode.
