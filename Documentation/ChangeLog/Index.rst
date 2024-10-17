@@ -237,3 +237,6 @@ ChangeLog
 
 5.1.8:
   Bugfix: translations in Ajax-mode.
+
+5.1.9:
+  Bugfix: points calculation for modes 3 and 4.

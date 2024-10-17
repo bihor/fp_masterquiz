@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 5.1.8
+version 5.1.9
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -10,9 +10,7 @@ Features: a quiz, poll or test can be played by submitting a form or by submitti
 
 8 question types/modes available: checkbox, radio-box, select-box, yes/no, text-field, textarea, star-rating, matrix.
 
-This extension is not backward compatible to myquizpoll, but there is a simple import-task for myquizpoll-questions in older versions.
-
-jQuery is required. Optimized for Bootstrap 4.
+jQuery is required. Optimized for Bootstrap 4/5.
 
 Dashboard widget available.
 
@@ -48,3 +46,6 @@ Changes in 5.1.7:
 
 Changes in 5.1.8:
 - Bugfix: translations in Ajax-mode.
+
+Changes in 5.1.9:
+- Bugfix: points calculation for modes 3 and 4.

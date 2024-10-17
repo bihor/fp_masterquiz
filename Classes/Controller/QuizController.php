@@ -628,6 +628,8 @@ class QuizController extends ActionController
                             case 4:
                             case 8:
                                 // Checkbox, ja/nein und Kategorie-Matrix
+                                // Wurden auch falsche Antworten ausgewählt?
+                                $allAnswersCorrect = true;
                                 foreach ($question->getAnswers() as $answer) {
                                     $auid = $answer->getUid();
                                     $selectedCategoryUid = 0;
@@ -659,7 +661,8 @@ class QuizController extends ActionController
                                         }
                                     }
                                     if ($this->settings['debug']) {
-                                        $debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . ' ';
+                                        $debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . '|' .
+                                            $answer->getPoints() . 'P| ';
                                     }
                                     if ($selectedAnswerUid > 0) {
                                         // für PHP-check; im FE müssen Eingaben im Fehlerfall übernommen werden
@@ -676,8 +679,12 @@ class QuizController extends ActionController
                                             }
                                             // jetzt später: $selected->addPoints($newPoints);
                                             //if (($pmode==4 && $questionPoints==0) || $pmode<4) {
-                                                $questionPoints += $newPoints;
+                                            $questionPoints += $newPoints;
                                             //}
+                                        }
+                                        if ($newPoints <= 0) {
+                                            // eine falsche Antwort ist dabei!
+                                            $allAnswersCorrect = false;
                                         }
                                         $selected->addAnswer($answer);
                                         $selectedWithAnswer = true;
@@ -687,19 +694,36 @@ class QuizController extends ActionController
                                     }
                                 }
                                 if ($questionPoints != 0) {
+                                    // Punkte nur dann übernehmen, wenn mode<3 ODER alle Punkte vorhanden
                                     if (($pmode<3) ||
                                         ($questionPoints==$question->getMaximum1())) {
                                         if ($pmode>0 && $questionPoints<0) {
+                                            // mach aus negativen Punkten eine 0
+                                            if ($this->settings['debug']) {
+                                                $debug .= '(' . $questionPoints . '->0P) ';
+                                            }
                                             $questionPoints = 0;
-                                        }
-                                        if ($pmode == 4) {
+                                        } elseif ($pmode == 4 && $questionPoints>0) {
+                                            // max. 1 Punkt
+                                            if ($this->settings['debug']) {
+                                                $debug .= '(' . $questionPoints . '->1P) ';
+                                            }
                                             $questionPoints = 1;
+                                        }
+                                        if (!$allAnswersCorrect && ($pmode >= 3 && $pmode <= 4)) {
+                                            // wenn eine falsche Antwort dabei war (mit 0P), dann 0 Punkte
+                                            if ($this->settings['debug']) {
+                                                $debug .= '(' . $questionPoints . '->0P) ';
+                                            }
+                                            $questionPoints = 0;
                                         }
                                         $selected->setPoints($questionPoints);
                                         $this->participant->addPoints($questionPoints);
                                         if ($this->settings['debug']) {
                                             $debug .= $questionPoints . 'P ';
                                         }
+                                    } elseif ($this->settings['debug']) {
+                                        $debug .= 'noP ';
                                     }
                                 }
                                 if (!$vorhanden) {
@@ -744,16 +768,22 @@ class QuizController extends ActionController
                                             $newPoints = intval(ceil($newPoints / 2));
                                         }
                                         if ($pmode>0 && $newPoints<0) {
+                                            if ($this->settings['debug']) {
+                                                $debug .= '(' . $newPoints . '->0P) ';
+                                            }
                                             $newPoints = 0;
                                         }
                                         if ($pmode==4 && $newPoints>0) {
+                                            if ($this->settings['debug']) {
+                                                $debug .= '(' . $newPoints . '->1P) ';
+                                            }
                                             $newPoints = 1;
                                         }
                                         $selected->addPoints($newPoints);
                                         $this->participant->addPoints($newPoints);
-                                        if ($this->settings['debug']) {
-                                            $debug .= $newPoints . 'P ';
-                                        }
+                                    }
+                                    if ($this->settings['debug']) {
+                                        $debug .= $newPoints . 'P ';
                                     }
                                     $selected->addAnswer($selectedAnswer);
                                     $selectedWithAnswer = true;
