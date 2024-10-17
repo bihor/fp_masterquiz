@@ -113,6 +113,12 @@ class SwitchableControllerActionsPluginUpdater implements UpgradeWizardInterface
         foreach ($records as $record) {
             $flexFormData = GeneralUtility::xml2array($record['pi_flexform']);
             $flexForm = $this->flexFormService->convertFlexFormContentToArray($record['pi_flexform']);
+            if (!is_array($flexForm)) {
+                $flexForm = [];
+            }
+            if (!isset($flexForm['switchableControllerActions'])) {
+                $flexForm['switchableControllerActions'] = '';
+            }
             $targetListType = $this->getTargetListType(
                 $record['list_type'],
                 $flexForm['switchableControllerActions']
