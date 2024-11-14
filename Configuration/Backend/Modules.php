@@ -9,7 +9,7 @@ return [
         'access' => 'user',
         'workspaces' => 'live',
         'iconIdentifier' => 'fp_masterquiz-mod1',
-        'path' => '/module/page/mod1',
+        'path' => '/module/page/masterquiz',
         'labels' => 'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf',
         'extensionName' => 'FpMasterquiz',
         'controllerActions' => [

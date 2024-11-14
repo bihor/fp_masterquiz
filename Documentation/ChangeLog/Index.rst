@@ -240,3 +240,6 @@ ChangeLog
 
 5.1.9:
   Bugfix: points calculation for modes 3 and 4.
+
+Changes in 5.1.10/1:
+  Bugfix: allow backend-module for users.
