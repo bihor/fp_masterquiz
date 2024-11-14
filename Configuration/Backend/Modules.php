@@ -6,7 +6,7 @@ return [
     'fp_masterquiz' => [
         'parent' => 'web',
         'position' => ['after' => '*'],
-        'access' => 'user,group',
+        'access' => 'user',
         'workspaces' => 'live',
         'iconIdentifier' => 'fp_masterquiz-mod1',
         'path' => '/module/page/mod1',
