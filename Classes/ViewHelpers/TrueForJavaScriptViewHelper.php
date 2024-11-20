@@ -49,7 +49,6 @@ class TrueForJavaScriptViewHelper extends AbstractViewHelper
 
     public function initializeArguments(): void
     {
-        parent::initializeArguments();
         $this->registerArgument('value', 'string|null', '', false, null);
     }
 }

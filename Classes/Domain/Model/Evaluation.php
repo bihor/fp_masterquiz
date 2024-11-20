@@ -48,7 +48,7 @@ class Evaluation extends AbstractEntity
      * @var FileReference
      */
     #[Cascade(['value' => 'remove'])]
-    protected $image = null;
+    protected $image;
     
     /**
      * Description
@@ -76,7 +76,7 @@ class Evaluation extends AbstractEntity
      *
      * @var ObjectStorage<Category>
      */
-    protected $categories = null;
+    protected $categories;
 
     /**
      * Initializes all ObjectStorage properties

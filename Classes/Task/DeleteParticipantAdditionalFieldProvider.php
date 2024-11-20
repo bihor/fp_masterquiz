@@ -2,16 +2,12 @@
 namespace Fixpunkt\FpMasterquiz\Task;
 
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
-use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider;
 use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use TYPO3\CMS\Scheduler\Task\Enumeration\Action;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldProvider
 {
@@ -35,6 +31,7 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 				$taskInfo['page'] = $task->getPage();
 			}
 		}
+  
 		if (empty($taskInfo['days'])) {
 			if ($currentSchedulerModuleAction->equals(Action::ADD)) {
 				$taskInfo['days'] = '0';
@@ -42,6 +39,7 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 				$taskInfo['days'] = $task->getDays();
 			}
 		}
+  
 		if (empty($taskInfo['flag'])) {
 			if ($currentSchedulerModuleAction->equals(Action::ADD)) {
 		        $taskInfo['flag'] = 0;
@@ -104,6 +102,7 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 				ContextualFeedbackSeverity::ERROR
 			);
 		}
+        
 		if (intval($submittedData['fp_masterquiz']['days']) < 1) {
 			$isValid = FALSE;
 			$this->addMessage(
@@ -111,6 +110,7 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 				ContextualFeedbackSeverity::ERROR
 			);
 		}
+  
 		return $isValid;
 	}
 	
@@ -126,9 +126,10 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 		/** @var $task ValidatorTask */
 		$task->setPage(intval($submittedData['fp_masterquiz']['page']));
 		$task->setDays(intval($submittedData['fp_masterquiz']['days']));
-        if (isset($submittedData['fp_masterquiz']['flag']))
-		    $task->setFlag(intval($submittedData['fp_masterquiz']['flag']));
-        else
+        if (isset($submittedData['fp_masterquiz']['flag'])) {
+            $task->setFlag(intval($submittedData['fp_masterquiz']['flag']));
+        } else {
             $task->setFlag(0);
+        }
 	}
 }

@@ -5,8 +5,6 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Core\Core\Environment;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
-use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 
 class CsvExportTask extends AbstractTask
@@ -182,7 +180,7 @@ class CsvExportTask extends AbstractTask
         $separator = $this->getSeparator();		// Texttrenner
         $delimiter = $this->getDelimiter();		// Feldtrenner
         $answersDelimiter = $this->getAnswersDelimiter();	// Feldtrenner bei Kategorien
-        $convert = ($this->getConvert()) ? true : false;	// convert from UTF-8 to ASCII?
+        $convert = (bool) $this->getConvert();	// convert from UTF-8 to ASCII?
         $text = $separator.$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant').$separator.$delimiter.
             $separator.$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.sys_language_uid').$separator.$delimiter.
             $separator.$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.crdate').$separator.$delimiter.
@@ -197,7 +195,10 @@ class CsvExportTask extends AbstractTask
             $separator.$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.points').$separator.$delimiter.
             $separator.$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.maximum1').$separator.$delimiter.
             $separator.$GLOBALS['LANG']->sL('LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang.xlf:tx_fpmasterquiz_domain_model_participant.maximum2').$separator.$delimiter;
-        if ($convert) $text = iconv('utf-8', 'iso-8859-1', $text);
+        if ($convert) {
+            $text = iconv('utf-8', 'iso-8859-1', $text);
+        }
+        
         $content = $text . $ln;					// header of the csv file
         $i = 0;									// Counter
         $mmArray = [];
@@ -258,31 +259,37 @@ class CsvExportTask extends AbstractTask
             ->executeQuery();
         while ($row = $statement->fetch()) {
 
-            if ($i > 0)
+            if ($i > 0) {
                 $content .= $ln;
+            }
+
             $j = 0;
             foreach ($fieldArray as $field) {
-                if ($j>0)
+                if ($j>0) {
                     $content .= $delimiter;
-                if ($field == 'atitle') {
-                    if ($row['qmode'] == 3 || $row['qmode'] == 5 || $row['qmode'] == 6) {
-                        $text = '';
-                    } else {
-                        $text = $mmArray[$row['suid']];
-                    }
+                }
+
+                if ($field === 'atitle') {
+                    $text = (!isset($mmArray[$row['suid']]) || $row['qmode'] == 3 || $row['qmode'] == 5 || $row['qmode'] == 6) ? '' : $mmArray[$row['suid']];
                 } else {
                     $text = $row[trim($field)];
                 }
+
                 $text = preg_replace( "/\r|\n/", " ", (string) $text);
-                if ($convert)
+                if ($convert) {
                     $text = iconv('utf-8', 'iso-8859-1', $text);
-                if ($field == 'crdate')
+                }
+
+                if ($field === 'crdate') {
                     $text = date("d.m.Y H:i", $text);
-                elseif ($separator)
+                } elseif ($separator) {
                     $text = str_replace($separator, '', $text);
+                }
+                
                 $content .= $separator . $text . $separator;
                 $j++;
             }
+            
             $i++;
 
         }
@@ -290,8 +297,9 @@ class CsvExportTask extends AbstractTask
         $fp = fopen(Environment::getPublicPath() . '/' . $this->getCsvfile(), 'w');
         $ergebnis = fwrite($fp, $content);
         fclose($fp);
-        if (!$ergebnis)
+        if (!$ergebnis) {
             $successfullyExecuted = FALSE;
+        }
 
         //echo "Anzahl exportiert: " . $i;
         return $successfullyExecuted;

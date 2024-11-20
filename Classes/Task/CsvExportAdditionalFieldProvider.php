@@ -2,16 +2,12 @@
 namespace Fixpunkt\FpMasterquiz\Task;
 
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
-use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Scheduler\AbstractAdditionalFieldProvider;
 use TYPO3\CMS\Scheduler\Controller\SchedulerModuleController;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use TYPO3\CMS\Scheduler\Task\Enumeration\Action;
-use TYPO3\CMS\Core\Messaging\FlashMessage;
 
 class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
 {
@@ -35,6 +31,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
                 $taskInfo['csvfile'] = $task->getCsvfile();
             }
         }
+        
         if (empty($taskInfo['page'])) {
             if ($currentSchedulerModuleAction->equals(Action::ADD)) {
                 $taskInfo['page'] = '';
@@ -42,6 +39,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
                 $taskInfo['page'] = $task->getPage();
             }
         }
+        
         if (empty($taskInfo['separator'])) {
             if ($currentSchedulerModuleAction->equals(Action::ADD)) {
                 $taskInfo['separator'] = '"';
@@ -49,6 +47,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
                 $taskInfo['separator'] = $task->getSeparator();
             }
         }
+        
         if (empty($taskInfo['delimiter'])) {
             if ($currentSchedulerModuleAction->equals(Action::ADD)) {
                 $taskInfo['delimiter'] = ';';
@@ -56,6 +55,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
                 $taskInfo['delimiter'] = $task->getDelimiter();
             }
         }
+        
         if (empty($taskInfo['ansdelimiter'])) {
             if ($currentSchedulerModuleAction->equals(Action::ADD)) {
                 $taskInfo['ansdelimiter'] = ', ';
@@ -63,6 +63,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
                 $taskInfo['ansdelimiter'] = $task->getAnswersDelimiter();
             }
         }
+        
         if (empty($taskInfo['convert'])) {
             if ($currentSchedulerModuleAction->equals(Action::ADD)) {
                 $taskInfo['convert'] = 0;
@@ -141,6 +142,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
                 ContextualFeedbackSeverity::ERROR
             );
         }
+        
         if (!str_starts_with((string) $submittedData['fpmasterquiz']['csvfile'], 'fileadmin/')) {
             $isValid = FALSE;
             $this->addMessage(
@@ -148,6 +150,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
                 ContextualFeedbackSeverity::ERROR
             );
         }
+        
         return $isValid;
     }
 
@@ -166,9 +169,10 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         $task->setSeparator($submittedData['fpmasterquiz']['separator']);
         $task->setDelimiter($submittedData['fpmasterquiz']['delimiter']);
         $task->setAnswersDelimiter($submittedData['fpmasterquiz']['ansdelimiter']);
-        if (isset($submittedData['fpmasterquiz']['convert']))
+        if (isset($submittedData['fpmasterquiz']['convert'])) {
             $task->setConvert(intval($submittedData['fpmasterquiz']['convert']));
-        else
+        } else {
             $task->setConvert(0);
+        }
     }
 }

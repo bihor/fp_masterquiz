@@ -159,8 +159,10 @@ class ParticipantsDataProvider implements ChartDataProviderInterface
                 $dataArray[$i]['question1'] = $oneAnswer['questiontitle'];
                 $dataArray[$i]['answer1'] = $oneAnswer['answertitle'];
             }
+            
             $i++;
         }
+        
         return $dataArray;
     }
 

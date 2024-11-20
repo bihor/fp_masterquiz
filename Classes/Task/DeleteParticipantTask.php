@@ -4,8 +4,6 @@ namespace Fixpunkt\FpMasterquiz\Task;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\Restriction\BackendWorkspaceRestriction;
-use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 
 class DeleteParticipantTask extends AbstractTask {
 
@@ -116,6 +114,7 @@ class DeleteParticipantTask extends AbstractTask {
     		while ($row = $statement->fetch()) {
     			$participantArray[] = $row['uid'];
     		}
+      
     		foreach ($participantArray as $participantUid) {
     			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_selected');
     			$queryBuilder
@@ -186,6 +185,7 @@ class DeleteParticipantTask extends AbstractTask {
 		      )
 		      ->executeStatement();
 		}
+  
 		return $successfullyExecuted;
 	}
 }

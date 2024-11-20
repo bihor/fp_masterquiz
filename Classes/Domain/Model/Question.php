@@ -52,7 +52,7 @@ class Question extends AbstractEntity
      * @var FileReference
      */
     #[Cascade(['value' => 'remove'])]
-    protected $image = null;
+    protected $image;
 
     /**
      * Description
@@ -73,7 +73,7 @@ class Question extends AbstractEntity
      *
      * @var Tag
      */
-    protected $tag = null;
+    protected $tag;
 
     /**
      * previous Tag
@@ -117,7 +117,7 @@ class Question extends AbstractEntity
      * @var ObjectStorage<Answer>
      */
     #[Cascade(['value' => 'remove'])]
-    protected $answers = null;
+    protected $answers;
     
     /**
      * no. of answers of all users (checkboxes: counted once)
@@ -152,7 +152,7 @@ class Question extends AbstractEntity
      *
      * @var ObjectStorage<Category>
      */
-    protected $categories = null;
+    protected $categories;
 
     /**
      * __construct
@@ -529,6 +529,7 @@ class Question extends AbstractEntity
         foreach ($this->getAnswers() as $answer) {
             $options[$answer->getUid()] = $answer->getTitle();
         }
+        
         return $options;
     }
 
@@ -543,17 +544,16 @@ class Question extends AbstractEntity
         foreach ($this->getAnswers() as $answer) {
             $points = $answer->getPoints();
             if ($this->qmode >= 1 && $this->qmode <= 3) {
-            	// only one answer is possible
-            	if ($points > $maximum1) {
-            		$maximum1 = $points;
-            	}
-            } else {
-            	// several Answers are possible, all should be chosen
-	            if ($points > 0) {
-    	            $maximum1 += $points;
-        	    }
+                // only one answer is possible
+                if ($points > $maximum1) {
+               		$maximum1 = $points;
+               	}
+            } elseif ($points > 0) {
+                // several Answers are possible, all should be chosen
+                $maximum1 += $points;
             }
         }
+        
         return $maximum1;
     }
     
@@ -638,9 +638,11 @@ class Question extends AbstractEntity
     public function getArrayOfAnswers()
     {
     	$array = [];
-    	for ($i=0; $i<count($this->answers); $i++) {
+     $counter = count($this->answers);
+    	for ($i=0; $i<$counter; $i++) {
     		$array[] = count($this->answers) - $i;
     	}
+     
     	return $array;
     }
 
@@ -665,6 +667,7 @@ class Question extends AbstractEntity
         foreach ($this->categories as $category) {
             $catArray[$category->getUid()] = $category->getTitle();
         }
+        
         return $catArray;
     }
 

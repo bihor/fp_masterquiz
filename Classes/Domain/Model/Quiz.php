@@ -64,7 +64,7 @@ class Quiz extends AbstractEntity
      * @var ObjectStorage<FileReference>
      */
     #[Cascade(['value' => 'remove'])]
-    protected $media = null;
+    protected $media;
 
     /**
      * Questions
@@ -72,7 +72,7 @@ class Quiz extends AbstractEntity
      * @var ObjectStorage<Question>
      */
     #[Cascade(['value' => 'remove'])]
-    protected $questions = null;
+    protected $questions;
 
     /**
      * Evaluations
@@ -80,14 +80,14 @@ class Quiz extends AbstractEntity
      * @var ObjectStorage<Evaluation>
      */
     #[Cascade(['value' => 'remove'])]
-    protected $evaluations = null;
+    protected $evaluations;
 
     /**
      * category
      *
      * @var ObjectStorage<Category>
      */
-    protected $categories = null;
+    protected $categories;
     
     /**
      * __construct
@@ -300,23 +300,23 @@ class Quiz extends AbstractEntity
         $pagetags = [];
         $questions = [];
         $result = [];
-        if ($random && !(count($randomNumbers)>1)) {
+        if ($random && count($randomNumbers) <= 1) {
             // Seitenanzahl bestimmen
             foreach ($this->questions as $question) {
                 $tag = $question->getTag();
-                if ($tag) {
-                    if (!isset($tags[$tag->getName()]) || !$tags[$tag->getName()]) {
-                        $pages++;
-                        $tags[$tag->getName()] = 1;
-                    }
+                if ($tag && (!isset($tags[$tag->getName()]) || !$tags[$tag->getName()])) {
+                    $pages++;
+                    $tags[$tag->getName()] = 1;
                 }
             }
+            
             // jeder Seite eine zufällige Reihenfolge zuordnen
             $randomNumbers = range(1, $pages);
             shuffle($randomNumbers);
             $tags = [];
             $pages = 0;
         }
+        
         foreach ($this->questions as $question) {
             $tag = $question->getTag();
             if ($tag) {
@@ -333,17 +333,21 @@ class Quiz extends AbstractEntity
                         // Die Seitennummer erhöht sich kontinuierlich
                         $forpage = $pages;
                     }
+                    
                     $pagetags[$forpage] = $tag->getName();
                     $tags[$tag->getName()] = $forpage;
                 }
+                
                 if ($page == $forpage) {
                     $questions[] = $question;
                 }
             }
         }
+        
         if ($random && (count($randomNumbers)>1)) {
             ksort($pagetags);
         }
+        
         $result['page'] = $page;
         $result['pages'] = $pages;
         $result['pagetags'] = $pagetags;
@@ -469,8 +473,10 @@ class Quiz extends AbstractEntity
             if ($maximum1 > 0) {
                 $add = ($mode == 4) ? 1 : $maximum1;
             }
+            
             $maximum2 += $add;
         }
+        
         return $maximum2;
     }
 

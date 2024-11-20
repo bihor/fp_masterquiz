@@ -3,10 +3,10 @@ declare(strict_types=1);
 
 namespace Fixpunkt\FpMasterquiz\Backend\EventListener;
 
+use TYPO3\CMS\Lang\LanguageService;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
-use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Backend\View\Event\PageContentPreviewRenderingEvent;
@@ -131,14 +131,12 @@ final class PreviewEventListener
                 foreach ($this->recordMapping as $fieldName => $fieldConfiguration) {
                     $value = $this->getFieldFromFlexform('settings.' . $fieldName);
                     if (isset($value) && (!$fieldConfiguration['table'] || $value)) {
-                        if ($fieldConfiguration['table']) {
-                            $content = $this->getRecordData($value, $fieldConfiguration['table']);
-                        } else {
-                            $content = $value;
-                        }
+                        $content = $fieldConfiguration['table'] ? $this->getRecordData($value, $fieldConfiguration['table']) : $value;
+
                         if ($fieldName == 'pagebrowser.itemsPerPage') {
                             $fieldName = 'itemsPerPage';
                         }
+
                         $this->tableData[] = [
                             $this->getLanguageService()->sL(self::LLPATH . 'settings.' . $fieldName),
                             $content
@@ -146,6 +144,7 @@ final class PreviewEventListener
                     }
                 }
             }
+            
             $event->setPreviewContent($this->renderSettingsAsTable($header, $event->getRecord()['uid']));
         }
     }
@@ -186,7 +185,7 @@ final class PreviewEventListener
     public function getStartingPoint($pids)
     {
         if (!empty($pids)) {
-            $pageIds = GeneralUtility::intExplode(',', $pids, true);
+            $pageIds = GeneralUtility::intExplode(',', $pids);
             $pagesOut = [];
 
             foreach ($pageIds as $id) {
@@ -274,7 +273,7 @@ final class PreviewEventListener
     /**
      * Return language service instance
      *
-     * @return \TYPO3\CMS\Lang\LanguageService
+     * @return LanguageService
      */
     public function getLanguageService()
     {

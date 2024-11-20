@@ -28,6 +28,7 @@
 
 namespace Fixpunkt\FpMasterquiz\Hooks;
 
+use TYPO3\CMS\Lang\LanguageService;
 use Fixpunkt\FpMasterquiz\Utility\TemplateLayout;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -51,11 +52,8 @@ class ItemsProcFunc
     public function user_templateLayout(array &$config)
     {
         $row = BackendUtilityCore::getRecord('tt_content', $config['row']['uid']);
-        if (isset($row['pid'])) {
-            $pid = $row['pid'];
-        } else {
-            $pid = 0;
-        }
+        $pid = $row['pid'] ?? 0;
+        
         $templateLayoutsUtility = GeneralUtility::makeInstance(TemplateLayout::class);
         $templateLayouts = $templateLayoutsUtility->getAvailableTemplateLayouts($pid);
         foreach ($templateLayouts as $layout) {
@@ -63,14 +61,14 @@ class ItemsProcFunc
                 htmlspecialchars((string) $this->getLanguageService()->sL($layout[0])),
                 $layout[1]
             ];
-            array_push($config['items'], $additionalLayout);
+            $config['items'][] = $additionalLayout;
         }
     }
 
     /**
      * Returns LanguageService
      *
-     * @return \TYPO3\CMS\Lang\LanguageService
+     * @return LanguageService
      */
     protected function getLanguageService()
     {

@@ -5,8 +5,6 @@ namespace Fixpunkt\FpMasterquiz\Controller;
 use Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository;
 use Fixpunkt\FpMasterquiz\Domain\Model\Participant;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use TYPO3\CMS\Core\Messaging\AbstractMessage;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
@@ -40,7 +38,7 @@ class ParticipantController extends ActionController
      *
      * @var ParticipantRepository
      */
-    protected $participantRepository = null;
+    protected $participantRepository;
 
     /**
      * Injects the participant-Repository
@@ -63,23 +61,19 @@ class ParticipantController extends ActionController
 
     /**
      * action list
-     *
-     * @return ResponseInterface
      */
     public function listAction(int $currentPage = 1): ResponseInterface
     {
         $pid = $this->id;
         $qid = $this->request->hasArgument('quiz') ? intval($this->request->getArgument('quiz')) : 0;
-        if ($qid) {
+        if ($qid !== 0) {
             $participants = $this->participantRepository->findFromPidAndQuiz($pid, $qid);
         } else {
             $participants = $this->participantRepository->findFromPid($pid);
         }
-        if ($participants) {
-            $participantArray = $participants->toArray();
-        } else {
-            $participantArray = [];
-        }
+
+        $participantArray = $participants ? $participants->toArray() : [];
+        
         $participantPaginator = new ArrayPaginator($participantArray, $currentPage, $this->settings['pagebrowser']['itemsPerPage']);
         $participantPagination = new SimplePagination($participantPaginator);
 
@@ -95,8 +89,6 @@ class ParticipantController extends ActionController
 
     /**
      * action detail
-     *
-     * @return ResponseInterface
      */
     public function detailAction(Participant $participant): ResponseInterface
     {
@@ -106,6 +98,7 @@ class ParticipantController extends ActionController
                 foreach ($selection->getQuestion()->getCategories() as $category) {
                     $categoriesArray[$category->getUid()] = $category->getTitle();
                 }
+                
                 $ownCategoryAnswers = unserialize($selection->getEntered());
                 foreach ($selection->getAnswers() as $answer) {
                     foreach ($ownCategoryAnswers as $key => $ownCategoryAnswer) {
@@ -116,6 +109,7 @@ class ParticipantController extends ActionController
                 }
             }
         }
+        
         $this->view->assign('participant', $participant);
         $this->addDocHeaderDropDown('list');
         return $this->defaultRendering();
@@ -123,8 +117,6 @@ class ParticipantController extends ActionController
 
     /**
      * action delete
-     *
-     * @return ResponseInterface
      */
     public function deleteAction(Participant $participant): ResponseInterface
     {
@@ -132,6 +124,7 @@ class ParticipantController extends ActionController
             $this->addFlashMessage($participant->getName() . ' deleted.', '', ContextualFeedbackSeverity::WARNING);
             $this->participantRepository->remove($participant);
         }
+        
         return $this->responseFactory->createResponse(307)
             ->withHeader('Location', $this->uriBuilder->reset()->uriFor('list'));
     }
@@ -155,6 +148,7 @@ class ParticipantController extends ActionController
         $languageService = $this->getLanguageService();
         $actionMenu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $actionMenu->setIdentifier('masterquizSelector');
+        
         $actions = ['Quiz,index', 'Participant,list'];
         foreach ($actions as $controller_action_string) {
             $controller_action_array = explode(",", $controller_action_string);
@@ -168,6 +162,7 @@ class ParticipantController extends ActionController
                     ->setActive($currentAction === $controller_action_array[1])
             );
         }
+        
         $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($actionMenu);
     }
 

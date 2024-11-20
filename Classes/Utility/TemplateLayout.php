@@ -49,6 +49,7 @@ class TemplateLayout implements SingletonInterface {
 		foreach($this->getTemplateLayoutsFromTsConfig($pageUid) as $templateKey => $title) {
 			$templateLayouts[] = [$title, $templateKey];
 		}
+  
 		return $templateLayouts;
 	}
 
@@ -65,6 +66,7 @@ class TemplateLayout implements SingletonInterface {
 		if (isset($pagesTsConfig['tx_fpmasterquiz.']['templateLayouts.']) && is_array($pagesTsConfig['tx_fpmasterquiz.']['templateLayouts.'])) {
 			$templateLayouts = $pagesTsConfig['tx_fpmasterquiz.']['templateLayouts.'];
 		}
+  
 		return $templateLayouts;
 	}
 }

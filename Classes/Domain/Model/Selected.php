@@ -38,14 +38,14 @@ class Selected extends AbstractEntity
      *
      * @var Question
      */
-    protected $question = null;
+    protected $question;
 
     /**
      * Answers to this question
      *
      * @var ObjectStorage<Answer>
      */
-    protected $answers = null;
+    protected $answers;
     
     /**
      * Question-sorting
@@ -59,7 +59,7 @@ class Selected extends AbstractEntity
      *
      * @var ObjectStorage<Category>
      */
-    protected $categories = null;
+    protected $categories;
 
     /**
      * __construct

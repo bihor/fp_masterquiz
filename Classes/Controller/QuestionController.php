@@ -5,7 +5,6 @@ namespace Fixpunkt\FpMasterquiz\Controller;
 use Fixpunkt\FpMasterquiz\Domain\Repository\QuestionRepository;
 use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
 use Fixpunkt\FpMasterquiz\Domain\Model\Question;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Localization\LanguageService;
@@ -37,7 +36,7 @@ class QuestionController extends ActionController
      *
      * @var QuestionRepository
      */
-    protected $questionRepository = null;
+    protected $questionRepository;
 
     /**
      * Injects the question-Repository
@@ -60,15 +59,14 @@ class QuestionController extends ActionController
 
     /**
      * action move
-     *
-     * @return ResponseInterface
      */
     public function moveAction(Quiz $quiz, Question $question = NULL): ResponseInterface
     {
         $pid = $this->id;
-        if ($question) {
+        if ($question instanceof Question) {
             $this->questionRepository->moveToQuiz($question->getUid(), $quiz->getUid());
         }
+        
         $questions = $this->questionRepository->findOtherThan($pid, $quiz->getUid());
         $this->view->assign('question', $question);
         $this->view->assign('questions', $questions);
@@ -96,6 +94,7 @@ class QuestionController extends ActionController
         $languageService = $this->getLanguageService();
         $actionMenu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $actionMenu->setIdentifier('masterquizSelector');
+        
         $actions = ['Quiz,index', 'Participant,list'];
         foreach ($actions as $controller_action_string) {
             $controller_action_array = explode(",", $controller_action_string);
@@ -109,6 +108,7 @@ class QuestionController extends ActionController
                     ->setActive($currentAction === $controller_action_array[1])
             );
         }
+        
         $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($actionMenu);
     }
 

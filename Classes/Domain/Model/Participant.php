@@ -27,12 +27,12 @@ class Participant extends AbstractEntity
     /**
      * @var \DateTime
      */
-    protected $tstamp = null;
+    protected $tstamp;
 
     /**
      * @var \DateTime
      */
-    protected $crdate = null;
+    protected $crdate;
 
     /**
      * Name
@@ -130,7 +130,7 @@ class Participant extends AbstractEntity
      *
      * @var Quiz
      */
-    protected $quiz = null;
+    protected $quiz;
 
     /**
      * Answered questions
@@ -138,7 +138,7 @@ class Participant extends AbstractEntity
      * @var ObjectStorage<Selected>
      */
     #[Cascade(['value' => 'remove'])]
-    protected $selections = null;
+    protected $selections;
 
     /**
      * __construct
@@ -321,6 +321,7 @@ class Participant extends AbstractEntity
             while ($row = $statement->fetch()) {
                 return $row['username'];
             }
+            
             return '';
         }
     }
@@ -635,6 +636,7 @@ class Participant extends AbstractEntity
                 }
             }
         }
+        
         foreach ($mostArray as $key => $value) {
             $generalArray[$key]['count'] = $value;
             if ($value > $mostValue) {
@@ -642,6 +644,7 @@ class Participant extends AbstractEntity
                 $mostValue = $value;
             }
         }
+        
         $mostEntry['uid'] = $mostUid;
         $mostEntry['count'] = $mostValue;
         $mostEntry['title'] = $generalArray[$mostUid]['title'];
@@ -695,11 +698,14 @@ class Participant extends AbstractEntity
             if ($sorting == 0) {
                 $sorting = $i;
             }
+            
             if ($selection->getQuestion()->getTag()->getName() == $tag) {
                 $sortedSelections[$sorting] = $selection;
             }
+            
             $i++;
         }
+        
         ksort($sortedSelections);
         return $sortedSelections;
     }
@@ -717,12 +723,15 @@ class Participant extends AbstractEntity
             if ($sorting == 0) {
                 $sorting = $i;
             }
+            
             if ($selection->getQuestion()->getTag()) {
                 $hasTags = true;
             }
+            
             $sortedSelections[$sorting] = $selection;
             $i++;
         }
+        
         ksort($sortedSelections);
         if ($hasTags) {
             // prev und next Tag immer setzen, wenn Tags vorhanden sind
@@ -733,13 +742,16 @@ class Participant extends AbstractEntity
                 if ($lastItem) {
                     $lastItem->setNextTag($itemQuestion->getTag()->getName());
                 }
+                
                 if (($lastTag)) {
                     $itemQuestion->setPrevTag($lastTag);
                 }
+                
                 $lastTag = $itemQuestion->getTag()->getName();
                 $lastItem = $itemQuestion;
             }
         }
+        
         return $sortedSelections;
     }
 
