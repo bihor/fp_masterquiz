@@ -314,7 +314,7 @@ class Participant extends AbstractEntity
                 ->select('username')
                 ->from('fe_users')
                 ->where(
-                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($this->user, \PDO::PARAM_INT))
+                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter(intval($this->user), \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
                 )
                 ->setMaxResults(1)
                 ->executeQuery();

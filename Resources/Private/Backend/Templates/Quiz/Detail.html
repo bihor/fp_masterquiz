@@ -1,6 +1,7 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-  <f:layout name="Default" />
-  <f:section name="Content">
+<f:layout name="Module" />
+<f:section name="Content">
+	<f:asset.css identifier="backendtools" href="EXT:fp_masterquiz/Resources/Public/Css/Backend.css"/>
     <h1>{quiz.name}</h1>
     <f:if condition="{updated}"><f:then></f:then><f:else>
     <f:render partial="Quiz/Properties" arguments="{quiz:quiz}" />

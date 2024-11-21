@@ -4,6 +4,7 @@ namespace Fixpunkt\FpMasterquiz\Task;
 use TYPO3\CMS\Scheduler\Task\AbstractTask;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Connection;
 
 class DeleteParticipantTask extends AbstractTask {
 
@@ -105,14 +106,14 @@ class DeleteParticipantTask extends AbstractTask {
     		   ->select('uid')
     		   ->from('tx_fpmasterquiz_domain_model_participant')
     		   ->where(
-    		   		$queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT))
+    		   		$queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pid, Connection::PARAM_INT))
     		   	)
     		   	->andWhere(
-    		   		$queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, \PDO::PARAM_INT))
+    		   		$queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, Connection::PARAM_INT))
     	   		)
     		   ->executeQuery();
     		while ($row = $statement->fetch()) {
-    			$participantArray[] = $row['uid'];
+    			$participantArray[] = intval($row['uid']);
     		}
       
     		foreach ($participantArray as $participantUid) {
@@ -120,7 +121,7 @@ class DeleteParticipantTask extends AbstractTask {
     			$queryBuilder
     				->update('tx_fpmasterquiz_domain_model_selected')
     				->where(
-    					$queryBuilder->expr()->eq('participant', $queryBuilder->createNamedParameter($participantUid, \PDO::PARAM_INT))
+    					$queryBuilder->expr()->eq('participant', $queryBuilder->createNamedParameter($participantUid, Connection::PARAM_INT))
     				)
     				->set('deleted', '1')
     				->set('tstamp', $now)
@@ -129,7 +130,7 @@ class DeleteParticipantTask extends AbstractTask {
     			$queryBuilder
     				->update('tx_fpmasterquiz_domain_model_participant')
     				->where(
-    					$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($participantUid, \PDO::PARAM_INT))
+    					$queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($participantUid, Connection::PARAM_INT))
     				)
     				->set('deleted', '1')
     				->set('tstamp', $now)
@@ -141,14 +142,14 @@ class DeleteParticipantTask extends AbstractTask {
 		      ->select('uid')
 		      ->from('tx_fpmasterquiz_domain_model_selected')
 		      ->where(
-		        $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT))
+		        $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pid, Connection::PARAM_INT))
 		      )
 		      ->andWhere(
-		         $queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, \PDO::PARAM_INT))
+		         $queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, Connection::PARAM_INT))
 		      )
 		      ->executeQuery();
 		    while ($row = $statement->fetch()) {
-		        $selectedArray[] = $row['uid'];
+		        $selectedArray[] = intval($row['uid']);
 		    }
 		    
 		    $table = 'tx_fpmasterquiz_selected_answer_mm';
@@ -157,7 +158,7 @@ class DeleteParticipantTask extends AbstractTask {
 		        $queryBuilder
 		          ->delete($table)
     		      ->where(
-    		          $queryBuilder->expr()->eq('uid_local', $queryBuilder->createNamedParameter($selectedUid, \PDO::PARAM_INT))
+    		          $queryBuilder->expr()->eq('uid_local', $queryBuilder->createNamedParameter($selectedUid, Connection::PARAM_INT))
 		          )
 		          ->executeStatement();
 		    }
@@ -168,7 +169,7 @@ class DeleteParticipantTask extends AbstractTask {
 		        $queryBuilder
 		          ->delete($table)
 		          ->where(
-		              $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($selectedUid, \PDO::PARAM_INT))
+		              $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($selectedUid, Connection::PARAM_INT))
 		          )
 		          ->executeStatement();
 		    }
@@ -178,10 +179,10 @@ class DeleteParticipantTask extends AbstractTask {
 		    $queryBuilder
 		      ->delete($table)
 		      ->where(
-		          $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pid, \PDO::PARAM_INT))
+		          $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pid, Connection::PARAM_INT))
 		      )
 		      ->andWhere(
-		          $queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, \PDO::PARAM_INT))
+		          $queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, Connection::PARAM_INT))
 		      )
 		      ->executeStatement();
 		}

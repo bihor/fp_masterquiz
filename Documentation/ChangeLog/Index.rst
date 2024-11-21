@@ -241,5 +241,9 @@ ChangeLog
 5.1.9:
   Bugfix: points calculation for modes 3 and 4.
 
-Changes in 5.1.10/1:
+5.1.10/1:
   Bugfix: allow backend-module for users.
+
+5.2.0:
+  Refactoring with the rector-project.
+  Preparations for TYPO3 13. Attention: the path to the backend templates is now defined in Configuration/page.tsconfig.

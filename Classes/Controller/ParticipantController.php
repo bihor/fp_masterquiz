@@ -77,14 +77,14 @@ class ParticipantController extends ActionController
         $participantPaginator = new ArrayPaginator($participantArray, $currentPage, $this->settings['pagebrowser']['itemsPerPage']);
         $participantPagination = new SimplePagination($participantPaginator);
 
-        $this->view->assign('pid', $pid);
-        $this->view->assign('qid', $qid);
-        $this->view->assign('participants', $participants);
-        $this->view->assign('paginator', $participantPaginator);
-        $this->view->assign('pagination', $participantPagination);
-        $this->view->assign('pages', range(1, $participantPagination->getLastPageNumber()));
+        $this->moduleTemplate->assign('pid', $pid);
+        $this->moduleTemplate->assign('qid', $qid);
+        $this->moduleTemplate->assign('participants', $participants);
+        $this->moduleTemplate->assign('paginator', $participantPaginator);
+        $this->moduleTemplate->assign('pagination', $participantPagination);
+        $this->moduleTemplate->assign('pages', range(1, $participantPagination->getLastPageNumber()));
         $this->addDocHeaderDropDown('list');
-        return $this->defaultRendering();
+        return $this->moduleTemplate->renderResponse('Participant/List');
     }
 
     /**
@@ -110,9 +110,9 @@ class ParticipantController extends ActionController
             }
         }
         
-        $this->view->assign('participant', $participant);
+        $this->moduleTemplate->assign('participant', $participant);
         $this->addDocHeaderDropDown('list');
-        return $this->defaultRendering();
+        return $this->moduleTemplate->renderResponse('Participant/Detail');
     }
 
     /**
@@ -135,12 +135,6 @@ class ParticipantController extends ActionController
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
-    }
-
-    protected function defaultRendering(): ResponseInterface
-    {
-        $this->moduleTemplate->setContent($this->view->render());
-        return $this->htmlResponse($this->moduleTemplate->renderContent());
     }
 
     protected function addDocHeaderDropDown(string $currentAction): void

@@ -127,8 +127,8 @@ class SelectedRepository extends Repository
             ->from($table)
             ->where(
                 $queryBuilder->expr()->and(
-                    $queryBuilder->expr()->eq('participant', $queryBuilder->createNamedParameter($participantId, \PDO::PARAM_INT)),
-                    $queryBuilder->expr()->eq('question', $queryBuilder->createNamedParameter($questionId, \PDO::PARAM_INT))
+                    $queryBuilder->expr()->eq('participant', $queryBuilder->createNamedParameter(intval($participantId), \TYPO3\CMS\Core\Database\Connection::PARAM_INT)),
+                    $queryBuilder->expr()->eq('question', $queryBuilder->createNamedParameter(intval($questionId), \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
                 )
             )
             ->executeQuery()

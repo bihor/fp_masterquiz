@@ -68,11 +68,11 @@ class QuestionController extends ActionController
         }
         
         $questions = $this->questionRepository->findOtherThan($pid, $quiz->getUid());
-        $this->view->assign('question', $question);
-        $this->view->assign('questions', $questions);
-        $this->view->assign('quiz', $quiz);
+        $this->moduleTemplate->assign('question', $question);
+        $this->moduleTemplate->assign('questions', $questions);
+        $this->moduleTemplate->assign('quiz', $quiz);
         $this->addDocHeaderDropDown('index');
-        return $this->defaultRendering();
+        return $this->moduleTemplate->renderResponse('Question/Move');
     }
 
     /*
@@ -81,12 +81,6 @@ class QuestionController extends ActionController
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
-    }
-
-    protected function defaultRendering(): ResponseInterface
-    {
-        $this->moduleTemplate->setContent($this->view->render());
-        return $this->htmlResponse($this->moduleTemplate->renderContent());
     }
 
     protected function addDocHeaderDropDown(string $currentAction): void

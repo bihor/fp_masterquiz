@@ -123,7 +123,7 @@ class ParticipantsDataProvider implements ChartDataProviderInterface
             $answerArray = $queryBuilder
                 ->select('participant', 'answertable.title AS answertitle', 'questiontable.title AS questiontitle')
                 ->from('tx_fpmasterquiz_domain_model_selected')
-                ->where($queryBuilder->expr()->eq('participant', $queryBuilder->createNamedParameter($result['partid'], \PDO::PARAM_INT)))
+                ->where($queryBuilder->expr()->eq('participant', $queryBuilder->createNamedParameter((int) $result['partid'], \TYPO3\CMS\Core\Database\Connection::PARAM_INT)))
                 ->join(
                     'tx_fpmasterquiz_domain_model_selected',
                     'tx_fpmasterquiz_selected_answer_mm',

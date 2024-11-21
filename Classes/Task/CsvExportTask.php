@@ -214,7 +214,7 @@ class CsvExportTask extends AbstractTask
                 $queryBuilder->expr()->eq('mm.uid_foreign', $queryBuilder->quoteIdentifier('tx_fpmasterquiz_domain_model_answer.uid'))
             )
             ->where(
-                $queryBuilder->expr()->eq('tx_fpmasterquiz_domain_model_answer.pid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('tx_fpmasterquiz_domain_model_answer.pid', $queryBuilder->createNamedParameter($uid, \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
             )
             ->orderBy('mm.sorting', 'ASC')
             ->executeQuery();
@@ -252,7 +252,7 @@ class CsvExportTask extends AbstractTask
                 $queryBuilder->expr()->eq('question.uid', $queryBuilder->quoteIdentifier('tx_fpmasterquiz_domain_model_selected.question'))
             )
             ->where(
-                $queryBuilder->expr()->eq('tx_fpmasterquiz_domain_model_selected.pid', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('tx_fpmasterquiz_domain_model_selected.pid', $queryBuilder->createNamedParameter($uid, \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
             )
             ->orderBy('part.uid', 'DESC')
             ->addOrderBy('suid', 'ASC')

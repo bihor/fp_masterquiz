@@ -1,6 +1,7 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-  <f:layout name="Default" />
-  <f:section name="Content">
+<f:layout name="Module" />
+<f:section name="Content">
+  <f:asset.css identifier="backendtools" href="EXT:fp_masterquiz/Resources/Public/Css/Backend.css"/>
     <h1><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:moveQuestion" /></h1>
     <p>Quiz: {quiz.name}</p>
     <f:if condition="{question}">

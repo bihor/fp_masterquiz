@@ -689,7 +689,7 @@ class Question extends AbstractEntity
                 $queryBuilder->expr()->eq('mm.uid_local', $queryBuilder->quoteIdentifier('sys_category.uid'))
             )
             ->where(
-                $queryBuilder->expr()->eq('mm.uid_foreign', $queryBuilder->createNamedParameter($this->uid, \PDO::PARAM_INT)),
+                $queryBuilder->expr()->eq('mm.uid_foreign', $queryBuilder->createNamedParameter(intval($this->uid), \TYPO3\CMS\Core\Database\Connection::PARAM_INT)),
                 $queryBuilder->expr()->eq('mm.tablenames', $queryBuilder->createNamedParameter('tx_fpmasterquiz_domain_model_question'))
             )
             ->orderBy('sys_category.sorting')

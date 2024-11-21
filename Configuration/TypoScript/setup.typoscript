@@ -120,6 +120,7 @@ module.tx_fpmasterquiz {
     storagePid = {$module.tx_fpmasterquiz_mod1.persistence.storagePid}
   }
   view {
+    # no longer in use!
     templateRootPaths.0 = EXT:fp_masterquiz/Resources/Private/Backend/Templates/
     templateRootPaths.1 = {$module.tx_fpmasterquiz_mod1.view.templateRootPath}
     partialRootPaths.0 = EXT:fp_masterquiz/Resources/Private/Backend/Partials/

@@ -2,9 +2,6 @@
 
 namespace Fixpunkt\FpMasterquiz\Controller;
 
-use TYPO3\CMS\Fluid\View\StandaloneView;
-use TYPO3\CMS\Core\Mail\MailMessage;
-use Symfony\Component\Mime\Address;
 use Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository;
 use Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository;
 use Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository;
@@ -25,10 +22,13 @@ use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Pagination\ArrayPaginator;
-use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\Mail\MailMessage;
+use Symfony\Component\Mime\Address;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 /***
@@ -1229,7 +1229,7 @@ class QuizController extends ActionController
         }
 
         // for security reasons check the input from the frontend
-        $answerText = filter_var($answerText, FILTER_SANITIZE_STRING);
+        $answerText = htmlspecialchars($answerText); //filter_var($answerText, FILTER_SANITIZE_STRING);
 
         // store the answer of the participant in the selected dataset
         $c_selected->setEntered($answerText);
@@ -1239,7 +1239,7 @@ class QuizController extends ActionController
             $c_selected->addAnswer($answer);
 
             if ($i_question->getQmode() == 3) {
-                // sum the the points of the current answer to the max. possible point until the current question
+                // sum the points of the current answer to the max. possible point until the current question
                 $maximum1 += $answer->getPoints();
 
                 // if the answer is right
@@ -1294,7 +1294,7 @@ class QuizController extends ActionController
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('fe_users');
         $queryBuilder = $connection->createQueryBuilder();
         $statement = $queryBuilder->select('*')->from('fe_users')->where(
-            $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($userid, \PDO::PARAM_INT))
+            $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($userid, \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
         )->setMaxResults(1)->executeQuery();
         while ($row = $statement->fetch()) {
             return $row;
@@ -2123,11 +2123,11 @@ class QuizController extends ActionController
             $otherLangs[] = $this->quizRepository->findFormUidAndPidOtherLanguages($quiz->getUid());
         }
         
-        $this->view->assign('pid', $pid);
-        $this->view->assign('quizzes', $quizzes);
-        $this->view->assign('otherQuizzes', $otherLangs);
+        $this->moduleTemplate->assign('pid', $pid);
+        $this->moduleTemplate->assign('quizzes', $quizzes);
+        $this->moduleTemplate->assign('otherQuizzes', $otherLangs);
         $this->addDocHeaderDropDown('index');
-        return $this->defaultRendering();
+        return $this->moduleTemplate->renderResponse('Quiz/Index');
     }
 
     /**
@@ -2162,30 +2162,30 @@ class QuizController extends ActionController
             $lostArray[$question->getUid()] = $question->getTitle();
         }
         
-        $this->view->assign('quiz', $quiz);
-        $this->view->assign('lostArray', $lostArray);
-        $this->view->assign('lost', count($lostArray));
-        $this->view->assign('updated', $updated);
+        $this->moduleTemplate->assign('quiz', $quiz);
+        $this->moduleTemplate->assign('lostArray', $lostArray);
+        $this->moduleTemplate->assign('lost', count($lostArray));
+        $this->moduleTemplate->assign('updated', $updated);
         if ($this->request->hasArgument('prop')) {
-            $this->view->assign('prop', $this->request->getArgument('prop'));
+            $this->moduleTemplate->assign('prop', $this->request->getArgument('prop'));
         } else {
-            $this->view->assign('prop', 0);
+            $this->moduleTemplate->assign('prop', 0);
         }
         
         if ($this->request->hasArgument('user')) {
-            $this->view->assign('user', $this->request->getArgument('user'));
+            $this->moduleTemplate->assign('user', $this->request->getArgument('user'));
         } else {
-            $this->view->assign('user', 0);
+            $this->moduleTemplate->assign('user', 0);
         }
         
         if ($this->request->hasArgument('chart')) {
-            $this->view->assign('chart', $this->request->getArgument('chart'));
+            $this->moduleTemplate->assign('chart', $this->request->getArgument('chart'));
         } else {
-            $this->view->assign('chart', 0);
+            $this->moduleTemplate->assign('chart', 0);
         }
         
         $this->addDocHeaderDropDown('index');
-        return $this->defaultRendering();
+        return $this->moduleTemplate->renderResponse('Quiz/Detail');
     }
 
     /**
@@ -2197,11 +2197,11 @@ class QuizController extends ActionController
         $pid = $be ? $this->id : (int)$GLOBALS['TSFE']->id;
         
         $debug = $this->setAllUserAnswers($quiz, $pid, $be);
-        $this->view->assign('debug', $debug);
-        $this->view->assign('pid', $pid);
-        $this->view->assign('quiz', $quiz);
+        $this->moduleTemplate->assign('debug', $debug);
+        $this->moduleTemplate->assign('pid', $pid);
+        $this->moduleTemplate->assign('quiz', $quiz);
         $this->addDocHeaderDropDown('index');
-        return $this->defaultRendering();
+        return $this->moduleTemplate->renderResponse('Quiz/Charts');
     }
 
     /**
@@ -2266,12 +2266,6 @@ class QuizController extends ActionController
     protected function getLanguageService(): LanguageService
     {
         return $GLOBALS['LANG'];
-    }
-
-    protected function defaultRendering(): ResponseInterface
-    {
-        $this->moduleTemplate->setContent($this->view->render());
-        return $this->htmlResponse($this->moduleTemplate->renderContent());
     }
 
     protected function addDocHeaderDropDown(string $currentAction): void

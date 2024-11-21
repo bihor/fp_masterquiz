@@ -84,7 +84,7 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
                 ->count('uid')
                 ->from('pages')
                 ->where(
-                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter((int)$submittedData['fp_masterquiz']['page'], \PDO::PARAM_INT))
+                    $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter((int)$submittedData['fp_masterquiz']['page'], \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
                 )
                 ->executeQuery()
                 ->fetchOne();

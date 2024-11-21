@@ -80,7 +80,7 @@ class QuestionRepository extends Repository
         $queryBuilder
             ->update($table)
             ->where(
-                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($questionID, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter(intval($questionID), \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
             )
             ->set('quiz', intval($quizID))
             ->executeStatement();

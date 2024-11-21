@@ -4,6 +4,7 @@ namespace Fixpunkt\FpMasterquiz\Domain\Repository;
 
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 use TYPO3\CMS\Extbase\Persistence\QueryResultInterface;
@@ -53,32 +54,16 @@ class QuizRepository extends Repository
      */
     public function getMyLocalizedUid(int $defaultQuizUid, int $sys_language_uid)
     {
-        /*
-        $query = $this->createQuery();
-        //$query->getQuerySettings()->setReturnRawQueryResult(TRUE); // funktioniert leider nicht
-        $query->matching(
-            $query->logicalAnd(
-                $query->equals('l10n_parent', $defaultQuizUid),
-                $query->equals('sys_language_uid', $sys_language_uid)
-            )
-        );
-        $result = $query->execute()->getFirst();
-        if ($result) {
-            return $result->getUid();
-        } else {
-            return 0;
-        }
-        */
         $uid = 0;
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
         $statement = $queryBuilder
             ->select('uid')
             ->from('tx_fpmasterquiz_domain_model_quiz')
             ->where(
-                $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($defaultQuizUid, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($defaultQuizUid, Connection::PARAM_INT))
             )
             ->andWhere(
-                $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sys_language_uid, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sys_language_uid, Connection::PARAM_INT))
             )
             ->setMaxResults(1)
             ->executeQuery();
@@ -117,7 +102,7 @@ class QuizRepository extends Repository
             ->select('*')
             ->from('tx_fpmasterquiz_domain_model_quiz')
             ->where(
-                $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($uid, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('l10n_parent', $queryBuilder->createNamedParameter($uid, Connection::PARAM_INT))
             )
             ->executeQuery();
         return $statement->fetchAllAssociative();
