@@ -1,5 +1,5 @@
 <?php
-defined('TYPO3') or die('Access denied.');
+defined('TYPO3') || die('Access denied.');
 
 // Override icon
 $GLOBALS['TCA']['pages']['columns']['module']['config']['items'][] = [

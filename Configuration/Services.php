@@ -4,7 +4,6 @@ declare(strict_types=1);
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Dashboard\Widgets\BarChartWidget;
 use TYPO3\CMS\Backend\View\BackendViewFactory;
 use Fixpunkt\FpMasterquiz\Widgets\Provider\ParticipantsDataProvider;

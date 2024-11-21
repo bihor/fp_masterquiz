@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Domain\Model;
 
+use Fixpunkt\FpMasterquiz\Domain\Model\Participant;
+use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Fixpunkt\FpMasterquiz\Domain\Model\Selected;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -25,7 +29,7 @@ class ParticipantTest extends UnitTestCase
         parent::setUp();
 
         $this->subject = $this->getAccessibleMock(
-            \Fixpunkt\FpMasterquiz\Domain\Model\Participant::class,
+            Participant::class,
             ['dummy']
         );
     }
@@ -321,7 +325,7 @@ class ParticipantTest extends UnitTestCase
      */
     public function setQuizForQuizSetsQuiz(): void
     {
-        $quizFixture = new \Fixpunkt\FpMasterquiz\Domain\Model\Quiz();
+        $quizFixture = new Quiz();
         $this->subject->setQuiz($quizFixture);
 
         self::assertEquals($quizFixture, $this->subject->_get('quiz'));
@@ -332,7 +336,7 @@ class ParticipantTest extends UnitTestCase
      */
     public function getSelectionsReturnsInitialValueForSelected(): void
     {
-        $newObjectStorage = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $newObjectStorage = new ObjectStorage();
         self::assertEquals(
             $newObjectStorage,
             $this->subject->getSelections()
@@ -344,9 +348,10 @@ class ParticipantTest extends UnitTestCase
      */
     public function setSelectionsForObjectStorageContainingSelectedSetsSelections(): void
     {
-        $selection = new \Fixpunkt\FpMasterquiz\Domain\Model\Selected();
-        $objectStorageHoldingExactlyOneSelections = new \TYPO3\CMS\Extbase\Persistence\ObjectStorage();
+        $selection = new Selected();
+        $objectStorageHoldingExactlyOneSelections = new ObjectStorage();
         $objectStorageHoldingExactlyOneSelections->attach($selection);
+        
         $this->subject->setSelections($objectStorageHoldingExactlyOneSelections);
 
         self::assertEquals($objectStorageHoldingExactlyOneSelections, $this->subject->_get('selections'));
@@ -357,8 +362,8 @@ class ParticipantTest extends UnitTestCase
      */
     public function addSelectionToObjectStorageHoldingSelections(): void
     {
-        $selection = new \Fixpunkt\FpMasterquiz\Domain\Model\Selected();
-        $selectionsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $selection = new Selected();
+        $selectionsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->onlyMethods(['attach'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -374,8 +379,8 @@ class ParticipantTest extends UnitTestCase
      */
     public function removeSelectionFromObjectStorageHoldingSelections(): void
     {
-        $selection = new \Fixpunkt\FpMasterquiz\Domain\Model\Selected();
-        $selectionsObjectStorageMock = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $selection = new Selected();
+        $selectionsObjectStorageMock = $this->getMockBuilder(ObjectStorage::class)
             ->onlyMethods(['detach'])
             ->disableOriginalConstructor()
             ->getMock();

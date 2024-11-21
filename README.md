@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 5.1.11
+version 5.1.12
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -52,3 +52,6 @@ Changes in 5.1.9:
 
 Changes in 5.1.11:
 - Bugfix: allow backend-module for users.
+
+Changes in 5.1.12:
+- Refactoring with the rector-project.

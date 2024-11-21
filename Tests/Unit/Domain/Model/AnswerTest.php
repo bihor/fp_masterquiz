@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Domain\Model;
 
+use Fixpunkt\FpMasterquiz\Domain\Model\Answer;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -25,7 +26,7 @@ class AnswerTest extends UnitTestCase
         parent::setUp();
 
         $this->subject = $this->getAccessibleMock(
-            \Fixpunkt\FpMasterquiz\Domain\Model\Answer::class,
+            Answer::class,
             ['dummy']
         );
     }

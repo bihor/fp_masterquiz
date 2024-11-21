@@ -10,6 +10,9 @@
 	"require" : {
 		"typo3/cms-core" : "~12.4.0"
 	},
+	"suggest": {
+		"typo3/cms-dashboard": "Use widgets in dashboard"
+	},
 	"autoload" : {
 		"psr-4" : {
 			"Fixpunkt\\FpMasterquiz\\" : "Classes"

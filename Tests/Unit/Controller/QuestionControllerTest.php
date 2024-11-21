@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Controller;
 
+use Fixpunkt\FpMasterquiz\Controller\QuestionController;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
-use TYPO3Fluid\Fluid\View\ViewInterface;
 
 /**
  * Test case
@@ -24,7 +24,7 @@ class QuestionControllerTest extends UnitTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = $this->getMockBuilder($this->buildAccessibleProxy(\Fixpunkt\FpMasterquiz\Controller\QuestionController::class))
+        $this->subject = $this->getMockBuilder($this->buildAccessibleProxy(QuestionController::class))
             ->onlyMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();

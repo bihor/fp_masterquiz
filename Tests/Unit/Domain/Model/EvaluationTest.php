@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Domain\Model;
 
+use Fixpunkt\FpMasterquiz\Domain\Model\Evaluation;
+use TYPO3\CMS\Extbase\Domain\Model\FileReference;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -25,7 +27,7 @@ class EvaluationTest extends UnitTestCase
         parent::setUp();
 
         $this->subject = $this->getAccessibleMock(
-            \Fixpunkt\FpMasterquiz\Domain\Model\Evaluation::class,
+            Evaluation::class,
             ['dummy']
         );
     }
@@ -132,7 +134,7 @@ class EvaluationTest extends UnitTestCase
      */
     public function setImageForFileReferenceSetsImage(): void
     {
-        $fileReferenceFixture = new \TYPO3\CMS\Extbase\Domain\Model\FileReference();
+        $fileReferenceFixture = new FileReference();
         $this->subject->setImage($fileReferenceFixture);
 
         self::assertEquals($fileReferenceFixture, $this->subject->_get('image'));

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Controller;
 
+use Fixpunkt\FpMasterquiz\Controller\QuizController;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository;
+use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -24,7 +28,7 @@ class QuizControllerTest extends UnitTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = $this->getMockBuilder($this->buildAccessibleProxy(\Fixpunkt\FpMasterquiz\Controller\QuizController::class))
+        $this->subject = $this->getMockBuilder($this->buildAccessibleProxy(QuizController::class))
             ->onlyMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -40,11 +44,11 @@ class QuizControllerTest extends UnitTestCase
      */
     public function listActionFetchesAllQuizzesFromRepositoryAndAssignsThemToView(): void
     {
-        $allQuizzes = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $allQuizzes = $this->getMockBuilder(ObjectStorage::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $quizRepository = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository::class)
+        $quizRepository = $this->getMockBuilder(QuizRepository::class)
             ->onlyMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -63,7 +67,7 @@ class QuizControllerTest extends UnitTestCase
      */
     public function showActionAssignsTheGivenQuizToView(): void
     {
-        $quiz = new \Fixpunkt\FpMasterquiz\Domain\Model\Quiz();
+        $quiz = new Quiz();
 
         $view = $this->getMockBuilder(ViewInterface::class)->getMock();
         $this->subject->_set('view', $view);

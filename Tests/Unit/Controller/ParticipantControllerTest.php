@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Fixpunkt\FpMasterquiz\Tests\Unit\Controller;
 
+use Fixpunkt\FpMasterquiz\Controller\ParticipantController;
+use TYPO3\CMS\Extbase\Persistence\ObjectStorage;
+use Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository;
+use Fixpunkt\FpMasterquiz\Domain\Model\Participant;
 use PHPUnit\Framework\MockObject\MockObject;
 use TYPO3\TestingFramework\Core\AccessibleObjectInterface;
 use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
@@ -24,7 +28,7 @@ class ParticipantControllerTest extends UnitTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->subject = $this->getMockBuilder($this->buildAccessibleProxy(\Fixpunkt\FpMasterquiz\Controller\ParticipantController::class))
+        $this->subject = $this->getMockBuilder($this->buildAccessibleProxy(ParticipantController::class))
             ->onlyMethods(['redirect', 'forward', 'addFlashMessage'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -40,11 +44,11 @@ class ParticipantControllerTest extends UnitTestCase
      */
     public function listActionFetchesAllParticipantsFromRepositoryAndAssignsThemToView(): void
     {
-        $allParticipants = $this->getMockBuilder(\TYPO3\CMS\Extbase\Persistence\ObjectStorage::class)
+        $allParticipants = $this->getMockBuilder(ObjectStorage::class)
             ->disableOriginalConstructor()
             ->getMock();
 
-        $participantRepository = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository::class)
+        $participantRepository = $this->getMockBuilder(ParticipantRepository::class)
             ->onlyMethods(['findAll'])
             ->disableOriginalConstructor()
             ->getMock();
@@ -63,9 +67,9 @@ class ParticipantControllerTest extends UnitTestCase
      */
     public function deleteActionRemovesTheGivenParticipantFromParticipantRepository(): void
     {
-        $participant = new \Fixpunkt\FpMasterquiz\Domain\Model\Participant();
+        $participant = new Participant();
 
-        $participantRepository = $this->getMockBuilder(\Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository::class)
+        $participantRepository = $this->getMockBuilder(ParticipantRepository::class)
             ->onlyMethods(['remove'])
             ->disableOriginalConstructor()
             ->getMock();
