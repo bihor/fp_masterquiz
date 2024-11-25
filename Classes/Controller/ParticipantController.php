@@ -88,7 +88,7 @@ class ParticipantController extends ActionController
     public function detailAction(Participant $participant): ResponseInterface
     {
         foreach ($participant->getSelections() as $selection) {
-            if ($selection->getQuestion()->getQmode() == 8) {
+            if (is_object($selection->getQuestion()) && $selection->getQuestion()->getQmode() == 8) {
                 $categoriesArray = [];
                 foreach ($selection->getQuestion()->getCategories() as $category) {
                     $categoriesArray[$category->getUid()] = $category->getTitle();
