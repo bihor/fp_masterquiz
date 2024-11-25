@@ -724,7 +724,7 @@ class Participant extends AbstractEntity
                 $sorting = $i;
             }
 
-            if ($selection->getQuestion()->getTag()) {
+            if (is_object($selection->getQuestion()) && $selection->getQuestion()->getTag()) {
                 $hasTags = true;
             }
 
@@ -739,16 +739,18 @@ class Participant extends AbstractEntity
             $lastTag = '';
             foreach ($sortedSelections as $selection) {
                 $itemQuestion = $selection->getQuestion();
-                if ($lastItem) {
-                    $lastItem->setNextTag($itemQuestion->getTag()->getName());
-                }
+                if (is_object($itemQuestion)) {
+                    if ($lastItem) {
+                        $lastItem->setNextTag($itemQuestion->getTag()->getName());
+                    }
 
-                if (($lastTag)) {
-                    $itemQuestion->setPrevTag($lastTag);
-                }
+                    if (($lastTag)) {
+                        $itemQuestion->setPrevTag($lastTag);
+                    }
 
-                $lastTag = $itemQuestion->getTag()->getName();
-                $lastItem = $itemQuestion;
+                    $lastTag = $itemQuestion->getTag()->getName();
+                    $lastItem = $itemQuestion;
+                }
             }
         }
 
