@@ -5,22 +5,25 @@ declare(strict_types=1);
 namespace Fixpunkt\FpMasterquiz\Widgets;
 
 use Fixpunkt\FpMasterquiz\Widgets\Provider\ParticipantsDataProvider;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Backend\View\BackendViewFactory;
+use Psr\Http\Message\ServerRequestInterface;
 
-class RecentParticipantsWidget implements WidgetInterface
+class RecentParticipantsWidget implements WidgetInterface, RequestAwareWidgetInterface
 {
     /**
      * @var array
      */
     private $options;
+    private ?ServerRequestInterface $request = null;
 
     public function __construct(
         private readonly WidgetConfigurationInterface $configuration,
-        private readonly StandaloneView               $view,
+        private readonly BackendViewFactory $backendViewFactory,
         private readonly ParticipantsDataProvider     $dataProvider,
-        array                        $options = []
+        array            $options = []
     )
     {
         $this->options = array_merge(
@@ -32,14 +35,19 @@ class RecentParticipantsWidget implements WidgetInterface
         );
     }
 
+    public function setRequest(ServerRequestInterface $request): void
+    {
+        $this->request = $request;
+    }
+
     public function renderWidgetContent(): string
     {
-        $this->view->setTemplate('Widget/RecentParticipantsWidget');
-        $this->view->assignMultiple([
+        $view = $this->backendViewFactory->create($this->request, ['typo3/cms-dashboard', 'fixpunkt/fp-masterquiz']);
+        $view->assignMultiple([
             'configuration' => $this->configuration,
             'participants' => $this->dataProvider->getRecentParticipants()
         ]);
-        return $this->view->render();
+        return $view->render('Widget/RecentParticipantsWidget');
     }
 
     public function getOptions(): array

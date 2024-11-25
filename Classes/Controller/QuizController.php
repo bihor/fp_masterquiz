@@ -1549,8 +1549,8 @@ class QuizController extends ActionController
         }
 
         $uidOfCE = 0;
-        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
-            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
+            $uidOfCE = $this->request->getAttribute('currentContentObject')->data['uid'];
         }
 
         $this->view->assign('action', 'show');
@@ -1661,8 +1661,8 @@ class QuizController extends ActionController
         }
 
         $uidOfCE = 0;
-        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
-            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
+            $uidOfCE = $this->request->getAttribute('currentContentObject')->data['uid'];
         }
 
         $this->view->assign('pagesInclFinalPage', ($pages + 1));
@@ -1818,8 +1818,8 @@ class QuizController extends ActionController
         }
 
         $uidOfCE = 0;
-        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
-            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
+            $uidOfCE = $this->request->getAttribute('currentContentObject')->data['uid'];
         }
 
         $this->view->assign('pagesInclFinalPage', ($pages + 1));
@@ -2014,8 +2014,8 @@ class QuizController extends ActionController
         $sys_language_uid = $languageAspect->getId();
         $pid = (int)$GLOBALS['TSFE']->id;
         $uidOfCE = 0;
-        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
-            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
+            $uidOfCE = $this->request->getAttribute('currentContentObject')->data['uid'];
         }
 
         $debug = $this->setAllUserAnswers($quiz, $pid, false);
@@ -2081,8 +2081,8 @@ class QuizController extends ActionController
         $pid = (int)$GLOBALS['TSFE']->id;
         $participants = $this->participantRepository->findFromQuizLimit($quiz->getUid(), intval($this->settings['highscoreLimit']));
         $uidOfCE = 0;
-        if (isset($this->configurationManager->getContentObject()->data['uid'])) {
-            $uidOfCE = $this->configurationManager->getContentObject()->data['uid'];
+        if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
+            $uidOfCE = $this->request->getAttribute('currentContentObject')->data['uid'];
         }
 
         $this->view->assign('quiz', $quiz);

@@ -16,10 +16,10 @@ $EM_CONF[$_EXTKEY] = [
     'category' => 'plugin',
     'author' => 'Kurt Gusbeth',
     'state' => 'stable',
-    'version' => '5.2.0',
+    'version' => '5.2.1',
     'constraints' => [
         'depends' => [
-            'typo3' => '12.4.0-12.4.99',
+            'typo3' => '12.4.0-13.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],

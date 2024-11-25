@@ -15,7 +15,7 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
 
         $services->set('dashboard.widget.fixpunktRecentParticipants')
             ->class(RecentParticipantsWidget::class)
-            ->arg('$view', new Reference('dashboard.views.widget'))
+            ->arg('$backendViewFactory', new Reference(BackendViewFactory::class))
             ->arg('$dataProvider', new Reference(ParticipantsDataProvider::class))
             ->tag(
                 'dashboard.widget',
@@ -45,6 +45,6 @@ return function (ContainerConfigurator $configurator, ContainerBuilder $containe
                 ]
             )
             ->arg('$dataProvider', new Reference(ParticipantsDataProvider::class))
-            ->arg('$backendViewFactory', new Reference(BackendViewFactory::class));;
+            ->arg('$backendViewFactory', new Reference(BackendViewFactory::class));
     }
 };
