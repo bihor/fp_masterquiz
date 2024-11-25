@@ -38,23 +38,16 @@ class QuestionController extends ActionController
      */
     protected $questionRepository;
 
-    /**
-     * Injects the question-Repository
-     */
-    public function injectQuestionRepository(QuestionRepository $questionRepository)
-    {
+    public function __construct(
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory, QuestionRepository $questionRepository
+    ) {
         $this->questionRepository = $questionRepository;
     }
 
-    public function __construct(
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-    ) {
-    }
-
-    public function initializeAction()
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $this->id = (int)($this->request->getQueryParams()['id'] ?? 0);
-        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->id = (int)($request->getQueryParams()['id'] ?? 0);
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($request);
     }
 
     /**
@@ -66,7 +59,7 @@ class QuestionController extends ActionController
         if ($question instanceof Question) {
             $this->questionRepository->moveToQuiz($question->getUid(), $quiz->getUid());
         }
-        
+
         $questions = $this->questionRepository->findOtherThan($pid, $quiz->getUid());
         $this->moduleTemplate->assign('question', $question);
         $this->moduleTemplate->assign('questions', $questions);
@@ -88,7 +81,7 @@ class QuestionController extends ActionController
         $languageService = $this->getLanguageService();
         $actionMenu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $actionMenu->setIdentifier('masterquizSelector');
-        
+
         $actions = ['Quiz,index', 'Participant,list'];
         foreach ($actions as $controller_action_string) {
             $controller_action_array = explode(",", $controller_action_string);
@@ -102,7 +95,7 @@ class QuestionController extends ActionController
                     ->setActive($currentAction === $controller_action_array[1])
             );
         }
-        
+
         $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($actionMenu);
     }
 

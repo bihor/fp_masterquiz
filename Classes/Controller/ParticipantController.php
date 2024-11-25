@@ -9,6 +9,7 @@ use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Pagination\SimplePagination;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
@@ -40,23 +41,16 @@ class ParticipantController extends ActionController
      */
     protected $participantRepository;
 
-    /**
-     * Injects the participant-Repository
-     */
-    public function injectParticipantRepository(ParticipantRepository $participantRepository)
-    {
+    public function __construct(
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory, ParticipantRepository $participantRepository
+    ) {
         $this->participantRepository = $participantRepository;
     }
 
-    public function __construct(
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-    ) {
-    }
-
-    public function initializeAction()
+    public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $this->id = (int)($this->request->getQueryParams()['id'] ?? 0);
-        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
+        $this->id = (int)($request->getQueryParams()['id'] ?? 0);
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($request);
     }
 
     /**
@@ -73,7 +67,7 @@ class ParticipantController extends ActionController
         }
 
         $participantArray = $participants ? $participants->toArray() : [];
-        
+
         $participantPaginator = new ArrayPaginator($participantArray, $currentPage, $this->settings['pagebrowser']['itemsPerPage']);
         $participantPagination = new SimplePagination($participantPaginator);
 
@@ -98,7 +92,7 @@ class ParticipantController extends ActionController
                 foreach ($selection->getQuestion()->getCategories() as $category) {
                     $categoriesArray[$category->getUid()] = $category->getTitle();
                 }
-                
+
                 $ownCategoryAnswers = unserialize($selection->getEntered());
                 foreach ($selection->getAnswers() as $answer) {
                     foreach ($ownCategoryAnswers as $key => $ownCategoryAnswer) {
@@ -109,7 +103,7 @@ class ParticipantController extends ActionController
                 }
             }
         }
-        
+
         $this->moduleTemplate->assign('participant', $participant);
         $this->addDocHeaderDropDown('list');
         return $this->moduleTemplate->renderResponse('Participant/Detail');
@@ -124,7 +118,7 @@ class ParticipantController extends ActionController
             $this->addFlashMessage($participant->getName() . ' deleted.', '', ContextualFeedbackSeverity::WARNING);
             $this->participantRepository->remove($participant);
         }
-        
+
         return $this->responseFactory->createResponse(307)
             ->withHeader('Location', $this->uriBuilder->reset()->uriFor('list'));
     }
@@ -142,7 +136,7 @@ class ParticipantController extends ActionController
         $languageService = $this->getLanguageService();
         $actionMenu = $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->makeMenu();
         $actionMenu->setIdentifier('masterquizSelector');
-        
+
         $actions = ['Quiz,index', 'Participant,list'];
         foreach ($actions as $controller_action_string) {
             $controller_action_array = explode(",", $controller_action_string);
@@ -156,7 +150,7 @@ class ParticipantController extends ActionController
                     ->setActive($currentAction === $controller_action_array[1])
             );
         }
-        
+
         $this->moduleTemplate->getDocHeaderComponent()->getMenuRegistry()->addMenu($actionMenu);
     }
 

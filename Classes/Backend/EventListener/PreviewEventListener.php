@@ -3,13 +3,13 @@ declare(strict_types=1);
 
 namespace Fixpunkt\FpMasterquiz\Backend\EventListener;
 
-use TYPO3\CMS\Lang\LanguageService;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
+use TYPO3\CMS\Backend\View\Event\PageContentPreviewRenderingEvent;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
-use TYPO3\CMS\Backend\View\Event\PageContentPreviewRenderingEvent;
+use TYPO3\CMS\Lang\LanguageService;
 
 final class PreviewEventListener
 {
@@ -144,7 +144,7 @@ final class PreviewEventListener
                     }
                 }
             }
-            
+
             $event->setPreviewContent($this->renderSettingsAsTable($header, $event->getRecord()['uid']));
         }
     }
