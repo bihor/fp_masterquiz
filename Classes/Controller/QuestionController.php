@@ -44,10 +44,10 @@ class QuestionController extends ActionController
         $this->questionRepository = $questionRepository;
     }
 
-    public function __invoke(ServerRequestInterface $request): ResponseInterface
+    public function initializeAction(): void
     {
-        $this->id = (int)($request->getQueryParams()['id'] ?? 0);
-        $this->moduleTemplate = $this->moduleTemplateFactory->create($request);
+        $this->id = (int)($this->request->getQueryParams()['id'] ?? 0);
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
     }
 
     /**

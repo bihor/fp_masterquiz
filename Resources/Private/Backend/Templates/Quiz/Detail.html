@@ -1,4 +1,4 @@
-<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Module" />
 <f:section name="Content">
 	<f:asset.css identifier="backendtools" href="EXT:fp_masterquiz/Resources/Public/Css/Backend.css"/>
@@ -6,7 +6,7 @@
     <f:if condition="{updated}"><f:then></f:then><f:else>
     <f:render partial="Quiz/Properties" arguments="{quiz:quiz}" />
 	</f:else></f:if>
-	
+
 	<f:if condition="{lost} > 0">
 		<h3><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:lostQuestions" default="Lost questions" /></h3>
 		<f:form action="detail">

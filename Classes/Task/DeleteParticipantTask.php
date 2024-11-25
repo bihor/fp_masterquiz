@@ -21,15 +21,15 @@ class DeleteParticipantTask extends AbstractTask {
 	 * @var integer
 	 */
 	protected $days = 0;
-	
+
 	/**
 	 * Flag
 	 *
 	 * @var integer
 	 */
 	protected $flag = 0;
-	
-	
+
+
 	/**
 	 * Get the value of the protected property page
 	 *
@@ -48,7 +48,7 @@ class DeleteParticipantTask extends AbstractTask {
 	public function setPage($page) {
 		$this->page = $page;
 	}
-	
+
 	/**
 	 * Set the value of the private property page
 	 *
@@ -67,7 +67,7 @@ class DeleteParticipantTask extends AbstractTask {
 	public function getDays() {
 		return $this->days;
 	}
-	
+
 	/**
 	 * Get the value of the protected property flag
 	 *
@@ -76,7 +76,7 @@ class DeleteParticipantTask extends AbstractTask {
 	public function getFlag() {
 	    return $this->flag;
 	}
-	
+
 	/**
 	 * Set the value of the private property flag
 	 *
@@ -86,8 +86,8 @@ class DeleteParticipantTask extends AbstractTask {
 	public function setFlag($flag) {
 	    $this->flag = ($flag) ? 1 : 0;
 	}
-	
-	
+
+
 	public function execute() {
 		$successfullyExecuted = TRUE;
 		$pid = (int) $this->getPage();			// folder with participant elements
@@ -97,7 +97,7 @@ class DeleteParticipantTask extends AbstractTask {
 		$past = time() - ($days * 24 * 60 * 60);
 		$participantArray = [];
 		$selectedArray = [];
-		
+
 		// https://www.clickstorm.de/blog/doctrine-dbal-typo3-version-8/
 		// select all participant elements of one folder, denn es gibt irgendwie kein delete cascade
 		if ($flag) {
@@ -112,10 +112,10 @@ class DeleteParticipantTask extends AbstractTask {
     		   		$queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, Connection::PARAM_INT))
     	   		)
     		   ->executeQuery();
-    		while ($row = $statement->fetch()) {
+    		while ($row = $statement->fetchAllAssociative()) {
     			$participantArray[] = intval($row['uid']);
     		}
-      
+
     		foreach ($participantArray as $participantUid) {
     			$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_selected');
     			$queryBuilder
@@ -148,10 +148,10 @@ class DeleteParticipantTask extends AbstractTask {
 		         $queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, Connection::PARAM_INT))
 		      )
 		      ->executeQuery();
-		    while ($row = $statement->fetch()) {
+		    while ($row = $statement->fetchAllAssociative()) {
 		        $selectedArray[] = intval($row['uid']);
 		    }
-		    
+
 		    $table = 'tx_fpmasterquiz_selected_answer_mm';
 		    $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
 		    foreach ($selectedArray as $selectedUid) {
@@ -162,7 +162,7 @@ class DeleteParticipantTask extends AbstractTask {
 		          )
 		          ->executeStatement();
 		    }
-		    
+
 		    $table = 'tx_fpmasterquiz_domain_model_selected';
 		    $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
 		    foreach ($selectedArray as $selectedUid) {
@@ -173,7 +173,7 @@ class DeleteParticipantTask extends AbstractTask {
 		          )
 		          ->executeStatement();
 		    }
-		    
+
 		    $table = 'tx_fpmasterquiz_domain_model_participant';
 		    $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
 		    $queryBuilder
@@ -186,7 +186,7 @@ class DeleteParticipantTask extends AbstractTask {
 		      )
 		      ->executeStatement();
 		}
-  
+
 		return $successfullyExecuted;
 	}
 }

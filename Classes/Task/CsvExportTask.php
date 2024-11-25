@@ -198,7 +198,7 @@ class CsvExportTask extends AbstractTask
         if ($convert) {
             $text = iconv('utf-8', 'iso-8859-1', $text);
         }
-        
+
         $content = $text . $ln;					// header of the csv file
         $i = 0;									// Counter
         $mmArray = [];
@@ -218,7 +218,7 @@ class CsvExportTask extends AbstractTask
             )
             ->orderBy('mm.sorting', 'ASC')
             ->executeQuery();
-        while ($row = $statement->fetch()) {
+        while ($row = $statement->fetchAllAssociative()) {
             if (isset($mmArray[$row['uid_local']])) {
                 $mmArray[$row['uid_local']] .= $answersDelimiter . $row['title'];
             } else {
@@ -257,7 +257,7 @@ class CsvExportTask extends AbstractTask
             ->orderBy('part.uid', 'DESC')
             ->addOrderBy('suid', 'ASC')
             ->executeQuery();
-        while ($row = $statement->fetch()) {
+        while ($row = $statement->fetchAllAssociative()) {
 
             if ($i > 0) {
                 $content .= $ln;
@@ -285,11 +285,11 @@ class CsvExportTask extends AbstractTask
                 } elseif ($separator) {
                     $text = str_replace($separator, '', $text);
                 }
-                
+
                 $content .= $separator . $text . $separator;
                 $j++;
             }
-            
+
             $i++;
 
         }

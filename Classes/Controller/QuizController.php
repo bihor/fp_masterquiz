@@ -192,7 +192,7 @@ class QuizController extends ActionController
     /*
     * Sucht ein default-Quiz
     */
-    protected function getDefaultQuiz()
+    protected function getDefaultQuiz(): Quiz|null
     {
         $quiz = null;
         $defaultQuizUid = $this->getLocalizedDefaultQuiz();
@@ -214,10 +214,8 @@ class QuizController extends ActionController
 
     /**
      * Holt die echte Quiz-UID
-     *
-     * @return integer
      */
-    protected function getLocalizedDefaultQuiz()
+    protected function getLocalizedDefaultQuiz(): int
     {
         $defaultQuizUid = intval($this->settings['defaultQuizUid']);
         if ($defaultQuizUid === 0) {
@@ -237,6 +235,14 @@ class QuizController extends ActionController
         return $defaultQuizUid;
     }
 
+    protected function withDebug(): int
+    {
+        if (isset($this->settings['debug'])) {
+            return intval($this->settings['debug']);
+        } else {
+            return 0;
+        }
+    }
     /**
      * Prüft, ob eine Session gültig ist: check the session against the request-parameter
      */
@@ -246,7 +252,7 @@ class QuizController extends ActionController
 
         if ($this->participant->getSession() != $tmp_session) {
             $this->participant = null;
-            if ($this->settings['debug']) {
+            if ($this->withDebug()) {
                 $c_debug .= "\nParticipant not accepted, because the session from argument is wrong: " . $tmp_session;
             }
 
@@ -258,10 +264,8 @@ class QuizController extends ActionController
 
     /**
      * Sucht einen Teilnehmer und erzeugt ggf. einen
-     *
-     * @return array
      */
-    public function findParticipant(int $quizUid, int $quizPid)
+    public function findParticipant(int $quizUid, int $quizPid): array
     {
         $session = '';          // session key
         $debug = '';
@@ -270,7 +274,7 @@ class QuizController extends ActionController
         $context = GeneralUtility::makeInstance(Context::class);
         $fe_user_uid = intval($context->getPropertyFromAspect('frontend.user', 'id'));
         $isAjax = $this->settings['ajax'];
-        if ($this->settings['debug'] && $isAjax) {
+        if ($this->withDebug() && $isAjax) {
             $debug .= "\nAjax mode is enabled.";
         }
 
@@ -287,7 +291,7 @@ class QuizController extends ActionController
             }
             if ($session) {
                 $this->participant = $this->participantRepository->findOneBy(['session' => $session]);
-                if ($this->settings['debug']) {
+                if ($this->withDebug()) {
                     if ($this->participant) {
                         $debug .= "\nsession from cookie: " . $session . '; and the participant-uid of that session: ' . $this->participant->getUid();
                     } else {
@@ -302,13 +306,13 @@ class QuizController extends ActionController
                             $allowedParticipations = intval($this->settings['user']['checkFEuser']);
                             $participated = $this->participantRepository->findCountByUserAndQuiz($fe_user_uid, $quizUid);
                             if (($participated >= $allowedParticipations) || !$this->participant->isCompleted()) {
-                                if ($this->settings['debug']) {
+                                if ($this->withDebug()) {
                                     $debug .= "\n" . $participated . 'x participated; no restriction.';
                                 }
                             } else {
                                 // Reset a completed participant to allow a new "Teilnahme"
                                 $this->participant = null;
-                                if ($this->settings['debug']) {
+                                if ($this->withDebug()) {
                                     $debug .= "\n" . $participated . 'x participated; allow more participations.';
                                 }
                             }
@@ -316,7 +320,7 @@ class QuizController extends ActionController
 
                         if ($this->participant) {
                             $session = $this->participant->getSession();
-                            if ($this->settings['debug']) {
+                            if ($this->withDebug()) {
                                 $debug .= "\nsession from FEuser: " . $session . '; and the participant-uid: ' . $this->participant->getUid();
                             }
                         }
@@ -324,7 +328,7 @@ class QuizController extends ActionController
                 }
                 if (!$session) {
                     $this->participant = null;
-                    if ($this->settings['debug']) {
+                    if ($this->withDebug()) {
                         $debug .= "\nNo session found, will creating a new participant...";
                     }
                 }
@@ -349,7 +353,7 @@ class QuizController extends ActionController
                     $participantUid = 0;
                 }
 
-                if ($this->settings['debug'] && $participantUid) {
+                if ($this->withDebug() && $participantUid) {
                     $debug .= "\nParticipant from request: " . $participantUid . ' with session: ' . $session;
                 }
             }
@@ -358,20 +362,20 @@ class QuizController extends ActionController
         if (!$this->participant) {
             $this->participant = GeneralUtility::makeInstance(Participant::class);
             $this->participant->_setProperty('_languageUid', -1);
-            if ($this->settings['debug']) {
+            if ($this->withDebug()) {
                 $debug .= "\nMaking new participant.";
             }
 
             if ($this->settings['user']['useQuizPid']) {
                 $this->participant->setPid($quizPid);
-                if ($this->settings['debug']) {
+                if ($this->withDebug()) {
                     $debug .= ' Set pid to ' . $quizPid;
                 }
             }
 
             if ($this->settings['random'] && $this->request->hasArgument('randomPages') && $this->request->getArgument('randomPages')) {
                 $this->participant->setRandompages(explode(',', (string) $this->request->getArgument('randomPages')));
-                if ($this->settings['debug']) {
+                if ($this->withDebug()) {
                     $debug .= " Set random pages: " . $this->request->getArgument('randomPages');
                 }
             }
@@ -381,7 +385,7 @@ class QuizController extends ActionController
                 $session = uniqid(random_int(1000, 9999));
                 $this->participant->setSession($session);
                 $newUser = true;
-                if ($this->settings['debug']) {
+                if ($this->withDebug()) {
                     $debug .= "\ncreating new session: " . $session;
                 }
             }
@@ -389,7 +393,7 @@ class QuizController extends ActionController
 
         if (!$isAjax && !$newUser && !$this->participant->getUid()) {
             // Cookie nicht schon auf der Startseite setzen, sondern erst und nur auf der Folgeseite
-            if ($this->settings['debug']) {
+            if ($this->withDebug()) {
                 $debug .= "\nSetting a cookie with this session: " . $session;
             }
 
@@ -488,7 +492,7 @@ class QuizController extends ActionController
                $page = 1;
                $showAnswers = false;
                $reload = true;
-               if ($this->settings['debug']) {
+               if ($this->withDebug()) {
                    $debug .= "\nReload auf Ajax-Startseite detektiert.";
                }
            } */
@@ -526,7 +530,7 @@ class QuizController extends ActionController
                 if ($partBySes) {
                     $this->participant = $partBySes;
                     $reload = true;
-                    if ($this->settings['debug']) {
+                    if ($this->withDebug()) {
                         $debug .= "\nReload nach absenden von Seite 1 detektiert.";
                     }
                 } elseif (!$isClosed) {
@@ -560,7 +564,7 @@ class QuizController extends ActionController
                     $this->participantRepository->add($this->participant);
                     $this->persistenceManager->persistAll();
                     $newUser = true;
-                    if ($this->settings['debug']) {
+                    if ($this->withDebug()) {
                         $debug .= "\nNew participant created: " . $this->participant->getUid() . '; with session: ' . $session;
                     }
                 }
@@ -612,7 +616,7 @@ class QuizController extends ActionController
                         $pmode = intval($this->settings['pointsMode']);
                         $question->setPmode($pmode);    // wird aber nicht benutzt
                         $isOptional = $this->settings['noFormCheck'] || $question->isOptional() || $qmode == 4 || $qmode == 7;
-                        if ($this->settings['debug']) {
+                        if ($this->withDebug()) {
                             $debug .= ' OK ' . (($isOptional) ? 'optional: ' : 'mandatory: ');
                         }
 
@@ -683,7 +687,7 @@ class QuizController extends ActionController
                                         }
                                     }
 
-                                    if ($this->settings['debug']) {
+                                    if ($this->withDebug()) {
                                         $debug .= $quid . '_' . $auid . '-' . $selectedAnswerUid . '|' .
                                             $answer->getPoints() . 'P| ';
                                     }
@@ -727,14 +731,14 @@ class QuizController extends ActionController
                                         ($questionPoints==$question->getMaximum1())) {
                                         if ($pmode>0 && $questionPoints<0) {
                                             // mach aus negativen Punkten eine 0
-                                            if ($this->settings['debug']) {
+                                            if ($this->withDebug()) {
                                                 $debug .= '(' . $questionPoints . '->0P) ';
                                             }
 
                                             $questionPoints = 0;
                                         } elseif ($pmode == 4 && $questionPoints>0) {
                                             // max. 1 Punkt
-                                            if ($this->settings['debug']) {
+                                            if ($this->withDebug()) {
                                                 $debug .= '(' . $questionPoints . '->1P) ';
                                             }
 
@@ -743,7 +747,7 @@ class QuizController extends ActionController
 
                                         if (!$allAnswersCorrect && ($pmode >= 3 && $pmode <= 4)) {
                                             // wenn eine falsche Antwort dabei war (mit 0P), dann 0 Punkte
-                                            if ($this->settings['debug']) {
+                                            if ($this->withDebug()) {
                                                 $debug .= '(' . $questionPoints . '->0P) ';
                                             }
 
@@ -752,10 +756,10 @@ class QuizController extends ActionController
 
                                         $selected->setPoints($questionPoints);
                                         $this->participant->addPoints($questionPoints);
-                                        if ($this->settings['debug']) {
+                                        if ($this->withDebug()) {
                                             $debug .= $questionPoints . 'P ';
                                         }
-                                    } elseif ($this->settings['debug']) {
+                                    } elseif ($this->withDebug()) {
                                         $debug .= 'noP ';
                                     }
                                 }
@@ -779,7 +783,7 @@ class QuizController extends ActionController
                                     $selectedAnswerUid = 0;
                                 }
 
-                                if ($this->settings['debug']) {
+                                if ($this->withDebug()) {
                                     $debug .= $quid . '-' . $selectedAnswerUid . ' ';
                                 }
 
@@ -808,7 +812,7 @@ class QuizController extends ActionController
                                         }
 
                                         if ($pmode>0 && $newPoints<0) {
-                                            if ($this->settings['debug']) {
+                                            if ($this->withDebug()) {
                                                 $debug .= '(' . $newPoints . '->0P) ';
                                             }
 
@@ -816,7 +820,7 @@ class QuizController extends ActionController
                                         }
 
                                         if ($pmode==4 && $newPoints>0) {
-                                            if ($this->settings['debug']) {
+                                            if ($this->withDebug()) {
                                                 $debug .= '(' . $newPoints . '->1P) ';
                                             }
 
@@ -827,7 +831,7 @@ class QuizController extends ActionController
                                         $this->participant->addPoints($newPoints);
                                     }
 
-                                    if ($this->settings['debug']) {
+                                    if ($this->withDebug()) {
                                         $debug .= $newPoints . 'P ';
                                     }
 
@@ -865,7 +869,7 @@ class QuizController extends ActionController
                         }
 
                         if ($phpFormCheck && !$isOptional && !$selectedWithAnswer) {
-                            if ($this->settings['debug']) {
+                            if ($this->withDebug()) {
                                 $debug .= "\n!!! Mandatory question not answered !!!";
                             }
 
@@ -931,7 +935,7 @@ class QuizController extends ActionController
             $nextPage = $page;
         }
 
-        if ($this->settings['debug']) {
+        if ($this->withDebug()) {
             $debug .= "\nlast page: " . $lastPage . '; page: ' . $page . '; reached page before: ' . $reachedPage . '; next page: ' . $nextPage . '; showAnswers: ' . $showAnswers . '; showAnswersNext: ' . $showAnswersNext;
             $debug .= "\nqs/qpp=pages#" . $questions . '/' . $questionsPerPage . '=' . $pages;
             $debug .= "\ntime period=" . $quiz->getTimeperiod() . '; time passed: ' . $this->participant->getTimePassed();
@@ -1010,7 +1014,7 @@ class QuizController extends ActionController
                     // eigene Ergebnisse durchgehen
                     $ownResults = [];
                     foreach ($selection->getAnswers() as $oneAnswer) {
-                        if ($this->settings['debug']) {
+                        if ($this->withDebug()) {
                             $debug .= "\n own:" . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
                         }
 
@@ -1080,7 +1084,7 @@ class QuizController extends ActionController
                                     $dataArray,
                                     true
                                 );
-                                if ($this->settings['debug']) {
+                                if ($this->withDebug()) {
                                     $debug .= "\n sending admin-email to: " . $this->settings['email']['adminName']
                                         . ' <' . trim($email) . '> : ' . $this->settings['email']['adminSubject'];
                                 }
@@ -1098,7 +1102,7 @@ class QuizController extends ActionController
                                     $dataArray,
                                     true
                                 );
-                                if ($this->settings['debug']) {
+                                if ($this->withDebug()) {
                                     $debug .= "\n sending special-admin-email to: " . $emailArray['name'] . ' <' . $email . '> : ' . $emailArray['subject'];
                                 }
                             }
@@ -1115,7 +1119,7 @@ class QuizController extends ActionController
                         $dataArray,
                         false
                     );
-                    if ($this->settings['debug']) {
+                    if ($this->withDebug()) {
                         $debug .= "\n sending user-email to: " . $dataArray['name'] . ' <' . $dataArray['email'] . '> : ' . $this->settings['email']['userSubject'];
                     }
                 }
@@ -1296,10 +1300,9 @@ class QuizController extends ActionController
         $statement = $queryBuilder->select('*')->from('fe_users')->where(
             $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($userid, \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
         )->setMaxResults(1)->executeQuery();
-        while ($row = $statement->fetch()) {
+        while ($row = $statement->fetchAllAssociative()) {
             return $row;
         }
-
         return [];
     }
 
@@ -1315,7 +1318,7 @@ class QuizController extends ActionController
         $allCategoryResults = [];
         $questionID = $oneQuestion->getUid();
         $isEnterQuestion = (($oneQuestion->getQmode() == 3) || ($oneQuestion->getQmode() == 5));
-        if ($this->settings['debug']) {
+        if ($this->withDebug()) {
             $debug .= "\nquestion :" . $questionID;
         }
 
@@ -1330,7 +1333,7 @@ class QuizController extends ActionController
             $votes++;
             // alle Antworten auf diese Frage:
             foreach ($aSelectedQuestion->getAnswers() as $oneAnswer) {
-                if ($this->settings['debug']) {
+                if ($this->withDebug()) {
                     $debug .= "\n all: " . $oneAnswer->getTitle() . ': ' . $oneAnswer->getPoints() . "P";
                 }
 
@@ -1415,7 +1418,7 @@ class QuizController extends ActionController
                 $percentage = 100 * ($thisVotes / $votesTotal);
             }
 
-            if ($this->settings['debug'] && $votes) {
+            if ($this->withDebug() && $votes) {
                 $debug .= "\n percent: 100*" . $thisVotes . '/' . $votes . ' = ' . 100 * ($thisVotes / $votes);
                 $debug .= "\n total percent: 100*" . $thisVotes . '/' . $votesTotal . ' = ' . $percentage;
             }
@@ -1683,7 +1686,7 @@ class QuizController extends ActionController
             }
         }
 
-        if (intval($this->settings['debug'])==2 && $data['debug']) {
+        if ($this->withDebug()==2 && $data['debug']) {
             $this->logger->debug($data['debug']);
         }
 
@@ -1759,7 +1762,7 @@ class QuizController extends ActionController
             $tagSelections = $this->participant->getSelectionsByTag($tagArray['pagetags'][$lastPage]);
         }
 
-        if ($this->settings['debug']) {
+        if ($this->withDebug()) {
             $data['debug'] .= "\nTag={$tag}; page={$page}; pages={$pages}; random page order: " . implode(',', $tagArray['randomNumbers']);
         }
 
@@ -1839,7 +1842,7 @@ class QuizController extends ActionController
             }
         }
 
-        if (intval($this->settings['debug'])==2 && $data['debug']) {
+        if ($this->withDebug()==2 && $data['debug']) {
             $this->logger->debug($data['debug']);
         }
 
@@ -1893,7 +1896,7 @@ class QuizController extends ActionController
 
         if ($data['useJoker'] == 1) {
             // Joker-Antworten hier automatisch setzen
-            if ($this->settings['debug']) {
+            if ($this->withDebug()) {
                 $data['debug'] .= "\nJoker was used. Setting automatic joker answers: ";
             }
 
@@ -1905,7 +1908,7 @@ class QuizController extends ActionController
                 // uns interessiert nur die aktuelle Seite
                 if ($i == $page) {
                     // Schritt 1: richtige Antworten auf 0 setzen, falsche auf 1
-                    if ($this->settings['debug']) {
+                    if ($this->withDebug()) {
                         $data['debug'] .= $question->getTitle() . "/";
                     }
 
@@ -1929,7 +1932,7 @@ class QuizController extends ActionController
                             if ($random == $jokerMax) {       // Wahrscheinlichkeit 1/4 bzw. 1/3
                                 $jokerFehlend--;
                                 $answer->setJokerAnswer(0);
-                                if ($this->settings['debug']) {
+                                if ($this->withDebug()) {
                                     $data['debug'] .= $answer->getTitle() . "#";
                                 }
                             }
@@ -1943,7 +1946,7 @@ class QuizController extends ActionController
                             if ($jokerFehlend && ($answer->getJokerAnswer() == 1)) {
                                 $jokerFehlend--;
                                 $answer->setJokerAnswer(0);
-                                if ($this->settings['debug']) {
+                                if ($this->withDebug()) {
                                     $data['debug'] .= $answer->getTitle() . "##";
                                 }
                             }
@@ -1981,7 +1984,7 @@ class QuizController extends ActionController
         $this->view->assign('from', $from);
         $this->view->assign('to', $to);
         $this->view->assign('uidOfCE', ($this->request->hasArgument('uidOfCE') ? intval($this->request->getArgument('uidOfCE')) : 0));
-        if (intval($this->settings['debug'])==2 && $data['debug']) {
+        if ($this->withDebug()==2 && $data['debug']) {
             $this->logger->debug($data['debug']);
         }
 
@@ -2047,7 +2050,7 @@ class QuizController extends ActionController
         $this->view->assign("sysLanguageUid", $sys_language_uid);
         $this->view->assign('uidOfPage', $pid);
         $this->view->assign('uidOfCE', $uidOfCE);
-        if (intval($this->settings['debug'])==2 && $debug) {
+        if ($this->withDebug()==2 && $debug) {
             $this->logger->debug($debug);
         }
 
@@ -2230,7 +2233,7 @@ class QuizController extends ActionController
         $emailViewHtml->assignMultiple($variables);
 
         $emailBodyHtml = $emailViewHtml->render();
-        if ($this->settings['debug']) {
+        if ($this->withDebug()) {
             echo "###" . $emailBodyHtml . '###';
             return true;
         }

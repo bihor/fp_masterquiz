@@ -32,7 +32,7 @@ class QuizRepository extends Repository
         'sorting' => QueryInterface::ORDER_ASCENDING
     ];
 
-    
+
     /**
      * Sets the initial query settings: nicht nötig
     public function initializeObject()
@@ -67,7 +67,7 @@ class QuizRepository extends Repository
             )
             ->setMaxResults(1)
             ->executeQuery();
-        while ($row = $statement->fetch()) {
+        while ($row = $statement->fetchAllAssociative()) {
             $uid = $row['uid'];
         }
         return $uid;

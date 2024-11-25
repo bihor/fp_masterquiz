@@ -318,10 +318,10 @@ class Participant extends AbstractEntity
                 )
                 ->setMaxResults(1)
                 ->executeQuery();
-            while ($row = $statement->fetch()) {
+            while ($row = $statement->fetchAllAssociative()) {
                 return $row['username'];
             }
-            
+
             return '';
         }
     }
@@ -636,7 +636,7 @@ class Participant extends AbstractEntity
                 }
             }
         }
-        
+
         foreach ($mostArray as $key => $value) {
             $generalArray[$key]['count'] = $value;
             if ($value > $mostValue) {
@@ -644,7 +644,7 @@ class Participant extends AbstractEntity
                 $mostValue = $value;
             }
         }
-        
+
         $mostEntry['uid'] = $mostUid;
         $mostEntry['count'] = $mostValue;
         $mostEntry['title'] = $generalArray[$mostUid]['title'];
@@ -698,14 +698,14 @@ class Participant extends AbstractEntity
             if ($sorting == 0) {
                 $sorting = $i;
             }
-            
+
             if ($selection->getQuestion()->getTag()->getName() == $tag) {
                 $sortedSelections[$sorting] = $selection;
             }
-            
+
             $i++;
         }
-        
+
         ksort($sortedSelections);
         return $sortedSelections;
     }
@@ -723,15 +723,15 @@ class Participant extends AbstractEntity
             if ($sorting == 0) {
                 $sorting = $i;
             }
-            
+
             if ($selection->getQuestion()->getTag()) {
                 $hasTags = true;
             }
-            
+
             $sortedSelections[$sorting] = $selection;
             $i++;
         }
-        
+
         ksort($sortedSelections);
         if ($hasTags) {
             // prev und next Tag immer setzen, wenn Tags vorhanden sind
@@ -742,16 +742,16 @@ class Participant extends AbstractEntity
                 if ($lastItem) {
                     $lastItem->setNextTag($itemQuestion->getTag()->getName());
                 }
-                
+
                 if (($lastTag)) {
                     $itemQuestion->setPrevTag($lastTag);
                 }
-                
+
                 $lastTag = $itemQuestion->getTag()->getName();
                 $lastItem = $itemQuestion;
             }
         }
-        
+
         return $sortedSelections;
     }
 

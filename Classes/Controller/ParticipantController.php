@@ -47,10 +47,10 @@ class ParticipantController extends ActionController
         $this->participantRepository = $participantRepository;
     }
 
-    public function __invoke(ServerRequestInterface $request): ResponseInterface
+    public function initializeAction(): void
     {
-        $this->id = (int)($request->getQueryParams()['id'] ?? 0);
-        $this->moduleTemplate = $this->moduleTemplateFactory->create($request);
+        $this->id = (int)($this->request->getQueryParams()['id'] ?? 0);
+        $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
     }
 
     /**
@@ -68,7 +68,8 @@ class ParticipantController extends ActionController
 
         $participantArray = $participants ? $participants->toArray() : [];
 
-        $participantPaginator = new ArrayPaginator($participantArray, $currentPage, $this->settings['pagebrowser']['itemsPerPage']);
+        $itemsPerPage = (isset($this->settings['pagebrowser']['itemsPerPage'])) ? $this->settings['pagebrowser']['itemsPerPage'] : 100;
+        $participantPaginator = new ArrayPaginator($participantArray, $currentPage, $itemsPerPage);
         $participantPagination = new SimplePagination($participantPaginator);
 
         $this->moduleTemplate->assign('pid', $pid);
