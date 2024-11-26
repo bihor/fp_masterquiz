@@ -10,88 +10,159 @@ call_user_func(
     function()
     {
 
-        ExtensionUtility::configurePlugin(
-            'FpMasterquiz',
-            'List',
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'list, show, showAjax'
-            ],
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
-            ],
-            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-        );
-        ExtensionUtility::configurePlugin(
-            'FpMasterquiz',
-            'Show',
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
-            ],
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
-            ],
-            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-        );
-        ExtensionUtility::configurePlugin(
-            'FpMasterquiz',
-            'Showbytag',
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'showByTag'
-            ],
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'showByTag'
-            ],
-            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-        );
-        ExtensionUtility::configurePlugin(
-            'FpMasterquiz',
-            'Intro',
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'intro, show, showAjax, showByTag'
-            ],
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax, showByTag'
-            ],
-            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-        );
-        ExtensionUtility::configurePlugin(
-            'FpMasterquiz',
-            'Closure',
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'closure'
-            ],
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'closure'
-            ],
-            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-        );
-        ExtensionUtility::configurePlugin(
-            'FpMasterquiz',
-            'Result',
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
-            ],
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
-            ],
-            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-        );
-        ExtensionUtility::configurePlugin(
-            'FpMasterquiz',
-            'Highscore',
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'highscore'
-            ],
-            [
-                \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'highscore'
-            ],
-            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
-        );
-
         // wizards
         if ((new Typo3Version())->getMajorVersion() < 13) {
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'List',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'list, show, showAjax'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
+                ]
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Show',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
+                ]
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Showbytag',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'showByTag'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'showByTag'
+                ]
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Intro',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'intro, show, showAjax, showByTag'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax, showByTag'
+                ]
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Closure',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'closure'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'closure'
+                ]
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Result',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
+                ]
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Highscore',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'highscore'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'highscore'
+                ]
+            );
+
             // @extensionScannerIgnoreLine
             ExtensionManagementUtility::addPageTSConfig('@import \'EXT:fp_masterquiz/Configuration/TSconfig/ContentElementWizard.tsconfig\'');
+        } else {
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'List',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'list, show, showAjax'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
+                ],
+                ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Show',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
+                ],
+                ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Showbytag',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'showByTag'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'showByTag'
+                ],
+                ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Intro',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'intro, show, showAjax, showByTag'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax, showByTag'
+                ],
+                ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Closure',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'closure'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'closure'
+                ],
+                ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Result',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
+                ],
+                ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+            );
+            ExtensionUtility::configurePlugin(
+                'FpMasterquiz',
+                'Highscore',
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'highscore'
+                ],
+                [
+                    \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'highscore'
+                ],
+                ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
+            );
         }
 
         // register statistics tables for garbage collection
