@@ -3,13 +3,10 @@
   <sheets>
     <sDEF>
       <ROOT>
-        <TCEforms>
-          <sheetTitle>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings</sheetTitle>
-        </TCEforms>
+		  <sheetTitle>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings</sheetTitle>
         <type>array</type>
         <el>
           <settings.templateLayout>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:templateLayout</label>
 					<config>
 						<type>select</type>
@@ -22,10 +19,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 			</settings.templateLayout>
           <settings.startPageUid>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.startPageUid</label>
 	                <config>
 						<type>group</type>
@@ -36,10 +31,8 @@
 						<minitems>0</minitems>
 						<show_thumbs>0</show_thumbs>
 					</config>
-				</TCEforms>
 		  </settings.startPageUid>
           <settings.showPageUid>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showPageUid</label>
 	                <config>
 						<type>group</type>
@@ -50,10 +43,8 @@
 						<minitems>0</minitems>
 						<show_thumbs>0</show_thumbs>
 					</config>
-				</TCEforms>
 		  </settings.showPageUid>
 			<settings.closurePageUid>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.closurePageUid</label>
 					<config>
 						<type>group</type>
@@ -64,10 +55,8 @@
 						<minitems>0</minitems>
 						<show_thumbs>0</show_thumbs>
 					</config>
-				</TCEforms>
 			</settings.closurePageUid>
           <settings.resultPageUid>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.resultPageUid</label>
 	                <config>
 						<type>group</type>
@@ -78,10 +67,8 @@
 						<minitems>0</minitems>
 						<show_thumbs>0</show_thumbs>
 					</config>
-				</TCEforms>
 		  </settings.resultPageUid>
 		  <settings.highscorePageUid>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.highscorePageUid</label>
 					<config>
 						<type>group</type>
@@ -92,10 +79,8 @@
 						<minitems>0</minitems>
 						<show_thumbs>0</show_thumbs>
 					</config>
-				</TCEforms>
 		  </settings.highscorePageUid>
           <settings.defaultQuizUid>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.defaultQuizUid</label>
 	                <config>
 						<type>group</type>
@@ -106,10 +91,8 @@
 						<minitems>0</minitems>
 						<show_thumbs>0</show_thumbs>
 					</config>
-				</TCEforms>
 		  </settings.defaultQuizUid>
 			<settings.introContentUid>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.introContentUid</label>
 					<config>
 						<type>group</type>
@@ -120,10 +103,8 @@
 						<minitems>0</minitems>
 						<show_thumbs>0</show_thumbs>
 					</config>
-				</TCEforms>
 			</settings.introContentUid>
           <settings.pagebrowser.itemsPerPage>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.itemsPerPage</label>
 	                <config>
                       <type>input</type>
@@ -131,10 +112,8 @@
                       <max>5</max>
                       <eval>trim</eval>
                     </config>
-				</TCEforms>
 		  </settings.pagebrowser.itemsPerPage>
           <settings.showAnswerPage>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showAnswerPage</label>
 	                <config>
 						<type>radio</type>
@@ -149,10 +128,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 		  </settings.showAnswerPage>
           <settings.showOwnAnswers>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showOwnAnswers</label>
 	                <config>
 						<type>radio</type>
@@ -171,10 +148,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 		  </settings.showOwnAnswers>
           <settings.showCorrectAnswers>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showCorrectAnswers</label>
 	                <config>
 						<type>radio</type>
@@ -193,10 +168,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 		  </settings.showCorrectAnswers>
           <settings.showEveryAnswer>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showEveryAnswer</label>
 	                <config>
 						<type>radio</type>
@@ -215,10 +188,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 		  </settings.showEveryAnswer>
           <settings.showAnswersAtFinalPage>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showAnswersAtFinalPage</label>
 	                <config>
 						<type>radio</type>
@@ -233,10 +204,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 		  </settings.showAnswersAtFinalPage>
           <settings.showAllAnswers>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showAllAnswers</label>
 	                <config>
 						<type>radio</type>
@@ -251,10 +220,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 		  </settings.showAllAnswers>
           <settings.showPoints>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showPoints</label>
 	                <config>
 						<type>radio</type>
@@ -269,10 +236,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 		  </settings.showPoints>
 			<settings.showDetailedCategoryEval>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.showDetailedCategoryEval</label>
 					<config>
 						<type>radio</type>
@@ -287,10 +252,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 			</settings.showDetailedCategoryEval>
 			<settings.groupByTag>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.groupByTag</label>
 					<config>
 						<type>radio</type>
@@ -305,10 +268,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 			</settings.groupByTag>
 			<settings.noFormCheck>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.noFormCheck</label>
 					<config>
 						<type>radio</type>
@@ -323,10 +284,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 			</settings.noFormCheck>
 			<settings.phpFormCheck>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.phpFormCheck</label>
 					<config>
 						<type>radio</type>
@@ -341,10 +300,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 			</settings.phpFormCheck>
 			<settings.pointsMode>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.pointsMode</label>
 					<config>
 						<type>radio</type>
@@ -367,10 +324,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 			</settings.pointsMode>
           <settings.allowEdit>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.allowEdit</label>
 	                <config>
 						<type>radio</type>
@@ -389,10 +344,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 		  </settings.allowEdit>
 			<settings.random>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.random</label>
 					<config>
 						<type>radio</type>
@@ -407,10 +360,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 			</settings.random>
 			<settings.redirectToResultPageAtFinal>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.redirectToResultPageAtFinal</label>
 					<config>
 						<type>radio</type>
@@ -425,10 +376,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 			</settings.redirectToResultPageAtFinal>
 			<settings.closed>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.closed</label>
 					<config>
 						<type>radio</type>
@@ -443,10 +392,8 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 			</settings.closed>
           <settings.ajax>
-				<TCEforms>
 					<label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.ajax</label>
 	                <config>
 						<type>radio</type>
@@ -461,20 +408,16 @@
 							</numIndex>
 						</items>
 					</config>
-				</TCEforms>
 		  </settings.ajax>
         </el>
       </ROOT>
     </sDEF>
 	  <sUSER>
 		  <ROOT>
-		  <TCEforms>
 			  <sheetTitle>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:userSettings</sheetTitle>
-		  </TCEforms>
 		  <type>array</type>
 		  <el>
 			  <settings.user.askForData>
-				  <TCEforms>
 					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.askForData</label>
 					  <config>
 						  <type>radio</type>
@@ -497,10 +440,8 @@
 							  </numIndex>
 						  </items>
 					  </config>
-				  </TCEforms>
 			  </settings.user.askForData>
 			  <settings.user.checkFEuser>
-				  <TCEforms>
 					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.checkFEuser</label>
 					  <config>
 						  <type>radio</type>
@@ -523,10 +464,8 @@
 							  </numIndex>
 						  </items>
 					  </config>
-				  </TCEforms>
 			  </settings.user.checkFEuser>
 			  <settings.user.useQuizPid>
-				  <TCEforms>
 					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.useQuizPid</label>
 					  <config>
 						  <type>radio</type>
@@ -541,10 +480,8 @@
 							  </numIndex>
 						  </items>
 					  </config>
-				  </TCEforms>
 			  </settings.user.useQuizPid>
 			  <settings.user.ipSave>
-				  <TCEforms>
 					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.ipSave</label>
 					  <config>
 						  <type>radio</type>
@@ -559,10 +496,8 @@
 							  </numIndex>
 						  </items>
 					  </config>
-				  </TCEforms>
 			  </settings.user.ipSave>
 			  <settings.user.ipAnonymous>
-				  <TCEforms>
 					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.ipAnonymous</label>
 					  <config>
 						  <type>radio</type>
@@ -577,10 +512,8 @@
 							  </numIndex>
 						  </items>
 					  </config>
-				  </TCEforms>
 			  </settings.user.ipAnonymous>
 			  <settings.user.useCookie>
-				  <TCEforms>
 					  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.user.useCookie</label>
 					  <config>
 						  <type>input</type>
@@ -588,20 +521,16 @@
 						  <max>5</max>
 						  <eval>trim</eval>
 					  </config>
-				  </TCEforms>
 			  </settings.user.useCookie>
 		  </el>
 		  </ROOT>
 	  </sUSER>
 	  <sEMAIL>
 		  <ROOT>
-			  <TCEforms>
 				  <sheetTitle>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:emailSettings</sheetTitle>
-			  </TCEforms>
 			  <type>array</type>
 			  <el>
 				  <settings.email.sendToAdmin>
-					  <TCEforms>
 						  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.email.sendToAdmin</label>
 						  <config>
 							  <type>radio</type>
@@ -616,10 +545,8 @@
 								  </numIndex>
 							  </items>
 						  </config>
-					  </TCEforms>
 				  </settings.email.sendToAdmin>
 				  <settings.email.sendToUser>
-					  <TCEforms>
 						  <label>LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:settings.email.sendToUser</label>
 						  <config>
 							  <type>radio</type>
@@ -634,7 +561,6 @@
 								  </numIndex>
 							  </items>
 						  </config>
-					  </TCEforms>
 				  </settings.email.sendToUser>
 			  </el>
 		  </ROOT>
