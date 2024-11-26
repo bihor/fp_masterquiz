@@ -1,0 +1,71 @@
+mod {
+    wizards.newContentElement.wizardItems.masterquiz {
+        header = Masterquiz
+        elements {
+            fpmasterquiz_list {
+                iconIdentifier = fp_masterquiz-plugin-pi1
+                title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.list
+                description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fpmasterquiz_list
+                }
+            }
+            fpmasterquiz_show {
+                iconIdentifier = fp_masterquiz-plugin-pi1
+                title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.show
+                description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fpmasterquiz_show
+                }
+            }
+            fpmasterquiz_showbytag {
+                iconIdentifier = fp_masterquiz-plugin-pi1
+                title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.showbytag
+                description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fpmasterquiz_showbytag
+                }
+            }
+            fpmasterquiz_intro {
+                iconIdentifier = fp_masterquiz-plugin-pi1
+                title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.intro
+                description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fpmasterquiz_intro
+                }
+            }
+            fpmasterquiz_closure {
+                iconIdentifier = fp_masterquiz-plugin-pi1
+                title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.closure
+                description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fpmasterquiz_closure
+                }
+            }
+            fpmasterquiz_result {
+                iconIdentifier = fp_masterquiz-plugin-pi1
+                title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.result
+                description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fpmasterquiz_result
+                }
+            }
+            fpmasterquiz_highscore {
+                iconIdentifier = fp_masterquiz-plugin-pi1
+                title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.highscore
+                description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = fpmasterquiz_highscore
+                }
+            }
+        }
+        show = *
+    }
+}

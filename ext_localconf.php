@@ -1,12 +1,16 @@
 <?php
 
+use TYPO3\CMS\Core\Information\Typo3Version;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+
 defined('TYPO3') || die();
 
 call_user_func(
     function()
     {
 
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        ExtensionUtility::configurePlugin(
             'FpMasterquiz',
             'List',
             [
@@ -14,9 +18,10 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        ExtensionUtility::configurePlugin(
             'FpMasterquiz',
             'Show',
             [
@@ -24,9 +29,10 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        ExtensionUtility::configurePlugin(
             'FpMasterquiz',
             'Showbytag',
             [
@@ -34,9 +40,10 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'showByTag'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        ExtensionUtility::configurePlugin(
             'FpMasterquiz',
             'Intro',
             [
@@ -44,9 +51,10 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax, showByTag'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        ExtensionUtility::configurePlugin(
             'FpMasterquiz',
             'Closure',
             [
@@ -54,9 +62,10 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'closure'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        ExtensionUtility::configurePlugin(
             'FpMasterquiz',
             'Result',
             [
@@ -64,9 +73,10 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+        ExtensionUtility::configurePlugin(
             'FpMasterquiz',
             'Highscore',
             [
@@ -74,83 +84,15 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'highscore'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
 
         // wizards
-        \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-            'mod {
-                wizards.newContentElement.wizardItems.masterquiz {
-                    header = Masterquiz
-                    elements {
-                        fpmasterquiz_list {
-                            iconIdentifier = fp_masterquiz-plugin-pi1
-                            title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.list
-                            description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = fpmasterquiz_list
-                            }
-                        }
-                        fpmasterquiz_show {
-                            iconIdentifier = fp_masterquiz-plugin-pi1
-                            title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.show
-                            description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = fpmasterquiz_show
-                            }
-                        }
-                        fpmasterquiz_showbytag {
-                            iconIdentifier = fp_masterquiz-plugin-pi1
-                            title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.showbytag
-                            description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = fpmasterquiz_showbytag
-                            }
-                        }
-                        fpmasterquiz_intro {
-                            iconIdentifier = fp_masterquiz-plugin-pi1
-                            title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.intro
-                            description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = fpmasterquiz_intro
-                            }
-                        }
-                        fpmasterquiz_closure {
-                            iconIdentifier = fp_masterquiz-plugin-pi1
-                            title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.closure
-                            description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = fpmasterquiz_closure
-                            }
-                        }
-                        fpmasterquiz_result {
-                            iconIdentifier = fp_masterquiz-plugin-pi1
-                            title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.result
-                            description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = fpmasterquiz_result
-                            }
-                        }
-                        fpmasterquiz_highscore {
-                            iconIdentifier = fp_masterquiz-plugin-pi1
-                            title = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.highscore
-                            description = LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description
-                            tt_content_defValues {
-                                CType = list
-                                list_type = fpmasterquiz_highscore
-                            }
-                        }
-                    }
-                    show = *
-                }
-           }'
-        );
+        if ((new Typo3Version())->getMajorVersion() < 13) {
+            // @extensionScannerIgnoreLine
+            ExtensionManagementUtility::addPageTSConfig('@import \'EXT:fp_masterquiz/Configuration/TSconfig/ContentElementWizard.tsconfig\'');
+        }
 
         // register statistics tables for garbage collection
         // see https://docs.typo3.org/c/typo3/cms-scheduler/main/en-us/Installation/BaseTasks/Index.html#table-garbage-collection-task-example
@@ -170,14 +112,6 @@ call_user_func(
                 'additionalFields' => \Fixpunkt\FpMasterquiz\Task\CsvExportAdditionalFieldProvider::class
             ];
         }
-
-        // Register switchableControllerActions plugin migrator
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['switchableControllerActionsPluginUpdaterFpQuiz']
-            = \Fixpunkt\FpMasterquiz\Updates\SwitchableControllerActionsPluginUpdater::class;
-        // Fix faulty image references
-        $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['fixImageReferencesFpQuiz']
-            = \Fixpunkt\FpMasterquiz\Updates\FixImageReferencesUpgradeWizard::class;
-
         // Custom Logger
         $GLOBALS['TYPO3_CONF_VARS']['LOG']['Fixpunkt']['FpMasterquiz']['Controller']['writerConfiguration'] = [
             // Configuration including all levels with higher severity
