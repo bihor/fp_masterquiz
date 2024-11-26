@@ -11,8 +11,9 @@ foreach (['list', 'show', 'showbytag', 'intro', 'closure', 'result', 'highscore'
         'FpMasterquiz',
         ucfirst($plugin),
         'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_be.xlf:template.' . $plugin,
-        'EXT:fp_masterquiz/Resources/Public/Icons/Extension.gif',
-        'Masterquiz'
+        'fp_masterquiz-mod1',
+        'Masterquiz',
+        'LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_db.xlf:tx_fp_masterquiz_pi1.description'
     );
 
     $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['fpmasterquiz_' . $plugin] = 'pi_flexform';

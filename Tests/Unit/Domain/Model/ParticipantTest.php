@@ -149,10 +149,8 @@ class ParticipantTest extends UnitTestCase
      */
     public function getSessionReturnsInitialValueForString(): void
     {
-        self::assertSame(
-            '',
-            $this->subject->getSession()
-        );
+        // @extensionScannerIgnoreLine
+        self::assertSame('', $this->subject->getSession());
     }
 
     /**

@@ -1,6 +1,7 @@
 mod {
     wizards.newContentElement.wizardItems.masterquiz {
         header = Masterquiz
+        after = common
         elements {
             fpmasterquiz_list {
                 iconIdentifier = fp_masterquiz-plugin-pi1

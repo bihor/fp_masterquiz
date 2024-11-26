@@ -250,6 +250,7 @@ class QuizController extends ActionController
     {
         $tmp_session = $this->request->hasArgument('session') ? $this->request->getArgument('session') : '';
 
+        // @extensionScannerIgnoreLine
         if ($this->participant->getSession() != $tmp_session) {
             $this->participant = null;
             if ($this->withDebug()) {
@@ -319,6 +320,7 @@ class QuizController extends ActionController
                         }
 
                         if ($this->participant) {
+                            // @extensionScannerIgnoreLine
                             $session = $this->participant->getSession();
                             if ($this->withDebug()) {
                                 $debug .= "\nsession from FEuser: " . $session . '; and the participant-uid: ' . $this->participant->getUid();
@@ -348,6 +350,7 @@ class QuizController extends ActionController
 
             if ($this->participant) {
                 // ein abgelegter session-key hat Vorrang
+                // @extensionScannerIgnoreLine
                 $session = $this->participant->getSession();
                 if ($session && !$this->isSessionOK($debug)) {
                     $participantUid = 0;
@@ -2098,6 +2101,7 @@ class QuizController extends ActionController
      */
     public function closureAction(Participant $participant, string $session = ''): ResponseInterface
     {
+        // @extensionScannerIgnoreLine
         if ($participant->getSession() == $session) {
             $this->view->assign('participant', $participant);
             $this->view->assign('quiz', $participant->getQuiz());
