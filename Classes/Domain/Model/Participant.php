@@ -301,14 +301,10 @@ class Participant extends AbstractEntity
 
     /**
      * Returns the username
-     *
-     * @return string $username
      */
-    public function getUsername()
+    public function getUsername(): string
     {
-        if (!$this->user) {
-            return '';
-        } else {
+        if ($this->user) {
             $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('fe_users');
             $statement = $queryBuilder
                 ->select('username')
@@ -318,12 +314,12 @@ class Participant extends AbstractEntity
                 )
                 ->setMaxResults(1)
                 ->executeQuery();
-            while ($row = $statement->fetchAllAssociative()) {
+            $rows = $statement->fetchAllAssociative();
+            foreach ($rows as $row) {
                 return $row['username'];
             }
-
-            return '';
         }
+        return '';
     }
 
     /**

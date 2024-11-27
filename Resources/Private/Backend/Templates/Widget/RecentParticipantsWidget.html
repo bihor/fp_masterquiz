@@ -15,19 +15,24 @@
         </tr>
         <f:for each="{participants}" as="participant" iteration="iter">
             <tr>
-                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}"
+                    style="color:{f:if(condition: '{iter.isOdd}', then: 'black', else: 'white')};">
                     <f:format.date format="d.m.Y - H:i:s">{participant.startdate}</f:format.date>
                 </td>
-                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}"
+                    style="color:{f:if(condition: '{iter.isOdd}', then: 'black', else: 'white')};">
                     {participant.quizname}
                 </td>
-                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}"
+                    style="color:{f:if(condition: '{iter.isOdd}', then: 'black', else: 'white')};">
                     {participant.question1}
                 </td>
-                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}"
+                    style="color:{f:if(condition: '{iter.isOdd}', then: 'black', else: 'white')};">
                     {participant.answer1}
                 </td>
-                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}">
+                <td class="{f:if(condition: '{iter.isOdd}', then: 'bg-warning', else: 'bg-success')}"
+                    style="color:{f:if(condition: '{iter.isOdd}', then: 'black', else: 'white')};">
                     {participant.points} / {participant.maximum2}
                 </td>
             </tr>

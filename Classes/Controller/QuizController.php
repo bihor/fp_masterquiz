@@ -278,6 +278,8 @@ class QuizController extends ActionController
         if ($this->withDebug() && $isAjax) {
             $debug .= "\nAjax mode is enabled.";
         }
+        /** @var \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication $frontendUser */
+        $frontendUser = $this->request->getAttribute('frontend.user');
 
 //        if (!$isAjax) {
         if ($this->request->hasArgument('session')) {
@@ -286,7 +288,7 @@ class QuizController extends ActionController
         } elseif (!$this->request->hasArgument('participant') && !$isAjax) {
             // keine Session gefunden... und jetzt Cookie checken? Hier dürften wir auf der Startseite sein
             if (intval($this->settings['user']['useCookie']) == -1) {
-                $session = $GLOBALS["TSFE"]->fe_user->getKey('ses', 'qsession' . $quizUid);
+                $session = $frontendUser->getKey('ses', 'qsession' . $quizUid);
             } elseif ((intval($this->settings['user']['useCookie']) > 0) && isset($_COOKIE['qsession' . $quizUid])) {
                 $session = $_COOKIE['qsession' . $quizUid];
             }
@@ -402,8 +404,8 @@ class QuizController extends ActionController
 
             if (intval($this->settings['user']['useCookie']) == -1) {
                 // Store the session in a cookie
-                $GLOBALS['TSFE']->fe_user->setKey('ses', 'qsession' . $quizUid, $session);
-                $GLOBALS["TSFE"]->fe_user->storeSessionData();
+                $frontendUser->setKey('ses', 'qsession' . $quizUid, $session);
+                $frontendUser->storeSessionData();
             } elseif (intval($this->settings['user']['useCookie']) > 0) {
                 setcookie('qsession' . $quizUid, (string) $session, ['expires' => time() + (3600 * 24 * intval($this->settings['user']['useCookie']))]);
                 /* verfällt in x Tagen */
@@ -490,15 +492,9 @@ class QuizController extends ActionController
         if (!$questionsPerPage || $this->settings['ajax']) {
             $questionsPerPage = 1;
         }
+        /** @var \TYPO3\CMS\Frontend\Authentication\FrontendUserAuthentication $frontendUser */
+        $frontendUser = $this->request->getAttribute('frontend.user');
 
-        /* if ($this->settings['ajax'] && $session && !$this->participant->getUid() && ($showAnswers || $page>1)) {
-               $page = 1;
-               $showAnswers = false;
-               $reload = true;
-               if ($this->withDebug()) {
-                   $debug .= "\nReload auf Ajax-Startseite detektiert.";
-               }
-           } */
         if ($this->settings['allowEdit']) {
             $showAnswers = $this->participant->isCompleted() && (intval($this->settings['allowEdit']) < 2);
 
@@ -550,7 +546,7 @@ class QuizController extends ActionController
                     }
 
                     $this->setUserData($defaultName, $defaultEmail, $defaultHomepage);
-                    $this->participant->setUser(isset($GLOBALS['TSFE']->fe_user->user['uid']) ? intval($GLOBALS['TSFE']->fe_user->user['uid']) : 0);
+                    $this->participant->setUser($frontendUser->getUserId() ? intval($frontendUser->getUserId()) : 0);
                     $this->participant->setIp($this->getRealIpAddr());
                     // Die Session wurde bisher nur auf der Startseite gesetzt, deshalb wird sie hier nochmal gesetzt
                     $this->participant->setSession($session);
@@ -992,7 +988,8 @@ class QuizController extends ActionController
                             'source' => $evaluation->getCe(),
                             'dontCheckPid' => 1
                         ];
-                        $finalContent = $GLOBALS['TSFE']->cObj->cObjGetSingle('RECORDS', $ttContentConfig);
+                        $frontendController = $this->request->getAttribute('frontend.controller');
+                        $finalContent = $frontendController->cObj->cObjGetSingle('RECORDS', $ttContentConfig);
                         $finalBodytext = $evaluation->getBodytext();
                         $finalImageuid = $evaluation->getImage();
                     } else {
@@ -1459,6 +1456,9 @@ class QuizController extends ActionController
     protected function setMetatags(Quiz &$c_quiz)
     {
         $title = $c_quiz->getName();
+        /** var \TYPO3\CMS\Core\Site\Entity\Site $site
+        $site = $this->request->getAttribute('site'); */
+        // TODO: ersetzen
         $GLOBALS['TSFE']->page['title'] = $title;
         $metaTagManager = GeneralUtility::makeInstance( MetaTagManagerRegistry::class);
         $description = str_replace(["\r", "\n"], " ", $c_quiz->getAbout());
@@ -1528,7 +1528,9 @@ class QuizController extends ActionController
     {
         if ($this->settings['introContentUid'] > 0) {
             $ttContentConfig = ['tables' => 'tt_content', 'source' => $this->settings['introContentUid'], 'dontCheckPid' => 1];
-            $contentElement = $GLOBALS['TSFE']->cObj->cObjGetSingle('RECORDS', $ttContentConfig);
+            $frontendController = $this->request->getAttribute('frontend.controller');
+            $cObj = $frontendController->cObj;
+            $contentElement = $cObj->cObjGetSingle('RECORDS', $ttContentConfig);
         } else {
             $contentElement = '';
         }
@@ -1555,10 +1557,12 @@ class QuizController extends ActionController
         if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
             $uidOfCE = $this->request->getAttribute('currentContentObject')->data['uid'];
         }
+        $pageArguments = $this->request->getAttribute('routing');
+        $pageId = $pageArguments->getPageId();
 
         $this->view->assign('action', 'show');
         $this->view->assign('uidOfCE', $uidOfCE);
-        $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+        $this->view->assign('uidOfPage', $pageId);
         $this->view->assign('contentElement', $contentElement);
         return $this->htmlResponse();
     }
@@ -1667,11 +1671,13 @@ class QuizController extends ActionController
         if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
             $uidOfCE = $this->request->getAttribute('currentContentObject')->data['uid'];
         }
+        $pageArguments = $this->request->getAttribute('routing');
+        $pageId = $pageArguments->getPageId();
 
         $this->view->assign('pagesInclFinalPage', ($pages + 1));
         $this->view->assign('pageBasis', ($page - 1) * $this->settings['pagebrowser']['itemsPerPage']);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
-        $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+        $this->view->assign('uidOfPage', $pageId);
         $this->view->assign('uidOfCE', $uidOfCE);
         $this->view->assign('startTime', time());
         // $this->view->assign("action", ($this->settings['ajax']) ? 'showAjax' : 'show');
@@ -1824,11 +1830,13 @@ class QuizController extends ActionController
         if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
             $uidOfCE = $this->request->getAttribute('currentContentObject')->data['uid'];
         }
+        $pageArguments = $this->request->getAttribute('routing');
+        $pageId = $pageArguments->getPageId();
 
         $this->view->assign('pagesInclFinalPage', ($pages + 1));
         $this->view->assign('pageBasis', 0);
         $this->view->assign("sysLanguageUid", $sys_language_uid);
-        $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+        $this->view->assign('uidOfPage', $pageId);
         $this->view->assign('uidOfCE', $uidOfCE);
         $this->view->assign('startTime', time());
         if ($this->settings['user']['askForData'] == 2) {
@@ -1958,6 +1966,8 @@ class QuizController extends ActionController
                 }
             }
         }
+        $pageArguments = $this->request->getAttribute('routing');
+        $pageId = $pageArguments->getPageId();
 
         $this->view->assign('debug', $data['debug']);
         $this->view->assign('quiz', $quiz);
@@ -1982,7 +1992,7 @@ class QuizController extends ActionController
         $this->view->assign('useJoker', $data['useJoker']);
         $this->view->assign('nextJoker', (($data['useJoker'] == 1) ? 2 : 0));
         $this->view->assign("sysLanguageUid", $sys_language_uid);
-        $this->view->assign('uidOfPage', $GLOBALS['TSFE']->id);
+        $this->view->assign('uidOfPage', $pageId);
 
         $this->view->assign('from', $from);
         $this->view->assign('to', $to);
@@ -2015,7 +2025,8 @@ class QuizController extends ActionController
 
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
-        $pid = (int)$GLOBALS['TSFE']->id;
+        $pageArguments = $this->request->getAttribute('routing');
+        $pid = (int)$pageArguments->getPageId();
         $uidOfCE = 0;
         if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
             $uidOfCE = $this->request->getAttribute('currentContentObject')->data['uid'];
@@ -2081,7 +2092,8 @@ class QuizController extends ActionController
 
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
-        $pid = (int)$GLOBALS['TSFE']->id;
+        $pageArguments = $this->request->getAttribute('routing');
+        $pid = (int)$pageArguments->getPageId();
         $participants = $this->participantRepository->findFromQuizLimit($quiz->getUid(), intval($this->settings['highscoreLimit']));
         $uidOfCE = 0;
         if (isset($this->request->getAttribute('currentContentObject')->data['uid'])) {
@@ -2201,7 +2213,12 @@ class QuizController extends ActionController
     public function chartsAction(Quiz $quiz): ResponseInterface
     {
         $be = (bool) $this->request->hasArgument('be');
-        $pid = $be ? $this->id : (int)$GLOBALS['TSFE']->id;
+        if ($be) {
+            $pid = $this->id;
+        } else {
+            $pageArguments = $this->request->getAttribute('routing');
+            $pid = (int)$pageArguments->getPageId();
+        }
 
         $debug = $this->setAllUserAnswers($quiz, $pid, $be);
         $this->moduleTemplate->assign('debug', $debug);
@@ -2212,7 +2229,7 @@ class QuizController extends ActionController
     }
 
     /**
-     * Send an email
+     * TODO: Send an email
      *
      * @param array $recipient recipient of the email in the format array('recipient@domain.tld' => 'Recipient Name')
      * @param array $sender sender of the email in the format array('sender@domain.tld' => 'Sender Name')
