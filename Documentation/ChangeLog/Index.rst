@@ -249,6 +249,6 @@ ChangeLog
   Preparations for TYPO3 13. Attention: the path to the backend templates is now defined in Configuration/page.tsconfig.
 
 6.0.0:
-  First version for TYPO3 13.
+  First version for TYPO3 13, but emails are not working with TYPO3 13!
 
   Upgrade Wizards for old file references and Switchable-Controller-Action-Plugins removed!

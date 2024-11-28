@@ -129,10 +129,11 @@ AJAX*) If you enable AJAX, you should know this:
 
 - *Important*: the AJAX-call calls an normal action and not an eID-script.
   The problem is, that the form contains no cHash.
-  Therefore must must disable the cHash requirement in the install tool via:
+  Therefore you must disable the cHash requirement in the install tool via:
   [FE][cacheHash][enforceValidation] = false
   If it is still not working, you can disable the cHash-check in the install tool:
   [FE][pageNotFoundOnCHashError] = false
+  Conclusion: use the Ajax-version only if you really need it.
 
 - *Important*: if you don´t use the plugin
   "Show a selected quiz and use a pagebrowser (you need to select the storage folder too)" /
