@@ -25,7 +25,8 @@ use TYPO3\CMS\Core\Pagination\ArrayPaginator;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use Symfony\Component\Mime\Address;
 use Psr\Http\Message\ResponseInterface;
@@ -96,7 +97,8 @@ class QuizController extends ActionController
      */
     protected $persistenceManager;
 
-    public function __construct(protected readonly ModuleTemplateFactory $moduleTemplateFactory, private readonly LoggerInterface $logger)
+    public function __construct(
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory, private readonly LoggerInterface $logger, private ViewFactoryInterface $viewFactory)
     {
     }
 
@@ -1069,6 +1071,7 @@ class QuizController extends ActionController
                     'homepage' => $this->participant->getHomepage(),
                     'participant' => $this->participant,
                     'finalContent' => $finalContent,
+                    'qtype' => $quiz->getQtype(),
                     'settings' => $this->settings
                 ];
                 if ($this->settings['email']['sendToAdmin'] && ($this->settings['email']['adminEmail'] || $specialRecievers !== [])) {
@@ -2244,16 +2247,20 @@ class QuizController extends ActionController
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(
             ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
         );
+        $requestLanguage = $this->request->getAttribute('language');
+        $requestLocale = $requestLanguage->getLocale();
+        $variables['language_code'] = $requestLocale->getLanguageCode();
 
-        $emailViewHtml = GeneralUtility::makeInstance(StandaloneView::class);
-        $emailViewHtml->setTemplateRootPaths($extbaseFrameworkConfiguration['view']['templateRootPaths']);
-        $emailViewHtml->setLayoutRootPaths($extbaseFrameworkConfiguration['view']['layoutRootPaths']);
-        $emailViewHtml->setPartialRootPaths($extbaseFrameworkConfiguration['view']['partialRootPaths']);
-        $emailViewHtml->setTemplate('Email/' . $templateName . '.html');
-        $emailViewHtml->setFormat('html');
-        $emailViewHtml->assignMultiple($variables);
+        $viewFactoryData = new ViewFactoryData(
+            templateRootPaths: $extbaseFrameworkConfiguration['view']['templateRootPaths'],
+            partialRootPaths: $extbaseFrameworkConfiguration['view']['partialRootPaths'],
+            layoutRootPaths: $extbaseFrameworkConfiguration['view']['layoutRootPaths'],
+            request: $this->request,
+        );
+        $view = $this->viewFactory->create($viewFactoryData);
+        $view->assignMultiple($variables);
+        $emailBodyHtml = $view->render('Email/' . $templateName . '.html');
 
-        $emailBodyHtml = $emailViewHtml->render();
         if ($this->withDebug()) {
             echo "###" . $emailBodyHtml . '###';
             return true;

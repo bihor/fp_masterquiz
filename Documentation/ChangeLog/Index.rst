@@ -252,3 +252,8 @@ ChangeLog
   First version for TYPO3 13, but emails are not working with TYPO3 13!
 
   Upgrade Wizards for old file references and Switchable-Controller-Action-Plugins removed!
+
+6.1.0:
+  Support for TYPO3 12 dropped!
+
+  The emails are now localized too.

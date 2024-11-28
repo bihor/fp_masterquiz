@@ -1,7 +1,5 @@
 <?php
 
-use TYPO3\CMS\Core\Information\Typo3Version;
-use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') || die();
@@ -80,12 +78,6 @@ call_user_func(
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'highscore'
             ]
         );
-
-        // wizards
-        if ((new Typo3Version())->getMajorVersion() < 13) {
-            // @extensionScannerIgnoreLine
-            ExtensionManagementUtility::addPageTSConfig('@import \'EXT:fp_masterquiz/Configuration/TSconfig/ContentElementWizard.tsconfig\'');
-        }
 
         // register statistics tables for garbage collection
         // see https://docs.typo3.org/c/typo3/cms-scheduler/main/en-us/Installation/BaseTasks/Index.html#table-garbage-collection-task-example

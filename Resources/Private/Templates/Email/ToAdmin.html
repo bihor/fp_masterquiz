@@ -2,17 +2,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Quiz-Result</title>
+<title>fp_masterquiz</title>
 </head>
 <body>
-	<h3>Hello Admin,</h3>
-	<p>a new quiz-result is here from:</p>
+	<h3><f:translate key="email.hello" extensionName="FpMasterquiz" languageKey="{language_code}" /> Admin,</h3>
+	<p><f:translate key="email.intro1" extensionName="FpMasterquiz" languageKey="{language_code}" />
+		<f:switch expression="{qtype}">
+			<f:case value="1"><f:translate key="qtype.1" extensionName="FpMasterquiz" languageKey="{language_code}" /></f:case>
+			<f:case value="2"><f:translate key="qtype.2" extensionName="FpMasterquiz" languageKey="{language_code}" /></f:case>
+			<f:defaultCase><f:translate key="qtype.0" extensionName="FpMasterquiz" languageKey="{language_code}" /></f:defaultCase>
+		</f:switch><f:translate key="email.intro2" extensionName="FpMasterquiz" languageKey="{language_code}" /></p>
 	<p>Name: {name}</p>
 	<p>E-Mail: <a href="mailto:{email}">{email}</a></p>
 	<p>Homepage: <a href="{homepage}">{homepage}</a></p>
 
 	<f:if condition="{settings.showPoints}"><f:if condition="{participant.maximum2} > 0">
-		<p>Total points: {participant.points}/{participant.maximum2} (<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%).</p>
+		<p>
+			<f:translate key="email.points" extensionName="FpMasterquiz" languageKey="{language_code}" />
+			{participant.points}/{participant.maximum2}
+			(<f:format.number decimals="2" decimalSeparator="," thousandsSeparator=".">{participant.percent2}</f:format.number>%).
+		</p>
        	<br/>
 	</f:if></f:if>
 	<f:format.raw>{finalContent}</f:format.raw>

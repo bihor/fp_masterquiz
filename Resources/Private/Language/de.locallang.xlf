@@ -459,6 +459,31 @@
 				<source>Clicked by you</source>
 				<target>Von dir angeklickt</target>
 			</trans-unit>
+			<trans-unit id="qtype.0" resname="qtype.0">
+				<target>Quiz</target>
+			</trans-unit>
+			<trans-unit id="qtype.1" resname="qtype.1">
+				<target>Umfrage</target>
+			</trans-unit>
+			<trans-unit id="qtype.2" resname="qtype.2">
+				<target>Psychotest</target>
+			</trans-unit>
+			<trans-unit id="email.hello" resname="email.hello">
+				<source>Hello</source>
+				<target>Hallo</target>
+			</trans-unit>
+			<trans-unit id="email.intro_user1" resname="email.intro_user1">
+				<target>hier ist dein</target>
+			</trans-unit>
+			<trans-unit id="email.intro1" resname="email.intro1">
+				<target>es gibt ein neues</target>
+			</trans-unit>
+			<trans-unit id="email.intro2" resname="email.intro2">
+				<target>-Ergebnis:</target>
+			</trans-unit>
+			<trans-unit id="email.points" resname="email.points">
+				<target>Erhaltene Punkte:</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

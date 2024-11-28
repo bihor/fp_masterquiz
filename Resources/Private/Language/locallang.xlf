@@ -342,6 +342,30 @@
 			<trans-unit id="text.categoryCount" resname="text.categoryCount">
 				<source>Clicked by you</source>
 			</trans-unit>
+			<trans-unit id="qtype.0" resname="qtype.0">
+				<source>Quiz</source>
+			</trans-unit>
+			<trans-unit id="qtype.1" resname="qtype.1">
+				<source>Poll</source>
+			</trans-unit>
+			<trans-unit id="qtype.2" resname="qtype.2">
+				<source>Test</source>
+			</trans-unit>
+			<trans-unit id="email.hello" resname="email.hello">
+				<source>Hello</source>
+			</trans-unit>
+			<trans-unit id="email.intro_user1" resname="email.intro_user1">
+				<source>here is your</source>
+			</trans-unit>
+			<trans-unit id="email.intro1" resname="email.intro1">
+				<source>there is a new</source>
+			</trans-unit>
+			<trans-unit id="email.intro2" resname="email.intro2">
+				<source>-result:</source>
+			</trans-unit>
+			<trans-unit id="email.points" resname="email.points">
+				<source>Total points:</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
