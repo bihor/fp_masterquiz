@@ -25,7 +25,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         $additionalFields = [];
         $currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
         if (empty($taskInfo['csvfile'])) {
-            if ($currentSchedulerModuleAction->equals(Action::ADD)) {
+            if ($currentSchedulerModuleAction == \TYPO3\CMS\Scheduler\SchedulerManagementAction::ADD) {
                 $taskInfo['csvfile'] = 'fileadmin/';
             } else {
                 $taskInfo['csvfile'] = $task->getCsvfile();
@@ -33,7 +33,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         }
         
         if (empty($taskInfo['page'])) {
-            if ($currentSchedulerModuleAction->equals(Action::ADD)) {
+            if ($currentSchedulerModuleAction == \TYPO3\CMS\Scheduler\SchedulerManagementAction::ADD) {
                 $taskInfo['page'] = '';
             } else {
                 $taskInfo['page'] = $task->getPage();
@@ -41,7 +41,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         }
         
         if (empty($taskInfo['separator'])) {
-            if ($currentSchedulerModuleAction->equals(Action::ADD)) {
+            if ($currentSchedulerModuleAction == \TYPO3\CMS\Scheduler\SchedulerManagementAction::ADD) {
                 $taskInfo['separator'] = '"';
             } else {
                 $taskInfo['separator'] = $task->getSeparator();
@@ -49,7 +49,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         }
         
         if (empty($taskInfo['delimiter'])) {
-            if ($currentSchedulerModuleAction->equals(Action::ADD)) {
+            if ($currentSchedulerModuleAction == \TYPO3\CMS\Scheduler\SchedulerManagementAction::ADD) {
                 $taskInfo['delimiter'] = ';';
             } else {
                 $taskInfo['delimiter'] = $task->getDelimiter();
@@ -57,7 +57,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         }
         
         if (empty($taskInfo['ansdelimiter'])) {
-            if ($currentSchedulerModuleAction->equals(Action::ADD)) {
+            if ($currentSchedulerModuleAction == \TYPO3\CMS\Scheduler\SchedulerManagementAction::ADD) {
                 $taskInfo['ansdelimiter'] = ', ';
             } else {
                 $taskInfo['ansdelimiter'] = $task->getAnswersDelimiter();
@@ -65,7 +65,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
         }
         
         if (empty($taskInfo['convert'])) {
-            if ($currentSchedulerModuleAction->equals(Action::ADD)) {
+            if ($currentSchedulerModuleAction == \TYPO3\CMS\Scheduler\SchedulerManagementAction::ADD) {
                 $taskInfo['convert'] = 0;
             } else {
                 $taskInfo['convert'] = $task->getConvert();
