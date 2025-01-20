@@ -25,7 +25,7 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 		$additionalFields = [];
 		$currentSchedulerModuleAction = $schedulerModule->getCurrentAction();
 		if (empty($taskInfo['page'])) {
-			if ($currentSchedulerModuleAction->equals(Action::ADD)) {
+			if ($currentSchedulerModuleAction == \TYPO3\CMS\Scheduler\SchedulerManagementAction::ADD) {
 				$taskInfo['page'] = '';
 			} else {
 				$taskInfo['page'] = $task->getPage();
@@ -33,7 +33,7 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 		}
   
 		if (empty($taskInfo['days'])) {
-			if ($currentSchedulerModuleAction->equals(Action::ADD)) {
+			if ($currentSchedulerModuleAction == \TYPO3\CMS\Scheduler\SchedulerManagementAction::ADD) {
 				$taskInfo['days'] = '0';
 			} else {
 				$taskInfo['days'] = $task->getDays();
@@ -41,7 +41,7 @@ class DeleteParticipantAdditionalFieldProvider extends AbstractAdditionalFieldPr
 		}
   
 		if (empty($taskInfo['flag'])) {
-			if ($currentSchedulerModuleAction->equals(Action::ADD)) {
+			if ($currentSchedulerModuleAction == \TYPO3\CMS\Scheduler\SchedulerManagementAction::ADD) {
 		        $taskInfo['flag'] = 0;
 		    } else {
 		        $taskInfo['flag'] = $task->getFlag();

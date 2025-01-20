@@ -346,7 +346,7 @@ class QuizController extends ActionController
         if ($this->request->hasArgument('participant') && $this->request->getArgument('participant')) {
             // wir sind nicht auf Seite 1
             $participantUid = intval($this->request->getArgument('participant'));
-            if ($this->settings['user']['useQuizPid']) {
+            if (array_key_exists('useQuizPid', $this->settings['user']) && $this->settings['user']['useQuizPid']) {
                 $this->participant = $this->participantRepository->findOneByUidAndPid($participantUid, $quizPid);
             } else {
                 $this->participant = $this->participantRepository->findOneBy(['uid' => $participantUid]);
@@ -373,7 +373,7 @@ class QuizController extends ActionController
                 $debug .= "\nMaking new participant.";
             }
 
-            if ($this->settings['user']['useQuizPid']) {
+            if (array_key_exists('useQuizPid', $this->settings['user']) && $this->settings['user']['useQuizPid']) {
                 $this->participant->setPid($quizPid);
                 if ($this->withDebug()) {
                     $debug .= ' Set pid to ' . $quizPid;
@@ -484,7 +484,9 @@ class QuizController extends ActionController
         $fe_user_uid = $userData['fe_user_uid'];    // FE user uid
         $quizPid = $quiz->getPid();
         $isClosed = $this->settings['closed'];  // quiz closed?
-        $phpFormCheck = $this->settings['phpFormCheck'];
+		if(array_key_exists('phpFormCheck', $this->settings)) {
+			$phpFormCheck = $this->settings['phpFormCheck'];
+		} 
         $questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
         $showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
         $useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
@@ -583,7 +585,7 @@ class QuizController extends ActionController
         // Ausgewählte Antworten auswerten und speichern
         if ($saveIt && !$reload && (!$completed || $this->settings['allowEdit'] == 2) && ($useJoker != 1)) {
             // special preparation
-            if ($this->settings['email']['sendToAdmin'] && $this->settings['email']['specific']) {
+            if ($this->settings['email']['sendToAdmin'] && array_key_exists('specific', $this->settings['email']) && $this->settings['email']['specific']) {
                 $emailAnswers = json_decode((string) $this->settings['email']['specific'], true);
                 //var_dump($emailAnswers);
             }
@@ -637,7 +639,7 @@ class QuizController extends ActionController
 
                         $selected = GeneralUtility::makeInstance(Selected::class);
                         $selected->_setProperty('_languageUid', -1);
-                        if ($this->settings['user']['useQuizPid']) {
+                        if (array_key_exists('useQuizPid', $this->settings['user']) && $this->settings['user']['useQuizPid']) {
                             $selected->setPid($quizPid);
                         }
 
@@ -1074,8 +1076,8 @@ class QuizController extends ActionController
                     'qtype' => $quiz->getQtype(),
                     'settings' => $this->settings
                 ];
-                if ($this->settings['email']['sendToAdmin'] && ($this->settings['email']['adminEmail'] || $specialRecievers !== [])) {
-                    if ($this->settings['email']['adminEmail']) {
+                if ($this->settings['email']['sendToAdmin'] && (array_key_exists('adminEmail', $this->settings['email']) || $specialRecievers !== [])) {
+                    if (array_key_exists('adminEmail', $this->settings['email'])) {
                         $adminMails = explode( ',', (string) $this->settings['email']['adminEmail'] );
                         foreach ($adminMails as $email) {
                             if (GeneralUtility::validEmail(trim($email))) {
@@ -1285,7 +1287,7 @@ class QuizController extends ActionController
             $ip = $_SERVER['REMOTE_ADDR'];
         }
 
-        if ($this->settings['user']['ipSave'] && $this->settings['user']['ipAnonymous']) {
+        if ($this->settings['user']['ipSave'] && array_key_exists('ipAnonymous', $this->settings['user']) && $this->settings['user']['ipAnonymous']) {
             $pos = strrpos((string) $ip, '.');
             $ip = substr((string) $ip, 0, $pos) . '.0';
         }
@@ -1619,7 +1621,7 @@ class QuizController extends ActionController
         $pages = $data['pages'];
         $languageAspect = GeneralUtility::makeInstance(Context::class)->getAspect('language');
         $sys_language_uid = $languageAspect->getId();
-        if ($this->settings['setMetatags']) {
+        if (array_key_exists('setMetatags', $this->settings) && $this->settings['setMetatags']) {
             $this->setMetatags($quiz);
         }
         $questionsArray = $quiz->getQuestions() ? $quiz->getQuestions()->toArray() : [];
