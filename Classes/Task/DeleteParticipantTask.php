@@ -88,8 +88,7 @@ class DeleteParticipantTask extends AbstractTask {
 	}
 
 
-	public function execute() {
-		$successfullyExecuted = TRUE;
+	public function execute(): bool {
 		$pid = (int) $this->getPage();			// folder with participant elements
 		$days = (int) $this->getDays();			// number of days
 		$flag = $this->getFlag();               // delete flag or real delete?
@@ -102,7 +101,7 @@ class DeleteParticipantTask extends AbstractTask {
 		// select all participant elements of one folder, denn es gibt irgendwie kein delete cascade
 		if ($flag) {
     		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_participant');
-    		$statement = $queryBuilder
+            $result = $queryBuilder
     		   ->select('uid')
     		   ->from('tx_fpmasterquiz_domain_model_participant')
     		   ->where(
@@ -111,8 +110,9 @@ class DeleteParticipantTask extends AbstractTask {
     		   	->andWhere(
     		   		$queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, Connection::PARAM_INT))
     	   		)
-    		   ->executeQuery();
-    		while ($row = $statement->fetchAllAssociative()) {
+    		   ->executeQuery()->fetchAllAssociative();
+            //echo $queryBuilder->getSQL();
+            foreach ($result as $row) {
     			$participantArray[] = intval($row['uid']);
     		}
 
@@ -138,7 +138,7 @@ class DeleteParticipantTask extends AbstractTask {
     		}
 		} else {
 		    $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_selected');
-		    $statement = $queryBuilder
+            $result = $queryBuilder
 		      ->select('uid')
 		      ->from('tx_fpmasterquiz_domain_model_selected')
 		      ->where(
@@ -147,8 +147,9 @@ class DeleteParticipantTask extends AbstractTask {
 		      ->andWhere(
 		         $queryBuilder->expr()->lt('crdate', $queryBuilder->createNamedParameter($past, Connection::PARAM_INT))
 		      )
-		      ->executeQuery();
-		    while ($row = $statement->fetchAllAssociative()) {
+		      ->executeQuery()->fetchAllAssociative();
+            //echo $queryBuilder->getSQL();
+            foreach ($result as $row) {
 		        $selectedArray[] = intval($row['uid']);
 		    }
 
@@ -187,6 +188,6 @@ class DeleteParticipantTask extends AbstractTask {
 		      ->executeStatement();
 		}
 
-		return $successfullyExecuted;
+		return TRUE;
 	}
 }

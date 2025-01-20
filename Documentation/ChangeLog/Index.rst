@@ -50,7 +50,7 @@ ChangeLog
 
 1.2.0:
   New feature: 50:50 joker.
-  Page layout view / preview in the backend. 
+  Page layout view / preview in the backend.
   Bugfix: summation of points works now with negative points too.
   Bugfix: FlexForms in TYPO3 10.
   Bugfix: hidden-fields in the backend.
@@ -257,3 +257,6 @@ ChangeLog
   Support for TYPO3 12 dropped!
 
   The emails are now localized too.
+
+6.1.1:
+  Bugfix: tasks fixed.

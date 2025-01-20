@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 6.1.0
+version 6.1.1
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -27,6 +27,9 @@ Changes in 6.0.0:
 Changes in 6.1.0:
 - Support for TYPO3 12 dropped!
 - The emails are now localized too.
+
+Changes in 6.1.1:
+- Bugfix: tasks fixed.
 
 You find the whole changelog here:
 https://raw.githubusercontent.com/bihor/fp_masterquiz/refs/heads/master/Documentation/ChangeLog/Index.rst

@@ -172,7 +172,8 @@ class CsvExportTask extends AbstractTask
     }
 
 
-    public function execute() {
+    public function execute(): bool
+    {
         $successfullyExecuted = true;
         $ln = "\r\n";							// line break
         $uid = (int) $this->getPage();			// folder with quiz elements
@@ -202,9 +203,10 @@ class CsvExportTask extends AbstractTask
         $content = $text . $ln;					// header of the csv file
         $i = 0;									// Counter
         $mmArray = [];
+        $text = '';
 
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_answer');
-        $statement = $queryBuilder
+        $result = $queryBuilder
             ->select('title', 'points', 'uid_local', 'uid_foreign')
             ->from('tx_fpmasterquiz_domain_model_answer')
             ->join(
@@ -214,20 +216,20 @@ class CsvExportTask extends AbstractTask
                 $queryBuilder->expr()->eq('mm.uid_foreign', $queryBuilder->quoteIdentifier('tx_fpmasterquiz_domain_model_answer.uid'))
             )
             ->where(
-                $queryBuilder->expr()->eq('tx_fpmasterquiz_domain_model_answer.pid', $queryBuilder->createNamedParameter($uid, \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
+                $queryBuilder->expr()->eq('tx_fpmasterquiz_domain_model_answer.pid', $uid)
             )
             ->orderBy('mm.sorting', 'ASC')
-            ->executeQuery();
-        while ($row = $statement->fetchAllAssociative()) {
+            ->executeQuery()->fetchAllAssociative();
+        //echo $queryBuilder->getSQL();
+        foreach ($result as $row) {
             if (isset($mmArray[$row['uid_local']])) {
                 $mmArray[$row['uid_local']] .= $answersDelimiter . $row['title'];
             } else {
                 $mmArray[$row['uid_local']] = $row['title'];
             }
         }
-
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_participant');
-        $statement = $queryBuilder
+        $result = $queryBuilder
             ->select('tx_fpmasterquiz_domain_model_selected.uid AS suid', 'quiz.name AS qname', 'question.title AS qtitle',
                 'question.qmode', 'tx_fpmasterquiz_domain_model_selected.points AS spoints', 'tx_fpmasterquiz_domain_model_selected.entered',
                 'part.uid', 'part.name', 'email', 'homepage', 'part.points AS ppoints', 'part.maximum1', 'part.maximum2',
@@ -256,8 +258,9 @@ class CsvExportTask extends AbstractTask
             )
             ->orderBy('part.uid', 'DESC')
             ->addOrderBy('suid', 'ASC')
-            ->executeQuery();
-        while ($row = $statement->fetchAllAssociative()) {
+            ->executeQuery()->fetchAllAssociative();
+        //echo $queryBuilder->getSQL();
+        foreach ($result as $row) {
 
             if ($i > 0) {
                 $content .= $ln;
@@ -270,9 +273,11 @@ class CsvExportTask extends AbstractTask
                 }
 
                 if ($field === 'atitle') {
-                    $text = (!isset($mmArray[$row['suid']]) || $row['qmode'] == 3 || $row['qmode'] == 5 || $row['qmode'] == 6) ? '' : $mmArray[$row['suid']];
-                } else {
+                    $text = (!isset($row['suid']) || !isset($mmArray[$row['suid']]) || $row['qmode'] == 3 || $row['qmode'] == 5 || $row['qmode'] == 6) ? '' : $mmArray[$row['suid']];
+                } elseif (isset($row[trim($field)])) {
                     $text = $row[trim($field)];
+                } else {
+                    $text = '';
                 }
 
                 $text = preg_replace( "/\r|\n/", " ", (string) $text);
@@ -281,7 +286,7 @@ class CsvExportTask extends AbstractTask
                 }
 
                 if ($field === 'crdate') {
-                    $text = date("d.m.Y H:i", $text);
+                    $text = date("d.m.Y H:i", intval($text));
                 } elseif ($separator) {
                     $text = str_replace($separator, '', $text);
                 }
