@@ -32,7 +32,7 @@ Changes in 6.1.1:
 - Bugfix: tasks fixed.
 
 Changes in 6.2.0:
-- Layout changed: fieldset added to questions and user data in the form and settings.wrapQuestionTitle1 changed to <legend>
+- Layout changed: fieldset added to questions and user data in the form and settings.wrapQuestionTitle1 changed to legend.
 
 You find the whole changelog here:
 https://raw.githubusercontent.com/bihor/fp_masterquiz/refs/heads/master/Documentation/ChangeLog/Index.rst
