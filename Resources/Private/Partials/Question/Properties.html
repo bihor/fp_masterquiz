@@ -8,6 +8,7 @@
 </f:then><f:else>
 	<div class="card"><div class="card-body">
 </f:else></f:if>
+<fieldset>
 	<f:if condition="({settings.showPageNo} == 1) && ({settings.ajax} == 1) && ({pages} != 1)">
 	  <p class="quiz-progress">{f:translate(key: "text.page", extensionName: 'FpMasterquiz')} <span>{page}</span> {f:translate(key: "text.of", extensionName: 'FpMasterquiz')} {pages} ({pagePercent}%)</p>
 	</f:if>
@@ -175,6 +176,7 @@
 			</f:if>
 		</div>
 	</div>
+</fieldset>
 <f:if condition="{settings.groupByTag}"><f:then>
 	<f:if condition="{question.tag.name} != {question.nextTag}">
 		</div></div>
@@ -182,7 +184,7 @@
 </f:then><f:else>
 	</div></div>
 </f:else></f:if>
-<br />
+<br>
 <f:comment>
 Hint
 You can use this inline-condition for odd/even effects:

@@ -11,7 +11,8 @@
     </f:if>
     <p><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:questionsInFolder" /></p>
     <f:for each="{questions}" as="question">
-      <f:link.action controller="Question" action="move" arguments="{quiz : quiz, question : question}">{question.title}</f:link.action><br />
+      <f:link.action controller="Question" action="move" arguments="{quiz : quiz, question : question}">{question.title}</f:link.action>
+      <br>
     </f:for>
     <br/>
     <p><f:link.action controller="Quiz" action="detail" arguments="{quiz : quiz}" class="btn btn-default"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:backtoQuiz" default="Back to list" /></f:link.action></p>

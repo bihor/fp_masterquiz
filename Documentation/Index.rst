@@ -26,7 +26,7 @@ Master-Quiz
 		A modern extension that offers Quiz, Polls and Tests. 8 question-modes supported. Many features.
 
 	:Keywords:
-		quiz,test,poll,myquizpoll,myquizandpoll
+		quiz,test,poll
 
 	:Copyright:
 		2021

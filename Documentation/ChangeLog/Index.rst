@@ -256,7 +256,10 @@ ChangeLog
 6.1.0:
   Support for TYPO3 12 dropped!
 
-  The emails are now localized too.
+  The emails work now with TYPO3 13 too, and they are now localized too.
 
 6.1.1:
   Bugfix: tasks fixed.
+
+Changes in 6.2.0:
+  Layout changed: fieldset added to questions and user data in the form and settings.wrapQuestionTitle1 changed to <legend>

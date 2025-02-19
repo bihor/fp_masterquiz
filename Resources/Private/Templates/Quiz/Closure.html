@@ -12,7 +12,7 @@
   <p>{f:translate(key: "text.dataSaved")}</p>
 
   <f:if condition="{settings.resultPageUid}">
-    <br />
+    <br>
     <f:link.action controller="Quiz" action="result" pageUid="{settings.resultPageUid}" arguments="{quiz:quiz}"
                    class="btn btn-info">{f:translate(key: "text.showResultPage")}</f:link.action>
   </f:if>

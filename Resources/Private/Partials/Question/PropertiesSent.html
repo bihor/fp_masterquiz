@@ -36,14 +36,14 @@
 						</f:else>
 						</f:if>
 						<f:for each="{selection.answers}" as="answer" iteration="nr">
-							<f:comment> {selection.question -> f:debug(title: 'Members of selection.question')} </f:comment> 
-							<f:comment> {selection -> f:debug(title: 'Members of selection')} </f:comment> 
+							<f:comment> {selection.question -> f:debug(title: 'Members of selection.question')} </f:comment>
+							<f:comment> {selection -> f:debug(title: 'Members of selection')} </f:comment>
 							<f:switch expression="{selection.question.qmode}">
 							<f:case value="3">
-								<f:comment>When 'Enter an answer' in a text field</f:comment> 
+								<f:comment>When 'Enter an answer' in a text field</f:comment>
 								<f:comment> {answer -> f:debug(title: 'Members of answer')} / no HTML for entered Text allowed:	</f:comment>
 								<ul><li>{selection.entered -> f:format.nl2br()}</li></ul>
-							</f:case>									
+							</f:case>
 							<f:case value="5">
 								<f:comment>When 'Enter an answer' in a textarea</f:comment>
 								<ul><li>{selection.entered -> f:format.nl2br()}</li></ul>
@@ -79,7 +79,7 @@
 							</f:switch>
 						</f:for>
 					</f:if>
-				
+
 					<f:if condition="((({settings.showCorrectAnswers} == 2) && ({final} == 0)) || ({settings.showCorrectAnswers} == 1)) && ({enablePoints} > 0)">
 						<f:comment> Nur die richtigen Antworten bei einem Quiz anzeigen </f:comment>
 						<p>{f:translate(key: "text.correctAnswers", default: 'Correct answers:', extensionName: 'FpMasterquiz')}</p>
@@ -100,7 +100,7 @@
 						</f:for>
 						</ul>
 					</f:if>
-				
+
 					<f:if condition="(({settings.showEveryAnswer} == 2) && ({final} == 0)) || ({settings.showEveryAnswer} == 1)">
 						<f:comment> Alle Antworten bei einer Frage und dann nur die beantworteten Fragen anzeigen </f:comment>
 						<ul class="quiz-showEveryAnswer">
@@ -118,11 +118,11 @@
 										<f:else>{answer5.title -> f:format.nl2br()}</f:else>
 									</f:if>
 									<f:if condition="{settings.showPoints} && {enablePoints}"> ({answer5.points} {f:translate(key: "text.points", default: 'P', extensionName: 'FpMasterquiz')})</f:if>
-								</li></f:spaceless> 
+								</li></f:spaceless>
 							</f:for>
 						</ul>
 					</f:if>
-				
+
 					<f:if condition="({settings.showAllAnswers} == 1) && ({final} == 1)">
 						<f:comment> Alle Fragen am Schluss anzeigen </f:comment>
 						<p>{f:translate(key: "text.allAnswers", default: 'All answers:', extensionName: 'FpMasterquiz')}</p>
@@ -135,7 +135,7 @@
 						</f:else>
 						</f:if>
 					</f:if>
-					
+
 					<f:if condition="{settings.showPoints} && {enablePoints}">
 						<p>{f:translate(key: "text.pointsQuestion", default: 'Points: ', extensionName: 'FpMasterquiz')} {selection.points}/{maxPoints}.</p>
 					</f:if>
@@ -149,7 +149,7 @@
 		</f:if>
 	</div>
 	<f:if condition="{selection.question.explanation}">
-		<br />
+		<br>
 		<p>{f:translate(key: "text.explanation", default: 'Explanation: ', extensionName: 'FpMasterquiz')}</p>
 		<f:format.html>{selection.question.explanation}</f:format.html>
 	</f:if>
@@ -160,5 +160,5 @@
 </f:then><f:else>
 	</div></div>
 </f:else></f:if>
-<br />
+<br>
 </html>

@@ -1,6 +1,6 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 	<f:layout name="Default" />
- 
+
 	<f:section name="content">
 		<f:flashMessages />
 		{settings.template.wrapQuizTitle1 -> f:format.raw()}{quiz.name}{settings.template.wrapQuizTitle2 -> f:format.raw()}
@@ -106,7 +106,7 @@
 							</f:else></f:if>
 						</div>
 						<f:if condition="{question.explanation}">
-							<br />
+							<br>
 							<p>{f:translate(key: "text.explanation", default: 'Explanation: ')}</p>
 							<f:format.html>{question.explanation}</f:format.html>
 						</f:if>

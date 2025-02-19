@@ -208,7 +208,7 @@
 			    </script>
 		    </f:form>
 			<f:if condition="{settings.resultPageUid}">
-				<br />
+				<br>
 				<f:link.action controller="Quiz" action="result" pageUid="{settings.resultPageUid}" arguments="{quiz:quiz}"
 					class="btn btn-info">{f:translate(key: "text.showResultPage")}</f:link.action>
 			</f:if>
@@ -346,7 +346,7 @@
 						</f:if>
 
 						<f:if condition="{settings.resultPageUid}">
-							<br />
+							<br>
 							<f:link.action controller="Quiz" action="result" pageUid="{settings.resultPageUid}" arguments="{quiz:quiz}"
 								class="btn btn-info">{f:translate(key: "text.showResultPage")}</f:link.action>
 						</f:if>
@@ -357,7 +357,8 @@
 
 						<f:if condition="{showAnswers}"><f:then></f:then><f:else>
 							<f:if condition="{settings.template.optionalMark}">
-								<br><p>{settings.template.optionalMark -> f:format.raw()}{f:translate(key: "text.optional")}</p>
+								<br>
+                                <p>{settings.template.optionalMark -> f:format.raw()}{f:translate(key: "text.optional")}</p>
 							</f:if>
 						</f:else></f:if>
 					</f:then>
