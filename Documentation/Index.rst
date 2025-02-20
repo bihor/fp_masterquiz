@@ -29,7 +29,7 @@ Master-Quiz
 		quiz,test,poll
 
 	:Copyright:
-		2021
+		2025
 
 	:Author:
 		Kurt Gusbeth

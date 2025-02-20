@@ -67,7 +67,7 @@ This screenshots shows you a quiz in the list view and some FlexForm-settings of
 Actions
 -------
 
-You can select in the plugin-configuration via FlexForms between this actions:
+You can use one of this plugins:
 
 - list: list of all quiz/poll/test of one folder with links to the single view
 
@@ -102,7 +102,8 @@ A time period can be defined at a quiz and at a tag. When the time is up, the fo
 Points
 ------
 
-There is no checkbox for correct answers! To check a answer as correct, you need to set a value greater than 0 at the points-field.
+There is no checkbox for correct answers in the backend!
+To check a answer as correct, you need to set a value greater than 0 at the points-field.
 You can set 0 or a negative value for wrong answers.
 You don´t need to set points for polls.
 
@@ -136,7 +137,7 @@ It looks like this:
 
 You can use it this way: because it uses radio-boxes in the background, you must configure it like radio-boxes.
 Select the question mode "star rating" and than add as many answers as you like to have stars. If you want 5 stars, add 5 answers.
-The first answer is the highest rating (e.g. 5 stars) and and last answer is the lowest answer (1 star). 
+The first answer is the highest rating (e.g. 5 stars) and and last answer is the lowest answer (1 star).
 That is the opposite logic of the star rating in the extension myquizpoll.
 Do not set the points. In the user-answer, the points shows how many stars were selected.
 With the setting checkAllStars you can define if one or all stars should be checked by default.

@@ -11,8 +11,8 @@
 Administrator Manual
 ====================
 
-Note: only the templates Quiz/List.html, Quiz/Show.html and Quiz/ShowAjax.html are in use!
-Don´t remove classes or IDs that begin with quiz, because some of them are used to validate the form!
+Note 1: the main templates are: Quiz/List.html, Quiz/Show.html, Quiz/ShowByTag.html and Quiz/ShowAjax.html.
+Note 2: don´t remove classes or IDs that begin with quiz, because some of them are used to validate the form!
 
 
 .. _admin-installation:
@@ -20,13 +20,7 @@ Don´t remove classes or IDs that begin with quiz, because some of them are used
 Installation
 ------------
 
-To install the extension, perform the following steps:
-
-#. Go to the Extension Manager
-#. Install the extension
-#. Load the static template
-#. Create a quiz... but read the user manual before.
-
+The extension can be installed via Extension Manager or Composer.
 For a list of configuration options, go to the chapter Configuration.
 
 
@@ -178,7 +172,7 @@ FAQ
 - How can I rename or hide some fields in the Backend?
 
   See chapter “Configuration / Page TSConfig”.
-  
+
 - How can I use routing / speaking urls?
 
   See chapter “Configuration / Routing”.

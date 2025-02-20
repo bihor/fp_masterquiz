@@ -31,9 +31,9 @@ Properties
 
 .. container:: ts-properties
 
-============================ =========== =============================================== ===========================
+============================ =========== =============================================== ==============================
 Property                     Data type   Description                                     Default
-============================ =========== =============================================== ===========================
+============================ =========== =============================================== ==============================
 startPageUid                 integer     UID of the page where to restart (listPid).     -
 showPageUid                  integer     UID of the single-page of a quiz (detailPid).   -
 closurePageUid               integer     UID of a closure-page of a quiz.                -
@@ -101,8 +101,8 @@ template.wrapQuizDesc1       string      Wrap for the quiz description.         
 template.wrapQuizDesc2       string      Wrap for the quiz description.                  </h3>
 template.wrapTagName1        string      Wrap for the tag name.                          <h4>
 template.wrapTagName2        string      Wrap for the tag name.                          </h4>
-template.wrapQuestionTitle1  string      Wrap for the question title.                    <div class="mx-auto"><h4>
-template.wrapQuestionTitle2  string      Wrap for the question title.                    </h4></div>
+template.wrapQuestionTitle1  string      Wrap for the question title.                    <legend><div class="mx-auto">
+template.wrapQuestionTitle2  string      Wrap for the question title.                    </div></legend>
 template.wrapQuestionDesc1   string      Wrap for the question description.              <div class="mx-auto">
 template.wrapQuestionDesc2   string      Wrap for the question description.              </div>
 template.wrapDone1           string      Wrap for the done-msg at the final page.        <h4>
@@ -114,7 +114,7 @@ templateLayout               integer     See in chapter PageTSconfig**.         
 overrideFlexformSettings...  string      Fields that should be overwritten if empty.     startPageUid,...
 debug                        integer     Show debug data? 0: no; 1: in HTML; 2: in file. 0
 typeNum                      integer     Type of the AJAX-call. Don´t change it.         190675
-============================ =========== =============================================== ===========================
+============================ =========== =============================================== ==============================
 
 AJAX*) If you enable AJAX, you should know this:
 
@@ -294,7 +294,7 @@ setMetatags
 :typoscript:`plugin.tx_fpmasterquiz.settings.setMetatags = -1`
 
 This will set at least the metatags description, og:description, og:title and it will change the title of the page.
-Used values: name and description of a quiz. This works only in a single view of a quiz. 
+Used values: name and description of a quiz. This works only in a single view of a quiz.
 
 
 .. _user.useCookie:

@@ -18,7 +18,9 @@ CSV-export available via scheduler task.
 
 Available languages: english and german/deutsch.
 
-You find the documentation at typo3.org: https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
+You find the documentation at typo3.org:
+https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
+https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/de-de/
 
 Changes in 6.0.0:
 - First version for TYPO3 13, but emails are not working with TYPO3 13!
@@ -33,6 +35,7 @@ Changes in 6.1.1:
 
 Changes in 6.2.0:
 - Layout changed: fieldset added to questions and user data in the form and settings.wrapQuestionTitle1 changed to legend.
+- Documentation translated to german.
 
 You find the whole changelog here:
 https://raw.githubusercontent.com/bihor/fp_masterquiz/refs/heads/master/Documentation/ChangeLog/Index.rst

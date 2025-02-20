@@ -246,6 +246,7 @@ ChangeLog
 
 5.2.0:
   Refactoring with the rector-project.
+
   Preparations for TYPO3 13. Attention: the path to the backend templates is now defined in Configuration/page.tsconfig.
 
 6.0.0:
@@ -261,5 +262,7 @@ ChangeLog
 6.1.1:
   Bugfix: tasks fixed.
 
-Changes in 6.2.0:
+6.2.0:
   Layout changed: fieldset added to questions and user data in the form and settings.wrapQuestionTitle1 changed to legend.
+
+  Documentation translated to german.

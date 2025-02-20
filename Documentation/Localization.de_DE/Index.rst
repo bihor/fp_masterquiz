@@ -15,7 +15,7 @@
 .. only:: html
 
 	:Klassifikation:
-		extension_key
+		fp_masterquiz
 
 	:Version:
 		|release|
@@ -24,10 +24,10 @@
 		de
 
 	:Beschreibung:
-		Geben Sie eine Beschreibung ein.
+	    Eine moderne Extension für Quizze, Umfragen und Tests. 8 Frage-Modi stehen zur Auswahl. Viele Features.
 
 	:Schlüsselwörter:
-		komma-getrennte,Liste,von,Schlüsselwörtern
+		quiz,test,umfrage
 
 	:Copyright:
 		###YEAR###
@@ -36,7 +36,7 @@
 		###AUTHOR###
 
 	:E-Mail:
-		author@example.com
+		k.gusbeth@fixpunkt.com
 
 	:Lizenz:
 		Dieses Dokument wird unter der Open Publication License, siehe
@@ -56,10 +56,9 @@
 	:titlesonly:
 
 ..	Introduction/Index
-..	UserManual/Index
-..	AdministratorManual/Index
+..	User/Index
+..	Administrator/Index
 ..	Configuration/Index
-..	DeveloperCorner/Index
 ..	KnownProblems/Index
 ..	ToDoList/Index
 ..	ChangeLog/Index
