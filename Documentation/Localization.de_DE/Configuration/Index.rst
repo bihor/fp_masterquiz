@@ -137,32 +137,32 @@ AJAX*) Wenn man AJAX aktiviert, sollte man folgendes wissen:
   [FE][pageNotFoundOnCHashError] = false
   Fazit: Verwende die Ajax-Version nur, wenn sie wirklich benötigt wird.
 
-- *Wichtig*: Wenn das Plugin
-  "Ein bestimmtes Quiz anzeigen und den Pagebrowser verwenden (Sie müssen auch den Speicherordner auswählen)" /
-  "Ein bestimmtes Quiz anzeigen und den Pagebrowser nutzen (Datensatzsammlung muss dennoch gewählt werden)" nicht verwenden,
-  müssen Sie diesen TypoScript-Wert ändern: "ajaxfpmasterquiz_page.10.pluginName".
-  Stellen Sie ihn auf "Liste" oder "Intro" ein (je nach ausgewähltem Plugin).
+- *Wichtig*: Wenn man nicht das Plugin
+  "Show a selected quiz and use a pagebrowser (you need to select the storage folder too)" /
+  "Ein bestimmtes Quiz anzeigen und den Pagebrowser nutzen (Datensatzsammlung muss dennoch gewählt werden)",
+  verwendet, muss man diesen TypoScript-Wert ändern: "ajaxfpmasterquiz_page.10.pluginName".
+  Stell ihn auf "List" oder "Intro" ein (je nach ausgewähltem Plugin).
 
 - Das Speichern von Benutzerdaten (auf der letzten Seite) funktioniert nicht.
 
-- Sie haben immer noch Probleme? Dann lesen Sie das Kapitel "Bekannte Probleme".
+- Es gibt weitere Probleme? Dann lies noch das Kapitel "Bekannte Probleme".
 
-Layout**) Wenn Sie das Template-Layout 1 verwenden, sollten Sie Folgendes wissen:
+Layout**) Wenn man das Template-Layout 1 verwendet, sollte man folgendes wissen:
 
-- Die Diagrammeinstellungen werden ignoriert, wenn Sie ein anderes Layout verwenden.
+- Die Diagrammeinstellungen werden ignoriert, wenn man ein anderes Layout verwendet.
 
 - Die ApexCharts werden automatisch verwendet. Weitere Informationen: https://apexcharts.com/
 
-feusers°) Wenn Sie für user.checkFEuser einen Wert größer als 1 verwenden, kann ein Teilnehmer mehr als einmal teilnehmen.
+feusers°) Wenn man für user.checkFEuser einen Wert größer als 1 verwendet, kann ein Teilnehmer mehr als einmal teilnehmen.
+Wenn man den Wert auf 4 setzt, sind 4 Teilnahmen zulässig (nicht im Ajax-Modus getestet).
 
-Wenn Sie den Wert auf 4 setzen, sind 4 Teilnahmen zulässig (nicht im Ajax-Modus getestet).
-
-Hinweis: Wenn Sie eine Cookie- oder FEuser-Prüfung aktivieren, kann ein Benutzer nicht erneut abstimmen, wenn er bereits abgestimmt/teilgenommen hat.
+Hinweis: Wenn man eine Cookie- oder FEuser-Prüfung aktiviert, kann ein Benutzer nicht erneut abstimmen,
+wenn er bereits abgestimmt/teilgenommen hat.
 Der Teilnehmer sieht sein Ergebnis einer Umfrage/eines Quiz anstelle der Kontrollkästchen/Optionsfelder.
 
-Hinweis: Lesen Sie das Kapitel „Benutzerhandbuch“ für weitere Informationen zu diesen Eigenschaften/Einstellungen.
+Hinweis: Lies das Kapitel „Benutzerhandbuch“ für weitere Informationen zu diesen Eigenschaften/Einstellungen.
 
-Hinweis: Die Seitenbrowser-Einstellungen werden ignoriert, wenn Sie die Aktion „Nach Tag anzeigen“ verwenden.
+Hinweis: Die Seitenbrowser-Einstellungen werden ignoriert, wenn man die Aktion „Nach Tag anzeigen“ verwendet.
 
 Hinweis: - bedeutet: kein Standardwert.
 
@@ -183,7 +183,7 @@ itemsPerPage
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.pagebrowser.itemsPerPage = 2`
 
-Show 2 questions per page.
+Zeigt 2 Fragen pro Seite an.
 
 
 .. _user.defaultName:
@@ -193,8 +193,9 @@ defaultName
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.user.defaultName = User {TIME}`
 
-Every quiz-taker gets a name in the database. If "user.askForData=0" then this name will be used. {TIME} will
-be replaced by date and time. If "user.checkFEuser=1" then the name of the FE-user will be used.
+Jeder Quizteilnehmer erhält einen Namen in der Datenbank.
+Wenn "user.askForData=0" ist, wird dieser Name verwendet. {TIME} wird durch Datum und Uhrzeit ersetzt.
+Wenn "user.checkFEuser=1" ist, wird der Name des FE-Benutzers verwendet.
 
 
 .. _showAnswerPage:
@@ -204,7 +205,7 @@ showAnswerPage
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.showAnswerPage = 0`
 
-No answers-page will be shown after every submit. The next question(s) will be shown.
+Nach jedem Absenden wird keine Antwortseite angezeigt. Die nächste(n) Frage(n) werden angezeigt.
 
 
 .. _showEveryAnswer:
@@ -214,11 +215,11 @@ showEveryAnswer
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.showEveryAnswer = 2`
 
-At an answers-page (after every submit) all answers are shown like on the page before.
-Additionally the correct answers are marked green and wrong answered answers are marked red.
-If set to 2, this answers are not shown at the final page.
-Otherwise they are displayed at the final page too if showAnswersAtFinalPage is set to 1.
-Note: this is tested only with checkboxes and radio buttons!
+Auf einer Antworten-Seite (nach jedem Absenden) werden alle Antworten wie auf der Seite davor angezeigt.
+Zusätzlich werden die richtigen Antworten grün und die falsch beantworteten Antworten rot markiert.
+Wenn der Wert auf 2 gesetzt ist, werden diese Antworten auf der letzten Seite nicht angezeigt.
+Andernfalls werden sie auch auf der letzten Seite angezeigt, wenn showAnswersAtFinalPage auf 1 gesetzt ist.
+Hinweis: Dies wurde nur mit Kontrollkästchen und Optionsfeldern getestet!
 
 
 .. _allowEdit:
@@ -228,10 +229,11 @@ allowEdit
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.allowEdit = 1`
 
-If you enable this feature, links to all pages of a quiz are shown, so an user can edit their answers.
-Note: this works only for the action "show by tag" and questions of type radio, checkbox or text.
-Note: this feature disables the answer-page!
-Note: set allowEdit = 2, if participants should be able to edit even a completed quiz/poll.
+Wenn man diese Funktion aktiviert, werden Links zu allen Seiten eines Quiz angezeigt,
+sodass ein Benutzer seine Antworten bearbeiten kann.
+Hinweis: Dies funktioniert nur für die Aktion „Nach Tag anzeigen“ und Fragen vom Typ „Radio“, „Kontrollkästchen“ oder „Text“.
+Hinweis: Diese Funktion deaktiviert die Antwortseite!
+Hinweis: Setze allowEdit = 2, wenn Teilnehmer auch ein abgeschlossenes Quiz/Umfrage bearbeiten können sollen.
 
 
 .. _random:
@@ -241,8 +243,8 @@ random
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.random = 1`
 
-If you enable this feature, the tags will be shuffled. The changed order will be saved in the DB too.
-Note: this works only for the action "show by tag", because tags and not questions are randomized.
+Wenn man diese Funktion aktiviert, werden die Tags neu sortiert. Die geänderte Reihenfolge wird auch in der Datenbank gespeichert.
+Hinweis: Dies funktioniert nur bei der Aktion „Nach Tag anzeigen“, da Tags und nicht Fragen zufällig sortiert werden.
 
 
 .. _noFormCheck:
@@ -252,10 +254,11 @@ noFormCheck
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.noFormCheck = 1`
 
-Normally every question needs to be answered before the page can be send. You can disable this check generally.
-Since version 3.2.0 you can define at each question if it should be optional or not.
-Note: only question of type radio, checkbox, select-box, input-field and textarea are checked. All answers to other type of
-questions are optional (they will not be checked).
+Normalerweise muss jede Frage beantwortet werden, bevor die Seite gesendet werden kann.
+Man kann diese Prüfung generell deaktivieren.
+Seit Version 3.2.0 kann man bei jeder Frage angeben, ob sie optional sein soll oder nicht.
+Hinweis: Es werden nur Fragen vom Typ Radio, Kontrollkästchen, Auswahlfeld, Eingabefeld und Textbereich geprüft.
+Alle Antworten auf andere Arten von Fragen sind optional (sie werden nicht geprüft).
 
 
 .. _pointsMode:
@@ -265,11 +268,14 @@ pointsMode
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.pointsMode = 1`
 
-In the default mode, negative points are possible at e.g. checkboxes when not all correct answers are checked.
-pointsMode=1: negative points will be set to 0 points.
-pointsMode=3: like pointsMode=1, but when not all correct answers are selected, the participant will get 0 points for
-the whole question instead of x/y points.
-pointsMode=4: like pointsMode=3, but when all answers are answered correct, only 1 point will be given, else 0.
+Im Standardmodus sind Minuspunkte z. B. bei Checkboxen möglich, wenn nicht alle richtigen Antworten angekreuzt sind.
+
+pointsMode=1: Minuspunkte werden auf 0 Punkte gesetzt.
+
+pointsMode=3: wie pointsMode=1, aber wenn nicht alle richtigen Antworten angekreuzt sind, bekommt der Teilnehmer für
+die ganze Frage 0 Punkte statt x/y Punkte.
+
+pointsMode=4: wie pointsMode=3, aber wenn alle Antworten richtig beantwortet sind, wird nur 1 Punkt vergeben, sonst 0.
 
 
 .. _joker:
@@ -279,14 +285,17 @@ joker
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.joker = 1`
 
-A 50:50 joker can be enabled with this setting. This works only, if you set "ajax = 1" too.
-The joker will use all answers with points greater than 0. The rest of the answers will be selected randomly by the joker.
-You can not set in the backend, which answers the joker should show. If the number of answers is odd, than it works like this:
-with 5 answers 3 answers will be disabled by the joker / the joker will hide 2 wrong answers randomly.
-The disabled answers will be hidden by setting the class "d-none". You could change "d-none" to something else in the Partial Question/Properties.html.
-This works only with radio-buttons and check-boxes!
-When a joker is used, the user gets only half of the points.
-The half points will be rounded up, therefore you should not set points to 1. 2 or 10 is a better value if you use this joker.
+Mit dieser Einstellung kann ein 50:50-Joker aktiviert werden. Dies funktioniert nur, wenn auch "ajax = 1" gesetzt ist!
+Der Joker verwendet alle Antworten mit Punkten größer als 0. Die restlichen Antworten werden vom Joker zufällig ausgewählt.
+Man kann im Backend nicht festlegen, welche Antworten der Joker anzeigen soll.
+Wenn die Anzahl der Antworten ungerade ist, funktioniert es folgendermaßen:
+Bei 5 Antworten werden 3 Antworten vom Joker deaktiviert / der Joker blendet zufällig 2 falsche Antworten aus.
+Die deaktivierten Antworten werden durch Setzen der Klasse "d-none" ausgeblendet.
+Man kann "d-none" in der Partial Question/Properties.html durch etwas anderes ersetzen.
+Dies funktioniert nur mit Radio-Buttons und Kontrollkästchen!
+Wenn ein Joker verwendet wird, erhält der Benutzer nur die Hälfte der Punkte.
+Die halben Punkte werden aufgerundet, daher sollten die Punkte nicht auf 1 gesetzt werden.
+2 oder 10 sind ein besserer Wert, wenn man diesen Joker verwendet.
 
 
 .. _setMetatags:
@@ -296,8 +305,8 @@ setMetatags
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.setMetatags = -1`
 
-This will set at least the metatags description, og:description, og:title and it will change the title of the page.
-Used values: name and description of a quiz. This works only in a single view of a quiz.
+Dadurch werden zumindest die Metatags Beschreibung, og:description und og:title festgelegt und der Titel der Seite geändert.
+Verwendete Werte: Name und Beschreibung eines Quiz. Dies funktioniert nur in einer Einzelansicht eines Quiz.
 
 
 .. _user.useCookie:
@@ -307,13 +316,15 @@ user.useCookie
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.user.useCookie = -1`
 
-A session can be stored in a cookie, so a user can continue later with a quiz.
-This even means, that a user can not make a quiz or poll twice!
--1 means: the cookie will be stored until the browser is closed.
-1 and greater means: a cookie will be stored for X days.
-Please note: sessions and cookies are not working if you enable Ajax. They are currently not supported in the Ajax-version.
-Note furthermore: if enabling the cookies, these cookies will be saved: qsessionXX. XX is the quiz-ID.
-This cookies are not bad! You don´t need a cookie bar for it, but you need to tell about it at your GDPR-site.
+Eine Session kann in einem Cookie gespeichert werden, damit ein Benutzer später mit einem Quiz fortfahren kann.
+Das bedeutet sogar, dass ein Benutzer kein Quiz oder keine Umfrage zweimal durchführen kann!
+-1 bedeutet: das Cookie wird gespeichert, bis der Browser geschlossen wird.
+1 und höher bedeutet: ein Cookie wird für X Tage gespeichert.
+Bitte beachten: Sessions und Cookies funktionieren nicht, wenn Ajax aktiviert ist.
+Sie werden derzeit in der Ajax-Version nicht unterstützt.
+Beachte außerdem: Wenn man die Cookies aktiviert, werden diese Cookies gespeichert: qsessionXX. XX ist die Quiz-ID.
+Diese Cookies sind nicht schlecht! Man braucht dafür keine Cookie-Leiste,
+aber man muss auf der DSGVO-Seite darüber informieren.
 
 
 .. _user.askForData:
@@ -323,12 +334,13 @@ user.askForData
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.user.askForData = 3`
 
-4 options are available: 0, 1, 2 or 3. 0 means: don´t ask for user data like name oder email.
-The other values enables a form, that ask the user for this data: name, email and homepage.
-1: the form will appear at the first page of a quiz.
-2: the form will appear at the intro page.
-3: the form will appear at the final page of a quiz. Note: in this case you will need to define a closure page too!
-Setting: closurePageUid. The form from the final page will redirect to this page. Note: this does not work in the AJAX version.
+Es stehen 4 Optionen zur Verfügung: 0, 1, 2 oder 3.
+0 bedeutet: keine Abfrage von Benutzerdaten wie Name oder E-Mail.
+Die anderen Werte aktivieren ein Formular, das den Benutzer nach diesen Daten fragt: Name, E-Mail und Homepage.
+1: Das Formular erscheint auf der ersten Seite eines Quiz.
+2: Das Formular erscheint auf der Einführungsseite.
+3: Das Formular erscheint auf der letzten Seite eines Quiz. Hinweis: In diesem Fall muss auch eine Abschlussseite definiert sein!
+Einstellung: closurePageUid. Das Formular von der letzten Seite leitet auf diese Seite weiter. Hinweis: Dies funktioniert nicht in der AJAX-Version.
 
 
 .. _email.specific:
@@ -338,27 +350,28 @@ email.specific
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.email.specific = {"116":{"415":{"email":"green@test.de","name":"Grün","subject":"Lieblingsfarbe ist grün!"},"416":{"email":"red@test.de","name":"Rot","subject":"Lieblingsfarbe ist rot!"}}}`
 
-Send an email on specific answer? Can be set as an JSON-object:
+Bei konkreter Antwort eine E-Mail an unterschiedliche Empfänger senden? Kann als JSON-Objekt gesetzt werden:
 
 {"question_uid":{"answer_uid":{"email":"E-mail 1","name":"Name 1","subject":"Subject 1"},"answer_uid":{"email":"E-mail 2","name":"Name 2","subject":"Subject 2"}}}
 
-All values are mandatory. Take care to use correct quotes (")!
+Alle Werte sind Pflichtfelder. Achten Sie auf die korrekte Verwendung der Anführungszeichen (")!
 
-Example question: "Frage 1: Lieblingsfarbe" (question_id in the DB: 116), Answer 1: blau (answer_id in the DB: 414), Answer 2 (answer_id in the DB: 415): grün, Answer 3: rot (answer_id in the DB: 416)
+Beispiel-Frage: "Frage 1: Lieblingsfarbe" (question_id in the DB: 116), Answer 1: blau (answer_id in the DB: 414), Answer 2 (answer_id in the DB: 415): grün, Answer 3: rot (answer_id in the DB: 416)
 
-Example JSON-object: {"116":{"415":{"email":"green@test.de","name":"Grün","subject":"Lieblingsfarbe ist grün!"},"416":{"email":"red@test.de","name":"Rot","subject":"Lieblingsfarbe ist rot!"}}}
+Beispiel JSON-Objekt: {"116":{"415":{"email":"green@test.de","name":"Grün","subject":"Lieblingsfarbe ist grün!"},"416":{"email":"red@test.de","name":"Rot","subject":"Lieblingsfarbe ist rot!"}}}
 
-You can extend the object for every answer: {"12":{"2":{…},"3":{…}},13:{"1":{…},"5":{…}}}
+Man kann das Objekt für jede Antwort erweitern: {"12":{"2":{…},"3":{…}},13:{"1":{…},"5":{…}}}
 
-Note: this works only if "email.sendToAdmin = 1". If you set email.adminEmail too, then an additional admins gets the email too.
+Hinweis: Dies funktioniert nur, wenn „email.sendToAdmin = 1“ ist.
+Wenn auch „email.adminEmail“ festlegt, erhalten auch zusätzliche Administratoren die E-Mail.
 
 
 .. _Poll:
 
-Poll
-""""
+Umfrage
+"""""""
 
-With this TypoScript you can configure a simple poll with a pie chart as result::
+Mit diesem TypoScript kann man eine einfache Umfrage mit einem Kreisdiagramm als Ergebnis konfigurieren::
 
   plugin.tx_fpmasterquiz.persistence.storagePid = 279
   plugin.tx_fpmasterquiz.settings.startPageUid = 279
@@ -378,7 +391,7 @@ With this TypoScript you can configure a simple poll with a pie chart as result:
 Text
 """"
 
-You can change the text (of buttons) like this::
+Man kann den Text (der Schaltflächen/Buttons) wie folgt ändern::
 
   plugin.tx_fpmasterquiz._LOCAL_LANG.de {
     text.answer.input = Eingabe:
@@ -398,8 +411,8 @@ Debug
 
 :typoscript:`plugin.tx_fpmasterquiz.settings.debug = 2`
 
-If debug = 1, a debug output will be shown under the quiz/poll-output in the FE.
-If debug = 2, the debug output will be written in a log file called var/log/typo3_fpmasterquiz_*.log
+Wenn debug = 1, wird eine Debug-Ausgabe unter der Quiz-/Umfrage-Ausgabe im FE angezeigt.
+Wenn debug = 2, wird die Debug-Ausgabe in eine Protokolldatei namens var/log/typo3_fpmasterquiz_*.log geschrieben.
 
 
 .. _configuration-faq:
@@ -407,21 +420,21 @@ If debug = 2, the debug output will be written in a log file called var/log/typo
 FAQ
 ---
 
-- What about the evaluation of a quiz?
+- Wie sieht es mit der Bewertung eines Quiz aus?
 
-  This can be configured at every quiz.
+  Dies kann bei jedem Quiz konfiguriert werden.
 
-- Optional questions are not marked. Why not?
+- Optionale Fragen werden nicht markiert. Warum nicht?
 
-  You need to define the mark-symbol by yourself via the TypoScript-setting. E.g. settings.template.optionalMark = *.
+  Man muss das Markierungssymbol selbst über die TypoScript-Einstellung definieren. Z. B. settings.template.optionalMark = *.
 
-- Closed is a checkbox at a quiz-entry (tab Access). Why is it a setting too?
+- Geschlossen ist ein Kontrollkästchen bei einem Quizeintrag (Registerkarte Access). Warum ist das auch eine Einstellung?
 
-  Because with this 2 possibilities you can easy define if one or more quizzes shall be closed.
+  Weil man mit diesen beiden Möglichkeiten einfach festlegen kann, ob ein oder mehrere Quizze geschlossen werden sollen.
 
-- The text changes to english when I activate Ajax. Whats wrong?
+- Der Text ändert sich auf Englisch, wenn ich Ajax aktiviere. Was ist falsch?
 
-  You need to add some more TypoScript to your page. See chapter "Known problems".
+  Man muss der Seite noch etwas TypoScript hinzufügen. Siehe Kapitel „Bekannte Probleme“.
 
 .. toctree::
    :maxdepth: 5
