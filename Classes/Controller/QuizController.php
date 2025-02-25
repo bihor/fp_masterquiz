@@ -1256,7 +1256,7 @@ class QuizController extends ActionController
         foreach ($oneQuestion->getAnswers() as $oneAnswer) {
             $thisVotes = isset($allResults[$oneAnswer->getUid()]) ? intval($allResults[$oneAnswer->getUid()]) : 0;
             $votesTotal += $thisVotes;
-            if ($be && $isEnterQuestion && is_array($allResults) && is_array($allResults['text'])) {
+            if ($be && $isEnterQuestion && is_array($allResults) && isset($allResults['text']) && is_array($allResults['text'])) {
                 // bei Text-Antworten alle Textantworten berücksichtigen
                 foreach ($allResults['text'] as $otherKey => $otherValue) {
                     $votesTotal += $otherValue['sum'];

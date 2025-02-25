@@ -88,6 +88,7 @@ class PageLayoutView
 
         if ($params['row']['list_type'] == self::KEY . '_pi1') {
             $this->flexformData = GeneralUtility::xml2array($params['row']['pi_flexform']);
+            $this->tableData = [];
 
             // if flexform data is found
             $actions = $this->getFieldFromFlexform('switchableControllerActions');
