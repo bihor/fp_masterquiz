@@ -171,7 +171,12 @@ Die E-Mails funktionieren jetzt auch mit TYPO3 13 und sind jetzt auch lokalisier
 6.1.1:
 Bugfix: Tasks behoben.
 
-6.2.0:
+7.0.0:
+Breaking: die PlugIns wurden von list_type nach CType geändert.
+Man muss den Upgrade Wizward ausführen, um seine PlugIns zu aktualisieren.
+
+Breaking: wegen eines TYPO3-Bugs (issues/105135), läuft die Ajax-Version nicht mehr!
+
 Layout geändert: fieldset zu Fragen und Benutzerdaten im Formular hinzugefügt und
 settings.wrapQuestionTitle1 in legend geändert.
 

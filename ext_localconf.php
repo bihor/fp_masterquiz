@@ -16,7 +16,8 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
         ExtensionUtility::configurePlugin(
             'FpMasterquiz',
@@ -26,7 +27,8 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
         ExtensionUtility::configurePlugin(
             'FpMasterquiz',
@@ -36,7 +38,8 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'showByTag'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
         ExtensionUtility::configurePlugin(
             'FpMasterquiz',
@@ -46,7 +49,8 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'show, showAjax, showByTag'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
         ExtensionUtility::configurePlugin(
             'FpMasterquiz',
@@ -56,7 +60,8 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'closure'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
         ExtensionUtility::configurePlugin(
             'FpMasterquiz',
@@ -66,7 +71,8 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'result'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
         ExtensionUtility::configurePlugin(
             'FpMasterquiz',
@@ -76,7 +82,8 @@ call_user_func(
             ],
             [
                 \Fixpunkt\FpMasterquiz\Controller\QuizController::class => 'highscore'
-            ]
+            ],
+            ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
         );
 
         // register statistics tables for garbage collection

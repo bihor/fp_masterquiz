@@ -262,7 +262,12 @@ ChangeLog
 6.1.1:
   Bugfix: tasks fixed.
 
-6.2.0:
-  Layout changed: fieldset added to questions and user data in the form and settings.wrapQuestionTitle1 changed to legend.
+7.0.0:
+  Breaking: PlugIns changed from list_type to CType. You need to execute the Upgrade Wizard to change your PlugIns.
+
+  Breaking: due to a TYPO3 bug (issues/105135), the Ajax-Version is not working anymore!
+
+  Breaking: layout changed: fieldset added to questions and user data in the form and settings.wrapQuestionTitle1 changed to legend.
 
   Documentation translated to german.
+

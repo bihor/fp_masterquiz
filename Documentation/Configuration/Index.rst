@@ -127,6 +127,9 @@ AJAX*) If you enable AJAX, you should know this:
 
 - The AJAX-solution is not supported for the action "show by tag".
 
+- *Important*: the Ajax-version doesn´t work with version 7 due to a TYPO3 bug:
+  https://forge.typo3.org/issues/105135
+
 - *Important*: the AJAX-call calls an normal action and not an eID-script.
   The problem is, that the form contains no cHash.
   Therefore you must disable the cHash requirement in the install tool via:
