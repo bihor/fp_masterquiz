@@ -163,5 +163,5 @@ ajaxfpmasterquiz_page {
     no_cache = 1
     admPanel = 0
   }
-  10 < tt_content.fpmasterquiz_show
+  10 < tt_content.fpmasterquiz_show.20
 }

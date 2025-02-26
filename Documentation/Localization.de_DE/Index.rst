@@ -1,9 +1,4 @@
-﻿.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
-.. include:: ../Includes.txt
+﻿.. include:: ../Includes.txt
 
 
 .. _start:
@@ -44,6 +39,11 @@
 
 	:Gerendert:
 		|today|
+
+    :Dokumentation:
+        `english Version <https://docs.typo3.org/p/fixpunkt/fp-masterquiz/main/en-us/>`_,
+        `deutsche Version <https://docs.typo3.org/p/fixpunkt/fp-masterquiz/main/de-de/>`_
+
 
 	Der Inhalt dieses Dokuments bezieht sich auf TYPO3,
 	ein GNU/GPL CMS-Framework auf `www.typo3.org <https://typo3.org/>`__.

@@ -1,9 +1,4 @@
-﻿.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
-.. include:: ../../Includes.txt
+﻿.. include:: ../../Includes.txt
 
 
 .. _configuration:
@@ -129,8 +124,7 @@ AJAX*) Wenn man AJAX aktiviert, sollte man folgendes wissen:
 
 - Die AJAX-Lösung wird für die Aktion „Nach Tag anzeigen“ nicht unterstützt.
 
-- *Wichtig*: die Ajax-Version funktioniert mit Version 7 wegen eines TYPO3-Bug nicht mehr:
-  https://forge.typo3.org/issues/105135
+- *Wichtig*: die Ajax-Version funktioniert mit Version 7.0.0 nicht.
 
 - *Wichtig*: Der AJAX-Aufruf ruft eine normale Aktion und kein eID-Skript auf.
   Das Problem ist, dass das Formular keinen cHash enthält.

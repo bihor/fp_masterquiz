@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 7.0.0
+version 7.0.1
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -38,6 +38,9 @@ Changes in 7.0.0:
 - Breaking: due to a TYPO3 bug (issues/105135), the Ajax-Version is not working anymore!
 - Breaking: layout changed: fieldset added to questions and user data in the form and settings.wrapQuestionTitle1 changed to legend.
 - Documentation translated to german.
+
+Changes in 7.0.1:
+- Bugfix: the Ajax-version is now working again.
 
 You find the whole changelog here:
 https://raw.githubusercontent.com/bihor/fp_masterquiz/refs/heads/master/Documentation/ChangeLog/Index.rst
