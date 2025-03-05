@@ -1,15 +1,14 @@
-﻿.. include:: ../Includes.txt
-
+﻿.. include:: /Includes.rst.txt
 
 .. _start:
 
 =============================================================
-###PROJECT_NAME### (Deutsch)
+Master-Quiz-Extension
 =============================================================
 
 .. only:: html
 
-	:Klassifikation:
+	:Extension-Schlüssel:
 		fp_masterquiz
 
 	:Version:
@@ -25,10 +24,10 @@
 		quiz,test,umfrage
 
 	:Copyright:
-		###YEAR###
+		2025
 
 	:Autor:
-		###AUTHOR###
+		Kurt Gusbeth
 
 	:E-Mail:
 		k.gusbeth@fixpunkt.com

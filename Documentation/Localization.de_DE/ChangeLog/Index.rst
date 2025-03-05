@@ -1,5 +1,4 @@
-﻿.. include:: ../../Includes.txt
-
+﻿.. include:: /Includes.rst.txt
 
 .. _changelog:
 
@@ -176,3 +175,6 @@ Layout geändert: fieldset zu Fragen und Benutzerdaten im Formular hinzugefügt 
 settings.wrapQuestionTitle1 in legend geändert.
 
 Deutsche Dokumentation hinzugefügt.
+
+7.0.1:
+Bugfix: die Ajax-version läuft nun wieder.

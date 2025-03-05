@@ -1,13 +1,4 @@
-.. include:: ../../../Includes.txt
-
-.. ==================================================
-.. DEFINE SOME TEXTROLES
-.. --------------------------------------------------
-.. role::   underline
-.. role::   typoscript(code)
-.. role::   ts(typoscript)
-   :class:  typoscript
-.. role::   php(code)
+.. include:: /Includes.rst.txt
 
 
 Frontend-Routing-Setup

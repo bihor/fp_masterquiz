@@ -1,10 +1,4 @@
-﻿.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
-
-.. include:: ../Includes.txt
-
+﻿.. include:: /Includes.rst.txt
 
 .. _changelog:
 
@@ -271,3 +265,5 @@ ChangeLog
 
   Documentation translated to german.
 
+7.0.1:
+  Bugfix: the Ajax-version is now working again.
