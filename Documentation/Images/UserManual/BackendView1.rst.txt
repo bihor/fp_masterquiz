@@ -1,0 +1,2 @@
+.. figure:: /Images/UserManual/BackendView1.jpg
+   :class: with-shadow

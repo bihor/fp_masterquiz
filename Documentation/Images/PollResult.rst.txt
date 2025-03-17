@@ -1,0 +1,2 @@
+.. figure:: /Images/PollResult.jpg
+   :class: with-shadow

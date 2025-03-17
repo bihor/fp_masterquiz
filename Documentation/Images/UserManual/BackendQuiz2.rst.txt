@@ -1,0 +1,2 @@
+.. figure:: /Images/UserManual/BackendQuiz2.jpg
+   :class: with-shadow

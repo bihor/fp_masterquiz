@@ -35,27 +35,19 @@ After you have created a quiz with some questions you can add the plugin at a pa
 
 This screenshots shows you a quiz in the list view and some FlexForm-settings of the plugin.
 
-.. figure:: ../Images/UserManual/BackendView1.jpg
-   :width: 486px
-   :alt: Backend view of a quiz
+.. include:: /Images/UserManual/BackendView1.rst.txt
 
    Backend view of a quiz/poll.
 
-.. figure:: ../Images/UserManual/BackendPlugin1.jpg
-   :width: 348px
-   :alt: Backend view of the plugin
+.. include:: /Images/UserManual/BackendPlugin1.rst.txt
 
    Backend view of the plugin (part 1). Many Flexform settings!
 
-.. figure:: ../Images/UserManual/BackendPlugin2.jpg
-   :width: 322px
-   :alt: Backend view of the plugin
+.. include:: /Images/UserManual/BackendPlugin2.rst.txt
 
    Backend view of the plugin (part 2).
 
-.. figure:: ../Images/UserManual/BackendQuiz2.jpg
-   :width: 800px
-   :alt: Backend view in the list view.
+.. include:: /Images/UserManual/BackendQuiz2.rst.txt
 
    You can edit every field of a quiz in the extended view.
 
@@ -124,9 +116,7 @@ Since version 3.1.3 you can remove the css file via TypoScript (or in the templa
 Otherwise you should know this: the star rating may not work correct with old browsers. It is a CSS only solution.
 It looks like this:
 
-.. figure:: ../Images/UserManual/StarRating.png
-   :width: 164px
-   :alt: Star rating
+.. include:: /Images/UserManual/StarRating.rst.txt
 
    Star rating example.
 

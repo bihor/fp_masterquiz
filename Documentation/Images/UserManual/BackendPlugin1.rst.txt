@@ -1,0 +1,2 @@
+.. figure:: /Images/UserManual/BackendPlugin1.jpg
+   :class: with-shadow

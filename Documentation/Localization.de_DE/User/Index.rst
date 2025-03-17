@@ -37,27 +37,19 @@ Hinweise:
 
 Diese Screenshots zeigen ein Quiz in der Listenansicht und einige FlexForm-Einstellungen des Plugins.
 
-.. figure:: ../../Images/UserManual/BackendView1.jpg
-   :width: 486px
-   :alt: Backend view of a quiz
+.. include:: /Images/UserManual/BackendView1.rst.txt
 
    Backend-Ansicht von einem Quiz.
 
-.. figure:: ../../Images/UserManual/BackendPlugin1.jpg
-   :width: 348px
-   :alt: Backend view of the plugin
+.. include:: /Images/UserManual/BackendPlugin1.rst.txt
 
    Backend-Ansicht des Plugins (Teil 1). Viele Flexform-Einstellungen!
 
-.. figure:: ../../Images/UserManual/BackendPlugin2.jpg
-   :width: 322px
-   :alt: Backend view of the plugin
+.. include:: /Images/UserManual/BackendPlugin2.rst.txt
 
    Backend-Ansicht des Plugins (Teil 2).
 
-.. figure:: ../../Images/UserManual/BackendQuiz2.jpg
-   :width: 800px
-   :alt: Backend view in the list view.
+.. include:: /Images/UserManual/BackendQuiz2.rst.txt
 
    Man kann jedes Feld eines Quiz in der erweiterten Ansicht bearbeiten.
 
@@ -128,9 +120,7 @@ Ansonsten sollte man folgendes wissen:
 Die Sternebewertung funktioniert möglicherweise mit alten Browsern nicht richtig. Es handelt sich um eine reine CSS-Lösung.
 Sie sieht folgendermaßen aus:
 
-.. figure:: ../../Images/UserManual/StarRating.png
-   :width: 164px
-   :alt: Star rating
+.. include:: /Images/UserManual/StarRating.rst.txt
 
    Beispiel für eine Sternebewertung.
 

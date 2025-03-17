@@ -35,27 +35,19 @@ Screenshots
 
 Here you find 4 examples and 2 more screenshots are in the user manual.
 
-.. figure:: ../Images/QuizExample.jpg
-   :width: 400px
-   :alt: A basic quiz
+.. include:: /Images/QuizExample.rst.txt
 
    This screenshot shows a basic quiz.
 
-.. figure:: ../Images/PollResult.jpg
-   :width: 558px
-   :alt: A basic poll
+.. include:: /Images/PollResult.rst.txt
 
    This screenshot shows a poll result as a chart.
 
-.. figure:: ../Images/BackendQuiz.jpg
-   :width: 600px
-   :alt: The backend module
+.. include:: /Images/BackendQuiz.rst.txt
 
    This screenshot shows a poll in the backend module.
 
-.. figure:: ../Images/BackendExample1.jpg
-   :width: 640px
-   :alt: A chart example
+.. include:: /Images/BackendExample1.rst.txt
 
    This screenshot shows a chart in the backend.
 

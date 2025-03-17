@@ -1,0 +1,2 @@
+.. figure:: /Images/UserManual/StarRating.png
+   :class: with-shadow

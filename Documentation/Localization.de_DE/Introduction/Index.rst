@@ -39,27 +39,19 @@ Screenshots
 
 Hier sieht man 4 Beispiele und weitere 2 sind im Benutzerhandbuch.
 
-.. figure:: ../../Images/QuizExample.jpg
-   :width: 400px
-   :alt: Ein einfaches Quiz
+.. include:: /Images/QuizExample.rst.txt
 
    Ein einfaches Quiz.
 
-.. figure:: ../../Images/PollResult.jpg
-   :width: 558px
-   :alt: Eine einfache Umfrage
+.. include:: /Images/PollResult.rst.txt
 
    Dieser Screenshot zeigt ein Umfrage-Ergebnis als Chart.
 
-.. figure:: ../../Images/BackendQuiz.jpg
-   :width: 600px
-   :alt: Das Backend-Modul
+.. include:: /Images/BackendQuiz.rst.txt
 
    Dieser Screenshot zeigt eine Umfrage im Backend-Modul.
 
-.. figure:: ../../Images/BackendExample1.jpg
-   :width: 640px
-   :alt: Ein Chart-Beispiel
+.. include:: /Images/BackendExample1.rst.txt
 
    Dieser Screenshot zeigt ein Chart im Backend-Modul.
 
