@@ -267,3 +267,6 @@ ChangeLog
 
 7.0.1:
   Bugfix: the Ajax-version is now working again.
+
+7.0.4:
+  Bugfix: get FE-users entry.

@@ -486,7 +486,7 @@ class QuizController extends ActionController
         $isClosed = $this->settings['closed'];  // quiz closed?
 		if(array_key_exists('phpFormCheck', $this->settings)) {
 			$phpFormCheck = $this->settings['phpFormCheck'];
-		} 
+		}
         $questionsPerPage = intval($this->settings['pagebrowser']['itemsPerPage']);
         $showAnswers = $this->request->hasArgument('showAnswers') ? intval($this->request->getArgument('showAnswers')) : 0;
         $useJoker = $this->request->hasArgument('useJoker') ? intval($this->request->getArgument('useJoker')) : 0;
@@ -548,7 +548,6 @@ class QuizController extends ActionController
                         $defaultEmail = $this->settings['user']['defaultEmail']??'';
                         $defaultHomepage = $this->settings['user']['defaultHomepage']??'';
                     }
-
                     $this->setUserData($defaultName, $defaultEmail, $defaultHomepage);
                     $this->participant->setUser($frontendUser->getUserId() ? intval($frontendUser->getUserId()) : 0);
                     $this->participant->setIp($this->getRealIpAddr());
@@ -1302,10 +1301,10 @@ class QuizController extends ActionController
     {
         $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('fe_users');
         $queryBuilder = $connection->createQueryBuilder();
-        $statement = $queryBuilder->select('*')->from('fe_users')->where(
+        $result = $queryBuilder->select('*')->from('fe_users')->where(
             $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($userid, \TYPO3\CMS\Core\Database\Connection::PARAM_INT))
-        )->setMaxResults(1)->executeQuery();
-        while ($row = $statement->fetchAllAssociative()) {
+        )->setMaxResults(1)->executeQuery()->fetchAllAssociative();
+        foreach ($result as $row) {
             return $row;
         }
         return [];

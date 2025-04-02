@@ -178,3 +178,6 @@ Deutsche Dokumentation hinzugefügt.
 
 7.0.1:
 Bugfix: die Ajax-version läuft nun wieder.
+
+7.0.4:
+Bugfix: FE-users Abfrage.
