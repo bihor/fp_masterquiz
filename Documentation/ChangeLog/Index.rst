@@ -268,5 +268,6 @@ ChangeLog
 7.0.1:
   Bugfix: the Ajax-version is now working again.
 
-7.0.4:
+7.0.4/5:
   Bugfix: get FE-users entry.
+  Bootstrap: added class text-end where text-right is used.
