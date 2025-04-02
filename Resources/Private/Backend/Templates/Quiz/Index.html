@@ -26,11 +26,11 @@
 			<f:for each="{otherQuizArray}" as="otherQuiz">
 				<f:if condition="{otherQuiz.l10n_parent} == {quiz.uid}">
 					<tr>
-						<td style="background-color: #e8e8e8;">- {otherQuiz.name}</td>
-						<td style="background-color: #e8e8e8;">{otherQuiz.about}</td>
-						<td style="background-color: #e8e8e8;"><f:link.action action="detail" arguments="{quiz : otherQuiz.uid}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-prop" /></f:link.action></td>
-						<td style="background-color: #e8e8e8;">-</td>
-						<td style="background-color: #e8e8e8;">-</td>
+						<td style="background-color: #a8a8a8;">- {otherQuiz.name}</td>
+						<td style="background-color: #a8a8a8;">{otherQuiz.about}</td>
+						<td style="background-color: #a8a8a8;"><f:link.action action="detail" arguments="{quiz : otherQuiz.uid}"><f:translate key="LLL:EXT:fp_masterquiz/Resources/Private/Language/locallang_mod1.xlf:detail-prop" /></f:link.action></td>
+						<td style="background-color: #a8a8a8;">-</td>
+						<td style="background-color: #a8a8a8;">-</td>
 					</tr>
 				</f:if>
 			</f:for>

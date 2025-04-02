@@ -56,7 +56,7 @@ class QuizRepository extends Repository
     {
         $uid = 0;
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_fpmasterquiz_domain_model_quiz');
-        $statement = $queryBuilder
+        $result = $queryBuilder
             ->select('uid')
             ->from('tx_fpmasterquiz_domain_model_quiz')
             ->where(
@@ -66,8 +66,8 @@ class QuizRepository extends Repository
                 $queryBuilder->expr()->eq('sys_language_uid', $queryBuilder->createNamedParameter($sys_language_uid, Connection::PARAM_INT))
             )
             ->setMaxResults(1)
-            ->executeQuery();
-        while ($row = $statement->fetchAllAssociative()) {
+            ->executeQuery()->fetchAllAssociative();
+        foreach ($result as $row) {
             $uid = $row['uid'];
         }
         return $uid;

@@ -35,7 +35,7 @@ Changes in 7.0.2/3:
 - Bugfix: documentation.
 
 Changes in 7.0.4/5:
-- Bugfix: get FE-users entry.
+- Bugfix: get FE-users entry + get foreign entries.
 - Bootstrap: added class text-end where text-right is used.
 
 You find the whole changelog here:

@@ -180,5 +180,5 @@ Deutsche Dokumentation hinzugefügt.
 Bugfix: die Ajax-version läuft nun wieder.
 
 7.0.4/5:
-Bugfix: FE-users Abfrage.
+Bugfix: FE-users + Sprach-Abfrage.
 Bootstrap: Klasse text-end da hinzugefügt wo text-right verwendet wird.
