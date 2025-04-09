@@ -270,4 +270,12 @@ ChangeLog
 
 7.0.4/5:
   Bugfix: get FE-users entry + get foreign entries.
-  Bootstrap: added class text-end where text-right is used.
+
+  Layout: added class text-end where text-right is used.
+
+7.0.6:
+  Startingpoint added again to a plugin.
+
+  pluginName in the list-view changed to show, if a target page is defined.
+
+  Bugfix: documentation.

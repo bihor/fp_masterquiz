@@ -14,7 +14,7 @@
 			<div class="row">
 				<div class="col-md-4">
                     <f:if condition="{settings.showPageUid}"><f:then>
-                        <f:link.action pageUid="{settings.showPageUid}" action="{targetAction}" arguments="{quiz : quiz}"> {quiz.name}
+                        <f:link.action pageUid="{settings.showPageUid}" pluginName="show" action="{targetAction}" arguments="{quiz : quiz}"> {quiz.name}
                             <f:if condition="{quiz.categories}">(<f:for each="{quiz.categories}" as="category">{category.title}</f:for>)</f:if>
                         </f:link.action>
                     </f:then><f:else>
@@ -26,6 +26,6 @@
 				<div class="col-md-8"><f:format.nl2br>{quiz.about}</f:format.nl2br></div>
 			</div>
 		</f:for>
-		
+
 	</f:section>
 </html>

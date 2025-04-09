@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 7.0.5
+version 7.0.6
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -37,6 +37,11 @@ Changes in 7.0.2/3:
 Changes in 7.0.4/5:
 - Bugfix: get FE-users entry + get foreign entries.
 - Bootstrap: added class text-end where text-right is used.
+
+Changes in 7.0.6:
+- Startingpoint added again to a plugin.
+- pluginName in the list-view changed to show, if a target page is defined.
+- Bugfix: documentation.
 
 You find the whole changelog here:
 https://raw.githubusercontent.com/bihor/fp_masterquiz/refs/heads/master/Documentation/ChangeLog/Index.rst

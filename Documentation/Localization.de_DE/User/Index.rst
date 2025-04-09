@@ -82,7 +82,7 @@ Antwort eingeben (Textfeld), Ja/Nein-Felder (2 Optionsfelder), Kommentar eingebe
 und eine Matrix von Kategorien einer Frage für jede Antwort (nur für Umfragen geeignet; noch keine detaillierte Auswertung implementiert).
 
 Zeitraum
------------
+--------
 
 Bei einem Quiz und einem Tag kann ein Zeitraum definiert werden. Wenn die Zeit abgelaufen ist,
 wird das Formular zur nächsten Seite oder zur letzten Seite weitergeleitet.

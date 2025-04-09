@@ -181,4 +181,12 @@ Bugfix: die Ajax-version läuft nun wieder.
 
 7.0.4/5:
 Bugfix: FE-users + Sprach-Abfrage.
-Bootstrap: Klasse text-end da hinzugefügt wo text-right verwendet wird.
+
+Layout: Klasse text-end da hinzugefügt wo text-right verwendet wird.
+
+7.0.6:
+Ausgangspunkt wieder zu den Plugins hinzugefügt.
+
+pluginName in der Listenansicht auf show geändert, wenn eine Zielseite angegeben ist.
+
+Bugfix: Dokumentation.

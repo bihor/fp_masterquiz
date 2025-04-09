@@ -5,19 +5,17 @@
         default-code-language="php"
 >
     <extension class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
-               project-home="https://extensions.typo3.org/extension/news/"
-               project-contact="https://www.fixpunkt.com/"
+               project-home="https://extensions.typo3.org/extension/fp_masterquiz"
+               project-contact="https://www.fixpunkt.com/webentwicklung/typo3/typo3-extensions/"
                project-repository="https://github.com/bihor/fp_masterquiz"
                project-issues="https://github.com/bihor/fp_masterquiz/issues"
                project-discussions="https://github.com/bihor/fp_masterquiz/discussions"
                edit-on-github-branch="master"
                edit-on-github="bihor/fp_masterquiz"
                typo3-core-preferred="13.4"
-               interlink-shortcode="fixpunkt/fp-masterquiz"
     />
     <project title="A modern extension that offers quiz, polls and tests. 8 question-modes supported."
              version="local"
              copyright="Kurt Gusbeth"
     />
-    <inventory id="t3extbasebook" url="https://docs.typo3.org/m/typo3/book-extbasefluid/10.4/en-us/"/>
 </guides>

@@ -18,7 +18,7 @@ foreach (['list', 'show', 'showbytag', 'intro', 'closure', 'result', 'highscore'
 
     ExtensionManagementUtility::addToAllTCAtypes(
         'tt_content',
-        '--div--;Configuration,pi_flexform,',
+        '--div--;Configuration,pi_flexform,pages',
         $pluginSignature,
         'after:subheader'
     );

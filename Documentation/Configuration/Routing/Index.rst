@@ -28,20 +28,20 @@ You write your own frontend route configuration by adding the following to your 
       limitToPages:
         - 410
       extension: FpMasterquiz
-      plugin: Pi1
+      plugin: Show
       routes:
-        - { routePath: '/', _controller: 'FpMasterquiz::list' }
+        - { routePath: '/', _controller: 'Quiz::list' }
         -
           routePath: '/quiz/{quiz_title}'
-          _controller: 'FpMasterquiz::show'
+          _controller: 'Quiz::show'
           _arguments:
             quiz_title: quiz
         -
           routePath: '/result/{quiz_title}'
-          _controller: 'FpMasterquiz::result'
+          _controller: 'Quiz::result'
           _arguments:
             quiz_title: quiz
-      defaultController: 'FpMasterquiz::list'
+      defaultController: 'Quiz::list'
       aspects:
         quiz_title:
           type: PersistedAliasMapper

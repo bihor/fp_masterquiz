@@ -178,3 +178,12 @@ FAQ
 - Is there a widget for the TYPO3 dashboard?
 
   Yes, of course, there are 2. They were added in version 3.2.4.
+
+
+- Only the list view is shown or the quiz was not found. Whats wrong?
+
+  There are different actions and plugins, therefore you may probably change a link.
+  Example: you want to link from a list view to a single view where you use tags.
+  Then you need to change the link in the list view. Instead of
+  pluginName="show" you must set pluginName="showbytag".
+  Furthermore you need to set the Startingpoint at every single page.

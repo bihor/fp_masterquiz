@@ -114,7 +114,7 @@ Myquizpoll-Einträge importieren
 .. _admin-export:
 
 Teilnehmereinträge exportieren
------------------------------
+------------------------------
 
 * Es gibt eine Scheduler-Aufgabe, mit der Sie Teilnehmer aus einem einzelnen
   Ordner (pid) exportieren können. Die CSV-Datei wird in den fileadmin-Ordner geschrieben.
@@ -185,3 +185,11 @@ FAQ
 - Gibt es ein Widget für das TYPO3-Dashboard?
 
   Ja, es gibt 2. Sie wurden in Version 3.2.4 hinzugefügt.
+
+- Es wird nur die Listenansicht angezeigt oder das Quiz wird nicht gefunden. Wieso?
+
+  Da es verschiedene Actions und Plugin-Namen gibt, muss man u.U. beides in Links anpassen.
+  Beispiel: man will von einer Listenansicht zu einer Einzelansicht "Quiz mit Tags", dann muss
+  man den Link in der Listenansicht verändern! Statt pluginName="show" muss es
+  dann heissen: pluginName="showbytag".
+  Weiterhin muss man in der Single-Ansicht auch den Ausgangspunkt-Ordner angeben.

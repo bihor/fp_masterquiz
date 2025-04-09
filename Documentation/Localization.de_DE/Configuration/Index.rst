@@ -23,12 +23,12 @@ Wenn die Werte 0, 1 und 2 möglich sind, bedeutet
 2 bedeutet: diese Funktion aktivieren, aber nicht auf der letzten Seite.
 
 Eigenschaften
-^^^^^^^^^^
+^^^^^^^^^^^^^
 
 .. container:: ts-properties
 
 ============================ =========== =============================================== ==============================
-Eigenschaft                  Datentyp    Beschreibung                                    Default
+Eigenschaft                  Datentyp    Beschreibung                                    Standard
 ============================ =========== =============================================== ==============================
 startPageUid                 integer     UID der Seite für den Start (listPid).          -
 showPageUid                  integer     UID der Detail-Seite eines Quiz (detailPid).    -
@@ -433,7 +433,7 @@ FAQ
   Man muss der Seite noch etwas TypoScript hinzufügen. Siehe Kapitel „Bekannte Probleme“.
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 3
    :titlesonly:
    :glob:
 
