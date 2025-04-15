@@ -45,7 +45,7 @@ class DeleteParticipantTask extends AbstractTask {
 	 * @param integer $page UID of the start page for this task.
 	 * @return void
 	 */
-	public function setPage($page) {
+	public function setPage($page): void {
 		$this->page = $page;
 	}
 
@@ -55,7 +55,7 @@ class DeleteParticipantTask extends AbstractTask {
 	 * @param integer $days
 	 * @return void
 	 */
-	public function setDays($days) {
+	public function setDays($days): void {
 		$this->days = $days;
 	}
 
@@ -83,7 +83,7 @@ class DeleteParticipantTask extends AbstractTask {
 	 * @param integer $flag
 	 * @return void
 	 */
-	public function setFlag($flag) {
+	public function setFlag($flag): void {
 	    $this->flag = ($flag) ? 1 : 0;
 	}
 

@@ -279,3 +279,10 @@ ChangeLog
   pluginName in the list-view changed to show, if a target page is defined.
 
   Bugfix: documentation.
+
+7.1.0:
+  Refactoring with the Rector-tool. You need to use "Flush TYPO3 and PHP Cache".
+
+  PageTitleProvider added.
+
+  Documentation again.

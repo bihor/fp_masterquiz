@@ -118,7 +118,7 @@ class SelectedRepository extends Repository
      * @param integer $participantId Participant-UID
      * @param integer $questionId Question-UID
      */
-    public function deleteByParticipantAndQuestion($participantId, $questionId)
+    public function deleteByParticipantAndQuestion($participantId, $questionId): void
     {
         $table = 'tx_fpmasterquiz_domain_model_selected';
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);
@@ -152,7 +152,7 @@ class SelectedRepository extends Repository
      *
      * @param integer $uid UID
      */
-    public function deleteSelection($uid)
+    public function deleteSelection($uid): void
     {
         $table = 'tx_fpmasterquiz_domain_model_selected';
         GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable($table)

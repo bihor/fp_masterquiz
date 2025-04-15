@@ -73,7 +73,7 @@ class QuestionRepository extends Repository
      * @param integer $questionID Question
      * @param integer $quizID Quiz
      */
-    public function moveToQuiz($questionID, $quizID)
+    public function moveToQuiz($questionID, $quizID): void
     {
         $table = 'tx_fpmasterquiz_domain_model_question';
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable($table);

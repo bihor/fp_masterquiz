@@ -165,9 +165,9 @@ final class PreviewEventListener
 
         if (is_array($record)) {
             $data = '<span data-toggle="tooltip" data-placement="top" data-title="id=' . $record['uid'] . '">'
-                . $this->iconFactory->getIconForRecord($table, $record, Icon::SIZE_SMALL)->render()
+                . $this->iconFactory->getIconForRecord($table, $record, \TYPO3\CMS\Core\Imaging\IconSize::SMALL)->render()
                 . '</span> &nbsp;';
-            $content = BackendUtilityCore::wrapClickMenuOnIcon($data, $table, $record['uid'], true, $record);
+            $content = BackendUtilityCore::wrapClickMenuOnIcon($data, $table, $record['uid']);
             $content .= htmlspecialchars(BackendUtilityCore::getRecordTitle($table, $record));
         } else {
             $text = sprintf($this->getLanguageService()->sL(self::LLPATH . 'pagemodule.pageNotAvailable'),
@@ -184,7 +184,7 @@ final class PreviewEventListener
      * @param string $pids
      * @return void
      */
-    public function getStartingPoint($pids)
+    public function getStartingPoint($pids): void
     {
         if (!empty($pids)) {
             $pageIds = GeneralUtility::intExplode(',', $pids);

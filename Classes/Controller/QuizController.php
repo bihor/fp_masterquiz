@@ -11,6 +11,7 @@ use Fixpunkt\FpMasterquiz\Domain\Model\Participant;
 use Fixpunkt\FpMasterquiz\Domain\Model\Quiz;
 use Fixpunkt\FpMasterquiz\Domain\Model\Selected;
 use Fixpunkt\FpMasterquiz\Domain\Model\Question;
+use Fixpunkt\FpMasterquiz\PageTitle\QuizPageTitleProvider;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
@@ -97,9 +98,13 @@ class QuizController extends ActionController
      */
     protected $persistenceManager;
 
-    public function __construct(
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory, private readonly LoggerInterface $logger, private ViewFactoryInterface $viewFactory)
+    public function __construct(protected readonly ModuleTemplateFactory $moduleTemplateFactory, private readonly LoggerInterface $logger, private ViewFactoryInterface $viewFactory, private readonly QuizPageTitleProvider $titleProvider, \Fixpunkt\FpMasterquiz\Domain\Repository\QuizRepository $quizRepository, \Fixpunkt\FpMasterquiz\Domain\Repository\AnswerRepository $answerRepository, \Fixpunkt\FpMasterquiz\Domain\Repository\SelectedRepository $selectedRepository, \Fixpunkt\FpMasterquiz\Domain\Repository\ParticipantRepository $participantRepository, \TYPO3\CMS\Extbase\Persistence\PersistenceManagerInterface $persistenceManager)
     {
+        $this->quizRepository = $quizRepository;
+        $this->answerRepository = $answerRepository;
+        $this->selectedRepository = $selectedRepository;
+        $this->participantRepository = $participantRepository;
+        $this->persistenceManager = $persistenceManager;
     }
 
     public function initializeIndexAction(): void
@@ -118,43 +123,6 @@ class QuizController extends ActionController
     {
         $this->id = (int)($this->request->getQueryParams()['id'] ?? 0);
         $this->moduleTemplate = $this->moduleTemplateFactory->create($this->request);
-    }
-
-    /**
-     * Injects the quiz-Repository
-     */
-    public function injectQuizRepository(QuizRepository $quizRepository): void
-    {
-        $this->quizRepository = $quizRepository;
-    }
-
-    /**
-     * Injects the answer-Repository
-     */
-    public function injectAnswerRepository(AnswerRepository $answerRepository): void
-    {
-        $this->answerRepository = $answerRepository;
-    }
-
-    /**
-     * Injects the selected-Repository
-     */
-    public function injectSelectedRepository(SelectedRepository $selectedRepository): void
-    {
-        $this->selectedRepository = $selectedRepository;
-    }
-
-    /**
-     * Injects the participant-Repository
-     */
-    public function injectParticipantRepository(ParticipantRepository $participantRepository): void
-    {
-        $this->participantRepository = $participantRepository;
-    }
-
-    public function injectPersistenceManager(PersistenceManagerInterface $persistenceManager): void
-    {
-        $this->persistenceManager = $persistenceManager;
     }
 
     /**
@@ -204,8 +172,8 @@ class QuizController extends ActionController
 
         if (!$quiz) {
             $this->addFlashMessage(
-                LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' uid=' . $defaultQuizUid,
-                LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                LocalizationUtility::translate('error.quizNotFound', 'FpMasterquiz') . ' uid=' . $defaultQuizUid,
+                LocalizationUtility::translate('error.error', 'FpMasterquiz'),
                 ContextualFeedbackSeverity::WARNING,
                 false
             );
@@ -1460,10 +1428,7 @@ class QuizController extends ActionController
     protected function setMetatags(Quiz &$c_quiz)
     {
         $title = $c_quiz->getName();
-        /** var \TYPO3\CMS\Core\Site\Entity\Site $site
-        $site = $this->request->getAttribute('site'); */
-        // TODO: ersetzen
-        $GLOBALS['TSFE']->page['title'] = $title;
+        $this->titleProvider->setTitle($title);
         $metaTagManager = GeneralUtility::makeInstance( MetaTagManagerRegistry::class);
         $description = str_replace(["\r", "\n"], " ", $c_quiz->getAbout());
         $description = str_replace("  ", " ", $description);
@@ -1484,8 +1449,8 @@ class QuizController extends ActionController
         $storagePidsArray = $this->quizRepository->getStoragePids();
         if (is_array($storagePidsArray) && !$storagePidsArray[0] == 0 && !in_array($pid, $storagePidsArray)) {
             $this->addFlashMessage(
-                LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' pid=' . intval($pid),
-                LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                LocalizationUtility::translate('error.quizNotFound', 'FpMasterquiz') . ' pid=' . intval($pid),
+                LocalizationUtility::translate('error.error', 'FpMasterquiz'),
                 ContextualFeedbackSeverity::WARNING,
                 false
             );
@@ -1495,9 +1460,9 @@ class QuizController extends ActionController
         $defaultQuizUid = $this->getLocalizedDefaultQuiz();
         if ($defaultQuizUid && $uid != $defaultQuizUid) {
             $this->addFlashMessage(
-                LocalizationUtility::translate('error.quizNotAllowed', 'fp_masterquiz') . ' uid=' . intval($uid) .
+                LocalizationUtility::translate('error.quizNotAllowed', 'FpMasterquiz') . ' uid=' . intval($uid) .
                 '<>' .$defaultQuizUid .', pid=' . intval($pid),
-                LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                LocalizationUtility::translate('error.error', 'FpMasterquiz'),
                 ContextualFeedbackSeverity::WARNING,
                 false
             );
@@ -1547,8 +1512,8 @@ class QuizController extends ActionController
             } else {
                 $this->view->assign('quiz', 0);
                 $this->addFlashMessage(
-                    LocalizationUtility::translate('error.quizNotFound', 'fp_masterquiz') . ' ' . $defaultQuizUid,
-                    LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                    LocalizationUtility::translate('error.quizNotFound', 'FpMasterquiz') . ' ' . $defaultQuizUid,
+                    LocalizationUtility::translate('error.error', 'FpMasterquiz'),
                     ContextualFeedbackSeverity::WARNING,
                     false
                 );
@@ -2123,8 +2088,8 @@ class QuizController extends ActionController
             $this->view->assign('quiz', $participant->getQuiz());
         } else {
             $this->addFlashMessage(
-                LocalizationUtility::translate('error.invalidParameters', 'fp_masterquiz'),
-                LocalizationUtility::translate('error.error', 'fp_masterquiz'),
+                LocalizationUtility::translate('error.invalidParameters', 'FpMasterquiz'),
+                LocalizationUtility::translate('error.error', 'FpMasterquiz'),
                 ContextualFeedbackSeverity::WARNING,
                 false
             );
@@ -2171,8 +2136,8 @@ class QuizController extends ActionController
             $this->persistenceManager->persistAll();
             $updated = true;
             $this->addFlashMessage(
-                LocalizationUtility::translate('text.questionAdded', 'fp_masterquiz'),
-                LocalizationUtility::translate('text.updated', 'fp_masterquiz'),
+                LocalizationUtility::translate('text.questionAdded', 'FpMasterquiz'),
+                LocalizationUtility::translate('text.updated', 'FpMasterquiz'),
                 ContextualFeedbackSeverity::OK,
                 false
             );

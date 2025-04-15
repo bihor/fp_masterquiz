@@ -165,3 +165,13 @@ ajaxfpmasterquiz_page {
   }
   10 < tt_content.fpmasterquiz_show.20
 }
+
+# Page title provider
+config {
+  pageTitleProviders {
+    sitepackage {
+      provider = Fixpunkt\FpMasterquiz\PageTitle\QuizPageTitleProvider
+      before = record
+    }
+  }
+}

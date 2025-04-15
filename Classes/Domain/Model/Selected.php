@@ -100,7 +100,7 @@ class Selected extends AbstractEntity
      * @param int $sorting
      * @return void
      */
-    public function setSorting($sorting)
+    public function setSorting($sorting): void
     {
     	$this->sorting = $sorting;
     }
@@ -121,7 +121,7 @@ class Selected extends AbstractEntity
      * @param string $points
      * @return void
      */
-    public function setPoints($points)
+    public function setPoints($points): void
     {
         $this->points = $points;
     }
@@ -132,7 +132,7 @@ class Selected extends AbstractEntity
      * @param int $points
      * @return void
      */
-    public function addPoints($points)
+    public function addPoints($points): void
     {
         $this->points += $points;
     }
@@ -153,7 +153,7 @@ class Selected extends AbstractEntity
      * @param string $entered
      * @return void
      */
-    public function setEntered($entered)
+    public function setEntered($entered): void
     {
         $this->entered = $entered;
     }
@@ -173,7 +173,7 @@ class Selected extends AbstractEntity
      *
      * @return void
      */
-    public function setQuestion(Question $question)
+    public function setQuestion(Question $question): void
     {
         $this->question = $question;
     }
@@ -183,7 +183,7 @@ class Selected extends AbstractEntity
      *
      * @return void
      */
-    public function addAnswer(Answer $answer)
+    public function addAnswer(Answer $answer): void
     {
         $this->answers->attach($answer);
     }
@@ -194,7 +194,7 @@ class Selected extends AbstractEntity
      * @param Answer $answerToRemove The Answer to be removed
      * @return void
      */
-    public function removeAnswer(Answer $answerToRemove)
+    public function removeAnswer(Answer $answerToRemove): void
     {
         $this->answers->detach($answerToRemove);
     }
@@ -215,7 +215,7 @@ class Selected extends AbstractEntity
      * @param ObjectStorage<Answer> $answers
      * @return void
      */
-    public function setAnswers(ObjectStorage $answers)
+    public function setAnswers(ObjectStorage $answers): void
     {
         $this->answers = $answers;
     }

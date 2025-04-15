@@ -34,16 +34,11 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 class TrueForJavaScriptViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
-
     protected $escapeOutput = false;
 
-    public static function renderStatic(
-        array $arguments, Closure $renderChildrenClosure,
-        RenderingContextInterface $renderingContext
-    )
+    public function render()
     {
-        $value = $arguments['value'];
+        $value = $this->arguments['value'];
         return ($value == '1')?'true':'false';
     }
 

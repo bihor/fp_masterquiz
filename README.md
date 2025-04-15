@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 7.0.6
+version 7.1.0
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -20,7 +20,10 @@ Available languages: english and german/deutsch.
 
 You find the documentation at typo3.org:
 https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
+und die deutsche Version leider nur bei GitHub:
+https://github.com/bihor/fp_masterquiz/blob/master/Documentation/Localization.de_DE.tmpl/Configuration/Index.rst
 
+---------------------------
 
 Changes in version 7.0.0:
 - Breaking: PlugIns changed from list_type to CType. You need to execute the Upgrade Wizard to change your PlugIns.
@@ -42,6 +45,11 @@ Changes in 7.0.6:
 - Startingpoint added again to a plugin.
 - pluginName in the list-view changed to show, if a target page is defined.
 - Bugfix: documentation.
+
+Changes in 7.1.0:
+- Refactoring with the Rector-tool. You need to use "Flush TYPO3 and PHP Cache".
+- PageTitleProvider added.
+- Documentation again.
 
 You find the whole changelog here:
 https://raw.githubusercontent.com/bihor/fp_masterquiz/refs/heads/master/Documentation/ChangeLog/Index.rst

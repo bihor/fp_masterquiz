@@ -130,7 +130,7 @@ class Quiz extends AbstractEntity
      * @param string $name
      * @return void
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -151,7 +151,7 @@ class Quiz extends AbstractEntity
      * @param int $timeperiod
      * @return void
      */
-    public function setTimeperiod($timeperiod)
+    public function setTimeperiod($timeperiod): void
     {
         $this->timeperiod = $timeperiod;
     }
@@ -172,7 +172,7 @@ class Quiz extends AbstractEntity
      * @param bool $closed
      * @return void
      */
-    public function setClosed($closed)
+    public function setClosed($closed): void
     {
         $this->closed = $closed;
     }
@@ -203,7 +203,7 @@ class Quiz extends AbstractEntity
      * @param int $qtype
      * @return void
      */
-    public function setQtype($qtype)
+    public function setQtype($qtype): void
     {
         $this->qtype = $qtype;
     }
@@ -229,7 +229,7 @@ class Quiz extends AbstractEntity
      *
      * @return void
      */
-    public function addMedia(FileReference $media) {
+    public function addMedia(FileReference $media): void {
         $this->media->attach($media);
     }
 
@@ -238,7 +238,7 @@ class Quiz extends AbstractEntity
      *
      * @return void
      */
-    public function removeMedia(FileReference $media) {
+    public function removeMedia(FileReference $media): void {
         $this->media->detach($media);
     }
 
@@ -247,7 +247,7 @@ class Quiz extends AbstractEntity
      *
      * @return void
      */
-    public function addQuestion(Question $question)
+    public function addQuestion(Question $question): void
     {
         $this->questions->attach($question);
     }
@@ -258,7 +258,7 @@ class Quiz extends AbstractEntity
      * @param Question $questionToRemove The Question to be removed
      * @return void
      */
-    public function removeQuestion(Question $questionToRemove)
+    public function removeQuestion(Question $questionToRemove): void
     {
         $this->questions->detach($questionToRemove);
     }
@@ -279,7 +279,7 @@ class Quiz extends AbstractEntity
      * @param ObjectStorage<Question> $questions
      * @return void
      */
-    public function setQuestions(ObjectStorage $questions)
+    public function setQuestions(ObjectStorage $questions): void
     {
         $this->questions = $questions;
     }
@@ -362,7 +362,7 @@ class Quiz extends AbstractEntity
      *
      * @return void
      */
-    public function addEvaluation(Evaluation $evaluation)
+    public function addEvaluation(Evaluation $evaluation): void
     {
         $this->evaluations->attach($evaluation);
     }
@@ -373,7 +373,7 @@ class Quiz extends AbstractEntity
      * @param Evaluation $evaluationToRemove The Evaluation to be removed
      * @return void
      */
-    public function removeEvaluation(Evaluation $evaluationToRemove)
+    public function removeEvaluation(Evaluation $evaluationToRemove): void
     {
         $this->evaluations->detach($evaluationToRemove);
     }
@@ -394,7 +394,7 @@ class Quiz extends AbstractEntity
      * @param ObjectStorage<Evaluation> $evaluations
      * @return void
      */
-    public function setEvaluations(ObjectStorage $evaluations)
+    public function setEvaluations(ObjectStorage $evaluations): void
     {
         $this->evaluations = $evaluations;
     }
@@ -415,7 +415,7 @@ class Quiz extends AbstractEntity
      * @param string $about
      * @return void
      */
-    public function setAbout($about)
+    public function setAbout($about): void
     {
         $this->about = $about;
     }
@@ -436,7 +436,7 @@ class Quiz extends AbstractEntity
      * @param ObjectStorage<Category> $categories
      * @return void
      */
-    public function setCategories(ObjectStorage $categories)
+    public function setCategories(ObjectStorage $categories): void
     {
         $this->categories = $categories;
     }
@@ -446,7 +446,7 @@ class Quiz extends AbstractEntity
      *
      * @return void
      */
-    public function addCategory(Category $category) {
+    public function addCategory(Category $category): void {
         $this->categories->attach($category);
     }
     
@@ -455,7 +455,7 @@ class Quiz extends AbstractEntity
      *
      * @return void
      */
-    public function removeCategory(Category $category) {
+    public function removeCategory(Category $category): void {
         $this->categories->detach($category);
     }
     				

@@ -107,7 +107,7 @@ class Evaluation extends AbstractEntity
      * @param bool $evaluate
      * @return void
      */
-    public function setEvaluate($evaluate)
+    public function setEvaluate($evaluate): void
     {
         $this->evaluate = $evaluate;
     }
@@ -138,7 +138,7 @@ class Evaluation extends AbstractEntity
      * @param string $bodytext
      * @return void
      */
-    public function setBodytext($bodytext)
+    public function setBodytext($bodytext): void
     {
     	$this->bodytext = $bodytext;
     }
@@ -158,7 +158,7 @@ class Evaluation extends AbstractEntity
      *
      * @return void
      */
-    public function setImage(FileReference $image)
+    public function setImage(FileReference $image): void
     {
     	$this->image = $image;
     }
@@ -179,7 +179,7 @@ class Evaluation extends AbstractEntity
      * @param int $ce
      * @return void
      */
-    public function setCe($ce)
+    public function setCe($ce): void
     {
         $this->ce = $ce;
     }
@@ -200,7 +200,7 @@ class Evaluation extends AbstractEntity
      * @param int $minimum
      * @return void
      */
-    public function setMinimum($minimum)
+    public function setMinimum($minimum): void
     {
         $this->minimum = $minimum;
     }
@@ -221,7 +221,7 @@ class Evaluation extends AbstractEntity
      * @param int $maximum
      * @return void
      */
-    public function setMaximum($maximum)
+    public function setMaximum($maximum): void
     {
         $this->maximum = $maximum;
     }
@@ -242,7 +242,7 @@ class Evaluation extends AbstractEntity
      * @param int $page
      * @return void
      */
-    public function setPage($page)
+    public function setPage($page): void
     {
         $this->page = $page;
     }

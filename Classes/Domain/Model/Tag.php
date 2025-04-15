@@ -50,7 +50,7 @@ class Tag extends AbstractEntity
      * @param string $name
      * @return void
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -71,7 +71,7 @@ class Tag extends AbstractEntity
      * @param int $timeperiod
      * @return void
      */
-    public function setTimeperiod($timeperiod)
+    public function setTimeperiod($timeperiod): void
     {
         $this->timeperiod = $timeperiod;
     }

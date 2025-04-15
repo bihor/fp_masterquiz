@@ -38,8 +38,7 @@ Master-Quiz
 
     :Documentation:
         `english Version <https://docs.typo3.org/p/fixpunkt/fp-masterquiz/main/en-us/>`_,
-        `deutsche Version <https://docs.typo3.org/p/fixpunkt/fp-masterquiz/main/de-de/>`_
-        `bzw. bei GitHub <https://github.com/bihor/fp_masterquiz/blob/master/Documentation/Localization.de_DE/Configuration/Index.rst>`_
+        `deutsche Version bei GitHub <https://github.com/bihor/fp_masterquiz/blob/master/Documentation/Localization.de_DE.tmpl/Configuration/Index.rst>`_
 
 	The content of this document is related to TYPO3,
 	a GNU/GPL CMS/Framework available from `www.typo3.org <https://www.typo3.org/>`_.

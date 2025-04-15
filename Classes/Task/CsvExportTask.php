@@ -72,7 +72,7 @@ class CsvExportTask extends AbstractTask
      * @param string $csvfile Path to the csv file
      * @return void
      */
-    public function setCsvfile($csvfile) {
+    public function setCsvfile($csvfile): void {
         $this->csvfile = $csvfile;
     }
 
@@ -91,7 +91,7 @@ class CsvExportTask extends AbstractTask
      * @param integer $page UID of the start page for this task.
      * @return void
      */
-    public function setPage($page) {
+    public function setPage($page): void {
         $this->page = $page;
     }
 
@@ -110,7 +110,7 @@ class CsvExportTask extends AbstractTask
      * @param string $separator
      * @return void
      */
-    public function setSeparator($separator) {
+    public function setSeparator($separator): void {
         $this->separator = $separator;
     }
 
@@ -129,7 +129,7 @@ class CsvExportTask extends AbstractTask
      * @param string $delimiter
      * @return void
      */
-    public function setDelimiter($delimiter) {
+    public function setDelimiter($delimiter): void {
         $this->delimiter = $delimiter;
     }
 
@@ -148,7 +148,7 @@ class CsvExportTask extends AbstractTask
      * @param string $ansdelimiter
      * @return void
      */
-    public function setAnswersDelimiter($ansdelimiter) {
+    public function setAnswersDelimiter($ansdelimiter): void {
         $this->ansdelimiter = $ansdelimiter;
     }
 
@@ -167,7 +167,7 @@ class CsvExportTask extends AbstractTask
      * @param integer $convert
      * @return void
      */
-    public function setConvert($convert) {
+    public function setConvert($convert): void {
         $this->convert = ($convert) ? 1 : 0;
     }
 

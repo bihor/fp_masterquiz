@@ -49,7 +49,7 @@ class ItemsProcFunc
      * @param array &$config configuration array
      * @return void
      */
-    public function user_templateLayout(array &$config)
+    public function user_templateLayout(array &$config): void
     {
         $row = BackendUtilityCore::getRecord('tt_content', $config['row']['uid']);
         $pid = $row['pid'] ?? 0;

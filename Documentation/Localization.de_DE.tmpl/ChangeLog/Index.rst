@@ -190,3 +190,10 @@ Ausgangspunkt wieder zu den Plugins hinzugefügt.
 pluginName in der Listenansicht auf show geändert, wenn eine Zielseite angegeben ist.
 
 Bugfix: Dokumentation.
+
+7.1.0:
+Refactoring mit dem Rector-Tool.
+
+Der Seitentitel kann nun wieder geändert werden.
+
+Dokumentation schon wieder.

@@ -193,7 +193,7 @@ class Question extends AbstractEntity
      * @param int $sorting
      * @return void
      */
-    public function setSorting($sorting)
+    public function setSorting($sorting): void
     {
     	$this->sorting = $sorting;
     }
@@ -214,7 +214,7 @@ class Question extends AbstractEntity
      * @param string $title
      * @return void
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
@@ -235,7 +235,7 @@ class Question extends AbstractEntity
      * @param string $bodytext
      * @return void
      */
-    public function setBodytext($bodytext)
+    public function setBodytext($bodytext): void
     {
         $this->bodytext = $bodytext;
     }
@@ -256,7 +256,7 @@ class Question extends AbstractEntity
      * @param string $explanation
      * @return void
      */
-    public function setExplanation($explanation)
+    public function setExplanation($explanation): void
     {
         $this->explanation = $explanation;
     }
@@ -276,7 +276,7 @@ class Question extends AbstractEntity
      *
      * @return void
      */
-    public function setImage(FileReference $image)
+    public function setImage(FileReference $image): void
     {
         $this->image = $image;
     }
@@ -296,7 +296,7 @@ class Question extends AbstractEntity
      *
      * @return void
      */
-    public function setTag(Tag $tag)
+    public function setTag(Tag $tag): void
     {
         $this->tag = $tag;
     }
@@ -316,7 +316,7 @@ class Question extends AbstractEntity
      *
      * @return void
      */
-    public function setPrevTag(string $prevTag)
+    public function setPrevTag(string $prevTag): void
     {
         $this->prevTag = $prevTag;
     }
@@ -336,7 +336,7 @@ class Question extends AbstractEntity
      *
      * @return void
      */
-    public function setNextTag(string $nextTag)
+    public function setNextTag(string $nextTag): void
     {
         $this->nextTag = $nextTag;
     }
@@ -357,7 +357,7 @@ class Question extends AbstractEntity
      * @param bool $span
      * @return void
      */
-    public function setSpan($span)
+    public function setSpan($span): void
     {
         $this->span = $span;
     }
@@ -388,7 +388,7 @@ class Question extends AbstractEntity
      * @param bool $optional
      * @return void
      */
-    public function setOptional($optional)
+    public function setOptional($optional): void
     {
         $this->optional = $optional;
     }
@@ -419,7 +419,7 @@ class Question extends AbstractEntity
      * @param bool $closed
      * @return void
      */
-    public function setClosed($closed)
+    public function setClosed($closed): void
     {
         $this->closed = $closed;
     }
@@ -439,7 +439,7 @@ class Question extends AbstractEntity
      *
      * @return void
      */
-    public function addAnswer(Answer $answer)
+    public function addAnswer(Answer $answer): void
     {
         $this->answers->attach($answer);
     }
@@ -450,7 +450,7 @@ class Question extends AbstractEntity
      * @param Answer $answerToRemove The Answer to be removed
      * @return void
      */
-    public function removeAnswer(Answer $answerToRemove)
+    public function removeAnswer(Answer $answerToRemove): void
     {
         $this->answers->detach($answerToRemove);
     }
@@ -471,7 +471,7 @@ class Question extends AbstractEntity
      * @param ObjectStorage<Answer> $answers
      * @return void
      */
-    public function setAnswers(ObjectStorage $answers)
+    public function setAnswers(ObjectStorage $answers): void
     {
         $this->answers = $answers;
     }
@@ -492,7 +492,7 @@ class Question extends AbstractEntity
      * @param int $qmode
      * @return void
      */
-    public function setQmode($qmode)
+    public function setQmode($qmode): void
     {
         $this->qmode = $qmode;
     }
@@ -513,7 +513,7 @@ class Question extends AbstractEntity
      * @param int $pmode
      * @return void
      */
-    public function setPmode($pmode)
+    public function setPmode($pmode): void
     {
         $this->pmode = $pmode;
     }
@@ -573,7 +573,7 @@ class Question extends AbstractEntity
      * @param int $nr
      * @return void
      */
-    public function setAllAnswers($nr)
+    public function setAllAnswers($nr): void
     {
         $this->allAnswers = $nr;
     }
@@ -594,7 +594,7 @@ class Question extends AbstractEntity
      * @param int $nr
      * @return void
      */
-    public function setTotalAnswers($nr)
+    public function setTotalAnswers($nr): void
     {
         $this->totalAnswers = $nr;
     }
@@ -615,7 +615,7 @@ class Question extends AbstractEntity
      * @param array $textAnswers
      * @return void
      */
-    public function setTextAnswers($textAnswers)
+    public function setTextAnswers($textAnswers): void
     {
         $this->textAnswers = $textAnswers;
     }

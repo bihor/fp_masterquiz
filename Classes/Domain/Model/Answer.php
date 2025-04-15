@@ -132,7 +132,7 @@ class Answer extends AbstractEntity
      * @param string $title
      * @return void
      */
-    public function setTitle($title)
+    public function setTitle($title): void
     {
         $this->title = $title;
     }
@@ -153,7 +153,7 @@ class Answer extends AbstractEntity
      * @param string $points
      * @return void
      */
-    public function setPoints($points)
+    public function setPoints($points): void
     {
         $this->points = $points;
     }
@@ -174,7 +174,7 @@ class Answer extends AbstractEntity
      * @param int $joker
      * @return void
      */
-    public function setJokerAnswer($jokerAnswer)
+    public function setJokerAnswer($jokerAnswer): void
     {
         $this->jokerAnswer = $jokerAnswer;
     }
@@ -195,7 +195,7 @@ class Answer extends AbstractEntity
      * @param int $nr
      * @return void
      */
-    public function setOwnAnswer($nr)
+    public function setOwnAnswer($nr): void
     {
         $this->ownAnswer = $nr;
     }
@@ -216,7 +216,7 @@ class Answer extends AbstractEntity
      * @param array $array uid and title of a category
      * @return void
      */
-    public function setOwnCategoryAnswer($array)
+    public function setOwnCategoryAnswer($array): void
     {
         $this->ownCategoryAnswer = $array;
     }
@@ -237,7 +237,7 @@ class Answer extends AbstractEntity
      * @param array $array uid and title of a category
      * @return void
      */
-    public function setAllCategoryAnswers($array)
+    public function setAllCategoryAnswers($array): void
     {
         $this->allCategoryAnswer = $array;
     }
@@ -258,7 +258,7 @@ class Answer extends AbstractEntity
      * @param int $nr
      * @return void
      */
-    public function setAllAnswers($nr)
+    public function setAllAnswers($nr): void
     {
         $this->allAnswers = $nr;
     }
@@ -279,7 +279,7 @@ class Answer extends AbstractEntity
      * @param float $percent
      * @return void
      */
-    public function setAllPercent($percent)
+    public function setAllPercent($percent): void
     {
         $this->allPercent = $percent;
     }
@@ -300,7 +300,7 @@ class Answer extends AbstractEntity
      * @param float $percent
      * @return void
      */
-    public function setTotalPercent($percent)
+    public function setTotalPercent($percent): void
     {
         $this->totalPercent = $percent;
     }
@@ -310,7 +310,7 @@ class Answer extends AbstractEntity
      *
      * @return void
      */
-    public function addCategory(Category $category) {
+    public function addCategory(Category $category): void {
         $this->categories->attach($category);
     }
 

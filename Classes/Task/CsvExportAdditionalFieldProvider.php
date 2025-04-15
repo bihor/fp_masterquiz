@@ -161,7 +161,7 @@ class CsvExportAdditionalFieldProvider extends AbstractAdditionalFieldProvider
      * @param array $submittedData Array containing the data submitted by the user
      * @param AbstractTask $task Reference to the current task object
      */
-    public function saveAdditionalFields(array $submittedData, AbstractTask $task)
+    public function saveAdditionalFields(array $submittedData, AbstractTask $task): void
     {
         /** @var $task ValidatorTask */
         $task->setCsvfile($submittedData['fpmasterquiz']['csvfile']);

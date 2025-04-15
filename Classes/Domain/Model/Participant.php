@@ -242,7 +242,7 @@ class Participant extends AbstractEntity
      * @param string $name
      * @return void
      */
-    public function setName($name)
+    public function setName($name): void
     {
         $this->name = $name;
     }
@@ -263,7 +263,7 @@ class Participant extends AbstractEntity
      * @param string $email
      * @return void
      */
-    public function setEmail($email)
+    public function setEmail($email): void
     {
         $this->email = $email;
     }
@@ -284,7 +284,7 @@ class Participant extends AbstractEntity
      * @param string $homepage
      * @return void
      */
-    public function setHomepage($homepage)
+    public function setHomepage($homepage): void
     {
         $this->homepage = $homepage;
     }
@@ -328,7 +328,7 @@ class Participant extends AbstractEntity
      * @param int $user
      * @return void
      */
-    public function setUser($user)
+    public function setUser($user): void
     {
         $this->user = $user;
     }
@@ -349,7 +349,7 @@ class Participant extends AbstractEntity
      * @param string $session
      * @return void
      */
-    public function setSession($session)
+    public function setSession($session): void
     {
         $this->session = $session;
     }
@@ -370,7 +370,7 @@ class Participant extends AbstractEntity
      * @param int $sessionstart
      * @return void
      */
-    public function setSessionstart($sessionstart)
+    public function setSessionstart($sessionstart): void
     {
         $this->sessionstart = $sessionstart;
     }
@@ -391,7 +391,7 @@ class Participant extends AbstractEntity
      * @param array $randompages
      * @return void
      */
-    public function setRandompages($randompages)
+    public function setRandompages($randompages): void
     {
         $this->randompages = implode(',', $randompages);
     }
@@ -411,7 +411,7 @@ class Participant extends AbstractEntity
      *
      * @return void
      */
-    public function setQuiz(Quiz $quiz)
+    public function setQuiz(Quiz $quiz): void
     {
         $this->quiz = $quiz;
     }
@@ -432,7 +432,7 @@ class Participant extends AbstractEntity
      * @param string $ip
      * @return void
      */
-    public function setIp($ip)
+    public function setIp($ip): void
     {
         $this->ip = $ip;
     }
@@ -453,7 +453,7 @@ class Participant extends AbstractEntity
      * @param int $points
      * @return void
      */
-    public function setPoints($points)
+    public function setPoints($points): void
     {
         $this->points = $points;
     }
@@ -464,7 +464,7 @@ class Participant extends AbstractEntity
      * @param int $points
      * @return void
      */
-    public function addPoints($points)
+    public function addPoints($points): void
     {
         $this->points += $points;
     }
@@ -475,7 +475,7 @@ class Participant extends AbstractEntity
      * @param int $points
      * @return void
      */
-    public function subtractPoints($points)
+    public function subtractPoints($points): void
     {
         $this->points -= $points;
     }
@@ -506,7 +506,7 @@ class Participant extends AbstractEntity
      * @param int $maximum1
      * @return void
      */
-    public function setMaximum1($maximum1)
+    public function setMaximum1($maximum1): void
     {
         $this->maximum1 = $maximum1;
     }
@@ -517,7 +517,7 @@ class Participant extends AbstractEntity
      * @param int $maximum1
      * @return void
      */
-    public function addMaximum1($maximum1)
+    public function addMaximum1($maximum1): void
     {
         $this->maximum1 += $maximum1;
     }
@@ -548,7 +548,7 @@ class Participant extends AbstractEntity
      * @param int $maximum2
      * @return void
      */
-    public function setMaximum2($maximum2)
+    public function setMaximum2($maximum2): void
     {
         $this->maximum2 = $maximum2;
     }
@@ -559,7 +559,7 @@ class Participant extends AbstractEntity
      * @param int $page
      * @return void
      */
-    public function setPage($page)
+    public function setPage($page): void
     {
         $this->page = $page;
     }
@@ -590,7 +590,7 @@ class Participant extends AbstractEntity
      * @param bool $completed
      * @return void
      */
-    public function setCompleted($completed)
+    public function setCompleted($completed): void
     {
         $this->completed = $completed;
     }
@@ -653,7 +653,7 @@ class Participant extends AbstractEntity
      *
      * @return void
      */
-    public function addSelection(Selected $selection)
+    public function addSelection(Selected $selection): void
     {
         $this->selections->attach($selection);
     }
@@ -664,7 +664,7 @@ class Participant extends AbstractEntity
      * @param Selected $selectionToRemove The Selected to be removed
      * @return void
      */
-    public function removeSelection(Selected $selectionToRemove)
+    public function removeSelection(Selected $selectionToRemove): void
     {
         $this->selections->detach($selectionToRemove);
     }
@@ -759,7 +759,7 @@ class Participant extends AbstractEntity
      * @param ObjectStorage<Selected> $selections
      * @return void
      */
-    public function setSelections(ObjectStorage $selections)
+    public function setSelections(ObjectStorage $selections): void
     {
         $this->selections = $selections;
     }
