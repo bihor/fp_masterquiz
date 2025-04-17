@@ -23,8 +23,6 @@ If values 0, 1 and 2 are possible, 1 means: enable this feature, 2 means: enable
 Properties
 ^^^^^^^^^^
 
-.. container:: ts-properties
-
 ============================ =========== =============================================== ==============================
 Property                     Data type   Description                                     Default
 ============================ =========== =============================================== ==============================

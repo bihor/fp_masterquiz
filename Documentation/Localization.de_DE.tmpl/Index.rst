@@ -54,10 +54,10 @@ Master-Quiz-Extension
 	:maxdepth: 3
 	:titlesonly:
 
-..	Introduction/Index
-..	User/Index
-..	Administrator/Index
-..	Configuration/Index
-..	KnownProblems/Index
-..	ToDoList/Index
-..	ChangeLog/Index
+	Introduction/Index
+	User/Index
+	Administrator/Index
+	Configuration/Index
+	KnownProblems/Index
+	ToDoList/Index
+	ChangeLog/Index

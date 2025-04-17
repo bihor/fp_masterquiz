@@ -1428,6 +1428,7 @@ class QuizController extends ActionController
     protected function setMetatags(Quiz &$c_quiz)
     {
         $title = $c_quiz->getName();
+        // https://docs.typo3.org/m/typo3/reference-coreapi/main/en-us/ApiOverview/Seo/PageTitleApi.html
         $this->titleProvider->setTitle($title);
         $metaTagManager = GeneralUtility::makeInstance( MetaTagManagerRegistry::class);
         $description = str_replace(["\r", "\n"], " ", $c_quiz->getAbout());

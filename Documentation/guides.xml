@@ -12,6 +12,7 @@
                project-discussions="https://github.com/bihor/fp_masterquiz/discussions"
                edit-on-github-branch="master"
                edit-on-github="bihor/fp_masterquiz"
+               interlink-shortcode="fixpunkt/fp-masterquiz"
                typo3-core-preferred="13.4"
     />
     <project title="A modern extension that offers quiz, polls and tests. 8 question-modes supported."
