@@ -85,6 +85,10 @@ call_user_func(
         if ((new Typo3Version())->getMajorVersion() < 13) {
             // @extensionScannerIgnoreLine
             ExtensionManagementUtility::addPageTSConfig('@import \'EXT:fp_masterquiz/Configuration/TSconfig/ContentElementWizard.tsconfig\'');
+
+            // Register switchableControllerActions plugin migrator
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['ext/install']['update']['switchableControllerActionsPluginUpdaterFpQuiz']
+                = \Fixpunkt\FpMasterquiz\Updates\SwitchableControllerActionsPluginUpdater::class;
         }
 
         // register statistics tables for garbage collection
