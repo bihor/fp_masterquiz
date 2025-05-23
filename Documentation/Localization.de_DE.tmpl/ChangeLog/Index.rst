@@ -157,6 +157,9 @@ Erste Version für TYPO3 13, aber E-Mails funktionieren nicht mit TYPO3 13!
 
 Upgrade-Assistenten für alte Dateiverweise und Switchable-Controller-Action-Plugins entfernt!
 
+6.0.1:
+Upgrade-Assistenten für Switchable-Controller-Action-Plugins wieder hinzugefügt, sodass man es auch mit TYPO3 13 benutzen kann.
+
 6.1.0:
 Support für TYPO3 12 eingestellt!
 

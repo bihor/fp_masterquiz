@@ -248,6 +248,9 @@ ChangeLog
 
   Upgrade Wizards for old file references and Switchable-Controller-Action-Plugins removed!
 
+6.0.1:
+  Upgrade Wizards for Switchable-Controller-Action-Plugins added again, so it can be used with TYPO3 13 too.
+
 6.1.0:
   Support for TYPO3 12 dropped!
 
