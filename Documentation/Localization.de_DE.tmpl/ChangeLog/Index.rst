@@ -200,3 +200,7 @@ Refactoring mit dem Rector-Tool.
 Der Seitentitel kann nun wieder geändert werden.
 
 Dokumentation schon wieder.
+
+7.1.1:
+
+Neuer Ort bei GitHub: https://github.com/fixpunkt-com/fp_masterquiz

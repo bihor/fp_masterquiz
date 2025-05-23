@@ -1,6 +1,6 @@
 # fp_masterquiz
 
-version 7.1.0
+version 7.1.1
 
 TYPO3 extension to create a quiz, poll or test. The participant result will be saved in the DB too and can be deleted automatically via Scheduler.
 
@@ -21,7 +21,7 @@ Available languages: english and german/deutsch.
 You find the documentation at typo3.org:
 https://docs.typo3.org/p/fixpunkt/fp-masterquiz/master/en-us/
 und die deutsche Version leider nur bei GitHub:
-https://github.com/bihor/fp_masterquiz/blob/master/Documentation/Localization.de_DE.tmpl/Configuration/Index.rst
+https://github.com/fixpunkt-com/fp_masterquiz/blob/master/Documentation/Localization.de_DE.tmpl/Configuration/Index.rst
 
 ---------------------------
 
@@ -51,5 +51,8 @@ Changes in 7.1.0:
 - PageTitleProvider added.
 - Documentation again.
 
+Changes in 7.1.1:
+- New home url: https://github.com/fixpunkt-com/fp_masterquiz
+
 You find the whole changelog here:
-https://raw.githubusercontent.com/bihor/fp_masterquiz/refs/heads/master/Documentation/ChangeLog/Index.rst
+https://raw.githubusercontent.com/fixpunkt-com/fp_masterquiz/refs/heads/master/Documentation/ChangeLog/Index.rst

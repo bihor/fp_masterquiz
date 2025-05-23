@@ -289,3 +289,6 @@ ChangeLog
   PageTitleProvider added.
 
   Documentation again.
+
+7.1.1:
+  New home url: https://github.com/fixpunkt-com/fp_masterquiz
